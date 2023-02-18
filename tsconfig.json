@@ -20,11 +20,14 @@
     "baseUrl": ".", 
     "paths": {
       "@/src/*": ["src/*"],
+      "@/apis/*": ["src/apis/*"],
       "@/components/*": ["src/components/*"],
-      "@/stories/*": ["src/stories/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/store/*": ["src/store/*"],
       "@/types/*": ["src/types/*"],
+      "@/utils/*": ["src/utils/*"],
     }
   },
-  "include": ["src", ".storybook/*"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

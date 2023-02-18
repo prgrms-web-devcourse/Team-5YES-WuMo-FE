@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
@@ -18,13 +19,17 @@ export default defineConfig({
         ],
       },
     }),
+    tsconfigPaths(),
   ],
   resolve: {
     alias: [
       { find: '@/src', replacement: resolve(__dirname, 'src') },
+      { find: '@/apis', replacement: resolve(__dirname, 'src/apis') },
       { find: '@/components', replacement: resolve(__dirname, 'src/components') },
-      { find: '@/stories', replacement: resolve(__dirname, 'src/stories') },
+      { find: '@/pages', replacement: resolve(__dirname, 'src/pages') },
+      { find: '@/store', replacement: resolve(__dirname, 'src/store') },
       { find: '@/types', replacement: resolve(__dirname, 'src/types') },
+      { find: '@/utils', replacement: resolve(__dirname, 'src/utils') },
     ],
   },
 });
