@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import PartyInformation from './components/Party/PartyInformation/PartyInformation';
 
+import PartyInformation from './components/Party/PartyInformation/PartyInformation';
 import {
   MainPage,
   PartyAlbumPage,

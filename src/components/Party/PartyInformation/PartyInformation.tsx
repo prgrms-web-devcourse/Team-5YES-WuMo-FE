@@ -1,9 +1,9 @@
-import { Button, Flex, Heading, Text, Image } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
-import { Container } from '@chakra-ui/react';
+import { Button, Container, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { BsFillShareFill } from 'react-icons/bs';
-import PartyUserList from './PartyUserList';
+import { Outlet } from 'react-router-dom';
+
 import PartyMenuTabList from './PartyMenuTabList';
+import PartyUserList from './PartyUserList';
 
 const PartyInformation = () => {
   return (

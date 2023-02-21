@@ -1,6 +1,7 @@
-import ROUTES from '@/src/utils/routes';
 import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+
+import ROUTES from '@/src/utils/routes';
 
 const partyTab = [
   {
