@@ -18,9 +18,9 @@ const PartyInformation = () => {
           <Button colorScheme='teal' size='xs' marginRight='0.625rem'>
             영수증
           </Button>
-          <button>
+          <Button bg='transparent' size='xs'>
             <BsFillShareFill />
-          </button>
+          </Button>
         </Flex>
       </Flex>
       <PartyUserList />
