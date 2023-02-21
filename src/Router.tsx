@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import PartyInformation from './components/Party/PartyInformation/PartyInformation';
+import BottomNavigation from './components/bottomNavigation/BottomNavigation';
+import PartyInformation from './components/party/partyInformation/PartyInformation';
 import {
   MainPage,
   PartyAlbumPage,
@@ -9,6 +10,7 @@ import {
   PartySchedulePage,
   SignUpPage,
 } from './pages';
+import LikeRouteListPage from './pages/LikeRouteListPage';
 import ROUTES from './utils/routes';
 
 const Router = () => {
@@ -17,6 +19,7 @@ const Router = () => {
       <Routes>
         <Route path={ROUTES.MAIN} element={<MainPage />} />
         <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
+        <Route path={ROUTES.LIKE} element={<LikeRouteListPage />} />
         <Route element={<PartyInformation />}>
           <Route path={ROUTES.NOTICE} element={<PartyNoticePage />} />
           <Route path={ROUTES.SCHEDULE} element={<PartySchedulePage />} />
@@ -24,6 +27,7 @@ const Router = () => {
           <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
         </Route>
       </Routes>
+      <BottomNavigation />
     </BrowserRouter>
   );
 };
