@@ -7,6 +7,8 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
+import ROUTES from '@/src/utils/routes';
+
 const DUMMYDATA = [
   {
     image: 'https://via.placeholder.com/700x500',
@@ -52,8 +54,12 @@ const BestLouteList = () => {
     setDragging(false);
   }, []);
 
-  const onMoveLoutePage = (id: string) => {
+  const onMoveRoutePage = (id: string) => {
     navigate(`/route/${id}`);
+  };
+
+  const onMoveBestRoutePage = () => {
+    navigate(ROUTES.BEST_ROUTE);
   };
 
   const settings = {
@@ -86,14 +92,16 @@ const BestLouteList = () => {
     <>
       <Flex direction='row' justify='space-between' align='center' p='1.25rem 1.875rem'>
         <Heading size='sm'>베스트 여행루트</Heading>
-        <Button size='sm'>더보기</Button>
+        <Button size='sm' onClick={onMoveBestRoutePage}>
+          더보기
+        </Button>
       </Flex>
       <>
         <StyledSlider {...settings}>
           {DUMMYDATA.map((route) => (
             <Box
               key={route.id}
-              onClick={() => !dragging && onMoveLoutePage(route.id)}
+              onClick={() => !dragging && onMoveRoutePage(route.id)}
               outline='none'>
               <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' />
               <Box

@@ -7,6 +7,8 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
+import ROUTES from '@/src/utils/routes';
+
 const DUMMYDATA = [
   {
     image: 'https://via.placeholder.com/700x500',
@@ -51,6 +53,10 @@ const UserPartyList = () => {
     navigate(`/party/${id}`);
   };
 
+  const onMovePartyListPage = () => {
+    navigate(ROUTES.PARTY_LIST);
+  };
+
   const settings = {
     dots: false,
     infinite: true,
@@ -71,7 +77,9 @@ const UserPartyList = () => {
     <>
       <Flex direction='row' justify='space-between' align='center' p='1.25rem 1.875rem'>
         <Heading size='sm'>내 모임목록</Heading>
-        <Button size='sm'>전체보기</Button>
+        <Button size='sm' onClick={onMovePartyListPage}>
+          전체보기
+        </Button>
       </Flex>
       <StyledSlider {...settings}>
         {DUMMYDATA.map((party) => (
