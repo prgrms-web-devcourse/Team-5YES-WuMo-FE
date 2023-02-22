@@ -24,13 +24,16 @@ const PlaceSearchModal = ({ isOpen, onClose }: Props) => {
   const [selectedPlace, setSelectedPlace] =
     useState<kakao.maps.services.PlacesSearchResultItem>();
   const initialRef = useRef(null);
-  const { searchPlaces, result } = useMapPlaces();
+  const { result, searchPlaces, resetResult } = useMapPlaces();
 
   return (
     <Modal
       initialFocusRef={initialRef}
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => {
+        onClose();
+        resetResult();
+      }}
       scrollBehavior='inside'
       size='full'>
       <ModalOverlay />
