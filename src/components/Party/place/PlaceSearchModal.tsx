@@ -33,6 +33,7 @@ const PlaceSearchModal = ({ isOpen, onClose }: Props) => {
       onClose={() => {
         onClose();
         resetResult();
+        setSelectedPlace(undefined);
       }}
       scrollBehavior='inside'
       size='full'>
