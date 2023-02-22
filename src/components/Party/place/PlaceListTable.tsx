@@ -1,14 +1,24 @@
-import { Heading, Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
-import { MouseEvent } from 'react';
+import {
+  Button,
+  Flex,
+  Heading,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Tr,
+} from '@chakra-ui/react';
 
 type Props = {
-  places: kakao.maps.services.PlacesSearchResult;
+  selectedPlace: string | null;
+  places: kakao.maps.services.PlacesSearchResultItem[];
+  placeHandler: (place: kakao.maps.services.PlacesSearchResultItem) => void;
 };
 
-const PlaceListTable = ({ places }: Props) => {
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
-    const { x, y } = e.currentTarget.dataset;
-    console.log(x, y);
+const PlaceListTable = ({ selectedPlace, places, placeHandler }: Props) => {
+  const handleClick = (place: kakao.maps.services.PlacesSearchResultItem) => {
+    placeHandler(place);
   };
 
   return (
@@ -20,17 +30,23 @@ const PlaceListTable = ({ places }: Props) => {
             places.map((place) => (
               <Tr key={place.id}>
                 <Td
-                  data-x={place.x}
-                  data-y={place.y}
-                  onClick={handleClick}
+                  onClick={() => handleClick(place)}
                   cursor='pointer'
                   _hover={{ backgroundColor: 'lightgrey' }}>
-                  <Heading as='h5' size='sm'>
-                    {place.place_name}
-                  </Heading>
-                  <Text fontSize='sm'>
-                    {place.road_address_name || place.address_name}
-                  </Text>
+                  <Flex justifyContent='space-between'>
+                    <div>
+                      <Heading
+                        as='h5'
+                        size='sm'
+                        color={selectedPlace === place.id ? 'green.500' : 'initial'}>
+                        {place.place_name}
+                      </Heading>
+                      <Text fontSize='sm'>
+                        {place.road_address_name || place.address_name}
+                      </Text>
+                    </div>
+                    {selectedPlace === place.id && <Button>선택</Button>}
+                  </Flex>
                 </Td>
               </Tr>
             ))}
