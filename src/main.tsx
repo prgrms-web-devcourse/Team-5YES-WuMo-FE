@@ -6,7 +6,8 @@ import { RecoilRoot } from 'recoil';
 
 import App from './App';
 
-const { Avatar, Button, Container, Divider, Input, FormLabel, Heading, Tabs } = chakraTheme.components;
+const { Avatar, Button, Container, Divider, Input, FormLabel, Heading, Tabs } =
+  chakraTheme.components;
 
 const theme = extendBaseTheme({
   components: {
@@ -18,7 +19,6 @@ const theme = extendBaseTheme({
     FormLabel,
     Heading,
     Tabs,
-    Divider,
   },
 });
 
