@@ -8,6 +8,8 @@ const ROUTES = {
   LIKE: '/like',
   PARTY_CREATE: '/party-create',
   MY_INFO: '/myinfo',
+  BEST_ROUTE: '/best-route-list',
+  PARTY_LIST: '/party-list',
 } as const;
 
 export default ROUTES;
