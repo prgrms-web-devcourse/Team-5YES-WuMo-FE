@@ -10,9 +10,6 @@ function App() {
     <GlobalLayout className='App'>
       <Router />
       <Global styles={globalStyle} />
-      <div>
-        <h1>WuMo</h1>
-      </div>
     </GlobalLayout>
   );
 }
