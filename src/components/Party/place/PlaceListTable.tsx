@@ -29,10 +29,7 @@ const PlaceListTable = ({ selectedPlace, places, placeHandler }: Props) => {
           {places &&
             places.map((place) => (
               <Tr key={place.id}>
-                <Td
-                  onClick={() => handleClick(place)}
-                  cursor='pointer'
-                  _hover={{ backgroundColor: 'lightgrey' }}>
+                <Td onClick={() => handleClick(place)} cursor='pointer'>
                   <Flex justifyContent='space-between'>
                     <div>
                       <Heading
