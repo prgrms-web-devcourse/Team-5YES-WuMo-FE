@@ -8,6 +8,7 @@ import {
   PartyNoticePage,
   PartyPlanPage,
   PartySchedulePage,
+  PlaceCreatePage,
   SignUpPage,
 } from './pages';
 import LikeRouteListPage from './pages/LikeRouteListPage';
@@ -26,6 +27,7 @@ const Router = () => {
           <Route path={ROUTES.PLAN} element={<PartyPlanPage />} />
           <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
         </Route>
+        <Route path={ROUTES.PLACE_NEW} element={<PlaceCreatePage />} />
       </Routes>
       <BottomNavigation />
     </BrowserRouter>
