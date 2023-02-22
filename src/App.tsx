@@ -21,7 +21,6 @@ export const GlobalLayout = styled.div`
   max-width: ${Common.wideSize.mobile};
   width: 100%;
   height: 100%;
-  background-color: ${Common.colors.light_gray};
   margin: 0 auto;
 `;
 
