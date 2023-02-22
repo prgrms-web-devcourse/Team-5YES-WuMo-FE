@@ -9,6 +9,8 @@ const ROUTES = {
   PARTY_CREATE: '/party-create',
   MY_INFO: '/myinfo',
   PLACE_NEW: '/place/new',
+  BEST_ROUTE: '/best-route-list',
+  PARTY_LIST: '/party-list',
 } as const;
 
 export default ROUTES;
