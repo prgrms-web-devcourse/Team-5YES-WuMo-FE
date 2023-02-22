@@ -38,8 +38,8 @@ const PlaceSearchModal = ({ isOpen, onClose }: Props) => {
       size='full'>
       <ModalOverlay />
       <ModalContent backgroundColor='white'>
-        <ModalBody>
-          <Flex gap='1' align='center' padding='10px 0'>
+        <ModalBody paddingLeft='0' paddingRight='0'>
+          <Flex gap='1' align='center' padding='2.5' paddingBottom='4'>
             <ModalCloseButton position='initial' />
             <PlaceSearchForm initialRef={initialRef} searchHandler={searchPlaces} />
           </Flex>
