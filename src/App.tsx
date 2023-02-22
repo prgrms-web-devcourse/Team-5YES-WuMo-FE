@@ -8,11 +8,11 @@ import globalStyle from './styles/globalStyle';
 function App() {
   return (
     <GlobalLayout className='App'>
-      <Router />
       <Global styles={globalStyle} />
       <div>
         <h1>WuMo</h1>
       </div>
+      <Router />
     </GlobalLayout>
   );
 }
