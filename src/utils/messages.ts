@@ -1,11 +1,12 @@
 export const FORM_ERROR_MESSAGES = {
   EMAIL_REQUIRED: '이메일을 입력해주세요.',
   EMAIL_PATTERN: '올바른 이메일 형식이 아닙니다.',
-  EMAIL_DUPLICATED: '이미 있는 Email입니다. 다른 Email로 작성해주세요.',
+  EMAIL_DUPLICATED: '이미 있는 이메일입니다. 다른 이메일로 작성해주세요.',
   NICKNAME_REQUIRED: '닉네임을 입력해주세요.',
   NICKNAME_INWORD: '한글은 단어로 입력해주세요.',
   NICKNAME_DUPLICATED: '이미 있는 닉네임입니다. 다른 닉네임으로 작성해주세요.',
   PASSWORD_REQUIRED: '비밀번호를 작성해주세요.',
+  CONFIRM_PASSWORD_REQUIRED: '비밀번호 재확인이 필요합니다.',
   CONFIRM_PASSWORD: '비밀번호가 다릅니다.',
   SPACING: '공백을 포함할 수 없습니다.',
   SPEACIAL: '특수 문자를 포함할 수 없습니다.',

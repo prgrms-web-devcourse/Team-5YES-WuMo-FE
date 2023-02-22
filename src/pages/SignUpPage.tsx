@@ -11,7 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { SignUpForm } from '../types/signup';
+import { SignUpInputs } from '../types/signup';
 import { FORM_ERROR_MESSAGES } from '../utils/messages';
 import { signUpSchema } from '../utils/schema';
 
@@ -27,13 +27,13 @@ const SignUpPage = () => {
     getValues,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpForm>({
+  } = useForm<SignUpInputs>({
     resolver: yupResolver(signUpSchema),
   });
   const [checkEmail, setCheckEmail] = useState(false);
   const [checkNickname, setCheckNickname] = useState(false);
 
-  const onSubmit = (values: SignUpForm) => {
+  const onSubmit = (values: SignUpInputs) => {
     const defaultImage = { profileImage: null };
     const { passwordConfirm, ...data } = values;
     const finalData = { ...data, ...defaultImage };
@@ -78,10 +78,9 @@ const SignUpPage = () => {
             중복 확인
           </Button>
         </Flex>
-        <FormErrorMessage color='red'>
-          {errors.email && errors.email.message}
-        </FormErrorMessage>
+        <FormErrorMessage color='red'>{errors.email?.message}</FormErrorMessage>
       </FormControl>
+
       <FormControl isInvalid={!!errors.nickname}>
         <FormLabel>Nickname</FormLabel>
         <Flex>
@@ -92,10 +91,9 @@ const SignUpPage = () => {
             중복 확인
           </Button>
         </Flex>
-        <FormErrorMessage color='red'>
-          {errors.nickname && errors.nickname.message}
-        </FormErrorMessage>
+        <FormErrorMessage color='red'>{errors.nickname?.message}</FormErrorMessage>
       </FormControl>
+
       <FormControl isInvalid={!!errors.password}>
         <FormLabel>Password</FormLabel>
         <Input
@@ -104,10 +102,9 @@ const SignUpPage = () => {
           type='password'
           {...register('password')}
         />
-        <FormErrorMessage color='red'>
-          {errors.password && errors.password.message}
-        </FormErrorMessage>
+        <FormErrorMessage color='red'>{errors.password?.message}</FormErrorMessage>
       </FormControl>
+
       <FormControl isInvalid={!!errors.passwordConfirm}>
         <FormLabel>Password Confirm</FormLabel>
         <Input
@@ -116,10 +113,9 @@ const SignUpPage = () => {
           type='password'
           {...register('passwordConfirm')}
         />
-        <FormErrorMessage color='red'>
-          {errors.passwordConfirm && errors.passwordConfirm.message}
-        </FormErrorMessage>
+        <FormErrorMessage color='red'>{errors.passwordConfirm?.message}</FormErrorMessage>
       </FormControl>
+
       <Center>
         <Button mt={4} colorScheme='orange' isLoading={isSubmitting} type='submit'>
           Submit

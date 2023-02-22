@@ -23,12 +23,13 @@ export const signUpSchema = yup.object({
     .max(10, FORM_ERROR_MESSAGES.MAX(10)),
   password: yup
     .string()
-    .required(FORM_ERROR_MESSAGES.CONFIRM_PASSWORD)
+    .required(FORM_ERROR_MESSAGES.PASSWORD_REQUIRED)
     .matches(regex_spacing, FORM_ERROR_MESSAGES.SPACING)
     .matches(regex_special, FORM_ERROR_MESSAGES.SPEACIAL)
     .min(4, FORM_ERROR_MESSAGES.MIN(4))
     .max(20, FORM_ERROR_MESSAGES.MAX(10)),
   passwordConfirm: yup
     .string()
+    .required(FORM_ERROR_MESSAGES.CONFIRM_PASSWORD_REQUIRED)
     .oneOf([yup.ref('password')], FORM_ERROR_MESSAGES.CONFIRM_PASSWORD),
 });
