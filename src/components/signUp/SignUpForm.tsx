@@ -19,7 +19,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 
-import { Common } from '@/src/styles/common';
 import { SignUpInputs } from '@/src/types/signup';
 import { FORM_ERROR_MESSAGES } from '@/src/utils/constants/messages';
 import { signUpSchema } from '@/src/utils/schema';
@@ -100,7 +99,7 @@ const SignUpForm = () => {
     <Container as='form' onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={4}>
         <FormControl isInvalid={!!errors.email}>
-          <FormLabel fontSize='xs' fontWeight='bold' color={Common.colors.gray}>
+          <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
             Email
           </FormLabel>
           <InputGroup size='md'>
@@ -132,7 +131,7 @@ const SignUpForm = () => {
         </FormControl>
 
         <FormControl isInvalid={!!errors.nickname}>
-          <FormLabel fontSize='xs' fontWeight='bold' color={Common.colors.gray}>
+          <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
             닉네임
           </FormLabel>
           <InputGroup size='md'>
@@ -164,7 +163,7 @@ const SignUpForm = () => {
         </FormControl>
 
         <FormControl isInvalid={!!errors.password}>
-          <FormLabel fontSize='xs' fontWeight='bold' color={Common.colors.gray}>
+          <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
             비밀번호
           </FormLabel>
           <InputGroup size='md'>
@@ -188,7 +187,7 @@ const SignUpForm = () => {
         </FormControl>
 
         <FormControl isInvalid={!!errors.passwordConfirm}>
-          <FormLabel fontSize='xs' fontWeight='bold' color={Common.colors.gray}>
+          <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
             비밀번호 확인
           </FormLabel>
           <InputGroup size='md'>

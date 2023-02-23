@@ -1,15 +1,14 @@
-import { Flex } from '@chakra-ui/react';
+import { Container, Flex } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-import { Common } from '@/src/styles/common';
 import { BackNavigationProps } from '@/src/types/backNavigation';
 
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const navigate = useNavigate();
   return (
-    <Nav>
+    <Nav maxW='maxWidth.mobile'>
       <Flex justify='space-between'>
         <SpanButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
@@ -25,18 +24,17 @@ const SpanButton = styled.span`
   cursor: pointer;
 `;
 
-const Nav = styled.nav`
+const Nav = styled(Container)`
   position: fixed;
   width: 100%;
-  max-width: ${Common.wideSize.mobile};
-  background-color: ${Common.colors.white};
+  background-color: '#ffffff';
   padding: 1rem;
   top: 0;
 `;
 
 const Title = styled.h1`
   position: absolute;
-  font-size: ${Common.fontSize.xl};
+  font-size: 1.25rem;
   left: 50%;
   transform: translateX(-50%);
 `;

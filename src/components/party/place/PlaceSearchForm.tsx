@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { PlaceSearchFormProps } from '@/types/place';
-import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/messages';
+import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/constants/messages';
 
 const PlaceSearchForm = ({ initialRef, searchHandler }: PlaceSearchFormProps) => {
   const [keyword, setKeyword] = useState('');
