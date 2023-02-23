@@ -10,13 +10,13 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
-type Props = {
+type PlaceListTableProps = {
   selectedPlace: string | null;
   places: kakao.maps.services.PlacesSearchResultItem[];
   placeHandler: (place: kakao.maps.services.PlacesSearchResultItem) => void;
 };
 
-const PlaceListTable = ({ selectedPlace, places, placeHandler }: Props) => {
+const PlaceListTable = ({ selectedPlace, places, placeHandler }: PlaceListTableProps) => {
   const handleClick = (place: kakao.maps.services.PlacesSearchResultItem) => {
     placeHandler(place);
   };

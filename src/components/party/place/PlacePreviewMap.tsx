@@ -1,6 +1,6 @@
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
-type Props = {
+type PlacePreviewMapProps = {
   latitude: number;
   longitude: number;
   width?: string;
@@ -14,7 +14,7 @@ const PlacePreviewMap = ({
   width = '100%',
   height = '250px',
   level = 3,
-}: Props) => {
+}: PlacePreviewMapProps) => {
   return (
     <Map
       center={{

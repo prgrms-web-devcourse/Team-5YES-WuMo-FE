@@ -4,12 +4,12 @@ import { ChangeEvent, FormEvent, MutableRefObject, useState } from 'react';
 
 import { PLACE_SEARCH_ERROR_MESSAGES } from '@/src/utils/messages';
 
-type Props = {
+type PlaceSearchFormProps = {
   initialRef: MutableRefObject<null>;
   searchHandler: (keyword: string) => void;
 };
 
-const PlaceSearchForm = ({ initialRef, searchHandler }: Props) => {
+const PlaceSearchForm = ({ initialRef, searchHandler }: PlaceSearchFormProps) => {
   const [keyword, setKeyword] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -15,12 +15,12 @@ import PlaceListTable from './PlaceListTable';
 import PlacePreviewMap from './PlacePreviewMap';
 import PlaceSearchForm from './PlaceSearchForm';
 
-type Props = {
+type PlaceSearchModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const PlaceSearchModal = ({ isOpen, onClose }: Props) => {
+const PlaceSearchModal = ({ isOpen, onClose }: PlaceSearchModalProps) => {
   const [selectedPlace, setSelectedPlace] =
     useState<kakao.maps.services.PlacesSearchResultItem>();
   const initialRef = useRef(null);
