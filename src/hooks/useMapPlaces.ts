@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { PLACE_SEARCH_ERROR_MESSAGES } from '../utils/messages';
 import useMapScript from './useMapScript';
 
 const useMapPlaces = () => {
@@ -22,9 +23,9 @@ const useMapPlaces = () => {
       if (status === kakao.maps.services.Status.OK) {
         setResult(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert('검색 결과가 존재하지 않습니다.');
+        alert(PLACE_SEARCH_ERROR_MESSAGES.NO_RESULT);
       } else if (status === kakao.maps.services.Status.ERROR) {
-        alert('검색 결과 중 오류가 발생했습니다.');
+        alert(PLACE_SEARCH_ERROR_MESSAGES.RESPONSE_ERROR);
       }
     });
   };

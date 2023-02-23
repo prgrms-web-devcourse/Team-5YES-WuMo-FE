@@ -2,6 +2,8 @@ import { Input } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { ChangeEvent, FormEvent, MutableRefObject, useState } from 'react';
 
+import { PLACE_SEARCH_ERROR_MESSAGES } from '@/src/utils/messages';
+
 type Props = {
   initialRef: MutableRefObject<null>;
   searchHandler: (keyword: string) => void;
@@ -17,7 +19,7 @@ const PlaceSearchForm = ({ initialRef, searchHandler }: Props) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-      alert('키워드를 입력해 주세요.');
+      alert(PLACE_SEARCH_ERROR_MESSAGES.KEYWORD_REQUIRED);
       return;
     }
     searchHandler(keyword);
