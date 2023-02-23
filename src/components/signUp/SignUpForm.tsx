@@ -40,6 +40,7 @@ const SignUpForm = () => {
     resetField,
     formState: { errors, isSubmitting },
   } = useForm<SignUpInputs>({
+    mode: 'all',
     resolver: yupResolver(signUpSchema),
   });
   const [checkEmail, setCheckEmail] = useState(false);
@@ -52,14 +53,11 @@ const SignUpForm = () => {
   ]);
 
   const onSubmit = (values: SignUpInputs) => {
-    const { passwordConfirm, ...data } = values;
-
     if (!checkEmail) return setError('email', { message: FORM_ERROR_MESSAGES.DUPLICATE });
     if (!checkNickname)
       return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
 
-    console.log('비밀번호 확인:' + passwordConfirm);
-    console.log(data);
+    console.log(values);
   };
 
   const handleCheckEmail = async () => {
