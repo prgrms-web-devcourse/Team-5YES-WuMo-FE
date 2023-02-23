@@ -7,14 +7,14 @@ import ROUTES from '@/src/utils/routes';
 const MainHeader = () => {
   const navigate = useNavigate();
 
-  const onMoveLoginPage = () => {
+  const onMoveSignInPage = () => {
     navigate(ROUTES.SIGNIN);
   };
 
   return (
     <Flex justify='space-between' align='center' h='65px'>
       <Logo src='/logo.svg' p='5px 0 0 10px' />
-      <Button onClick={onMoveLoginPage} marginRight='10px' variant='ghost'>
+      <Button onClick={onMoveSignInPage} marginRight='10px' variant='ghost'>
         로그인
       </Button>
     </Flex>
