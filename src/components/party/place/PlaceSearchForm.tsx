@@ -1,13 +1,9 @@
 import { Input } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { ChangeEvent, FormEvent, MutableRefObject, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
-import { PLACE_SEARCH_ERROR_MESSAGES } from '@/src/utils/messages';
-
-type PlaceSearchFormProps = {
-  initialRef: MutableRefObject<null>;
-  searchHandler: (keyword: string) => void;
-};
+import { PlaceSearchFormProps } from '@/types/place';
+import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/messages';
 
 const PlaceSearchForm = ({ initialRef, searchHandler }: PlaceSearchFormProps) => {
   const [keyword, setKeyword] = useState('');

@@ -1,12 +1,6 @@
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
-type PlacePreviewMapProps = {
-  latitude: number;
-  longitude: number;
-  width?: string;
-  height?: string;
-  level?: number;
-};
+import { PlacePreviewMapProps } from '@/types/place';
 
 const PlacePreviewMap = ({
   latitude,

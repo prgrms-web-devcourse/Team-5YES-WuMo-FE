@@ -10,15 +10,11 @@ import {
 import { useRef, useState } from 'react';
 
 import useMapPlaces from '@/src/hooks/useMapPlaces';
+import { PlaceSearchModalProps } from '@/types/place';
 
 import PlaceListTable from './PlaceListTable';
 import PlacePreviewMap from './PlacePreviewMap';
 import PlaceSearchForm from './PlaceSearchForm';
-
-type PlaceSearchModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
 
 const PlaceSearchModal = ({ isOpen, onClose }: PlaceSearchModalProps) => {
   const [selectedPlace, setSelectedPlace] =

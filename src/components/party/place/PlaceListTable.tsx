@@ -10,11 +10,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
-type PlaceListTableProps = {
-  selectedPlace: string | null;
-  places: kakao.maps.services.PlacesSearchResultItem[];
-  placeHandler: (place: kakao.maps.services.PlacesSearchResultItem) => void;
-};
+import { PlaceListTableProps } from '@/types/place';
 
 const PlaceListTable = ({ selectedPlace, places, placeHandler }: PlaceListTableProps) => {
   const handleClick = (place: kakao.maps.services.PlacesSearchResultItem) => {
