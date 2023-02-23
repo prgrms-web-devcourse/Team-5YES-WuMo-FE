@@ -8,8 +8,8 @@ import globalStyle from './styles/globalStyle';
 function App() {
   return (
     <GlobalLayout className='App'>
-      <Global styles={globalStyle} />
       <Router />
+      <Global styles={globalStyle} />
     </GlobalLayout>
   );
 }
