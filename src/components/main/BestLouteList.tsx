@@ -59,7 +59,7 @@ const BestLouteList = () => {
   };
 
   const onMoveBestRoutePage = () => {
-    navigate(ROUTES.BEST_ROUTE);
+    navigate(ROUTES.BEST_ROUTE_LIST);
   };
 
   const settings = {
