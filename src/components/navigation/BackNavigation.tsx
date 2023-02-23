@@ -1,15 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { Common } from '@/src/styles/common';
-
-type BackNavigationProps = {
-  title?: string;
-  option?: ReactNode;
-};
+import { BackNavigationProps } from '@/src/types/backNavigation';
 
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const navigate = useNavigate();
@@ -26,11 +21,11 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
   );
 };
 
-export const SpanButton = styled.span`
+const SpanButton = styled.span`
   cursor: pointer;
 `;
 
-export const Nav = styled.nav`
+const Nav = styled.nav`
   position: fixed;
   width: 100%;
   max-width: ${Common.wideSize.mobile};
@@ -39,7 +34,7 @@ export const Nav = styled.nav`
   top: 0;
 `;
 
-export const Title = styled.h1`
+const Title = styled.h1`
   position: absolute;
   font-size: ${Common.fontSize.xl};
   left: 50%;

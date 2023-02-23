@@ -9,6 +9,7 @@ const Route = () => {
   const DUMMYDATA = {
     imageUrl: 'https://bit.ly/2Z4KKcF',
     imageAlt: '부산광역시',
+    place: '부산광역시',
     title: '퇴사기념 부산 즉흥여행',
   };
 
@@ -29,7 +30,7 @@ const Route = () => {
           {DUMMYDATA.title}
         </Box>
         <Box as='span' color='gray.600' fontSize='sm'>
-          부산광역시
+          {DUMMYDATA.place}
         </Box>
         <Box display='flex' justifyContent='right' mt='2' alignItems='center'>
           <MdFavorite />
