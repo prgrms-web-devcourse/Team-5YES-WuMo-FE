@@ -3,7 +3,7 @@ import { MutableRefObject } from 'react';
 export type PlaceListTableProps = {
   selectedPlace: string | null;
   places: kakao.maps.services.PlacesSearchResultItem[];
-  placeHandler: (place: kakao.maps.services.PlacesSearchResultItem) => void;
+  selectPlaceHandler: (place: kakao.maps.services.PlacesSearchResultItem) => void;
 };
 
 export type PlacePreviewMapProps = {

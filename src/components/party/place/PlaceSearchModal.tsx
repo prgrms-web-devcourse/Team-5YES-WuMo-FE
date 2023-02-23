@@ -51,7 +51,7 @@ const PlaceSearchModal = ({ isOpen, onClose }: PlaceSearchModalProps) => {
               <PlaceListTable
                 selectedPlace={selectedPlace?.id || null}
                 places={result}
-                placeHandler={setSelectedPlace}
+                selectPlaceHandler={setSelectedPlace}
               />
             </>
           ) : (

@@ -12,16 +12,20 @@ import {
 
 import { PlaceListTableProps } from '@/types/place';
 
-const PlaceListTable = ({ selectedPlace, places, placeHandler }: PlaceListTableProps) => {
+const PlaceListTable = ({
+  selectedPlace,
+  places,
+  selectPlaceHandler,
+}: PlaceListTableProps) => {
   const handleClick = (place: kakao.maps.services.PlacesSearchResultItem) => {
-    placeHandler(place);
+    selectPlaceHandler(place);
   };
 
   return (
     <TableContainer>
       <Table variant='simple'>
         <Tbody>
-          {/* // TODO: 페이지네이션 or 무한스크롤 */}
+          {/* // TODO: 무한스크롤 */}
           {places &&
             places.map((place) => (
               <Tr key={place.id}>
