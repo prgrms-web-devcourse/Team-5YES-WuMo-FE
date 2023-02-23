@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { FORM_ERROR_MESSAGES } from './messages';
+import { FORM_ERROR_MESSAGES } from './constants/messages';
 
 const regex_spacing = /^[^\s]*$/;
 const regex_special = /^[^~!#$%^&*()_+|<>?:{}]*$/;

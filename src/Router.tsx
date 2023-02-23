@@ -15,7 +15,7 @@ import {
   SignInPage,
   SignUpPage,
 } from './pages';
-import ROUTES from './utils/routes';
+import ROUTES from './utils/constants/routes';
 
 const Router = () => {
   return (

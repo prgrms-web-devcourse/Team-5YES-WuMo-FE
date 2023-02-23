@@ -34,6 +34,17 @@ const theme = extendBaseTheme({
     Tabs,
     Modal,
   },
+  colors: {
+    primary: {
+      red: '#ea5148',
+      yellow: '#f4cf47',
+    },
+  },
+  sizes: {
+    maxWidth: {
+      mobile: '560px',
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

@@ -1,45 +1,39 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-import { Common } from '@/src/styles/common';
-import ROUTES from '@/src/utils/routes';
+import { NAVIGATION_ITEM } from '@/src/utils/constants/navigationItem';
 
 const BottomNavigation = () => {
+  const { pathname } = useLocation();
   return (
-    <Navigation>
+    <Navigation maxW='maxWidth.mobile'>
       <Flex justify='space-between'>
-        <Link to={ROUTES.MAIN}>
-          <NavigationItem>홈</NavigationItem>
-        </Link>
-        <Link to={ROUTES.LIKE}>
-          <NavigationItem>관심목록</NavigationItem>
-        </Link>
-        <Link to={ROUTES.PARTY_CREATE}>
-          <NavigationItem>파티 생성</NavigationItem>
-        </Link>
-        <Link to={ROUTES.NOTICE}>
-          <NavigationItem>내 파티</NavigationItem>
-        </Link>
-        <Link to={ROUTES.MY_INFO}>
-          <NavigationItem>내 정보</NavigationItem>
-        </Link>
+        {NAVIGATION_ITEM.map((item) => (
+          <Link to={item.link} key={item.id}>
+            <GridItem display='flex' alignItems='center' flexDirection='column' gap='2'>
+              <Box>
+                {pathname === item.link ? (
+                  <item.activeIcon style={{ width: '28px', height: '28px' }} />
+                ) : (
+                  <item.icon style={{ width: '28px', height: '28px' }} />
+                )}
+              </Box>
+              <Text fontSize='sm'>{item.name}</Text>
+            </GridItem>
+          </Link>
+        ))}
       </Flex>
     </Navigation>
   );
 };
 
-export const Navigation = styled.nav`
+export const Navigation = styled(Grid)`
   position: fixed;
-  max-width: ${Common.wideSize.mobile};
   width: 100%;
   bottom: 0;
-  background-color: antiquewhite;
   padding: 1rem;
-`;
-
-export const NavigationItem = styled.div`
-  font-size: ${Common.fontSize.md};
+  border-top: 1px solid #e8e8e8;
 `;
 
 export default BottomNavigation;

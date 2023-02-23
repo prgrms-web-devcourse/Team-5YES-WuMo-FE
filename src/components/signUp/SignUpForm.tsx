@@ -21,7 +21,7 @@ import { MdCancel } from 'react-icons/md';
 
 import { Common } from '@/src/styles/common';
 import { SignUpInputs } from '@/src/types/signup';
-import { FORM_ERROR_MESSAGES } from '@/src/utils/messages';
+import { FORM_ERROR_MESSAGES } from '@/src/utils/constants/messages';
 import { signUpSchema } from '@/src/utils/schema';
 
 const DUMMY = {
