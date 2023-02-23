@@ -12,6 +12,7 @@ import {
   PartyPlanPage,
   PartySchedulePage,
   PlaceCreatePage,
+  SignInPage,
   SignUpPage,
 } from './pages';
 import ROUTES from './utils/routes';
@@ -22,6 +23,7 @@ const Router = () => {
       <Routes>
         <Route path={ROUTES.MAIN} element={<MainPage />} />
         <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
+        <Route path={ROUTES.SIGNIN} element={<SignInPage />} />
         <Route path={ROUTES.LIKE} element={<LikeRouteListPage />} />
         <Route path={ROUTES.BEST_ROUTE_LIST} element={<BestRouteListPage />} />
         <Route path={ROUTES.BEST_ROUTE_DETAIL} element={<BestRouteDetailPage />} />
