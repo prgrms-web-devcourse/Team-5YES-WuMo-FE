@@ -1,3 +1,6 @@
+export { default as BestRouteDetailPage } from './BestRouteDetailPage';
+export { default as BestRouteListPage } from './BestRouteListPage';
+export { default as LikeRouteListPage } from './LikeRouteListPage';
 export { default as MainPage } from './MainPage';
 export { default as PartyAlbumPage } from './PartyAlbumPage';
 export { default as PartyNoticePage } from './PartyNoticePage';

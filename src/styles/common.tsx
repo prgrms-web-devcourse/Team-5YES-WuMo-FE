@@ -4,10 +4,11 @@ export const Common = {
     primary_yellow: '#f4cf47',
     gray: '#8d8d8d',
     light_gray: '#e8e8e8',
+    white: '#ffffff',
   },
 
   wideSize: {
-    mobile: '768px',
+    mobile: '560px',
   },
 
   fontSize: {
