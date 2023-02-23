@@ -14,3 +14,9 @@ export const FORM_ERROR_MESSAGES = {
   MIN: (min: number) => `최소 ${min}글자 이상 작성해주세요.`,
   MAX: (max: number) => `최대 ${max}글자까지만 가능합니다.`,
 } as const;
+
+export const PLACE_SEARCH_ERROR_MESSAGES = {
+  KEYWORD_REQUIRED: '키워드를 입력해 주세요.',
+  NO_RESULT: '검색 결과가 존재하지 않습니다.',
+  RESPONSE_ERROR: '검색 중 오류가 발생했습니다.',
+};
