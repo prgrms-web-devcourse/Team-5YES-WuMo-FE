@@ -1,6 +1,7 @@
 const ROUTES = {
   MAIN: '/',
   SIGNUP: '/signup',
+  LOGIN: '/login',
   NOTICE: '/notice',
   SCHEDULE: '/schedule',
   PLAN: '/plan',
