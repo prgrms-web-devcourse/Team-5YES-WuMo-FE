@@ -8,7 +8,7 @@ const MainHeader = () => {
   const navigate = useNavigate();
 
   const onMoveLoginPage = () => {
-    navigate(ROUTES.LOGIN);
+    navigate(ROUTES.SIGNIN);
   };
 
   return (
