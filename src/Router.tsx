@@ -11,7 +11,7 @@ import {
   SignUpPage,
 } from './pages';
 import LikeRouteListPage from './pages/LikeRouteListPage';
-import ROUTES from './utils/routes';
+import ROUTES from './utils/constants/routes';
 
 const Router = () => {
   return (
