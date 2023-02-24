@@ -7,7 +7,7 @@ import { NAVIGATION_ITEM } from '@/src/utils/constants/navigationItem';
 const BottomNavigation = () => {
   const { pathname } = useLocation();
   return (
-    <Navigation maxW='maxWidth.mobile'>
+    <Navigation maxW='maxWidth.mobile' bg='white'>
       <Flex justify='space-between'>
         {NAVIGATION_ITEM.map((item) => (
           <Link to={item.link} key={item.id}>
