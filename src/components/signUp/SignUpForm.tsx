@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 
-import { SignUpInputs } from '@/src/types/signup';
+import { SignProps } from '@/src/types/userSign';
 import { FORM_ERROR_MESSAGES } from '@/src/utils/constants/messages';
 import { signUpSchema } from '@/src/utils/schema';
 
@@ -38,7 +38,7 @@ const SignUpForm = () => {
     watch,
     resetField,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpInputs>({
+  } = useForm<SignProps>({
     mode: 'all',
     resolver: yupResolver(signUpSchema),
   });
@@ -51,7 +51,7 @@ const SignUpForm = () => {
     'passwordConfirm',
   ]);
 
-  const onSubmit = (values: SignUpInputs) => {
+  const onSubmit = (values: SignProps) => {
     if (!checkEmail) return setError('email', { message: FORM_ERROR_MESSAGES.DUPLICATE });
     if (!checkNickname)
       return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
