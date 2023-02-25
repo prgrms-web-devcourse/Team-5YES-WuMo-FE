@@ -10,13 +10,9 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
-import { PlaceListTableProps } from '@/types/place';
+import { PlaceListProps } from '@/types/place';
 
-const PlaceListTable = ({
-  selectedPlace,
-  places,
-  selectPlaceHandler,
-}: PlaceListTableProps) => {
+const PlaceList = ({ selectedPlace, places, selectPlaceHandler }: PlaceListProps) => {
   const handleClick = (place: kakao.maps.services.PlacesSearchResultItem) => {
     selectPlaceHandler(place);
   };
@@ -53,4 +49,4 @@ const PlaceListTable = ({
   );
 };
 
-export default PlaceListTable;
+export default PlaceList;
