@@ -16,7 +16,7 @@ import {
 } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 
-interface UserInputPrpos<T extends FieldValues>
+interface UserInputProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
   control: Control<T>;
   name: FieldPath<T>;
@@ -27,7 +27,7 @@ const SignInInput = <T extends FieldValues>({
   name,
   control,
   resetField,
-}: UserInputPrpos<T>) => {
+}: UserInputProps<T>) => {
   const { field, fieldState } = useController({ name, control });
   const upperName = name.replace(/^[a-z]/, (char: string) => char.toUpperCase());
 
