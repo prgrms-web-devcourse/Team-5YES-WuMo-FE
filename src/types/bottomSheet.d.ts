@@ -5,6 +5,6 @@ export type BottomSheetProps = {
     title: string;
     content: JSX.Element;
     onClick: () => void;
-    buttonTitle: string;
+    buttonText: string;
   };
 };
