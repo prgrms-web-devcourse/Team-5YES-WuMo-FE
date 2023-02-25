@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
-import ROUTES from '@/src/utils/constants/routes';
+import ROUTES from '@/utils/constants/routes';
 
 const DUMMYDATA = [
   {

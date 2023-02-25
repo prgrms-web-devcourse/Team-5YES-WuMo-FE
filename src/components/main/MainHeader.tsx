@@ -2,7 +2,7 @@ import { Button, Flex, Img } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
-import ROUTES from '@/src/utils/constants/routes';
+import ROUTES from '@/utils/constants/routes';
 
 const MainHeader = () => {
   const navigate = useNavigate();

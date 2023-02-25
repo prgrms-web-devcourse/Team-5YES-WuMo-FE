@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { PLACE_SEARCH_ERROR_MESSAGES } from '../utils/constants/messages';
+import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/constants/messages';
+
 import useMapScript from './useMapScript';
 
 const useMapPlaces = () => {

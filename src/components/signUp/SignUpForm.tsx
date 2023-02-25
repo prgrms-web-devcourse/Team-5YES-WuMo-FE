@@ -19,9 +19,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 
-import { SignProps } from '@/src/types/userSign';
-import { FORM_ERROR_MESSAGES } from '@/src/utils/constants/messages';
-import { signUpSchema } from '@/src/utils/schema';
+import { SignProps } from '@/types/userSign';
+import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
+import { signUpSchema } from '@/utils/schema';
 
 const DUMMY = {
   email: ['test@test.com', 'minjae@test.com'],
