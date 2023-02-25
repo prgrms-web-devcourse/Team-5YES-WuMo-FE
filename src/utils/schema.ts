@@ -33,3 +33,11 @@ export const signUpSchema = yup.object({
     .required(FORM_ERROR_MESSAGES.CONFIRM_PASSWORD_REQUIRED)
     .oneOf([yup.ref('password')], FORM_ERROR_MESSAGES.CONFIRM_PASSWORD),
 });
+
+export const signInSchema = yup.object({
+  email: yup
+    .string()
+    .required(FORM_ERROR_MESSAGES.EMAIL_REQUIRED)
+    .email(FORM_ERROR_MESSAGES.EMAIL_PATTERN),
+  password: yup.string().required(FORM_ERROR_MESSAGES.PASSWORD_REQUIRED),
+});
