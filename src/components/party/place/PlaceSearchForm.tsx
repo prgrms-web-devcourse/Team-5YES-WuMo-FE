@@ -1,11 +1,12 @@
-import { Input } from '@chakra-ui/react';
+import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { MdSearch } from 'react-icons/md';
 
 import { PlaceSearchFormProps } from '@/types/place';
 import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/constants/messages';
 
-const PlaceSearchForm = ({ initialRef, searchHandler }: PlaceSearchFormProps) => {
+const PlaceSearchForm = ({ searchPlaceHandler }: PlaceSearchFormProps) => {
   const [keyword, setKeyword] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,20 +19,24 @@ const PlaceSearchForm = ({ initialRef, searchHandler }: PlaceSearchFormProps) =>
       alert(PLACE_SEARCH_ERROR_MESSAGES.KEYWORD_REQUIRED);
       return;
     }
-    searchHandler(keyword);
+    searchPlaceHandler(keyword);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Input
-        variant='outline'
-        borderColor='gray.300'
-        borderRadius='2xl'
-        ref={initialRef}
-        value={keyword}
-        onChange={handleChange}
-        placeholder='장소를 검색하세요.'
-      />
+      <InputGroup>
+        <Input
+          variant='outline'
+          borderColor='gray.300'
+          borderRadius='2xl'
+          value={keyword}
+          onChange={handleChange}
+          placeholder='장소를 검색하세요.'
+        />
+        <InputRightElement cursor='pointer' onClick={handleSubmit}>
+          <MdSearch />
+        </InputRightElement>
+      </InputGroup>
     </Form>
   );
 };
