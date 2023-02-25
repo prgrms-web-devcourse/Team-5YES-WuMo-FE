@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
-import { BottomSheetProps } from '@/src/types/butommSheet';
+import { BottomSheetProps } from '@/src/types/bottomSheet';
 
 const BottomSheet = ({ isOpen, onClose, modal }: BottomSheetProps) => {
   return (
@@ -49,7 +49,7 @@ const BottomSheet = ({ isOpen, onClose, modal }: BottomSheetProps) => {
                   modal.onClick && modal.onClick();
                 }}
                 borderRadius='2xl'>
-                {modal.buttonTitle}
+                {modal.buttonText}
               </Button>
             </Center>
           </ModalBody>
