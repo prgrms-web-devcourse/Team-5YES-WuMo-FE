@@ -10,16 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
-type BottomSheetProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  modal: {
-    title: string;
-    content: JSX.Element;
-    onClick: () => void;
-    buttonTitle: string;
-  };
-};
+import { BottomSheetProps } from '@/src/types/butommSheet';
 
 const BottomSheet = ({ isOpen, onClose, modal }: BottomSheetProps) => {
   return (
