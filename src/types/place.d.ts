@@ -14,6 +14,7 @@ export type PlacePreviewMapProps = {
 
 export type PlaceSearchFormProps = {
   searchPlaceHandler: (keyword: string) => void;
+  resetPlaceHandler: () => void;
 };
 
 export type PlaceCreateModalProps = {

@@ -3,19 +3,25 @@ import { useState } from 'react';
 
 import useMapPlaces from '@/src/hooks/useMapPlaces';
 
-import PlaceListTable from './PlaceList';
+import PlaceList from './PlaceList';
 import PlacePreviewMap from './PlacePreviewMap';
 import PlaceSearchForm from './PlaceSearchForm';
 
 const PlaceSearchStep = () => {
   const [selectedPlace, setSelectedPlace] =
     useState<kakao.maps.services.PlacesSearchResultItem>();
-  const { result, searchPlaces } = useMapPlaces();
+  const { result, searchPlaces, resetResult } = useMapPlaces();
 
   return (
     <>
       <Flex gap='1' align='center' padding='2.5' paddingBottom='4'>
-        <PlaceSearchForm searchPlaceHandler={searchPlaces} />
+        <PlaceSearchForm
+          searchPlaceHandler={searchPlaces}
+          resetPlaceHandler={() => {
+            setSelectedPlace(undefined);
+            resetResult();
+          }}
+        />
       </Flex>
       {result ? (
         <>
@@ -25,7 +31,7 @@ const PlaceSearchStep = () => {
               longitude={Number(selectedPlace.x)}
             />
           )}
-          <PlaceListTable
+          <PlaceList
             selectedPlace={selectedPlace?.id || null}
             places={result}
             selectPlaceHandler={setSelectedPlace}

@@ -1,12 +1,15 @@
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { MdSearch } from 'react-icons/md';
+import { MdCancel, MdSearch } from 'react-icons/md';
 
 import { PlaceSearchFormProps } from '@/types/place';
 import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/constants/messages';
 
-const PlaceSearchForm = ({ searchPlaceHandler }: PlaceSearchFormProps) => {
+const PlaceSearchForm = ({
+  searchPlaceHandler,
+  resetPlaceHandler,
+}: PlaceSearchFormProps) => {
   const [keyword, setKeyword] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -15,6 +18,7 @@ const PlaceSearchForm = ({ searchPlaceHandler }: PlaceSearchFormProps) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    resetPlaceHandler();
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
       alert(PLACE_SEARCH_ERROR_MESSAGES.KEYWORD_REQUIRED);
       return;
@@ -33,8 +37,22 @@ const PlaceSearchForm = ({ searchPlaceHandler }: PlaceSearchFormProps) => {
           onChange={handleChange}
           placeholder='장소를 검색하세요.'
         />
-        <InputRightElement cursor='pointer' onClick={handleSubmit}>
-          <MdSearch />
+        <InputRightElement
+          cursor='pointer'
+          w='12'
+          gap='4'
+          right='4'
+          justifyContent='flex-end'>
+          {keyword && (
+            <MdCancel
+              onClick={() => {
+                setKeyword('');
+                resetPlaceHandler();
+              }}
+              color='gray'
+            />
+          )}
+          <MdSearch onClick={handleSubmit} />
         </InputRightElement>
       </InputGroup>
     </Form>
