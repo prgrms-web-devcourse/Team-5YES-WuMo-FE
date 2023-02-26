@@ -13,15 +13,44 @@ export const description = [
   },
 ];
 
+export const getImageURL = (id: string) =>
+  `https://github.githubassets.com/images/icons/emoji/unicode/${id}.png?v8`;
+
 export const categoryList = [
   {
-    name: 'rice',
     text: '식사',
-    imageUrl: 'https://github.githubassets.com/images/icons/emoji/unicode/1f35a.png?v8',
+    imageID: '1f35a',
   },
   {
-    name: 'coffee',
     text: '커피',
-    imageUrl: 'https://github.githubassets.com/images/icons/emoji/unicode/2615.png?v8',
+    imageID: '2615',
+  },
+  {
+    text: '술',
+    imageID: '1f37b',
+  },
+  {
+    text: '게임',
+    imageID: '1f3ae',
+  },
+  {
+    text: '산책',
+    imageID: '1f6b6',
+  },
+  {
+    text: '구경',
+    imageID: '1f440',
+  },
+  {
+    text: '문화',
+    imageID: '1f3a8',
+  },
+  {
+    text: '자연',
+    imageID: '1f3d5',
+  },
+  {
+    text: '스포츠',
+    imageID: '26bd',
   },
 ];
