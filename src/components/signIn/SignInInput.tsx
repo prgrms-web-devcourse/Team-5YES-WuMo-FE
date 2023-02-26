@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -33,7 +34,9 @@ const SignInInput = <T extends FieldValues>({
 
   return (
     <FormControl isInvalid={!!fieldState.error?.message}>
-      <FormLabel>{upperName}</FormLabel>
+      <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
+        {upperName}
+      </FormLabel>
       <InputGroup size='md'>
         <Input
           id={name}
@@ -47,7 +50,11 @@ const SignInInput = <T extends FieldValues>({
           )}
         </InputRightElement>
       </InputGroup>
-      <FormErrorMessage>{fieldState.error?.message}</FormErrorMessage>
+      <Box height={7}>
+        <FormErrorMessage pl={2} fontSize='sm' color='red' pt={2}>
+          {fieldState.error?.message}
+        </FormErrorMessage>
+      </Box>
     </FormControl>
   );
 };

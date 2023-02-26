@@ -1,8 +1,8 @@
 import { Stack, Text } from '@chakra-ui/react';
 import { Fragment, useState } from 'react';
 
-import useMapPlaces from '@/src/hooks/useMapPlaces';
-import { description } from '@/src/utils/constants/place';
+import useMapPlaces from '@/hooks/useMapPlaces';
+import { description } from '@/utils/constants/place';
 
 import PlaceList from './PlaceList';
 import PlacePreviewMap from './PlacePreviewMap';

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-import { BackNavigationProps } from '@/src/types/backNavigation';
+import { BackNavigationProps } from '@/types/backNavigation';
 
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const navigate = useNavigate();

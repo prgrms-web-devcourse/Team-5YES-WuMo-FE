@@ -1,7 +1,7 @@
 import { Flex, Grid, GridItem, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { categoryList } from '@/src/utils/constants/place';
+import { categoryList } from '@/utils/constants/place';
 
 const PlaceCategoryStep = () => {
   const [value, setValue] = useState('');
