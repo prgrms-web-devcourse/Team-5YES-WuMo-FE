@@ -30,18 +30,19 @@ const PlaceSearchForm = ({
     <Form onSubmit={handleSubmit}>
       <InputGroup>
         <Input
-          variant='outline'
+          variant='flushed'
           borderColor='gray.300'
-          borderRadius='2xl'
+          paddingLeft='0'
           value={keyword}
           onChange={handleChange}
           placeholder='장소를 검색하세요.'
+          focusBorderColor='primary.red'
         />
         <InputRightElement
           cursor='pointer'
           w='12'
           gap='4'
-          right='4'
+          right='1'
           justifyContent='flex-end'>
           {keyword && (
             <MdCancel

@@ -23,6 +23,7 @@ const PlaceList = ({ selectedPlace, places, selectPlaceHandler }: PlaceListProps
                 <Td
                   onClick={() => selectPlaceHandler(place)}
                   cursor='pointer'
+                  paddingLeft='0'
                   backgroundColor={selectedPlace === place.id ? 'gray.100' : 'initial'}>
                   <Flex justifyContent='space-between'>
                     <div>

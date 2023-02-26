@@ -1,7 +1,8 @@
-import { Container, Flex } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Stack, Text } from '@chakra-ui/react';
+import { Fragment, useState } from 'react';
 
 import useMapPlaces from '@/src/hooks/useMapPlaces';
+import { description } from '@/src/utils/constants/place';
 
 import PlaceList from './PlaceList';
 import PlacePreviewMap from './PlacePreviewMap';
@@ -14,15 +15,13 @@ const PlaceSearchStep = () => {
 
   return (
     <>
-      <Flex gap='1' align='center' padding='2.5' paddingBottom='4'>
-        <PlaceSearchForm
-          searchPlaceHandler={searchPlaces}
-          resetPlaceHandler={() => {
-            setSelectedPlace(undefined);
-            resetResult();
-          }}
-        />
-      </Flex>
+      <PlaceSearchForm
+        searchPlaceHandler={searchPlaces}
+        resetPlaceHandler={() => {
+          setSelectedPlace(undefined);
+          resetResult();
+        }}
+      />
       {result ? (
         <>
           {selectedPlace && (
@@ -38,9 +37,17 @@ const PlaceSearchStep = () => {
           />
         </>
       ) : (
-        <Container maxW='full' paddingTop='3'>
-          파티원과 공유하고 싶은 장소를 검색해 보세요.
-        </Container>
+        <Stack spacing='8' marginLeft='0' paddingTop='5'>
+          <Text size='sm'>파티원과 공유하고 싶은 장소를 검색해 보세요.</Text>
+          {description.map(({ subtitle, example }, id) => (
+            <Stack key={id} spacing='2'>
+              <Text fontWeight='bold' size='xs' color='gray.600'>
+                {subtitle}
+              </Text>
+              <Text size='xs'>예: {example}</Text>
+            </Stack>
+          ))}
+        </Stack>
       )}
     </>
   );

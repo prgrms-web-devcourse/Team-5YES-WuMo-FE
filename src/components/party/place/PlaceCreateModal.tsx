@@ -53,7 +53,7 @@ const PlaceCreateModal = ({ isOpen, closeModalHandler }: PlaceCreateModalProps) 
           <ModalCloseButton position='initial' size='lg'>
             <MdKeyboardArrowLeft />
           </ModalCloseButton>
-          <Progress value={placeCreateStep.size * step} colorScheme='red' />
+          <Progress value={placeCreateStep.size * step} colorScheme='red' size='sm' />
           <ModalHeader>{stepInfo[step - 1].title}</ModalHeader>
           <ModalBody>{stepInfo[step - 1].content}</ModalBody>
           <ModalFooter>
