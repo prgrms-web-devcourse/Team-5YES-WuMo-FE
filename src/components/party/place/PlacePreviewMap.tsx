@@ -6,8 +6,8 @@ const PlacePreviewMap = ({
   latitude,
   longitude,
   width = '100%',
-  height = '250px',
-  level = 3,
+  height = '200px',
+  level = 5,
 }: PlacePreviewMapProps) => {
   return (
     <Map
