@@ -18,6 +18,7 @@ const {
   Table,
   Tabs,
   Modal,
+  Progress,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -33,6 +34,7 @@ const theme = extendBaseTheme({
     Table,
     Tabs,
     Modal,
+    Progress,
   },
   colors: {
     primary: {

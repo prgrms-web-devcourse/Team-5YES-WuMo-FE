@@ -16,7 +16,7 @@ export type PlaceSearchFormProps = {
   searchPlaceHandler: (keyword: string) => void;
 };
 
-export type PlaceCreatePageProps = {
+export type PlaceCreateModalProps = {
   isOpen: boolean;
   closeModalHandler: () => void;
 };

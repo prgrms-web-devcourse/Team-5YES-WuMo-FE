@@ -11,7 +11,6 @@ import {
   PartyNoticePage,
   PartyPlanPage,
   PartySchedulePage,
-  PlaceCreatePage,
   SignInPage,
   SignUpPage,
 } from './pages';
@@ -33,7 +32,6 @@ const Router = () => {
           <Route path={ROUTES.PLAN} element={<PartyPlanPage />} />
           <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
         </Route>
-        <Route path={ROUTES.PLACE_NEW} element={<PlaceCreatePage />} />
       </Routes>
       <BottomNavigation />
     </BrowserRouter>
