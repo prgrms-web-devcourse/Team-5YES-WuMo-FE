@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 
-import useMapPlaces from '@/src/hooks/useMapPlaces';
+import useMapPlaces from '@/hooks/useMapPlaces';
 import { PlaceSearchModalProps } from '@/types/place';
 
 import PlaceListTable from './PlaceListTable';

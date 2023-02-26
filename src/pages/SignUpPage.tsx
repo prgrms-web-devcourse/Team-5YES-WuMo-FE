@@ -2,8 +2,8 @@ import { Center, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-import SignUpForm from '../components/signUp/SignUpForm';
-import ROUTES from '../utils/constants/routes';
+import SignUpForm from '@/components/signUp/SignUpForm';
+import ROUTES from '@/utils/constants/routes';
 
 const SignUpPage = () => {
   return (

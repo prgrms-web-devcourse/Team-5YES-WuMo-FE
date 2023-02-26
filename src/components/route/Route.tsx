@@ -2,7 +2,7 @@ import { Box, Image } from '@chakra-ui/react';
 import { MdFavorite } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-import ROUTES from '@/src/utils/constants/routes';
+import ROUTES from '@/utils/constants/routes';
 
 const Route = () => {
   const navigate = useNavigate();

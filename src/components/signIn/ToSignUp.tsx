@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ROUTES from '@/src/utils/constants/routes';
+import ROUTES from '@/utils/constants/routes';
 
 const ToSignUp = () => {
   return (

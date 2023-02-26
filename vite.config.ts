@@ -23,11 +23,12 @@ export default defineConfig({
   ],
   resolve: {
     alias: [
-      { find: '@/src', replacement: resolve(__dirname, 'src') },
       { find: '@/api', replacement: resolve(__dirname, 'src/api') },
       { find: '@/components', replacement: resolve(__dirname, 'src/components') },
+      { find: '@/hooks', replacement: resolve(__dirname, 'src/hooks') },
       { find: '@/pages', replacement: resolve(__dirname, 'src/pages') },
       { find: '@/store', replacement: resolve(__dirname, 'src/store') },
+      { find: '@/styles', replacement: resolve(__dirname, 'src/styles') },
       { find: '@/types', replacement: resolve(__dirname, 'src/types') },
       { find: '@/utils', replacement: resolve(__dirname, 'src/utils') },
     ],

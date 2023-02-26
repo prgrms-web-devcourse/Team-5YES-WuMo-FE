@@ -2,11 +2,11 @@ import { Container } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-import useLocalStorage from '@/src/hooks/useLocalStorage';
-import { SignInProps } from '@/src/types/userSign';
-import { signInSchema } from '@/src/utils/schema';
+import SubmitButton from '@/components/base/SubmitButton';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import { SignInProps } from '@/types/userSign';
+import { signInSchema } from '@/utils/schema';
 
-import SubmitButton from '../base/SubmitButton';
 import SignInInput from './SignInInput';
 
 const SignInForm = () => {

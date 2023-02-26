@@ -2,7 +2,7 @@ import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
-import { NAVIGATION_ITEM } from '@/src/utils/constants/navigationItem';
+import { NAVIGATION_ITEM } from '@/utils/constants/navigationItem';
 
 const BottomNavigation = () => {
   const { pathname } = useLocation();

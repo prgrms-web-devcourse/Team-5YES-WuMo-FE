@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react';
 import { MdSearch } from 'react-icons/md';
 
-import BackNavigation from '../components/navigation/BackNavigation';
-import Route from '../components/route/Route';
+import BackNavigation from '@/components/navigation/BackNavigation';
+import Route from '@/components/route/Route';
 
 const BestRouteListPage = () => {
   return (
