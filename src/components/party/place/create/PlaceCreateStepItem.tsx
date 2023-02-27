@@ -1,8 +1,8 @@
 import { StepItems } from '@/types/place';
 
-import PlaceCategoryStep from './PlaceCategoryStep';
-import PlaceInfoStep from './PlaceInfoStep';
-import PlaceSearchStep from './PlaceSearchStep';
+import PlaceCategoryStep from './category/PlaceCategoryStep';
+import PlaceInfoStep from './info/PlaceInfoStep';
+import PlaceSearchStep from './search/PlaceSearchStep';
 
 export const placeCreateStepItems: StepItems = {
   1: {

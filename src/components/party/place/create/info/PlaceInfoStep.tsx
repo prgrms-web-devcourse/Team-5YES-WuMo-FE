@@ -14,22 +14,15 @@ import { useState } from 'react';
 import { MdCalendarToday, MdCreditCard, MdImage, MdOutlineComment } from 'react-icons/md';
 
 import CustomTextarea from '@/components/base/CustomTextarea';
-
-type Info = {
-  visit_date: string;
-  expected_cost: string;
-  image_url: string;
-  description: string;
-};
+import { Place } from '@/types/place';
+import { PLACE_DUMMY_DATA } from '@/utils/constants/place';
 
 const PlaceInfoStep = () => {
-  const [info] = useState<Info>({
-    visit_date: '2023년 2월 27일(월) 14:00 - 18:00',
-    expected_cost: '15000',
-    image_url:
-      'https://user-images.githubusercontent.com/63575891/221435458-5d5724c6-65cb-46e8-9c2a-c52d43bea9c5.jpg',
-    description: '사이드도 같이 시켜 먹으면 좋을 것 같음!',
-  });
+  const [value, setValue] = useState<Place>(PLACE_DUMMY_DATA);
+
+  const handleValue = (key: string, newValue: string | number) => {
+    setValue({ ...value, [key]: newValue });
+  };
 
   const [cost, setCost] = useState('15000');
 
@@ -45,7 +38,7 @@ const PlaceInfoStep = () => {
             <MdCalendarToday />
             일정
           </Flex>
-          <Text>{info.visit_date}</Text>
+          <Text>{value.visit_date}</Text>
         </AccordionButton>
         <AccordionPanel>
           <Stack direction='row'>
