@@ -73,7 +73,7 @@ const BestLouteList = () => {
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
-    centerPadding: '100px',
+    centerPadding: '6.25rem',
     touchThreshold: 200,
     beforeChange: onBeforeChange,
     afterChange: onAfterChange,
@@ -82,7 +82,7 @@ const BestLouteList = () => {
       {
         breakpoint: 447,
         settings: {
-          centerPadding: '50px',
+          centerPadding: '3.125rem',
         },
       },
     ],

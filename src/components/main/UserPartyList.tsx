@@ -84,7 +84,7 @@ const UserPartyList = () => {
       <StyledSlider {...settings}>
         {DUMMYDATA.map((party) => (
           <Box key={party.id} onClick={() => !dragging && onMovePartyPage(party.id)}>
-            <Box p='relative' w='80px' h='80px'>
+            <Box p='relative' w='5rem' h='5rem'>
               <Image
                 src={party.image}
                 p='absolute'

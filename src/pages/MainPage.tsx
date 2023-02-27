@@ -10,9 +10,9 @@ const MainPage = () => {
     <>
       <MainHeader />
       <BestLouteList />
-      <Divider marginTop='40px' borderTopWidth='10px' />
+      <Divider marginTop='2.5rem' borderTopWidth='0.625rem' />
       <UserPartyList />
-      <Divider marginTop='40px' borderTopWidth='10px' />
+      <Divider marginTop='2.5rem' borderTopWidth='0.625rem' />
       <TotalPartyNoticeList />
     </>
   );

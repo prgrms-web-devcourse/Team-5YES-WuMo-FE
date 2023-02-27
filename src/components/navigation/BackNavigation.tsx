@@ -8,7 +8,7 @@ import { BackNavigationProps } from '@/src/types/backNavigation';
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const navigate = useNavigate();
   return (
-    <Nav maxW='maxWidth.mobile'>
+    <Nav maxW='maxWidth.mobile' bg='#ffffff'>
       <Flex justify='space-between'>
         <SpanButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
@@ -27,7 +27,6 @@ const SpanButton = styled.span`
 const Nav = styled(Container)`
   position: fixed;
   width: 100%;
-  background-color: '#ffffff';
   padding: 1rem;
   top: 0;
 `;

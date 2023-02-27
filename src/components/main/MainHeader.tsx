@@ -12,9 +12,9 @@ const MainHeader = () => {
   };
 
   return (
-    <Flex justify='space-between' align='center' h='65px'>
-      <Logo src='/logo.svg' p='5px 0 0 10px' />
-      <Button onClick={onMoveSignInPage} marginRight='10px' variant='ghost'>
+    <Flex justify='space-between' align='center' h='4.0625rem'>
+      <Logo src='/logo.svg' p='0.3125rem 0 0 0.625rem' />
+      <Button onClick={onMoveSignInPage} marginRight='0.625rem' variant='ghost'>
         로그인
       </Button>
     </Flex>

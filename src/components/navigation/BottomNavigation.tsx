@@ -14,9 +14,9 @@ const BottomNavigation = () => {
             <GridItem display='flex' alignItems='center' flexDirection='column' gap='2'>
               <Box>
                 {pathname === item.link ? (
-                  <item.activeIcon style={{ width: '28px', height: '28px' }} />
+                  <item.activeIcon style={{ width: '1.75rem', height: '1.75rem' }} />
                 ) : (
-                  <item.icon style={{ width: '28px', height: '28px' }} />
+                  <item.icon style={{ width: '1.75rem', height: '1.75rem' }} />
                 )}
               </Box>
               <Text fontSize='sm'>{item.name}</Text>
@@ -33,7 +33,7 @@ export const Navigation = styled(Grid)`
   width: 100%;
   bottom: 0;
   padding: 1rem;
-  border-top: 1px solid #e8e8e8;
+  border-top: 0.0625rem solid #e8e8e8;
 `;
 
 export default BottomNavigation;
