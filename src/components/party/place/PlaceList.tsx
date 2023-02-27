@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   Heading,
   Table,
@@ -10,39 +9,34 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
-import { PlaceListTableProps } from '@/types/place';
+import { PlaceListProps } from '@/types/place';
 
-const PlaceListTable = ({
-  selectedPlace,
-  places,
-  selectPlaceHandler,
-}: PlaceListTableProps) => {
-  const handleClick = (place: kakao.maps.services.PlacesSearchResultItem) => {
-    selectPlaceHandler(place);
-  };
-
+const PlaceList = ({ selectedPlace, places, selectPlaceHandler }: PlaceListProps) => {
   return (
-    <TableContainer>
+    <TableContainer overflowY='scroll' h={selectedPlace ? 'xs' : 'md'}>
       <Table variant='simple'>
         <Tbody>
           {/* // TODO: 무한스크롤 */}
           {places &&
             places.map((place) => (
               <Tr key={place.id}>
-                <Td onClick={() => handleClick(place)} cursor='pointer'>
+                <Td
+                  onClick={() => selectPlaceHandler(place)}
+                  cursor='pointer'
+                  paddingLeft='3'
+                  backgroundColor={selectedPlace === place.id ? 'gray.100' : 'initial'}>
                   <Flex justifyContent='space-between'>
                     <div>
                       <Heading
-                        as='h5'
+                        as='h6'
                         size='sm'
-                        color={selectedPlace === place.id ? 'green.500' : 'initial'}>
+                        color={selectedPlace === place.id ? 'primary.red' : 'initial'}>
                         {place.place_name}
                       </Heading>
                       <Text fontSize='sm'>
                         {place.road_address_name || place.address_name}
                       </Text>
                     </div>
-                    {selectedPlace === place.id && <Button>선택</Button>}
                   </Flex>
                 </Td>
               </Tr>
@@ -53,4 +47,4 @@ const PlaceListTable = ({
   );
 };
 
-export default PlaceListTable;
+export default PlaceList;
