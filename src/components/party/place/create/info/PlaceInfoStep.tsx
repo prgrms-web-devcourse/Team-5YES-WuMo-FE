@@ -5,17 +5,18 @@ import {
   AccordionItem,
   AccordionPanel,
   Flex,
-  NumberInput,
-  NumberInputField,
-  Stack,
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { MdCalendarToday, MdCreditCard, MdImage, MdOutlineComment } from 'react-icons/md';
 
-import CustomTextarea from '@/components/base/CustomTextarea';
-import { Place } from '@/types/place';
+import { Place, PlaceInfoStepItem } from '@/types/place';
 import { PLACE_DUMMY_DATA } from '@/utils/constants/place';
+
+import DateTimeInput from './DateTimeInput';
+import ImageInput from './ImageInput';
+import PriceInput from './PriceInput';
+import TextareaInput from './TextareaInput';
 
 const PlaceInfoStep = () => {
   const [value, setValue] = useState<Place>(PLACE_DUMMY_DATA);
@@ -24,78 +25,52 @@ const PlaceInfoStep = () => {
     setValue({ ...value, [key]: newValue });
   };
 
-  const [cost, setCost] = useState('15000');
-
-  const format = (val: string) => val.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  const parse = (val: string) => val.replace(/^\$/, '');
+  const PlaceInfoStepItems: PlaceInfoStepItem[] = [
+    {
+      type: 'visit_date',
+      icon: <MdCalendarToday />,
+      text: '일정',
+      value: value.visit_date,
+      content: <DateTimeInput />,
+    },
+    {
+      type: 'expected_cost',
+      icon: <MdCreditCard />,
+      text: '예산',
+      value: value.expected_cost,
+      content: <PriceInput />,
+    },
+    {
+      type: 'image_url',
+      icon: <MdImage />,
+      text: '대표 사진',
+      value: value.image_url,
+      content: <ImageInput />,
+    },
+    {
+      type: 'description',
+      icon: <MdOutlineComment />,
+      text: '메모',
+      value: value.description,
+      content: <TextareaInput initialValue={value.description} />,
+    },
+  ];
 
   return (
     <Accordion allowToggle>
-      <AccordionItem>
-        <AccordionButton justifyContent='space-between'>
-          <Flex gap='1.5' align='center'>
-            <AccordionIcon />
-            <MdCalendarToday />
-            일정
-          </Flex>
-          <Text>{value.visit_date}</Text>
-        </AccordionButton>
-        <AccordionPanel>
-          <Stack direction='row'>
-            <NumberInput size='md' defaultValue={0} min={0} max={23}>
-              <NumberInputField />
-            </NumberInput>
-            시
-            <NumberInput size='md' defaultValue={0} min={0} max={59}>
-              <NumberInputField />
-            </NumberInput>
-            분
-          </Stack>
-        </AccordionPanel>
-      </AccordionItem>
-      <AccordionItem>
-        <AccordionButton justifyContent='space-between'>
-          <Flex gap='1.5' align='center'>
-            <AccordionIcon />
-            <MdCreditCard />
-            예산
-          </Flex>
-          <Text>{format(cost)}원</Text>
-        </AccordionButton>
-        <AccordionPanel>
-          <NumberInput
-            onChange={(valueString) => setCost(parse(valueString))}
-            inputMode='decimal'
-            value={format(cost)}
-            borderColor='gray.300'
-            focusBorderColor='primary.red'>
-            <NumberInputField value={cost} />
-          </NumberInput>
-        </AccordionPanel>
-      </AccordionItem>
-      <AccordionItem>
-        <AccordionButton>
-          <Flex gap='1.5' align='center'>
-            <AccordionIcon />
-            <MdImage />
-            대표 사진
-          </Flex>
-        </AccordionButton>
-        <AccordionPanel>장소를 대표하는 사진을 넣어주세요. 사진 입력 인풋</AccordionPanel>
-      </AccordionItem>
-      <AccordionItem>
-        <AccordionButton>
-          <Flex gap='1.5' align='center'>
-            <AccordionIcon />
-            <MdOutlineComment />
-            메모
-          </Flex>
-        </AccordionButton>
-        <AccordionPanel>
-          0/50
-          <CustomTextarea />
-        </AccordionPanel>
-      </AccordionItem>
+      {PlaceInfoStepItems.map(({ type, icon, text, value, content }) => (
+        <AccordionItem key={type}>
+          <AccordionButton justifyContent='space-between'>
+            <Flex gap='1.5' align='center'>
+              <AccordionIcon />
+              {icon}
+              {text}
+            </Flex>
+            {(type === 'visit_date' || type === 'expected_cost') && <Text>{value}</Text>}
+          </AccordionButton>
+          <AccordionPanel>{content}</AccordionPanel>
+        </AccordionItem>
+      ))}
     </Accordion>
   );
 };

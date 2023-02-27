@@ -35,3 +35,30 @@ export type Category = {
     imageID: string;
   };
 };
+
+export type Place = {
+  name: string;
+  address: string;
+  latitude: number;
+  longititude: number;
+  image_url: string;
+  category: string;
+  description: string;
+  visit_date: string;
+  expected_cost: number;
+  spending: number;
+  created_at: string;
+  updated_at: string;
+  party_id: number;
+  route_id: number;
+};
+
+type PlaceInfoStep = 'visit_date' | 'expected_cost' | 'image_url' | 'description';
+
+export type PlaceInfoStepItem = {
+  type: PlaceInfoStep;
+  icon: JSX.Element;
+  text: string;
+  value: string | number;
+  content: JSX.Element;
+};
