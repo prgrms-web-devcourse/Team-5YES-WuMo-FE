@@ -22,7 +22,16 @@ export type PlaceCreateModalProps = {
   closeModalHandler: () => void;
 };
 
-export type StepItem = {
-  title: string;
-  content: JSX.Element;
+export type StepItems = {
+  [stepKey: number]: {
+    title: string;
+    content: JSX.Element;
+  };
+};
+
+export type Category = {
+  [name: string]: {
+    text: string;
+    imageID: string;
+  };
 };
