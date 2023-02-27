@@ -62,7 +62,7 @@ export type PlaceInfoStepItem = {
   content: JSX.Element;
 };
 
-export type InputValueType = string | number | File | null;
+export type InputValueType = string | number | File | Date | null;
 
 export type InputProps = {
   value: string;

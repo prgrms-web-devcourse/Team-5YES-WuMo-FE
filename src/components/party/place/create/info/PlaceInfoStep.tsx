@@ -31,7 +31,7 @@ const PlaceInfoStep = () => {
       type: 'visit_date',
       icon: <MdCalendarToday />,
       text: '일정',
-      content: <DateTimeInput />,
+      content: <DateTimeInput value={values.visit_date} setValueHandler={handleValue} />,
     },
     {
       type: 'expected_cost',
