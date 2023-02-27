@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
-import { BottomSheetProps } from '@/src/types/bottomSheet';
+import { BottomSheetProps } from '@/types/bottomSheet';
 
 const BottomSheet = ({ isOpen, onClose, modal }: BottomSheetProps) => {
   return (

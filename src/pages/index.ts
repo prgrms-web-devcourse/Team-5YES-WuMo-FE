@@ -7,6 +7,5 @@ export { default as PartyCreatePage } from './PartyCreatePage';
 export { default as PartyNoticePage } from './PartyNoticePage';
 export { default as PartyPlanPage } from './PartyPlanPage';
 export { default as PartySchedulePage } from './PartySchedulePage';
-export { default as PlaceCreatePage } from './PlaceCreatePage';
 export { default as SignInPage } from './SignInPage';
 export { default as SignUpPage } from './SignUpPage';

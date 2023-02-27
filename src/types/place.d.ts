@@ -1,6 +1,4 @@
-import { MutableRefObject } from 'react';
-
-export type PlaceListTableProps = {
+export type PlaceListProps = {
   selectedPlace: string | null;
   places: kakao.maps.services.PlacesSearchResultItem[];
   selectPlaceHandler: (place: kakao.maps.services.PlacesSearchResultItem) => void;
@@ -15,11 +13,16 @@ export type PlacePreviewMapProps = {
 };
 
 export type PlaceSearchFormProps = {
-  initialRef: MutableRefObject<null>;
-  searchHandler: (keyword: string) => void;
+  searchPlaceHandler: (keyword: string) => void;
+  resetPlaceHandler: () => void;
 };
 
-export type PlaceSearchModalProps = {
+export type PlaceCreateModalProps = {
   isOpen: boolean;
-  onClose: () => void;
+  closeModalHandler: () => void;
+};
+
+export type StepItem = {
+  title: string;
+  content: JSX.Element;
 };
