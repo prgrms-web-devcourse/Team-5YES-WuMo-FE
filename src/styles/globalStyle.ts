@@ -22,6 +22,10 @@ const globalStyle = css`
     font-family: 'Pretendard-Regular';
     height: 100%;
   }
+
+  .chakra-modal__content-container {
+    font-family: 'Pretendard-Regular';
+  }
   ${emotionReset}
 `;
 

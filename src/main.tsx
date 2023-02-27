@@ -18,6 +18,7 @@ const {
   Table,
   Tabs,
   Modal,
+  Progress,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -33,16 +34,18 @@ const theme = extendBaseTheme({
     Table,
     Tabs,
     Modal,
+    Progress,
   },
   colors: {
     primary: {
       red: '#ea5148',
+      redHover: '#cc4942',
       yellow: '#f4cf47',
     },
   },
   sizes: {
     maxWidth: {
-      mobile: '560px',
+      mobile: '35rem',
     },
   },
 });
