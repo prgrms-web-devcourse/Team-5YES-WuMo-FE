@@ -1,6 +1,6 @@
 import { Button, useDisclosure } from '@chakra-ui/react';
 
-import PlaceSearchModal from '../components/party/place/PlaceSearchModal';
+import PlaceSearchModal from '@/components/party/place/PlaceSearchModal';
 
 const PlaceCreatePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

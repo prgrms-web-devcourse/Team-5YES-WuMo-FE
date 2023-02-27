@@ -18,6 +18,10 @@ const globalStyle = css`
     height: 100%;
   }
 
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
   #root {
     font-family: 'Pretendard-Regular';
     height: 100%;

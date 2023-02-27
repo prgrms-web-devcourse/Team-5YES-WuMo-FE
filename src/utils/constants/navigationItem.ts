@@ -11,7 +11,7 @@ import {
   MdPersonOutline,
 } from 'react-icons/md';
 
-import { NavigationItem } from '@/src/types/navigationItem';
+import { NavigationItem } from '@/types/navigationItem';
 
 import ROUTES from './routes';
 
