@@ -7,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 import App from './App';
 
 const {
+  Accordion,
   Avatar,
   Button,
   CloseButton,
@@ -18,11 +19,13 @@ const {
   Table,
   Tabs,
   Modal,
+  NumberInput,
   Progress,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
   components: {
+    Accordion,
     Avatar,
     Button,
     CloseButton,
@@ -34,6 +37,7 @@ const theme = extendBaseTheme({
     Table,
     Tabs,
     Modal,
+    NumberInput,
     Progress,
   },
   colors: {
