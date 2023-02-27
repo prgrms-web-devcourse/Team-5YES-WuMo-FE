@@ -1,18 +1,15 @@
 import { Flex, Textarea } from '@chakra-ui/react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
-type TextareaInputType = {
-  initialValue: string;
-};
+import { InputProps } from '@/types/place';
 
-const TextareaInput = ({ initialValue }: TextareaInputType) => {
-  const [value, setValue] = useState(initialValue);
+const TextareaInput = ({ value, setValueHandler }: InputProps) => {
   const maxLength = 50;
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     if (value.length > maxLength) return;
-    setValue(e.target.value);
+    setValueHandler('description', e.target.value);
   };
 
   return (
@@ -23,6 +20,7 @@ const TextareaInput = ({ initialValue }: TextareaInputType) => {
         onChange={handleChange}
         resize='none'
         border='1px solid lightgrey'
+        focusBorderColor='primary.red'
         w='full'
         rows={2}
         borderRadius='md'

@@ -53,12 +53,18 @@ export type Place = {
   route_id: number;
 };
 
-type PlaceInfoStep = 'visit_date' | 'expected_cost' | 'image_url' | 'description';
+export type PlaceInfoType = 'visit_date' | 'expected_cost' | 'image_url' | 'description';
 
 export type PlaceInfoStepItem = {
-  type: PlaceInfoStep;
+  type: PlaceInfoType;
   icon: JSX.Element;
   text: string;
-  value: string | number;
   content: JSX.Element;
+};
+
+export type InputValueType = string | number | File | null;
+
+export type InputProps = {
+  value: string;
+  setValueHandler: (key: PlaceInfoType, newValue: InputValueType) => void;
 };

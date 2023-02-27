@@ -10,8 +10,9 @@ import {
 import { useState } from 'react';
 import { MdCalendarToday, MdCreditCard, MdImage, MdOutlineComment } from 'react-icons/md';
 
-import { Place, PlaceInfoStepItem } from '@/types/place';
+import { InputValueType, Place, PlaceInfoStepItem, PlaceInfoType } from '@/types/place';
 import { PLACE_DUMMY_DATA } from '@/utils/constants/place';
+import { formatPrice } from '@/utils/formatter';
 
 import DateTimeInput from './DateTimeInput';
 import ImageInput from './ImageInput';
@@ -19,10 +20,10 @@ import PriceInput from './PriceInput';
 import TextareaInput from './TextareaInput';
 
 const PlaceInfoStep = () => {
-  const [value, setValue] = useState<Place>(PLACE_DUMMY_DATA);
+  const [values, setValues] = useState<Place>(PLACE_DUMMY_DATA);
 
-  const handleValue = (key: string, newValue: string | number) => {
-    setValue({ ...value, [key]: newValue });
+  const handleValue = (key: PlaceInfoType, newValue: InputValueType) => {
+    setValues({ ...values, [key]: newValue });
   };
 
   const PlaceInfoStepItems: PlaceInfoStepItem[] = [
@@ -30,35 +31,41 @@ const PlaceInfoStep = () => {
       type: 'visit_date',
       icon: <MdCalendarToday />,
       text: '일정',
-      value: value.visit_date,
       content: <DateTimeInput />,
     },
     {
       type: 'expected_cost',
       icon: <MdCreditCard />,
       text: '예산',
-      value: value.expected_cost,
-      content: <PriceInput />,
+      content: (
+        <PriceInput value={String(values.expected_cost)} setValueHandler={handleValue} />
+      ),
     },
     {
       type: 'image_url',
       icon: <MdImage />,
       text: '대표 사진',
-      value: value.image_url,
-      content: <ImageInput />,
+      content: <ImageInput value={values.image_url} setValueHandler={handleValue} />,
     },
     {
       type: 'description',
       icon: <MdOutlineComment />,
       text: '메모',
-      value: value.description,
-      content: <TextareaInput initialValue={value.description} />,
+      content: <TextareaInput value={values.description} setValueHandler={handleValue} />,
     },
   ];
 
+  const getPriceText = (price: number) => `${formatPrice(String(price))}원`;
+  const getDateTimeText = (dateTime: string) => {
+    const date = new Date(dateTime);
+    return `${date.getFullYear()}년 ${
+      date.getMonth() + 1
+    }월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
+  };
+
   return (
     <Accordion allowToggle>
-      {PlaceInfoStepItems.map(({ type, icon, text, value, content }) => (
+      {PlaceInfoStepItems.map(({ type, icon, text, content }) => (
         <AccordionItem key={type}>
           <AccordionButton justifyContent='space-between'>
             <Flex gap='1.5' align='center'>
@@ -66,7 +73,12 @@ const PlaceInfoStep = () => {
               {icon}
               {text}
             </Flex>
-            {(type === 'visit_date' || type === 'expected_cost') && <Text>{value}</Text>}
+            {type === 'expected_cost' && (
+              <Text>{getPriceText(values['expected_cost'])}</Text>
+            )}
+            {type === 'visit_date' && (
+              <Text>{getDateTimeText(values['visit_date'])}</Text>
+            )}
           </AccordionButton>
           <AccordionPanel>{content}</AccordionPanel>
         </AccordionItem>
