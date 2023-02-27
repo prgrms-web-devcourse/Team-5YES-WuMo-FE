@@ -22,7 +22,7 @@ export type PlaceCreateModalProps = {
   closeModalHandler: () => void;
 };
 
-export type StepInfo = {
+export type StepItem = {
   title: string;
   content: JSX.Element;
 };

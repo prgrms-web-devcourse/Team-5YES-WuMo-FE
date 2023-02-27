@@ -1,5 +1,5 @@
 import { Stack, Text } from '@chakra-ui/react';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 
 import useMapPlaces from '@/hooks/useMapPlaces';
 import { description } from '@/utils/constants/place';
