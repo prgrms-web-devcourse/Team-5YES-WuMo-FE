@@ -100,7 +100,7 @@ const RouteCommentFeed = () => {
           )}
         </AccordionItem>
       </Accordion>
-      <Box mt='3.125rem' pb='5rem'>
+      <Box mt='3.125rem'>
         {COMMENTDUMMYDATA.map((comment) => (
           <CommentFeedItem key={comment.id} {...comment} />
         ))}
