@@ -12,33 +12,35 @@ import { useState } from 'react';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 
 import { PlaceCreateModalProps } from '@/types/place';
-
-import { placeCreateStep, placeCreateStepItems } from './PlaceCreateStepItem';
+import { placeCreateStepItems, processStep } from '@/utils/constants/processStep';
 
 const PlaceCreateModal = ({ isOpen, closeModalHandler }: PlaceCreateModalProps) => {
-  const [step, setStep] = useState<number>(placeCreateStep.min);
+  const [step, setStep] = useState<number>(processStep.min);
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() =>
-        step > placeCreateStep.min ? setStep(step - 1) : closeModalHandler()
-      }
+      onClose={() => (step > processStep.min ? setStep(step - 1) : closeModalHandler())}
       size='full'>
       <ModalContent w='maxWidth.mobile'>
         <ModalCloseButton position='initial' size='lg'>
           <MdKeyboardArrowLeft />
         </ModalCloseButton>
-        <Progress value={placeCreateStep.size * step} colorScheme='red' size='sm' />
+        <Progress value={processStep.process * step} colorScheme='red' size='sm' />
         <ModalHeader>{placeCreateStepItems[step - 1].title}</ModalHeader>
-        <ModalBody>{placeCreateStepItems[step - 1].content}</ModalBody>
+        <ModalBody>{placeCreateStepItems[step - 1].component}</ModalBody>
         <ModalFooter>
           <Button
+            bg='primary.red'
+            color='#ffffff'
+            _hover={{
+              bg: 'primary.redHover',
+            }}
             w='full'
             onClick={() => {
-              if (step !== placeCreateStep.max) setStep(step + 1);
+              if (step !== processStep.placeCreateMax) setStep(step + 1);
             }}>
-            {step === placeCreateStep.max ? '후보지 추가' : '다음'}
+            {step === processStep.placeCreateMax ? '후보지 추가' : '다음'}
           </Button>
         </ModalFooter>
       </ModalContent>

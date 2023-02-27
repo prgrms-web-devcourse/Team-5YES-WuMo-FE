@@ -1,6 +1,6 @@
 import { Button, useDisclosure } from '@chakra-ui/react';
 
-import PlaceSearchModal from '@/components/party/place/PlaceSearchModal';
+import PlaceCreateModal from '@/components/party/place/PlaceCreateModal';
 
 const PlaceCreatePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -9,7 +9,7 @@ const PlaceCreatePage = () => {
     <>
       <Button onClick={onOpen}>장소 검색</Button>
 
-      <PlaceSearchModal isOpen={isOpen} onClose={onClose} />
+      <PlaceCreateModal isOpen={isOpen} closeModalHandler={onClose} />
     </>
   );
 };

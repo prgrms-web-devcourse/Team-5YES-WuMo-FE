@@ -26,3 +26,8 @@ export type StepItem = {
   title: string;
   content: JSX.Element;
 };
+
+export type PlaceCreateStepItem = {
+  title: string;
+  component: JSX.Element;
+};
