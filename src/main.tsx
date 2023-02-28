@@ -40,6 +40,10 @@ const theme = extendBaseTheme({
     NumberInput,
     Progress,
   },
+  fonts: {
+    heading: `'Pretendard-Regular', sans-serif`,
+    body: `'Pretendard-Regular', sans-serif`,
+  },
   colors: {
     primary: {
       red: '#ea5148',
