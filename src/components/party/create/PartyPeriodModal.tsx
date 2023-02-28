@@ -1,7 +1,7 @@
 import 'react-calendar/dist/Calendar.css';
 
 import { Box, Button, Flex, ModalBody, ModalFooter, Text } from '@chakra-ui/react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { useRecoilState } from 'recoil';
@@ -19,8 +19,8 @@ const PartyPeriodModal = () => {
   const onClickNextStep = () => {
     setCreatePartyBody({
       ...createPartyBody,
-      startDate: moment(value[0]).format('YYYY-MM-DD'),
-      endDate: moment(value[1]).format('YYYY-MM-DD'),
+      startDate: dayjs(value[0]).format('YYYY-MM-DD'),
+      endDate: dayjs(value[1]).format('YYYY-MM-DD'),
     });
   };
 
@@ -32,7 +32,7 @@ const PartyPeriodModal = () => {
             <Calendar
               onChange={onChange}
               value={value}
-              formatDay={(_, date) => moment(date).format('DD')}
+              formatDay={(_, date) => dayjs(date).format('DD')}
               allowPartialRange={true}
               selectRange={true}
               calendarType='US'
@@ -44,7 +44,7 @@ const PartyPeriodModal = () => {
                 모임 시작 날짜
               </Text>
               <Text fontWeight='bold' fontSize='lg' color='#0000000'>
-                {moment(value[0]).format('YYYY년 MM월 DD일')}
+                {dayjs(value[0]).format('YYYY년 MM월 DD일')}
               </Text>
             </Box>
             <Text>~</Text>
@@ -53,7 +53,7 @@ const PartyPeriodModal = () => {
                 모임 종료 날짜
               </Text>
               <Text fontWeight='bold' fontSize='lg' color='#0000000'>
-                {moment(value[1]).format('YYYY년 MM월 DD일')}
+                {dayjs(value[1]).format('YYYY년 MM월 DD일')}
               </Text>
             </Box>
           </Flex>
