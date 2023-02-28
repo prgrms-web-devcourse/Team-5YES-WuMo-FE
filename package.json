@@ -19,6 +19,7 @@
     "emotion-reset": "^3.0.1",
     "framer-motion": "^9.0.4",
     "react": "^18.2.0",
+    "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.1",
     "react-icons": "^4.7.1",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@types/node": "^18.14.0",
     "@types/react": "^18.0.27",
+    "@types/react-calendar": "^3.9.0",
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",

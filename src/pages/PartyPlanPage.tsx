@@ -1,6 +1,6 @@
 import { Button, useDisclosure } from '@chakra-ui/react';
 
-import PlaceCreatePage from '../components/party/place/PlaceCreateModal';
+import PlaceCreateModal from '@/components/party/place/create/PlaceCreateModal';
 
 const PartyPlanPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -9,7 +9,7 @@ const PartyPlanPage = () => {
     <>
       <div>PartyPlanPage</div>
       <Button onClick={onOpen}>후보지 추가</Button>
-      <PlaceCreatePage isOpen={isOpen} closeModalHandler={onClose} />
+      <PlaceCreateModal isOpen={isOpen} closeModalHandler={onClose} />
     </>
   );
 };
