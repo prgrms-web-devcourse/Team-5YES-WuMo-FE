@@ -1,4 +1,4 @@
-export type CommentTypes = {
+export type CommentType = {
   nickName: string;
   profileImage: string;
   memberRole: string;
