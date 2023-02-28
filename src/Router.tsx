@@ -8,6 +8,7 @@ import {
   LikeRouteListPage,
   MainPage,
   PartyAlbumPage,
+  PartyCommentPage,
   PartyListPage,
   PartyNoticePage,
   PartyPlanPage,
@@ -15,7 +16,6 @@ import {
   SignInPage,
   SignUpPage,
 } from './pages';
-import PlaceCreatePage from './pages/PlaceCreatePage';
 import ROUTES from './utils/constants/routes';
 
 const Router = () => {
@@ -34,7 +34,7 @@ const Router = () => {
             <Route path={ROUTES.PLAN} element={<PartyPlanPage />} />
             <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
           </Route>
-          <Route path={ROUTES.PLACE_NEW} element={<PlaceCreatePage />} />
+          <Route path={ROUTES.SCHEDULE_COMMENT} element={<PartyCommentPage />} />
         </Route>
         <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
         <Route path={ROUTES.SIGNIN} element={<SignInPage />} />

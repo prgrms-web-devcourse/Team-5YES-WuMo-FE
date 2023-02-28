@@ -10,10 +10,6 @@ const globalStyle = css`
     font-style: normal;
   }
 
-  html {
-    height: 100%;
-  }
-
   body {
     height: 100%;
   }
