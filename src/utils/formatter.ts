@@ -1,4 +1,5 @@
-export const formatPrice = (value: string) => value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+export const formatPrice = (value: string) =>
+  new Intl.NumberFormat('ko-KR').format(Number(value));
 
 export const parsePrice = (value: string) => value.replace(/^\$/, '');
 
