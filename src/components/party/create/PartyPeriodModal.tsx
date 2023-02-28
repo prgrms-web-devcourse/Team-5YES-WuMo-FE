@@ -1,14 +1,82 @@
 import 'react-calendar/dist/Calendar.css';
 
+import { Box, Button, Flex, ModalBody, ModalFooter, Text } from '@chakra-ui/react';
+import moment from 'moment';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
+import { useRecoilState } from 'recoil';
+
+import { createPartyState, stepState } from '@/store/recoilPartyState';
+import { PartyCreateBody } from '@/types/party';
+import { processStep } from '@/utils/constants/processStep';
 
 const PartyPeriodModal = () => {
   const [value, onChange] = useState(new Date());
+  const [createPartyBody, setCreatePartyBody] =
+    useRecoilState<PartyCreateBody>(createPartyState);
+  const [step, setStep] = useRecoilState<number>(stepState);
+
+  const onClickNextStep = () => {
+    setCreatePartyBody({
+      ...createPartyBody,
+      startDate: moment(value[0]).format('YYYY-MM-DD'),
+      endDate: moment(value[1]).format('YYYY-MM-DD'),
+    });
+  };
+
   return (
-    <div>
-      <Calendar onChange={onChange} value={value} />
-    </div>
+    <>
+      <ModalBody>
+        <Flex flexDirection='column' justify='center' alignItems='center'>
+          <Box mb='10' textAlign='center'>
+            <Calendar
+              onChange={onChange}
+              value={value}
+              formatDay={(_, date) => moment(date).format('DD')}
+              allowPartialRange={true}
+              selectRange={true}
+              calendarType='US'
+            />
+          </Box>
+          <Flex gap={4} alignItems='center'>
+            <Box>
+              <Text fontSize='sm' color='#3b3b3b' mb='2'>
+                모임 시작 날짜
+              </Text>
+              <Text fontWeight='bold' fontSize='lg' color='#0000000'>
+                {moment(value[0]).format('YYYY년 MM월 DD일')}
+              </Text>
+            </Box>
+            <Text>~</Text>
+            <Box>
+              <Text fontSize='sm' color='#3b3b3b' mb='2'>
+                모임 종료 날짜
+              </Text>
+              <Text fontWeight='bold' fontSize='lg' color='#0000000'>
+                {moment(value[1]).format('YYYY년 MM월 DD일')}
+              </Text>
+            </Box>
+          </Flex>
+        </Flex>
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          bg='primary.red'
+          color='#ffffff'
+          _hover={{
+            bg: 'primary.redHover',
+          }}
+          w='full'
+          onClick={() => {
+            if (step !== processStep.partyCreateMax) {
+              onClickNextStep();
+              setStep(step + 1);
+            }
+          }}>
+          다음
+        </Button>
+      </ModalFooter>
+    </>
   );
 };
 
