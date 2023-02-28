@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import emotionReset from 'emotion-reset';
 
 const globalStyle = css`
   @font-face {
@@ -74,8 +73,6 @@ const globalStyle = css`
     font-family: 'Pretendard-Regular';
     height: 100%;
   }
-
-  ${emotionReset}
 `;
 
 export default globalStyle;
