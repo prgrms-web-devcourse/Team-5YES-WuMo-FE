@@ -40,7 +40,7 @@ export type Place = {
   name: string;
   address: string;
   latitude: number;
-  longititude: number;
+  longitude: number;
   image_url: string;
   category: string;
   description: string;

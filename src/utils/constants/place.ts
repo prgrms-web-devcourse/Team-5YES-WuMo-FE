@@ -67,7 +67,7 @@ export const PLACE_DUMMY_DATA: Place = {
   name: '마마된장 강남358타워점',
   address: '서울 강남구 강남대로 358',
   latitude: 37.4950612185917,
-  longititude: 127.029794890834,
+  longitude: 127.029794890834,
   image_url:
     'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
   category: '식사',
@@ -86,7 +86,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     name: '마마된장 강남358타워점',
     address: '서울 강남구 강남대로 358',
     latitude: 37.4950612185917,
-    longititude: 127.029794890834,
+    longitude: 127.029794890834,
     image_url:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
     category: '식사',
@@ -103,7 +103,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     name: '정통집 강남직영점',
     address: '서울 강남구 강남대로96길 13',
     latitude: 37.4999549951152,
-    longititude: 127.028120848084,
+    longitude: 127.028120848084,
     image_url:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F4887364A683A4370BB2F646C88393BD8',
     category: '식사',
@@ -120,7 +120,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     name: '오늘통닭 강남역점',
     address: '서울 서초구 서초대로74길 33',
     latitude: 37.49459498836523,
-    longititude: 127.02777846305729,
+    longitude: 127.02777846305729,
     image_url:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F66BF9E6CF94E46C2873CAB0C2C5798AE',
     category: '술',
@@ -137,7 +137,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     name: '고수닭갈비',
     address: '서울 강남구 강남대로96길 12',
     latitude: 37.4997144359173,
-    longititude: 127.028081176656,
+    longitude: 127.028081176656,
     image_url:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
     category: '식사',
