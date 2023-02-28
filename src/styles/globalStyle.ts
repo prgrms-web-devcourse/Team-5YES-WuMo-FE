@@ -16,6 +16,54 @@ const globalStyle = css`
 
   body {
     height: 100%;
+
+    .chakra-modal__content-container {
+      font-family: 'Pretendard-Regular';
+
+      // react-calendar custom csss
+      .react-calendar {
+        font-family: 'Pretendard-Regular';
+        width: 100%;
+        border: none;
+        .react-calendar__tile--now {
+          background: #f4cf47;
+          color: #080808;
+        }
+        .react-calendar__tile--now:enabled:hover,
+        .react-calendar__tile--now:enabled:focus {
+          background: #f4cf47;
+          color: #080808;
+        }
+        .react-calendar__navigation__label > span {
+          font-weight: bold;
+        }
+
+        .react-calendar__month-view__weekdays {
+          abbr {
+            color: #080808;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
+          }
+        }
+
+        .react-calendar__tile--range {
+          background-color: #ffeda9;
+          color: #080808;
+        }
+
+        .react-calendar__tile--rangeStart,
+        .react-calendar__tile--rangeEnd {
+          border-radius: 4px;
+          background-color: #f4cf47;
+          color: #080808;
+        }
+
+        .react-calendar--selectRange .react-calendar__tile--hover {
+          background-color: #f4cf47;
+        }
+      }
+    }
   }
 
   body::-webkit-scrollbar {
@@ -27,54 +75,6 @@ const globalStyle = css`
     height: 100%;
   }
 
-  .chakra-modal__content-container {
-    font-family: 'Pretendard-Regular';
-
-    // react-calendar custom css
-    .react-calendar {
-      font-family: 'Pretendard-Regular';
-      width: 100%;
-      border: none;
-      .react-calendar__tile--now {
-        background: #f4cf47;
-        color: #080808;
-      }
-      .react-calendar__tile--now:enabled:hover,
-      .react-calendar__tile--now:enabled:focus {
-        background: #f4cf47;
-        color: #080808;
-      }
-      .react-calendar__navigation__label > span {
-        font-weight: bold;
-      }
-
-      .react-calendar__month-view__weekdays {
-        abbr {
-          /*월,화,수... 글자 부분*/
-          color: #080808;
-          font-size: 1.2rem;
-          font-weight: 500;
-          text-decoration: none;
-        }
-      }
-
-      .react-calendar__tile--range {
-        background-color: #ffeda9;
-        color: #080808;
-      }
-
-      .react-calendar__tile--rangeStart,
-      .react-calendar__tile--rangeEnd {
-        border-radius: 4px;
-        background-color: #f4cf47;
-        color: #080808;
-      }
-
-      .react-calendar--selectRange .react-calendar__tile--hover {
-        background-color: #f4cf47;
-      }
-    }
-  }
   ${emotionReset}
 `;
 

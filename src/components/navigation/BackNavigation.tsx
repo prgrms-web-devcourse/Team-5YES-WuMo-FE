@@ -8,7 +8,7 @@ import { BackNavigationProps } from '@/types/backNavigation';
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const navigate = useNavigate();
   return (
-    <Nav maxW='maxWidth.mobile' bg='#ffffff'>
+    <Nav maxW='maxWidth.mobile'>
       <Flex justify='space-between'>
         <SpanButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
