@@ -22,12 +22,49 @@ export type PlaceCreateModalProps = {
   closeModalHandler: () => void;
 };
 
-export type StepItem = {
-  title: string;
+export type StepItems = {
+  [stepKey: number]: {
+    title: string;
+    content: JSX.Element;
+  };
+};
+
+export type Category = {
+  [name: string]: {
+    text: string;
+    imageID: string;
+  };
+};
+
+export type Place = {
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  image: string;
+  category: string;
+  description: string;
+  visitDate: string;
+  expectedCost: number;
+};
+
+export type PlaceInfoType = 'visitDate' | 'expectedCost' | 'image' | 'description';
+
+export type PlaceInfoStepItem = {
+  type: PlaceInfoType;
+  icon: JSX.Element;
+  text: string;
   content: JSX.Element;
 };
 
 export type PlaceCreateStepItem = {
   title: string;
   component: JSX.Element;
+};
+
+export type InputValueType = string | number | File | Date | null;
+
+export type InputProps = {
+  value: string;
+  setValueHandler: (key: PlaceInfoType, newValue: InputValueType) => void;
 };

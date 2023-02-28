@@ -8,7 +8,7 @@ const BottomNavigation = () => {
   const { pathname } = useLocation();
   return (
     <>
-      <Navigation maxW='maxWidth.mobile'>
+      <Navigation maxW='maxWidth.mobile' bg='white' zIndex='10'>
         <Flex justify='space-between'>
           {NAVIGATION_ITEM.map((item) => (
             <Link to={item.link} key={item.id}>
@@ -26,7 +26,9 @@ const BottomNavigation = () => {
           ))}
         </Flex>
       </Navigation>
-      <StyledOutlet />
+      <Box mb='5rem'>
+        <StyledOutlet />
+      </Box>
     </>
   );
 };
@@ -40,7 +42,7 @@ export const Navigation = styled(Grid)`
 `;
 
 const StyledOutlet = styled(Outlet)`
-  padding-bottom: 5rem;
+  margin-bottom: 5rem;
 `;
 
 export default BottomNavigation;

@@ -4,6 +4,7 @@ const ROUTES = {
   SIGNIN: '/signin',
   NOTICE: '/notice',
   SCHEDULE: '/schedule',
+  SCHEDULE_COMMENT: '/schedule-comment',
   PLAN: '/plan',
   ALBUM: '/album',
   LIKE: '/like',
