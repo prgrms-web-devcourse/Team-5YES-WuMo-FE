@@ -12,8 +12,8 @@ import {
 import { MdAdd, MdLocationPin } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-import PlaceCreateModal from '@/components/party/place/create/PlaceCreateModal';
-import PlacePreviewMap from '@/components/party/place/create/search/PlacePreviewMap';
+import PlaceCreateModal from '@/components/placeCreate/PlaceCreateModal';
+import PlacePreviewMap from '@/components/placeCreate/search/PlacePreviewMap';
 import { PLACES_DUMMY_DATA } from '@/utils/constants/place';
 import { getDateTimeText } from '@/utils/formatter';
 

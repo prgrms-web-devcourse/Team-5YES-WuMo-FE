@@ -11,14 +11,14 @@ const ImageInput = ({ value, setValueHandler }: InputProps) => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValueHandler('image_url', file);
+      setValueHandler('image', file);
       encodeFileToBase64(file);
     }
   };
 
   const handleFileDelete = () => {
     if (confirm('사진을 삭제하시겠습니까?')) {
-      setValueHandler('image_url', null);
+      setValueHandler('image', null);
       setImageBase64('');
     }
   };
