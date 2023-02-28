@@ -49,6 +49,6 @@ export const NAVIGATION_ITEM: navigationItem[] = [
     name: '내 정보',
     icon: MdPersonOutline,
     activeIcon: MdPerson,
-    link: ROUTES.MY_INFO,
+    link: ROUTES.PROFILE,
   },
 ];

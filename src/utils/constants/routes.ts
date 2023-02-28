@@ -9,7 +9,7 @@ const ROUTES = {
   ALBUM: '/album',
   LIKE: '/like',
   PARTY_CREATE: '/party-create',
-  MY_INFO: '/myinfo',
+  PROFILE: '/profile',
   PLACE_NEW: '/place/new',
   PARTY_LIST: '/party-list',
   BEST_ROUTE_LIST: '/best-route-list',
