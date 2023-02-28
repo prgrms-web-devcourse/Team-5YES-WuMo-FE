@@ -37,6 +37,7 @@ export type Category = {
 };
 
 export type Place = {
+  id?: number;
   name: string;
   address: string;
   latitude: number;
@@ -46,6 +47,8 @@ export type Place = {
   description: string;
   visitDate: string;
   expectedCost: number;
+  spending?: number;
+  routeId?: number;
 };
 
 export type PlaceInfoType = 'visitDate' | 'expectedCost' | 'image' | 'description';
