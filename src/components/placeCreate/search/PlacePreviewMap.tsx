@@ -24,13 +24,16 @@ const PlacePreviewMap = ({
         width,
         height,
       }}>
-      {mapMarkers &&
+      {mapMarkers ? (
         mapMarkers.map((marker) => (
           <MapMarker
             key={marker.id}
             position={{ lat: marker.latitude, lng: marker.longitude }}
           />
-        ))}
+        ))
+      ) : (
+        <MapMarker position={{ lat: latitude, lng: longitude }} />
+      )}
     </Map>
   );
 };
