@@ -14,7 +14,7 @@ const PartyInformation = () => {
           <Heading size='md'>파티 명</Heading>
           <Text>기간</Text>
         </Container>
-        <Flex p='10px' textAlign='right' align='center'>
+        <Flex p='0.625rem' textAlign='right' align='center'>
           <Button colorScheme='teal' size='xs' marginRight='0.625rem'>
             영수증
           </Button>

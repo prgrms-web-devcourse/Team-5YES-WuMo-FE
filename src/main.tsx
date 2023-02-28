@@ -40,15 +40,20 @@ const theme = extendBaseTheme({
     NumberInput,
     Progress,
   },
+  fonts: {
+    heading: `'Pretendard-Regular', sans-serif`,
+    body: `'Pretendard-Regular', sans-serif`,
+  },
   colors: {
     primary: {
       red: '#ea5148',
+      redHover: '#cc4942',
       yellow: '#f4cf47',
     },
   },
   sizes: {
     maxWidth: {
-      mobile: '560px',
+      mobile: '35rem',
     },
   },
 });

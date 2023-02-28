@@ -16,10 +16,10 @@ const Route = () => {
   return (
     <Box
       maxW='sm'
-      borderWidth='1px'
+      borderWidth='0.0625rem'
       borderRadius='lg'
       overflow='hidden'
-      border='1px solid #cfcfcf'
+      border='0.0625rem solid #cfcfcf'
       cursor='pointer'
       margin='0 auto 2rem auto'
       onClick={() => navigate(ROUTES.BEST_ROUTE_DETAIL)}>

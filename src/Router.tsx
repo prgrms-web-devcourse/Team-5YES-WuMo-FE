@@ -9,6 +9,7 @@ import {
   MainPage,
   PartyAlbumPage,
   PartyCommentPage,
+  PartyCreatePage,
   PartyListPage,
   PartyNoticePage,
   PartyPlanPage,
@@ -25,6 +26,7 @@ const Router = () => {
         <Route element={<BottomNavigation />}>
           <Route path={ROUTES.MAIN} element={<MainPage />} />
           <Route path={ROUTES.LIKE} element={<LikeRouteListPage />} />
+          <Route path={ROUTES.PARTY_CREATE} element={<PartyCreatePage />} />
           <Route path={ROUTES.BEST_ROUTE_LIST} element={<BestRouteListPage />} />
           <Route path={ROUTES.BEST_ROUTE_DETAIL} element={<BestRouteDetailPage />} />
           <Route path={ROUTES.PARTY_LIST} element={<PartyListPage />} />
