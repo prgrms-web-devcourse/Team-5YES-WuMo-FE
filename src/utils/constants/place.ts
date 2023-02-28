@@ -70,7 +70,7 @@ export const PLACE_DUMMY_DATA: Place = {
   longitude: 127.029794890834,
   image:
     'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
-  category: '식사',
+  category: 'meal',
   description: '된장찌개 맛있는 곳!',
   visitDate: '2023-02-27T13:33:39.614Z',
   expectedCost: 30000,

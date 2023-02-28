@@ -10,6 +10,8 @@ export type PlacePreviewMapProps = {
   width?: string;
   height?: string;
   level?: number;
+  draggable?: boolean;
+  mapMarkers?: PlaceMarker[];
 };
 
 export type PlaceSearchFormProps = {
@@ -51,6 +53,8 @@ export type Place = {
   routeId?: number;
 };
 
+export type PlaceMarker = Pick<Place, 'id' | 'latitude' | 'longitude' | 'category'>;
+
 export type PlaceInfoType = 'visitDate' | 'expectedCost' | 'image' | 'description';
 
 export type PlaceInfoStepItem = {
@@ -65,4 +69,9 @@ export type InputValueType = string | number | File | Date | null;
 export type InputProps = {
   value: string;
   setValueHandler: (key: PlaceInfoType, newValue: InputValueType) => void;
+};
+
+export type PlanPlaceListProps = {
+  places: Place[];
+  openModalHandler: () => void;
 };
