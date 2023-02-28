@@ -25,11 +25,8 @@ const PlacePreviewMap = ({
         height,
       }}>
       {mapMarkers ? (
-        mapMarkers.map((marker) => (
-          <MapMarker
-            key={marker.id}
-            position={{ lat: marker.latitude, lng: marker.longitude }}
-          />
+        mapMarkers.map(({ id, latitude, longitude }) => (
+          <MapMarker key={id} position={{ lat: latitude, lng: longitude }} />
         ))
       ) : (
         <MapMarker position={{ lat: latitude, lng: longitude }} />
