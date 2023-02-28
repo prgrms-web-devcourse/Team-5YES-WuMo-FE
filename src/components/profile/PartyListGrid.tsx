@@ -43,10 +43,10 @@ const PartyListGrid = () => {
     <Box mt='6' pb='10'>
       <Heading size='md'>내 모임 목록</Heading>
       <SimpleGrid mt='4' columns={3} spacing='10px'>
-        {party_dummy_data.map((party) => (
-          <Flex direction='column' justify='center' align='center' key={party.id}>
+        {party_dummy_data.map(({ id, image, name }) => (
+          <Flex direction='column' justify='center' align='center' key={id}>
             <Image
-              src={party.image}
+              src={image}
               h='8.75rem'
               w='8.75rem'
               alignItems='center'
@@ -54,7 +54,7 @@ const PartyListGrid = () => {
               borderRadius='1.25rem'
             />
             <Text mt='2' size='xs' wordBreak='break-all' textAlign='center'>
-              {party.name}
+              {name}
             </Text>
           </Flex>
         ))}
