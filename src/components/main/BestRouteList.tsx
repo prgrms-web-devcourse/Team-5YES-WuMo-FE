@@ -42,7 +42,7 @@ const DUMMYDATA = [
   },
 ];
 
-const BestLouteList = () => {
+const BestRouteList = () => {
   const [dragging, setDragging] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const BestLouteList = () => {
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
-    centerPadding: '6.25rem',
+    centerPadding: '100px',
     touchThreshold: 200,
     beforeChange: onBeforeChange,
     afterChange: onAfterChange,
@@ -82,7 +82,7 @@ const BestLouteList = () => {
       {
         breakpoint: 447,
         settings: {
-          centerPadding: '3.125rem',
+          centerPadding: '50px',
         },
       },
     ],
@@ -121,7 +121,7 @@ const BestLouteList = () => {
   );
 };
 
-export default BestLouteList;
+export default BestRouteList;
 
 const StyledSlider = styled(Slider)`
   .slick-slide {

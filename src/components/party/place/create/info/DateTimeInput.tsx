@@ -8,6 +8,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/number-input';
+import dayjs from 'dayjs';
 import Calendar from 'react-calendar';
 
 import { InputProps } from '@/types/place';
@@ -19,6 +20,7 @@ const DateTimeInput = ({ value, setValueHandler }: InputProps) => {
         locale='ko'
         calendarType='US'
         value={new Date(value)}
+        formatDay={(_, date) => dayjs(date).format('DD')}
         onChange={(v: Date) => setValueHandler('visit_date', v)}
       />
       <HStack>

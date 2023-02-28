@@ -1,9 +1,9 @@
 import PartyNameModal from '@/components/party/create/PartyNameModal';
 import PartyOwnRoleModal from '@/components/party/create/PartyOwnRoleModal';
 import PartyPeriodModal from '@/components/party/create/PartyPeriodModal';
-import PlaceCategoryStep from '@/components/party/place/PlaceCategoryStep';
-import PlaceInfoStep from '@/components/party/place/PlaceInfoStep';
-import PlaceSearchStep from '@/components/party/place/PlaceSearchStep';
+import PlaceCategoryStep from '@/components/party/place/create/category/PlaceCategoryStep';
+import PlaceInfoStep from '@/components/party/place/create/info/PlaceInfoStep';
+import PlaceSearchStep from '@/components/party/place/create/search/PlaceSearchStep';
 import { PartyCreateStepItem } from '@/types/party';
 import { PlaceCreateStepItem } from '@/types/place';
 
