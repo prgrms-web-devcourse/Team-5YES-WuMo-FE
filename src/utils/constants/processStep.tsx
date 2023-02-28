@@ -38,7 +38,7 @@ export const placeCreateStepItems: PlaceCreateStepItem[] = [
 ];
 
 export const processStep = {
-  process: 30,
+  process: 33.3,
   min: 1,
   partyCreateMax: partyCreateStepItems.length,
   placeCreateMax: placeCreateStepItems.length,
