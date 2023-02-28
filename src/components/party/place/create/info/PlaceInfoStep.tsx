@@ -28,24 +28,24 @@ const PlaceInfoStep = () => {
 
   const PlaceInfoStepItems: PlaceInfoStepItem[] = [
     {
-      type: 'visit_date',
+      type: 'visitDate',
       icon: <MdCalendarToday />,
       text: '일정',
-      content: <DateTimeInput value={values.visit_date} setValueHandler={handleValue} />,
+      content: <DateTimeInput value={values.visitDate} setValueHandler={handleValue} />,
     },
     {
-      type: 'expected_cost',
+      type: 'expectedCost',
       icon: <MdCreditCard />,
       text: '예산',
       content: (
-        <PriceInput value={String(values.expected_cost)} setValueHandler={handleValue} />
+        <PriceInput value={String(values.expectedCost)} setValueHandler={handleValue} />
       ),
     },
     {
-      type: 'image_url',
+      type: 'image',
       icon: <MdImage />,
       text: '대표 사진',
-      content: <ImageInput value={values.image_url} setValueHandler={handleValue} />,
+      content: <ImageInput value={values.image} setValueHandler={handleValue} />,
     },
     {
       type: 'description',
@@ -73,12 +73,10 @@ const PlaceInfoStep = () => {
               {icon}
               {text}
             </Flex>
-            {type === 'expected_cost' && (
-              <Text>{getPriceText(values['expected_cost'])}</Text>
+            {type === 'expectedCost' && (
+              <Text>{getPriceText(values['expectedCost'])}</Text>
             )}
-            {type === 'visit_date' && (
-              <Text>{getDateTimeText(values['visit_date'])}</Text>
-            )}
+            {type === 'visitDate' && <Text>{getDateTimeText(values['visitDate'])}</Text>}
           </AccordionButton>
           <AccordionPanel>{content}</AccordionPanel>
         </AccordionItem>

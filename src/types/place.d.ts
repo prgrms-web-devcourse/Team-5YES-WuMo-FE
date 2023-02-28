@@ -41,19 +41,14 @@ export type Place = {
   address: string;
   latitude: number;
   longitude: number;
-  image_url: string;
+  image: string;
   category: string;
   description: string;
-  visit_date: string;
-  expected_cost: number;
-  spending: number;
-  created_at: string;
-  updated_at: string;
-  party_id: number;
-  route_id: number;
+  visitDate: string;
+  expectedCost: number;
 };
 
-export type PlaceInfoType = 'visit_date' | 'expected_cost' | 'image_url' | 'description';
+export type PlaceInfoType = 'visitDate' | 'expectedCost' | 'image' | 'description';
 
 export type PlaceInfoStepItem = {
   type: PlaceInfoType;
