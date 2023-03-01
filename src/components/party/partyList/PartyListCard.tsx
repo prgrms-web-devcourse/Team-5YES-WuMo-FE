@@ -35,7 +35,6 @@ const PartyListCard = ({
       cursor='pointer'
       onClick={() => handleClick(id)}
       py='10'
-      borderBottom='1px'
       direction={{ base: 'column', sm: 'row' }}
       overflow='hidden'
       variant='outline'>
