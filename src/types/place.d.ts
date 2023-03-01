@@ -85,3 +85,10 @@ export type PlanPlaceListProps = {
   places: Place[];
   openModalHandler: () => void;
 };
+
+export type Comment = {
+  content: string;
+  image?: string;
+  locationId: number;
+  partyMemberId: number;
+};
