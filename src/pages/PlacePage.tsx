@@ -31,7 +31,7 @@ const PlacePage = () => {
   return (
     <>
       <BackNavigation />
-      <Box height='2xs'>
+      <Box height='2xs' marginTop='12'>
         <Image src={data.image} height='3xs' width='full' objectFit='cover' />
         <Image
           src={getCategoryImageURL(categoryInfo[data.category].imageID)}
