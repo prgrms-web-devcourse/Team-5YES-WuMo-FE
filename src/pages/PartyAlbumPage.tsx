@@ -1,5 +1,7 @@
+import AlbumGird from '@/components/party/album/AlbumGird';
+
 const PartyAlbumPage = () => {
-  return <div>PartyAlbumPage</div>;
+  return <AlbumGird />;
 };
 
 export default PartyAlbumPage;
