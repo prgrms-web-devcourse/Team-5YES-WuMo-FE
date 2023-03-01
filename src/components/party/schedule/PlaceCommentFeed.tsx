@@ -87,7 +87,7 @@ const RouteCommentFeed = () => {
           borderBottom='2px solid'
           borderBottomColor='gray.100'
           pos='fixed'
-          top='0'
+          top='10'
           bg='white'
           w='100%'
           maxW='35rem'
@@ -100,7 +100,7 @@ const RouteCommentFeed = () => {
           )}
         </AccordionItem>
       </Accordion>
-      <Box mt='3.125rem'>
+      <Box mt='6.25rem'>
         {COMMENTDUMMYDATA.map((comment) => (
           <CommentFeedItem key={comment.id} {...comment} />
         ))}

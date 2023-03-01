@@ -42,7 +42,7 @@ export const NAVIGATION_ITEM: NavigationItem[] = [
     name: '내 모임',
     icon: MdPeopleOutline,
     activeIcon: MdPeople,
-    link: ROUTES.NOTICE,
+    link: ROUTES.PARTY_LIST,
   },
   {
     id: '5',

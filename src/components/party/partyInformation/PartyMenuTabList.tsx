@@ -5,10 +5,6 @@ import ROUTES from '@/utils/constants/routes';
 
 const partyTab = [
   {
-    name: '공지',
-    to: ROUTES.NOTICE,
-  },
-  {
     name: '일정',
     to: ROUTES.SCHEDULE,
   },
@@ -24,7 +20,7 @@ const partyTab = [
 
 const PartyMenuTabList = () => {
   return (
-    <Tabs>
+    <Tabs pos='sticky' top='10' bg='white' zIndex='20'>
       <TabList>
         {partyTab.map((tab) => (
           <Link key={tab.name} to={tab.to} style={{ width: '100%' }}>

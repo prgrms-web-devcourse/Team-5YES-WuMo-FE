@@ -27,7 +27,7 @@ const PartyListCard = ({
   const navigate = useNavigate();
   const handleClick = (id: number) => {
     console.log(id);
-    navigate(ROUTES.MAIN);
+    navigate(ROUTES.SCHEDULE);
   };
   return (
     <Card

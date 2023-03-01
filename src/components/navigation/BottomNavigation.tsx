@@ -8,7 +8,7 @@ const BottomNavigation = () => {
   const { pathname } = useLocation();
   return (
     <>
-      <Navigation maxW='maxWidth.mobile' bg='white' zIndex='10'>
+      <Navigation maxW='maxWidth.mobile' bg='white' zIndex='50'>
         <Flex justify='space-between'>
           {NAVIGATION_ITEM.map((item) => (
             <Link to={item.link} key={item.id}>

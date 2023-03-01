@@ -12,6 +12,7 @@ const {
   Button,
   Card,
   CloseButton,
+  Card,
   Container,
   Divider,
   FormLabel,
@@ -22,6 +23,7 @@ const {
   Modal,
   NumberInput,
   Progress,
+  List,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -31,6 +33,7 @@ const theme = extendBaseTheme({
     Button,
     Card,
     CloseButton,
+    Card,
     Container,
     Divider,
     FormLabel,
@@ -41,6 +44,7 @@ const theme = extendBaseTheme({
     Modal,
     NumberInput,
     Progress,
+    List,
   },
   fonts: {
     heading: `'Pretendard-Regular', sans-serif`,
