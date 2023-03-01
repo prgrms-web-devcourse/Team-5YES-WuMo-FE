@@ -13,7 +13,7 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const navigate = useNavigate();
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20'>
-      <Flex justify='space-between' mb='4'>
+      <Flex justify='space-between'>
         <SpanButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </SpanButton>

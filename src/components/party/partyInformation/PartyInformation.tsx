@@ -11,7 +11,7 @@ const PartyInformation = () => {
   return (
     <Box>
       <BackNavigation />
-      <Image src='https://via.placeholder.com/560x200' pt='48px' />
+      <Image src='https://via.placeholder.com/560x200' pt='4.75rem' />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>
           <Heading size='md'>파티 명</Heading>
