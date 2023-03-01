@@ -42,7 +42,7 @@ const DUMMYDATA = {
       description: '부산하면 회지',
       visitDate: '2023-02-28T07:11:14.766Z',
       spending: 50000,
-      category: 'beer',
+      category: 'drinking',
     },
     {
       id: 4,
