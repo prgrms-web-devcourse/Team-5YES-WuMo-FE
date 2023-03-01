@@ -8,7 +8,7 @@ import ToSignUp from '@/components/signIn/ToSignUp';
 
 const SignInPage = () => {
   return (
-    <>
+    <Box pt='16'>
       <BackNavigation />
       <Flex height='100%' flexDirection='column' justifyContent='center'>
         <Box>
@@ -18,7 +18,7 @@ const SignInPage = () => {
           <FindUserInfo />
         </Box>
       </Flex>
-    </>
+    </Box>
   );
 };
 

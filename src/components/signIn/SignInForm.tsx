@@ -34,7 +34,7 @@ const SignInForm = () => {
     <Container as='form' onSubmit={handleSubmit(onSubmit)}>
       <SignInInput name='email' control={control} resetField={resetField} />
       <SignInInput name='password' control={control} resetField={resetField} />
-      <SubmitButton isSubmitting={isSubmitting} mt='48' width='100%' colorScheme='orange'>
+      <SubmitButton isSubmitting={isSubmitting} mt='64' width='100%' colorScheme='orange'>
         로그인
       </SubmitButton>
     </Container>

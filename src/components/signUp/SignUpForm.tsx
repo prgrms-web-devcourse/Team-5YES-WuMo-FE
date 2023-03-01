@@ -215,7 +215,7 @@ const SignUpForm = () => {
 
         <Center>
           <Button
-            mt={4}
+            mt={2}
             width='100%'
             colorScheme='orange'
             isLoading={isSubmitting}
