@@ -2,6 +2,7 @@ import { Box, Button, ButtonGroup, Flex, Heading, Image } from '@chakra-ui/react
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import BackNavigation from '@/components/navigation/BackNavigation';
 import CommentForm from '@/components/place/CommentForm';
 import PlaceInfoTable from '@/components/place/PlaceInfoTable';
 import PlacePreviewMap from '@/components/placeCreate/search/PlacePreviewMap';
@@ -29,7 +30,8 @@ const PlacePage = () => {
 
   return (
     <>
-      <Box height='2xs'>
+      <BackNavigation />
+      <Box height='2xs' marginTop='12'>
         <Image src={data.image} height='3xs' width='full' objectFit='cover' />
         <Image
           src={getCategoryImageURL(categoryInfo[data.category].imageID)}
