@@ -33,7 +33,7 @@ const album_dummy_data = [
 
 const AlbumGird = () => {
   return (
-    <Grid w='100%' mt='4' templateColumns='repeat(3, 1fr)' gap={6}>
+    <Grid w='100%' mt='4' pb='10' templateColumns='repeat(3, 1fr)' gap={6}>
       {album_dummy_data.map(({ id, image }) => (
         <GridItem key={id} w='100%'>
           <Center>
