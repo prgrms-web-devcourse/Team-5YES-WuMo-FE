@@ -8,6 +8,8 @@ const PlacePreviewMap = ({
   width = '100%',
   height = '12.5rem',
   level = 5,
+  draggable = false,
+  mapMarkers,
 }: PlacePreviewMapProps) => {
   return (
     <Map
@@ -16,13 +18,19 @@ const PlacePreviewMap = ({
         lng: longitude,
       }}
       isPanto={true}
-      draggable={false}
+      draggable={draggable}
       level={level}
       style={{
         width,
         height,
       }}>
-      <MapMarker position={{ lat: latitude, lng: longitude }} />
+      {mapMarkers ? (
+        mapMarkers.map(({ id, latitude, longitude }) => (
+          <MapMarker key={id} position={{ lat: latitude, lng: longitude }} />
+        ))
+      ) : (
+        <MapMarker position={{ lat: latitude, lng: longitude }} />
+      )}
     </Map>
   );
 };

@@ -21,7 +21,7 @@ const DateTimeInput = ({ value, setValueHandler }: InputProps) => {
         calendarType='US'
         value={new Date(value)}
         formatDay={(_, date) => dayjs(date).format('DD')}
-        onChange={(v: Date) => setValueHandler('visit_date', v)}
+        onChange={(v: Date) => setValueHandler('visitDate', v)}
       />
       <HStack>
         <NumberInput
@@ -31,7 +31,7 @@ const DateTimeInput = ({ value, setValueHandler }: InputProps) => {
           max={23}
           value={new Date(value).getHours()}
           onChange={(valueString) =>
-            setValueHandler('visit_date', new Date(value).setHours(Number(valueString)))
+            setValueHandler('visitDate', new Date(value).setHours(Number(valueString)))
           }>
           <NumberInputField />
           <NumberInputStepper>
@@ -47,7 +47,7 @@ const DateTimeInput = ({ value, setValueHandler }: InputProps) => {
           max={59}
           value={new Date(value).getMinutes()}
           onChange={(valueString) =>
-            setValueHandler('visit_date', new Date(value).setMinutes(Number(valueString)))
+            setValueHandler('visitDate', new Date(value).setMinutes(Number(valueString)))
           }>
           <NumberInputField />
           <NumberInputStepper>
