@@ -10,12 +10,14 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
+import { useNavigate } from 'react-router';
 
 import { PlaceCreateModalProps } from '@/types/place';
 import { placeCreateStepItems, processStep } from '@/utils/constants/processStep';
 
 const PlaceCreateModal = ({ isOpen, closeModalHandler }: PlaceCreateModalProps) => {
   const [step, setStep] = useState<number>(processStep.min);
+  const navigate = useNavigate();
 
   return (
     <Modal
@@ -37,9 +39,11 @@ const PlaceCreateModal = ({ isOpen, closeModalHandler }: PlaceCreateModalProps) 
               bg: 'primary.redHover',
             }}
             w='full'
-            onClick={() => {
-              if (step !== processStep.placeCreateMax) setStep(step + 1);
-            }}>
+            onClick={() =>
+              step !== processStep.placeCreateMax
+                ? setStep(step + 1)
+                : navigate('/place/4')
+            }>
             {step === processStep.placeCreateMax ? '후보지 추가' : '다음'}
           </Button>
         </ModalFooter>

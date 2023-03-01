@@ -102,29 +102,13 @@ export const PLACE_DUMMY_DATA: Place = {
     'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
   category: 'meal',
   description: '된장찌개 맛있는 곳!',
-  visitDate: '2023-02-27T13:33:39.614Z',
+  visitDate: String(new Date()),
   expectedCost: 30000,
 };
 
 export const PLACES_DUMMY_DATA: Place[] = [
   {
     id: 1,
-    name: '마마된장 강남358타워점',
-    address: '서울 강남구 강남대로 358',
-    latitude: 37.4950612185917,
-    longitude: 127.029794890834,
-    image:
-      'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
-    category: 'meal',
-    description:
-      '된장찌개 맛있는 곳!된장찌개 맛있는 곳!된장찌개 맛있는 곳!된장찌개 맛있는 곳!된장찌개 맛있는 곳!',
-    visitDate: '2023-02-27T13:33:39.614Z',
-    expectedCost: 30000,
-    spending: 0,
-    routeId: 1,
-  },
-  {
-    id: 2,
     name: '정통집 강남직영점',
     address: '서울 강남구 강남대로96길 13',
     latitude: 37.4999549951152,
@@ -139,7 +123,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     routeId: 1,
   },
   {
-    id: 3,
+    id: 2,
     name: '오늘통닭 강남역점',
     address: '서울 서초구 서초대로74길 33',
     latitude: 37.49459498836523,
@@ -154,7 +138,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     routeId: 1,
   },
   {
-    id: 4,
+    id: 3,
     name: '장인닭갈비 강남점',
     address: '서울 강남구 테헤란로1길 19',
     latitude: 37.4996136518153,
@@ -165,6 +149,21 @@ export const PLACES_DUMMY_DATA: Place[] = [
     description: '항상 사람 많더라,,?',
     visitDate: '2023-02-27T13:33:39.614Z',
     expectedCost: 30000,
+    spending: 0,
+    routeId: 1,
+  },
+  {
+    id: 4,
+    name: '마마된장 강남358타워점',
+    address: '서울 강남구 강남대로 358',
+    latitude: 37.4950612185917,
+    longitude: 127.029794890834,
+    image:
+      'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
+    category: 'meal',
+    description: '된장찌개 맛있는 곳!',
+    visitDate: String(new Date(2023, 2, 1, 12, 30)),
+    expectedCost: 15000,
     spending: 0,
     routeId: 1,
   },

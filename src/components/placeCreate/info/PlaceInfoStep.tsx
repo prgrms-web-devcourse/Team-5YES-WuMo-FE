@@ -11,7 +11,6 @@ import { useState } from 'react';
 import { MdCalendarToday, MdCreditCard, MdImage, MdOutlineComment } from 'react-icons/md';
 
 import { InputValueType, Place, PlaceInfoStepItem, PlaceInfoType } from '@/types/place';
-import { PLACE_DUMMY_DATA } from '@/utils/constants/place';
 import { formatPrice } from '@/utils/formatter';
 
 import DateTimeInput from './DateTimeInput';
@@ -20,7 +19,17 @@ import PriceInput from './PriceInput';
 import TextareaInput from './TextareaInput';
 
 const PlaceInfoStep = () => {
-  const [values, setValues] = useState<Place>(PLACE_DUMMY_DATA);
+  const [values, setValues] = useState<Place>({
+    name: '',
+    address: '',
+    latitude: 0,
+    longitude: 0,
+    image: '',
+    category: '',
+    description: '',
+    visitDate: String(new Date(2023, 2, 1, 12, 30)),
+    expectedCost: 0,
+  });
 
   const handleValue = (key: PlaceInfoType, newValue: InputValueType) => {
     setValues({ ...values, [key]: newValue });
