@@ -42,7 +42,7 @@ const DUMMYDATA = [
   },
 ];
 
-const BestLouteList = () => {
+const BestRouteList = () => {
   const [dragging, setDragging] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -121,7 +121,7 @@ const BestLouteList = () => {
   );
 };
 
-export default BestLouteList;
+export default BestRouteList;
 
 const StyledSlider = styled(Slider)`
   .slick-slide {

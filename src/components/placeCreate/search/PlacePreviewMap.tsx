@@ -6,7 +6,7 @@ const PlacePreviewMap = ({
   latitude,
   longitude,
   width = '100%',
-  height = '200px',
+  height = '12.5rem',
   level = 5,
   draggable = false,
   mapMarkers,

@@ -64,6 +64,11 @@ export type PlaceInfoStepItem = {
   content: JSX.Element;
 };
 
+export type PlaceCreateStepItem = {
+  title: string;
+  component: JSX.Element;
+};
+
 export type InputValueType = string | number | File | Date | null;
 
 export type InputProps = {

@@ -11,11 +11,11 @@ import {
   MdPersonOutline,
 } from 'react-icons/md';
 
-import { navigationItem } from '@/types/navigationItem';
+import { NavigationItem } from '@/types/navigationItem';
 
 import ROUTES from './routes';
 
-export const NAVIGATION_ITEM: navigationItem[] = [
+export const NAVIGATION_ITEM: NavigationItem[] = [
   {
     id: '1',
     name: '홈',
@@ -49,6 +49,6 @@ export const NAVIGATION_ITEM: navigationItem[] = [
     name: '내 정보',
     icon: MdPersonOutline,
     activeIcon: MdPerson,
-    link: ROUTES.MY_INFO,
+    link: ROUTES.PROFILE,
   },
 ];
