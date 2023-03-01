@@ -1,4 +1,6 @@
+import { HStack } from '@chakra-ui/react';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 const globalStyle = css`
   @font-face {
@@ -71,4 +73,14 @@ const globalStyle = css`
   }
 `;
 
-export default globalStyle;
+const CustomScrollX = styled(HStack)`
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #ccc;
+  }
+`;
+
+export { CustomScrollX, globalStyle };
