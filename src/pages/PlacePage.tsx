@@ -11,6 +11,7 @@ import {
   getCategoryImageURL,
   PLACES_DUMMY_DATA,
 } from '@/utils/constants/place';
+import { scrollToTop } from '@/utils/scrollToTop';
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const PlacePage = () => {
   const { script } = useMapScript();
 
   useEffect(() => {
+    scrollToTop();
     if (!script) return;
 
     // script.addEventListener('load', () => {
