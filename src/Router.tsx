@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import ScrollToTop from './components/base/ScrollToTop';
 import BottomNavigation from './components/navigation/BottomNavigation';
 import PartyInformation from './components/party/partyInformation/PartyInformation';
 import {
@@ -11,7 +12,7 @@ import {
   PartyCommentPage,
   PartyCreatePage,
   PartyListPage,
-  PartyNoticePage,
+  // PartyNoticePage,
   PartyPlanPage,
   PartySchedulePage,
   SignInPage,
@@ -22,6 +23,7 @@ import ROUTES from './utils/constants/routes';
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<BottomNavigation />}>
           <Route path={ROUTES.MAIN} element={<MainPage />} />
@@ -31,7 +33,7 @@ const Router = () => {
           <Route path={ROUTES.BEST_ROUTE_DETAIL} element={<BestRouteDetailPage />} />
           <Route path={ROUTES.PARTY_LIST} element={<PartyListPage />} />
           <Route element={<PartyInformation />}>
-            <Route path={ROUTES.NOTICE} element={<PartyNoticePage />} />
+            {/* <Route path={ROUTES.NOTICE} element={<PartyNoticePage />} /> */}
             <Route path={ROUTES.SCHEDULE} element={<PartySchedulePage />} />
             <Route path={ROUTES.PLAN} element={<PartyPlanPage />} />
             <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
