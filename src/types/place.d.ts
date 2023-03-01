@@ -45,7 +45,7 @@ export type Place = {
   latitude: number;
   longitude: number;
   image: string;
-  category: string;
+  category: CategoryName;
   description: string;
   visitDate: string;
   expectedCost: number;
@@ -55,13 +55,18 @@ export type Place = {
 
 export type PlaceMarker = Pick<Place, 'id' | 'latitude' | 'longitude' | 'category'>;
 
-export type PlaceInfoType = 'visitDate' | 'expectedCost' | 'image' | 'description';
+export type PlaceInfoType =
+  | 'visitDate'
+  | 'expectedCost'
+  | 'image'
+  | 'description'
+  | 'address';
 
 export type PlaceInfoStepItem = {
   type: PlaceInfoType;
   icon: JSX.Element;
   text: string;
-  content: JSX.Element;
+  content?: JSX.Element;
 };
 
 export type PlaceCreateStepItem = {

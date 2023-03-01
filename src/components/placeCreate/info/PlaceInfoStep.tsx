@@ -36,7 +36,7 @@ const PlaceInfoStep = () => {
     {
       type: 'expectedCost',
       icon: <MdCreditCard />,
-      text: '예산',
+      text: '예상 비용',
       content: (
         <PriceInput value={String(values.expectedCost)} setValueHandler={handleValue} />
       ),
