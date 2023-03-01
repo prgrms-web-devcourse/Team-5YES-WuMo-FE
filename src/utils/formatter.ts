@@ -1,3 +1,9 @@
+import 'dayjs/locale/ko';
+
+import dayjs from 'dayjs';
+
+dayjs.locale('ko');
+
 export const formatPrice = (value: string) =>
   new Intl.NumberFormat('ko-KR').format(Number(value));
 
@@ -5,10 +11,5 @@ export const parsePrice = (value: string) => value.replace(/^\$/, '');
 
 export const getPriceText = (price: number) => `${formatPrice(String(price))}원`;
 
-export const getDateTimeText = (dateTime: string) => {
-  const date = new Date(dateTime);
-
-  return `${date.getFullYear()}년 ${
-    date.getMonth() + 1
-  }월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
-};
+export const formatDate = (date: string) =>
+  dayjs(date).format('YYYY년 M월 D일 A h시 m분');

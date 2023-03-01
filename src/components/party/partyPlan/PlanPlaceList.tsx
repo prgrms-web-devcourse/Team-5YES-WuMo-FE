@@ -14,7 +14,7 @@ import { MdAdd, MdLocationPin } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 import { PlanPlaceListProps } from '@/types/place';
-import { getDateTimeText } from '@/utils/formatter';
+import { formatDate } from '@/utils/formatter';
 
 const PlanPlaceList = ({ places, openModalHandler }: PlanPlaceListProps) => {
   return (
@@ -52,7 +52,7 @@ const PlanPlaceList = ({ places, openModalHandler }: PlanPlaceListProps) => {
                 {place.name}
               </Heading>
               <Text fontSize='sm'>{place.address}</Text>
-              <Text fontSize='xs'>{getDateTimeText(place.visitDate)}</Text>
+              <Text fontSize='xs'>{formatDate(place.visitDate)}</Text>
             </CardBody>
             <CardFooter alignItems='center' padding='0' paddingRight='3'>
               <IconButton
