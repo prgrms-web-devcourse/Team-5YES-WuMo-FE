@@ -139,3 +139,21 @@ export const PLACES_DUMMY_DATA: Place[] = [
     routeId: 1,
   },
 ];
+
+export const COMMENT_DUMMY_DATA: Comment[] = [
+  {
+    content: '맛있겠다..',
+    locationId: 1,
+    partyMemberId: 1,
+  },
+  {
+    content: '냠냠',
+    locationId: 1,
+    partyMemberId: 2,
+  },
+  {
+    content: '나 매운 거 못 먹어..',
+    locationId: 1,
+    partyMemberId: 3,
+  },
+];
