@@ -1,4 +1,11 @@
-import { Category, Place } from '@/types/place';
+import {
+  MdCalendarToday,
+  MdCreditCard,
+  MdLocationPin,
+  MdOutlineComment,
+} from 'react-icons/md';
+
+import { Category, Comment, Place, PlaceInfoStepItem } from '@/types/place';
 
 export const description = [
   {
@@ -21,10 +28,10 @@ export const selectedCategoryStyle = {
   backgroundColor: 'gray.100',
 };
 
-export const getImageURL = (id: string) =>
+export const getCategoryImageURL = (id: string) =>
   `https://github.githubassets.com/images/icons/emoji/unicode/${id}.png?v8`;
 
-export const categoryList: Category = {
+export const categoryInfo: Category = {
   meal: {
     text: '식사',
     imageID: '1f35a',
@@ -33,7 +40,7 @@ export const categoryList: Category = {
     text: '커피',
     imageID: '2615',
   },
-  beer: {
+  drinking: {
     text: '술',
     imageID: '1f37b',
   },
@@ -63,6 +70,29 @@ export const categoryList: Category = {
   },
 };
 
+export const PlaceInfoItems: PlaceInfoStepItem[] = [
+  {
+    type: 'address',
+    icon: <MdLocationPin />,
+    text: '주소',
+  },
+  {
+    type: 'visitDate',
+    icon: <MdCalendarToday />,
+    text: '일정',
+  },
+  {
+    type: 'expectedCost',
+    icon: <MdCreditCard />,
+    text: '예상 비용',
+  },
+  {
+    type: 'description',
+    icon: <MdOutlineComment />,
+    text: '메모',
+  },
+];
+
 export const PLACE_DUMMY_DATA: Place = {
   name: '마마된장 강남358타워점',
   address: '서울 강남구 강남대로 358',
@@ -72,28 +102,13 @@ export const PLACE_DUMMY_DATA: Place = {
     'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
   category: 'meal',
   description: '된장찌개 맛있는 곳!',
-  visitDate: '2023-02-27T13:33:39.614Z',
+  visitDate: String(new Date()),
   expectedCost: 30000,
 };
 
 export const PLACES_DUMMY_DATA: Place[] = [
   {
     id: 1,
-    name: '마마된장 강남358타워점',
-    address: '서울 강남구 강남대로 358',
-    latitude: 37.4950612185917,
-    longitude: 127.029794890834,
-    image:
-      'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
-    category: 'meal',
-    description: '된장찌개 맛있는 곳!',
-    visitDate: '2023-02-27T13:33:39.614Z',
-    expectedCost: 30000,
-    spending: 0,
-    routeId: 1,
-  },
-  {
-    id: 2,
     name: '정통집 강남직영점',
     address: '서울 강남구 강남대로96길 13',
     latitude: 37.4999549951152,
@@ -108,7 +123,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     routeId: 1,
   },
   {
-    id: 3,
+    id: 2,
     name: '오늘통닭 강남역점',
     address: '서울 서초구 서초대로74길 33',
     latitude: 37.49459498836523,
@@ -123,18 +138,51 @@ export const PLACES_DUMMY_DATA: Place[] = [
     routeId: 1,
   },
   {
-    id: 4,
-    name: '고수닭갈비',
-    address: '서울 강남구 강남대로96길 12',
-    latitude: 37.4997144359173,
-    longitude: 127.028081176656,
+    id: 3,
+    name: '장인닭갈비 강남점',
+    address: '서울 강남구 테헤란로1길 19',
+    latitude: 37.4996136518153,
+    longitude: 127.027534918874,
     image:
-      'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=https%3A%2F%2Fpostfiles.pstatic.net%2FMjAyMzAyMjdfMTc3%2FMDAxNjc3NDY2MjQ1NjA2.DXxMje_k1uAWCDt9cflU_FtEoF7y6zNrJVh4cVrOu6Ag._i64a-6MSUuNt6VX8PKrS5DeLkSAWocFkUa0FCOCGxsg.JPEG.kimyunjijiji%2F7.JPG%3Ftype%3Dw580',
+      'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flocal%2FkakaomapPhoto%2Freview%2Fc9819e433a15527daf9cd0209e7d4f9916e79667%3Foriginal',
     category: 'meal',
     description: '항상 사람 많더라,,?',
     visitDate: '2023-02-27T13:33:39.614Z',
     expectedCost: 30000,
     spending: 0,
     routeId: 1,
+  },
+  {
+    id: 4,
+    name: '마마된장 강남358타워점',
+    address: '서울 강남구 강남대로 358',
+    latitude: 37.4950612185917,
+    longitude: 127.029794890834,
+    image:
+      'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
+    category: 'meal',
+    description: '된장찌개 맛있는 곳!',
+    visitDate: String(new Date(2023, 2, 1, 12, 30)),
+    expectedCost: 15000,
+    spending: 0,
+    routeId: 1,
+  },
+];
+
+export const COMMENT_DUMMY_DATA: Comment[] = [
+  {
+    content: '맛있겠다..',
+    locationId: 1,
+    partyMemberId: 1,
+  },
+  {
+    content: '냠냠',
+    locationId: 1,
+    partyMemberId: 2,
+  },
+  {
+    content: '나 매운 거 못 먹어..',
+    locationId: 1,
+    partyMemberId: 3,
   },
 ];

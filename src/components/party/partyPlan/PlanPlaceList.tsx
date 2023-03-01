@@ -3,8 +3,10 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   Flex,
   Heading,
+  IconButton,
   Image,
   Text,
 } from '@chakra-ui/react';
@@ -39,8 +41,7 @@ const PlanPlaceList = ({ places, openModalHandler }: PlanPlaceListProps) => {
             cursor='pointer'
             marginTop='3'
             marginBottom='3'
-            height='7rem'
-            _hover={{ backgroundColor: 'gray.100' }}>
+            height='7rem'>
             <Image src={place.image} alt={place.name} width='30%' objectFit='cover' />
             <CardBody
               display='flex'
@@ -53,6 +54,14 @@ const PlanPlaceList = ({ places, openModalHandler }: PlanPlaceListProps) => {
               <Text fontSize='sm'>{place.address}</Text>
               <Text fontSize='xs'>{getDateTimeText(place.visitDate)}</Text>
             </CardBody>
+            <CardFooter alignItems='center' padding='0' paddingRight='3'>
+              <IconButton
+                variant='outline'
+                borderRadius='50px'
+                aria-label='일정에 후보지 추가'
+                icon={<MdAdd />}
+              />
+            </CardFooter>
           </Card>
         </Link>
       ))}

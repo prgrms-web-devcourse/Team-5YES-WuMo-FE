@@ -14,7 +14,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { partyCategoryList } from '@/utils/constants/party';
-import { getImageURL } from '@/utils/constants/place';
+import { getCategoryImageURL } from '@/utils/constants/place';
 
 const PartyOwnRoleModal = () => {
   const selected = {
@@ -60,7 +60,7 @@ const PartyOwnRoleModal = () => {
               onClick={() => onClickRole(text)}
               {...(value === text && selected)}>
               <Flex direction='column' align='center' justify='center' gap='4'>
-                <Image src={getImageURL(imageID)} alt={text} width='2rem' />
+                <Image src={getCategoryImageURL(imageID)} alt={text} width='2rem' />
                 {text}
               </Flex>
             </GridItem>
