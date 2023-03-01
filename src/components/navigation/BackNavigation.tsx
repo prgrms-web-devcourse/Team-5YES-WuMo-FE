@@ -22,7 +22,7 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
       </Flex>
       {option && isShowSearch ? (
         <Flex
-          px='1rem'
+          py='1rem'
           justifyContent='space-between'
           as={motion.div}
           initial={{ scale: 0 }}
