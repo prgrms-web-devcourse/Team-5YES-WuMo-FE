@@ -36,7 +36,7 @@ const PlacePage = () => {
           bottom='8'
         />
       </Box>
-      <Flex direction='column' padding='5' gap='2'>
+      <Flex direction='column' padding='5' paddingTop='0' gap='2'>
         <ButtonGroup gap='1' variant='outline' size='sm' justifyContent='flex-end'>
           <Button borderRadius='2xl'>수정</Button>
           <Button borderRadius='2xl'>삭제</Button>

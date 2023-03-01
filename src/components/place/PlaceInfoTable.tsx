@@ -1,40 +1,8 @@
 import { Flex, Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
-import {
-  MdCalendarToday,
-  MdCreditCard,
-  MdLocationPin,
-  MdOutlineComment,
-} from 'react-icons/md';
 
-import { Place, PlaceInfoStepItem } from '@/types/place';
+import { PlaceInfoTableProps } from '@/types/place';
+import { PlaceInfoItems } from '@/utils/constants/place';
 import { formatPrice, getDateTimeText } from '@/utils/formatter';
-
-const PlaceInfoItems: PlaceInfoStepItem[] = [
-  {
-    type: 'address',
-    icon: <MdLocationPin />,
-    text: '주소',
-  },
-  {
-    type: 'visitDate',
-    icon: <MdCalendarToday />,
-    text: '일정',
-  },
-  {
-    type: 'expectedCost',
-    icon: <MdCreditCard />,
-    text: '예상 비용',
-  },
-  {
-    type: 'description',
-    icon: <MdOutlineComment />,
-    text: '메모',
-  },
-];
-
-type PlaceInfoTableProps = {
-  data: Place;
-};
 
 const PlaceInfoTable = ({ data }: PlaceInfoTableProps) => {
   return (

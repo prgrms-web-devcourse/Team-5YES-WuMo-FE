@@ -1,4 +1,11 @@
-import { Category, Comment, Place } from '@/types/place';
+import {
+  MdCalendarToday,
+  MdCreditCard,
+  MdLocationPin,
+  MdOutlineComment,
+} from 'react-icons/md';
+
+import { Category, Comment, Place, PlaceInfoStepItem } from '@/types/place';
 
 export const description = [
   {
@@ -62,6 +69,29 @@ export const categoryInfo: Category = {
     imageID: '26bd',
   },
 };
+
+export const PlaceInfoItems: PlaceInfoStepItem[] = [
+  {
+    type: 'address',
+    icon: <MdLocationPin />,
+    text: '주소',
+  },
+  {
+    type: 'visitDate',
+    icon: <MdCalendarToday />,
+    text: '일정',
+  },
+  {
+    type: 'expectedCost',
+    icon: <MdCreditCard />,
+    text: '예상 비용',
+  },
+  {
+    type: 'description',
+    icon: <MdOutlineComment />,
+    text: '메모',
+  },
+];
 
 export const PLACE_DUMMY_DATA: Place = {
   name: '마마된장 강남358타워점',

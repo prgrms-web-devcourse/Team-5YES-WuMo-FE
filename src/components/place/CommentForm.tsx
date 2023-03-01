@@ -10,7 +10,7 @@ const CommentForm = () => {
 
   return (
     <FormControl>
-      <Flex gap='3'>
+      <Flex gap='3' paddingTop='3' paddingBottom='3'>
         <Input
           value={value}
           onChange={handleChange}

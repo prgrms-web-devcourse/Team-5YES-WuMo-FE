@@ -92,3 +92,7 @@ export type Comment = {
   locationId: number;
   partyMemberId: number;
 };
+
+export type PlaceInfoTableProps = {
+  data: Place;
+};
