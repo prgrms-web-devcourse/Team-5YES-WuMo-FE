@@ -20,7 +20,7 @@ export type AmountType = {
 };
 
 export type TimeLineProps = {
-  onClickhandler?: () => void;
+  onClickHandler?: () => void;
   routerButton?: JSX.Element;
 };
 
