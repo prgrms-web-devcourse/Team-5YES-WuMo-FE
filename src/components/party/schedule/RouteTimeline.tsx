@@ -61,7 +61,7 @@ const DUMMYDATA = {
   name: '퇴사 기념 여행',
 };
 
-const RouteTimeline = ({ onClickhandler, routerButton }: TimeLineProps) => {
+const RouteTimeline = ({ onClickHandler, routerButton }: TimeLineProps) => {
   return (
     <>
       <StyleList>
@@ -69,7 +69,7 @@ const RouteTimeline = ({ onClickhandler, routerButton }: TimeLineProps) => {
           <RouteTimelineItem
             key={route.id}
             {...route}
-            onClickhandler={onClickhandler}
+            onClickHandler={onClickHandler}
             routerButton={routerButton}
           />
         ))}
