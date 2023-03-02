@@ -10,7 +10,7 @@ const CommentFeedTitle = ({ isExpanded, placeData }: CommentFeedTitleProps) => {
   const placeVisitDate = replaceDateSlashWithDot(placeData.visitDate);
 
   return (
-    <Flex align='center' p='0.375rem 0'>
+    <Flex align='center' p='0.375rem 0' mt='0.5rem'>
       <MdOutlinePlace
         css={css`
           width: 1.875rem;

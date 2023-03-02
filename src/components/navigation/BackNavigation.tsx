@@ -1,11 +1,15 @@
-import { Container, Flex } from '@chakra-ui/react';
+import { Button, Container, Flex, Input } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { BackNavigationProps } from '@/types/backNavigation';
 
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
+  const [isShowSearch, setIsShowSearch] = useState(false);
+
   const navigate = useNavigate();
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20'>
@@ -14,14 +18,34 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
           <MdKeyboardArrowLeft />
         </SpanButton>
         <Title>{title}</Title>
-        <SpanButton>{option}</SpanButton>
+        <SpanButton onClick={() => setIsShowSearch(!isShowSearch)}>{option}</SpanButton>
       </Flex>
+      {option && isShowSearch ? (
+        <Flex
+          py='1rem'
+          justifyContent='space-between'
+          as={motion.div}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}>
+          <Input
+            placeholder='검색어를 입력하세요.'
+            w='80%'
+            fontSize='0.75rem'
+            padding='0.5rem'
+          />
+          <Button fontSize='0.875rem'>검색</Button>
+        </Flex>
+      ) : (
+        ''
+      )}
     </Nav>
   );
 };
 
 const SpanButton = styled.span`
   cursor: pointer;
+  font-size: 1.5rem;
+  padding-top: 0.25rem;
 `;
 
 const Nav = styled(Container)`
