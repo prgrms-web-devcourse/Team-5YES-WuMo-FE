@@ -31,7 +31,7 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
             placeholder='검색어를 입력하세요.'
             w='80%'
             fontSize='0.75rem'
-            padding='8px'
+            padding='0.5rem'
           />
           <Button fontSize='0.875rem'>검색</Button>
         </Flex>
@@ -45,7 +45,7 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
 const SpanButton = styled.span`
   cursor: pointer;
   font-size: 1.5rem;
-  padding-top: 4px;
+  padding-top: 0.25rem;
 `;
 
 const Nav = styled(Container)`
