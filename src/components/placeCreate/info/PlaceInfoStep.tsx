@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { MdCalendarToday, MdCreditCard, MdImage, MdOutlineComment } from 'react-icons/md';
 
 import { InputValueType, Place, PlaceInfoStepItem, PlaceInfoType } from '@/types/place';
-import { formatPrice } from '@/utils/formatter';
+import { formatDate, getPriceText } from '@/utils/formatter';
 
 import DateTimeInput from './DateTimeInput';
 import ImageInput from './ImageInput';
@@ -64,14 +64,6 @@ const PlaceInfoStep = () => {
     },
   ];
 
-  const getPriceText = (price: number) => `${formatPrice(String(price))}원`;
-  const getDateTimeText = (dateTime: string) => {
-    const date = new Date(dateTime);
-    return `${date.getFullYear()}년 ${
-      date.getMonth() + 1
-    }월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
-  };
-
   return (
     <Accordion allowToggle>
       {PlaceInfoStepItems.map(({ type, icon, text, content }) => (
@@ -85,7 +77,7 @@ const PlaceInfoStep = () => {
             {type === 'expectedCost' && (
               <Text>{getPriceText(values['expectedCost'])}</Text>
             )}
-            {type === 'visitDate' && <Text>{getDateTimeText(values['visitDate'])}</Text>}
+            {type === 'visitDate' && <Text>{formatDate(values['visitDate'])}</Text>}
           </AccordionButton>
           <AccordionPanel>{content}</AccordionPanel>
         </AccordionItem>

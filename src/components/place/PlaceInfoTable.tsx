@@ -18,7 +18,7 @@ const PlaceInfoTable = ({ data }: PlaceInfoTableProps) => {
                 </Flex>
                 <Text textAlign='end' whiteSpace='normal'>
                   {item.type === 'expectedCost'
-                    ? `${formatPrice(String(data[item.type]))}원`
+                    ? `${formatPrice(data[item.type])}원`
                     : item.type === 'visitDate'
                     ? formatDate(data[item.type])
                     : data[item.type]}

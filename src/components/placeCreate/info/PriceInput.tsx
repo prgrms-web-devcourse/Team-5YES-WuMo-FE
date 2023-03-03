@@ -13,7 +13,7 @@ const PriceInput = ({ value, setValueHandler }: InputProps) => {
   return (
     <NumberInput
       step={1000}
-      value={formatPrice(value)}
+      value={formatPrice(Number(value))}
       onChange={(valueString) => setValueHandler('expectedCost', parsePrice(valueString))}
       min={0}
       borderColor='gray.300'
