@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Container, Flex, Image, Text } from '@chakra-ui/react';
 
-import { CommentTypes } from '@/types/schedule';
+import { CommentType } from '@/types/schedule';
 import { replaceDateSlashWithDot } from '@/utils/dateTransform';
 
 const CommentFeedItem = ({
@@ -10,7 +10,7 @@ const CommentFeedItem = ({
   content,
   image,
   createdAt,
-}: CommentTypes) => {
+}: CommentType) => {
   const customDate = replaceDateSlashWithDot(createdAt);
   return (
     <Container p='1rem' borderBottom='solid 0.125rem' borderColor='blackAlpha.200'>
