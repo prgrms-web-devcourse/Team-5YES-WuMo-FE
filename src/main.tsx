@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 
+import { AxiosInterceptor } from './api/api';
 import App from './App';
 
 const {
@@ -66,7 +67,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <RecoilRoot>
       <ChakraBaseProvider theme={theme}>
-        <App />
+        <AxiosInterceptor>
+          <App />
+        </AxiosInterceptor>
       </ChakraBaseProvider>
     </RecoilRoot>
   </React.StrictMode>
