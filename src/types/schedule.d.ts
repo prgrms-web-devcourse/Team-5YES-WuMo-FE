@@ -8,7 +8,6 @@ export type CommentType = {
 };
 
 export type CommentFeedTitleProps = {
-  isExpanded: boolean;
   placeData: {
     place: string;
     visitDate: string;
