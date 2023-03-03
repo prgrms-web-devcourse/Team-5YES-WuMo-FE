@@ -10,7 +10,6 @@ export type PartyCreateBody = {
   description: string;
   coverImage: string;
   password: string;
-  memberId: number;
   role: string;
 };
 export type PartyListProps = {
