@@ -25,6 +25,7 @@ const PartyPlanPage = () => {
         latitude={PLACES_DUMMY_DATA[0].latitude}
         longitude={PLACES_DUMMY_DATA[0].longitude}
         mapMarkers={PLACES_DUMMY_DATA}
+        level={8}
         draggable
       />
       <PlaceList places={PLACES_DUMMY_DATA} openModalHandler={onOpen} />
