@@ -2,6 +2,7 @@ import { Container } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import axios from '@/api/api';
 import SubmitButton from '@/components/base/SubmitButton';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { SignInProps } from '@/types/userSign';
@@ -25,6 +26,10 @@ const SignInForm = () => {
   });
 
   const onSubmit = (values: SignInProps) => {
+    // 사용 예시
+    const response = axios.post('/api/v1/members/login', values);
+    console.log(response);
+
     console.log(token);
     console.log(values);
     setToken(values);

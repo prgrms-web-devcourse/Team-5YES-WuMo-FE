@@ -11,7 +11,6 @@ export const createPartyState = atom<PartyCreateBody>({
     description: '',
     coverImage: '',
     password: '',
-    memberId: 0,
     role: '',
   },
 });
