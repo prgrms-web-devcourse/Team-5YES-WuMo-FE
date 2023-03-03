@@ -1,16 +1,8 @@
-import {
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Image,
-  ModalBody,
-  ModalFooter,
-} from '@chakra-ui/react';
-import axios from 'axios';
+import { Flex, Grid, GridItem, Image, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
+import ModalButton from '@/components/base/ModalButton';
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { partyCategoryList } from '@/utils/constants/party';
@@ -68,16 +60,7 @@ const PartyOwnRoleModal = () => {
         </Grid>
       </ModalBody>
       <ModalFooter>
-        <Button
-          bg='primary.red'
-          color='#ffffff'
-          _hover={{
-            bg: 'primary.redHover',
-          }}
-          w='full'
-          onClick={onClickNextStep}>
-          파티 생성
-        </Button>
+        <ModalButton text='파티 생성' clickButtonHandler={onClickNextStep} />
       </ModalFooter>
     </>
   );
