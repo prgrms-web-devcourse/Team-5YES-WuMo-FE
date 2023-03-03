@@ -1,9 +1,9 @@
-export const formatPrice = (value: string) =>
+export const formatPrice = (value: string | number) =>
   new Intl.NumberFormat('ko-KR').format(Number(value));
 
 export const parsePrice = (value: string) => value.replace(/^\$/, '');
 
-export const getPriceText = (price: number) => `${formatPrice(String(price))}원`;
+export const getPriceText = (price: number) => `${formatPrice(String(price))} 원`;
 
 export const getDateTimeText = (dateTime: string) => {
   const date = new Date(dateTime);

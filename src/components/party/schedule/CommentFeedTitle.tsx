@@ -1,14 +1,12 @@
 import { AccordionButton, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import { css } from '@emotion/react';
+import dayjs from 'dayjs';
 import { MdOutlinePlace } from 'react-icons/md';
 
 import { CommentFeedTitleProps } from '@/types/schedule';
-import { replaceDateSlashWithDot } from '@/utils/dateTransform';
 import { scrollToTop } from '@/utils/scrollToTop';
 
 const CommentFeedTitle = ({ isExpanded, placeData }: CommentFeedTitleProps) => {
-  const placeVisitDate = replaceDateSlashWithDot(placeData.visitDate);
-
   return (
     <Flex align='center' p='0.375rem 0' mt='0.5rem'>
       <MdOutlinePlace
@@ -21,7 +19,7 @@ const CommentFeedTitle = ({ isExpanded, placeData }: CommentFeedTitleProps) => {
         <Heading as='span' size='md' mr='0.25rem'>
           {placeData.place}
         </Heading>
-        <Text as='span'>{placeVisitDate}</Text>
+        <Text as='span'>{dayjs(placeData.visitDate).format('YY.MM.DD')}</Text>
       </Flex>
       <AccordionButton
         as={Button}
