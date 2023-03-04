@@ -1,14 +1,14 @@
 import { Box, Img, useDisclosure } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
+import BottomSheet from '@/components/base/BottomSheet';
+import CustomTextarea from '@/components/base/CustomTextarea';
+import FloatingButton from '@/components/base/FloatingButton';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
 import { getCategoryImageURL } from '@/utils/constants/place';
 import { scrollToTop } from '@/utils/scrollToTop';
 
-import BottomSheet from '../../base/BottomSheet';
-import CustomTextarea from '../../base/CustomTextarea';
-import FloatingButton from '../../base/FloatingButton';
 import CommentFeedItem from './CommentFeedItem';
 import CommentFeedTitle from './CommentFeedTitle';
 import PlaceAmountField from './PlaceAmountField';
@@ -100,7 +100,13 @@ const RouteCommentFeed = () => {
     <>
       <BackNavigation title={scrollActive ? navigationTitle : ''} />
       <Box>
-        <Img src={PLACEDUMMYDATA.locations[0].image} h='12.5rem' w='100%' mt='3.75rem' />
+        <Img
+          src={PLACEDUMMYDATA.locations[0].image}
+          h='12.5rem'
+          w='100%'
+          mt='3.75rem'
+          objectFit='cover'
+        />
         <Img
           src={getCategoryImageURL(PLACEDUMMYDATA.locations[0].category)}
           position='relative'
