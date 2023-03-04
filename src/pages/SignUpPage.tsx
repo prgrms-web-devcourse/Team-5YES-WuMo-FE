@@ -11,7 +11,7 @@ const SignUpPage = () => {
   return (
     <Box pt='16'>
       <BackNavigation />
-      <LargeLogo />
+      <LargeLogo src='/logo-lg.svg' />
       <SignUpForm />
       <Center>
         <Text mt='2rem' fontSize='md' fontWeight='medium' color='gray'>

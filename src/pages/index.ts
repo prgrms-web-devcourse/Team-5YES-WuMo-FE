@@ -2,6 +2,7 @@ export { default as BestRouteDetailPage } from './BestRouteDetailPage';
 export { default as BestRouteListPage } from './BestRouteListPage';
 export { default as LikeRouteListPage } from './LikeRouteListPage';
 export { default as MainPage } from './MainPage';
+export { default as NotFoundPage } from './NotFoundPage';
 export { default as PartyAlbumPage } from './PartyAlbumPage';
 export { default as PartyCommentPage } from './PartyCommentPage';
 export { default as PartyCreatePage } from './PartyCreatePage';
