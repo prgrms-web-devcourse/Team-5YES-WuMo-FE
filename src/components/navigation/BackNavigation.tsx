@@ -2,23 +2,25 @@ import { Button, Container, Flex, Input, useDisclosure } from '@chakra-ui/react'
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdKeyboardArrowLeft, MdMenu, MdSearch } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdSearch, MdSettings } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { BackNavigationProps } from '@/types/backNavigation';
+import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import PartyUpdate from '../party/partyUpdate/PartyUpdate';
 
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
+  const { SEARCH, MENU } = BACKNAVIGATION_OPTIONS;
   const [isShowSearch, setIsShowSearch] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onClickOption = (option: string) => {
     switch (option) {
-      case '검색':
+      case SEARCH:
         setIsShowSearch(!isShowSearch);
         break;
-      case '메뉴':
+      case MENU:
         onOpen();
         break;
       default:
@@ -38,10 +40,10 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
           onClick={() => {
             if (option) onClickOption(option);
           }}>
-          {option === '검색' ? <MdSearch /> : option === '메뉴' ? <MdMenu /> : ''}
+          {option === SEARCH ? <MdSearch /> : option === MENU ? <MdSettings /> : ''}
         </BackButton>
       </Flex>
-      {option === '검색' && isShowSearch ? (
+      {option === SEARCH && isShowSearch ? (
         <Flex
           py='1rem'
           justifyContent='space-between'
@@ -54,7 +56,7 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
             fontSize='0.75rem'
             padding='0.5rem'
           />
-          <Button fontSize='0.875rem'>검색</Button>
+          <Button fontSize='0.875rem'>{SEARCH}</Button>
         </Flex>
       ) : (
         ''
