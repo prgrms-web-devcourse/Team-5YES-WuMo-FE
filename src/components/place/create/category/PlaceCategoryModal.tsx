@@ -4,7 +4,6 @@ import { useRecoilState } from 'recoil';
 
 import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState, createPlaceStepState } from '@/store/recoilPlaceState';
-import { Place } from '@/types/place';
 import {
   categoryInfo,
   getCategoryImageURL,
@@ -13,7 +12,7 @@ import {
 
 const PlaceCategoryModal = () => {
   const [step, setStep] = useRecoilState<number>(createPlaceStepState);
-  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
   const [value, setValue] = useState(createPlaceBody.category);
 
   const handleClick = () => {

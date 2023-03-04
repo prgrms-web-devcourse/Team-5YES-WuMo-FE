@@ -12,17 +12,16 @@ import { useRecoilValue } from 'recoil';
 
 import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState } from '@/store/recoilPlaceState';
-import { Place } from '@/types/place';
 import { PlaceInformationStepItems } from '@/utils/constants/processStep';
 
 const PlaceInformationModal = () => {
-  const createPlaceBody = useRecoilValue<Place>(createPlaceState);
+  const createPlaceBody = useRecoilValue(createPlaceState);
 
   const handleClick = () => {
-    console.log(createPlaceBody);
     if (!createPlaceBody.visitDate) return '방문 예정일을 입력해 주세요.';
     if (!createPlaceBody.expectedCost) return '예상 비용을 입력해 주세요.';
     if (!createPlaceBody.image) return '대표 이미지를 선택해 주세요.';
+    console.log(createPlaceBody); // TODO: API 연동
   };
 
   return (
@@ -46,11 +45,11 @@ const PlaceInformationModal = () => {
       <ModalFooter>
         <ModalButton
           text='후보지 추가'
-          isDisabled={
-            !createPlaceBody.visitDate ||
-            !createPlaceBody.expectedCost ||
-            !createPlaceBody.image
-          }
+          // isDisabled={
+          //   !createPlaceBody.visitDate ||
+          //   !createPlaceBody.expectedCost ||
+          //   !createPlaceBody.image
+          // }
           clickButtonHandler={handleClick}
         />
       </ModalFooter>

@@ -14,15 +14,22 @@ import Calendar from 'react-calendar';
 import { useRecoilState } from 'recoil';
 
 import { createPlaceState } from '@/store/recoilPlaceState';
-import { Place } from '@/types/place';
 
 const DateTimeInput = () => {
-  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
-  const [values, setValues] = useState({
-    date: new Date(),
-    hour: 0,
-    min: 0,
-  });
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
+  const [values, setValues] = useState(
+    createPlaceBody.visitDate
+      ? {
+          date: new Date(createPlaceBody.visitDate),
+          hour: new Date(createPlaceBody.visitDate).getHours() || 0,
+          min: new Date(createPlaceBody.visitDate).getMinutes() || 0,
+        }
+      : {
+          date: new Date(),
+          hour: 0,
+          min: 0,
+        }
+  );
 
   const handleChange = (type: 'date' | 'hour' | 'min', newValue: Date | number) => {
     setValues({ ...values, [type]: newValue });

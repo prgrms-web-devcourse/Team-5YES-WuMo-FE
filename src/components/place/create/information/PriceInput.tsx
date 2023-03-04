@@ -9,12 +9,11 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { createPlaceState } from '@/store/recoilPlaceState';
-import { Place } from '@/types/place';
 import { formatPrice, parsePrice } from '@/utils/formatter';
 
 const PriceInput = () => {
-  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
-  const [value, setValue] = useState(0);
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
+  const [value, setValue] = useState(createPlaceBody.expectedCost);
 
   const handleChange = (newValue: string) => {
     setValue(Number(newValue));

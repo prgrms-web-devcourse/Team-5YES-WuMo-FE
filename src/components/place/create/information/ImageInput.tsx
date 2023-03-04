@@ -4,12 +4,12 @@ import { MdAddPhotoAlternate } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 
 import { createPlaceState } from '@/store/recoilPlaceState';
-import { ImageData, Place } from '@/types/place';
+import { ImageData } from '@/types/place';
 
 const ImageInput = () => {
-  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
   const [values, setValues] = useState<ImageData>({
-    imageBase64: '',
+    imageBase64: createPlaceBody.image,
     imageFile: null,
   });
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,9 +38,10 @@ const ImageInput = () => {
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        if (!reader.result || typeof reader.result !== 'string') return;
-        setValues({ ...values, imageBase64: reader.result });
-        setCreatePlaceBody({ ...createPlaceBody, image: values.imageBase64 });
+        const result = reader.result;
+        if (!result || typeof result !== 'string') return;
+        setValues({ ...values, imageBase64: result });
+        setCreatePlaceBody({ ...createPlaceBody, image: result });
         resolve(Promise);
       };
     });

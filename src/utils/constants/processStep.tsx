@@ -5,10 +5,10 @@ import PartyOwnRoleModal from '@/components/party/create/PartyOwnRoleModal';
 import PartyPeriodModal from '@/components/party/create/PartyPeriodModal';
 import PlaceCategoryModal from '@/components/place/create/category/PlaceCategoryModal';
 import DateTimeInput from '@/components/place/create/information/DateTimeInput';
+import DescriptionInput from '@/components/place/create/information/Descriptionnput';
 import ImageInput from '@/components/place/create/information/ImageInput';
 import PlaceInformationModal from '@/components/place/create/information/PlaceInformationModal';
 import PriceInput from '@/components/place/create/information/PriceInput';
-import TextareaInput from '@/components/place/create/information/TextareaInput';
 import PlaceSearchModal from '@/components/place/create/search/PlaceSearchModal';
 import { PartyCreateStepItem } from '@/types/party';
 import { PlaceCreateStepItem, PlaceInformationStepItem } from '@/types/place';
@@ -66,7 +66,7 @@ export const PlaceInformationStepItems: PlaceInformationStepItem[] = [
     type: 'description',
     icon: <MdOutlineComment />,
     text: '메모',
-    content: <TextareaInput />,
+    content: <DescriptionInput />,
   },
 ];
 
