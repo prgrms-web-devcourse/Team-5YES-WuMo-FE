@@ -7,11 +7,7 @@ import CommentForm from '@/components/place/CommentForm';
 import PlaceInfoTable from '@/components/place/PlaceInfoTable';
 import PlacePreviewMap from '@/components/placeCreate/search/PlacePreviewMap';
 import useMapScript from '@/hooks/useMapScript';
-import {
-  categoryInfo,
-  getCategoryImageURL,
-  PLACES_DUMMY_DATA,
-} from '@/utils/constants/place';
+import { getCategoryImageURL, PLACES_DUMMY_DATA } from '@/utils/constants/place';
 import { scrollToTop } from '@/utils/scrollToTop';
 
 const PlacePage = () => {
@@ -34,7 +30,7 @@ const PlacePage = () => {
       <Box height='2xs' marginTop='12'>
         <Image src={data.image} height='3xs' width='full' objectFit='cover' />
         <Image
-          src={getCategoryImageURL(categoryInfo[data.category].imageID)}
+          src={getCategoryImageURL(data.category)}
           position='relative'
           left='5'
           bottom='8'
