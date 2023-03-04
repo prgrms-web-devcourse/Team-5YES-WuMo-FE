@@ -20,43 +20,45 @@ const PlaceSearchModal = () => {
   const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
 
   const handleClick = () => {
-    if (step < processStep.placeCreateMax) {
-      setStep(step + 1);
-      return;
-    }
     if (!searchState.selectedPlace.id) {
       alert('장소를 선택해 주세요.');
       return;
     }
-    setCreatePlaceBody({
-      ...createPlaceBody,
-      name: searchState.selectedPlace.place_name,
-      address:
-        searchState.selectedPlace.road_address_name ||
-        searchState.selectedPlace.address_name,
-      longitude: parseFloat(searchState.selectedPlace.x),
-      latitude: parseFloat(searchState.selectedPlace.y),
-    });
+
+    if (step < processStep.placeCreateMax) {
+      setStep(step + 1);
+      setCreatePlaceBody({
+        ...createPlaceBody,
+        name: searchState.selectedPlace.place_name,
+        address:
+          searchState.selectedPlace.road_address_name ||
+          searchState.selectedPlace.address_name,
+        longitude: parseFloat(searchState.selectedPlace.x),
+        latitude: parseFloat(searchState.selectedPlace.y),
+      });
+    }
   };
 
   return (
     <>
       <ModalBody>
         <PlaceSearchForm />
-        {searchState.result.length ? (
+        {searchState.result.length > 0 ? (
           <>
-            <PlacePreviewMap
-              latitude={
-                searchState.selectedPlace?.y
-                  ? parseFloat(searchState.selectedPlace.y)
-                  : createPlaceBody.latitude
-              }
-              longitude={
-                searchState.selectedPlace?.x
-                  ? parseFloat(searchState.selectedPlace.x)
-                  : createPlaceBody.longitude
-              }
-            />
+            {searchState.selectedPlace.id && (
+              <PlacePreviewMap
+                latitude={
+                  searchState.selectedPlace?.y
+                    ? parseFloat(searchState.selectedPlace.y)
+                    : createPlaceBody.latitude
+                }
+                longitude={
+                  searchState.selectedPlace?.x
+                    ? parseFloat(searchState.selectedPlace.x)
+                    : createPlaceBody.longitude
+                }
+              />
+            )}
             <PlaceList />
           </>
         ) : (

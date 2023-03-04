@@ -21,10 +21,6 @@ export type PlacePreviewMapProps = {
   mapMarkers?: PlaceMarker[];
 };
 
-export type PlaceSearchFormProps = {
-  resetPlaceHandler: () => void;
-};
-
 export type StepItems = {
   [stepKey: number]: {
     title: string;

@@ -45,11 +45,11 @@ const PlaceInformationModal = () => {
       <ModalFooter>
         <ModalButton
           text='후보지 추가'
-          // isDisabled={
-          //   !createPlaceBody.visitDate ||
-          //   !createPlaceBody.expectedCost ||
-          //   !createPlaceBody.image
-          // }
+          isDisabled={
+            !createPlaceBody.visitDate ||
+            !createPlaceBody.expectedCost ||
+            !createPlaceBody.image
+          }
           clickButtonHandler={handleClick}
         />
       </ModalFooter>
