@@ -8,10 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { BackNavigationProps } from '@/types/backNavigation';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
+import MoreMenu from '../base/MoreMenu';
 import PartyUpdate from '../party/partyUpdate/PartyUpdate';
 
-const BackNavigation = ({ title, option }: BackNavigationProps) => {
-  const { SEARCH, MENU } = BACKNAVIGATION_OPTIONS;
+const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) => {
+  const { SEARCH, MENU, MORE } = BACKNAVIGATION_OPTIONS;
   const [isShowSearch, setIsShowSearch] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -30,7 +31,7 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
 
   const navigate = useNavigate();
   return (
-    <Nav maxW='maxWidth.mobile' bg='white' zIndex='20'>
+    <Nav maxW='maxWidth.mobile' bg='white' zIndex='20' h='60px'>
       <Flex justify='space-between'>
         <BackButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
@@ -40,7 +41,15 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
           onClick={() => {
             if (option) onClickOption(option);
           }}>
-          {option === SEARCH ? <MdSearch /> : option === MENU ? <MdSettings /> : ''}
+          {option === SEARCH ? (
+            <MdSearch />
+          ) : option === MENU ? (
+            <MdSettings />
+          ) : option === MORE ? (
+            <MoreMenu {...moreMenuEvent} />
+          ) : (
+            ''
+          )}
         </BackButton>
       </Flex>
       {option === SEARCH && isShowSearch ? (
