@@ -8,6 +8,7 @@ import {
   BestRouteListPage,
   LikeRouteListPage,
   MainPage,
+  NotFoundPage,
   PartyAlbumPage,
   PartyCommentPage,
   PartyCreatePage,
@@ -46,6 +47,7 @@ const Router = () => {
         </Route>
         <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
         <Route path={ROUTES.SIGNIN} element={<SignInPage />} />
+        <Route path={'*'} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
