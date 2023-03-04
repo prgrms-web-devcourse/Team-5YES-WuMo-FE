@@ -1,9 +1,14 @@
-import { Accordion, AccordionItem, Box, useDisclosure } from '@chakra-ui/react';
+import { Box, Img, useDisclosure } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-import BottomSheet from '../../base/BottomSheet';
-import CustomTextarea from '../../base/CustomTextarea';
-import FloatingButton from '../../base/FloatingButton';
+import BottomSheet from '@/components/base/BottomSheet';
+import CustomTextarea from '@/components/base/CustomTextarea';
+import FloatingButton from '@/components/base/FloatingButton';
+import BackNavigation from '@/components/navigation/BackNavigation';
+import useScrollEvent from '@/hooks/useScrollEvent';
+import { getCategoryImageURL } from '@/utils/constants/place';
+import { scrollToTop } from '@/utils/scrollToTop';
+
 import CommentFeedItem from './CommentFeedItem';
 import CommentFeedTitle from './CommentFeedTitle';
 import PlaceAmountField from './PlaceAmountField';
@@ -11,8 +16,16 @@ import PlaceAmountField from './PlaceAmountField';
 const PLACEDUMMYDATA = {
   locations: [
     {
-      name: '갈치구이집',
-      visitDate: '2023-02-27T06:51:55.604Z',
+      id: 1,
+      name: '다이도코로',
+      address: '부산 수영구 남천동로108번길 27 2층 다이도코로',
+      latitude: '34.56789',
+      longitude: '123.56789',
+      image: 'https://ifh.cc/g/k1PnR2.jpg',
+      description: '가라아게 존맛',
+      visitDate: '2023-02-28T07:11:14.766Z',
+      spending: 55000,
+      category: 'meal',
     },
   ],
 };
@@ -79,34 +92,47 @@ const placeData = {
 
 const RouteCommentFeed = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { scrollActive } = useScrollEvent(300);
+  const navigationTitle = (
+    <Box onClick={scrollToTop}>{PLACEDUMMYDATA.locations[0].name}</Box>
+  );
   return (
     <>
-      <Accordion allowMultiple>
-        <AccordionItem
-          p='0.625rem'
+      <BackNavigation title={scrollActive ? navigationTitle : ''} />
+      <Box>
+        <Img
+          src={PLACEDUMMYDATA.locations[0].image}
+          h='12.5rem'
+          w='100%'
+          mt='3.75rem'
+          objectFit='cover'
+        />
+        <Img
+          src={getCategoryImageURL(PLACEDUMMYDATA.locations[0].category)}
+          position='relative'
+          left='5'
+          bottom='8'
+        />
+        <Box
           borderBottom='2px solid'
-          borderBottomColor='gray.100'
-          pos='fixed'
-          top='10'
+          borderBottomColor='gray.300'
           bg='white'
           w='100%'
+          px='0.625rem'
           maxW='35rem'
-          zIndex='10'>
-          {({ isExpanded }) => (
-            <>
-              <CommentFeedTitle isExpanded={isExpanded} placeData={placeData} />
-              <PlaceAmountField />
-            </>
-          )}
-        </AccordionItem>
-      </Accordion>
-      <Box mt='7rem'>
-        {COMMENTDUMMYDATA.map((comment) => (
-          <CommentFeedItem key={comment.id} {...comment} />
-        ))}
+          pos='relative'
+          top='-18'>
+          <CommentFeedTitle placeData={placeData} />
+          <PlaceAmountField />
+        </Box>
+        <Box pos='relative' top='-6'>
+          {COMMENTDUMMYDATA.map((comment) => (
+            <CommentFeedItem key={comment.id} {...comment} />
+          ))}
+        </Box>
+        <FloatingButton icon={<AiOutlinePlus />} onClick={onOpen} />
+        <BottomSheet isOpen={isOpen} onClose={onClose} modal={modalContent} />
       </Box>
-      <FloatingButton icon={<AiOutlinePlus />} onClick={onOpen} />
-      <BottomSheet isOpen={isOpen} onClose={onClose} modal={modalContent} />
     </>
   );
 };
