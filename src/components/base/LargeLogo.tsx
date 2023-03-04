@@ -8,7 +8,7 @@ type LargeLogoProps = {
 const LargeLogo = ({ src }: LargeLogoProps) => {
   return (
     <Center>
-      <Logo src={src} p='5px 0 0 10px' />
+      <Logo src={src} />
     </Center>
   );
 };
