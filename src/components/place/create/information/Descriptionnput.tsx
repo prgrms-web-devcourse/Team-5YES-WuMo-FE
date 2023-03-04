@@ -3,12 +3,11 @@ import { ChangeEvent, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { createPlaceState } from '@/store/recoilPlaceState';
-import { Place } from '@/types/place';
 import { PLACE_DESCRIPTION_MAX_LENGTH } from '@/utils/constants/party';
 
-const TextareaInput = () => {
-  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
-  const [value, setValue] = useState('');
+const DescriptionInput = () => {
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
+  const [value, setValue] = useState(createPlaceBody.description);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -40,4 +39,4 @@ const TextareaInput = () => {
   );
 };
 
-export default TextareaInput;
+export default DescriptionInput;
