@@ -21,8 +21,8 @@ const DateTimeInput = () => {
     createPlaceBody.visitDate
       ? {
           date: new Date(createPlaceBody.visitDate),
-          hour: new Date(createPlaceBody.visitDate).getHours() || 0,
-          min: new Date(createPlaceBody.visitDate).getMinutes() || 0,
+          hour: new Date(createPlaceBody.visitDate).getHours(),
+          min: new Date(createPlaceBody.visitDate).getMinutes(),
         }
       : {
           date: new Date(),

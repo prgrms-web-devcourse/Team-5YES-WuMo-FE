@@ -31,8 +31,10 @@ const PlaceCreatePage = () => {
     setIsOpen(true);
   }, []);
 
+  const isFirstStep = () => step === processStep.min;
+
   const handleCloseModal = () => {
-    if (step > processStep.min) setStep(step - 1);
+    if (!isFirstStep()) setStep(step - 1);
     else {
       const canClose = confirm('후보지 추가를 취소하시겠습니까?'); // TODO: 값 선택한 경우에만 하도록 처리
       if (!canClose) return;
@@ -47,8 +49,11 @@ const PlaceCreatePage = () => {
   return (
     <Modal isOpen={isOpen} onClose={handleCloseModal} size='full'>
       <ModalContent w='maxWidth.mobile'>
-        <ModalCloseButton position='initial' size='lg'>
-          <MdKeyboardArrowLeft />
+        <ModalCloseButton
+          position='initial'
+          size={isFirstStep() ? 'sm' : 'lg'}
+          margin={isFirstStep() ? '0.5rem' : 0}>
+          {!isFirstStep() && <MdKeyboardArrowLeft />}
         </ModalCloseButton>
         <Progress value={processStep.process * step} colorScheme='red' size='sm' />
         <ModalHeader>{placeCreateStepItems[step - 1].title}</ModalHeader>
