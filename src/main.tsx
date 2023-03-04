@@ -24,6 +24,7 @@ const {
   NumberInput,
   Progress,
   List,
+  Menu,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -41,6 +42,7 @@ const theme = extendBaseTheme({
     Table,
     Tabs,
     Modal,
+    Menu,
     NumberInput,
     Progress,
     List,
