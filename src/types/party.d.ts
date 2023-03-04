@@ -10,7 +10,6 @@ export type PartyCreateBody = {
   description: string;
   coverImage: string;
   password: string;
-  memberId: number;
   role: string;
 };
 export type PartyListProps = {
@@ -30,3 +29,22 @@ type PartyMemberProps = {
 };
 
 export type PartyListPropsWithMembers = PartyListProps & { members: PartyMemberProps[] };
+
+export type LocationsTypes = {
+  id: number;
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  image: string;
+  description: string;
+  visitDate: string;
+  expectedCost: number;
+  spending: number;
+  category: string;
+};
+
+export type CalculateStayDurationProps = {
+  startDate: string;
+  endDate: string;
+};

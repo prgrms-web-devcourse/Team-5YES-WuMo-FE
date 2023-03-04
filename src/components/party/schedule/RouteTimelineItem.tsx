@@ -15,6 +15,7 @@ import { MdOutlinePlace } from 'react-icons/md';
 
 import { routeListProps } from '@/types/schedule';
 import { getCategoryImageURL } from '@/utils/constants/place';
+import { getPriceText } from '@/utils/formatter';
 
 const RouteTimelineItem = ({
   name,
@@ -47,11 +48,11 @@ const RouteTimelineItem = ({
             borderRadius='0.625rem'
           />
           <Text fontSize='xs' bg='white'>
-            {spending} 원
+            {getPriceText(spending)}
           </Text>
         </Flex>
         <Box onClick={onClickHandler} w='70%' pos='relative' ml='1rem'>
-          <Flex align='center' justify='space-between' mb='18px'>
+          <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (
               <Button variant='ghost' size='xs'>

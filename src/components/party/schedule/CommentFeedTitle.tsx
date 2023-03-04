@@ -1,12 +1,10 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 
 import { CommentFeedTitleProps } from '@/types/schedule';
-import { replaceDateSlashWithDot } from '@/utils/dateTransform';
 import { scrollToTop } from '@/utils/scrollToTop';
 
 const CommentFeedTitle = ({ placeData }: CommentFeedTitleProps) => {
-  const placeVisitDate = replaceDateSlashWithDot(placeData.visitDate);
-
   return (
     <>
       <Flex align='center' mt='8px'>
@@ -14,7 +12,7 @@ const CommentFeedTitle = ({ placeData }: CommentFeedTitleProps) => {
           <Heading as='span' size='md' mr='0.25rem'>
             {placeData.place}
           </Heading>
-          <Text as='span'>{placeVisitDate}</Text>
+          <Text as='span'>{dayjs(placeData.visitDate).format('YY.MM.DD')}</Text>
         </Flex>
       </Flex>
     </>
