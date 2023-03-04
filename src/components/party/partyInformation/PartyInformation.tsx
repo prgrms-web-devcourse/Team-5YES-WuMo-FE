@@ -52,7 +52,7 @@ const PartyInformation = () => {
   return (
     <Box>
       <BackNavigation option={BACKNAVIGATION_OPTIONS.MENU} />
-      <Image src='https://via.placeholder.com/560x200' pt='4.75rem' />
+      <Image src='https://via.placeholder.com/560x200' pt='3.75rem' />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>
           <Heading size='md'>{DUMMYDATA.name}</Heading>
