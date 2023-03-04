@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import BackNavigation from '@/components/navigation/BackNavigation';
 import CommentForm from '@/components/place/CommentForm';
+import PlacePreviewMap from '@/components/place/create/search/PlacePreviewMap';
 import PlaceInfoTable from '@/components/place/PlaceInfoTable';
-import PlacePreviewMap from '@/components/placeCreate/search/PlacePreviewMap';
 import useMapScript from '@/hooks/useMapScript';
 import {
   categoryInfo,

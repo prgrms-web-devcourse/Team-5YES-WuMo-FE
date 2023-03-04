@@ -1,11 +1,17 @@
+import { MdCalendarToday, MdCreditCard, MdImage, MdOutlineComment } from 'react-icons/md';
+
 import PartyNameModal from '@/components/party/create/PartyNameModal';
 import PartyOwnRoleModal from '@/components/party/create/PartyOwnRoleModal';
 import PartyPeriodModal from '@/components/party/create/PartyPeriodModal';
-import PlaceCategoryStep from '@/components/placeCreate/category/PlaceCategoryStep';
-import PlaceInfoStep from '@/components/placeCreate/info/PlaceInfoStep';
-import PlaceSearchStep from '@/components/placeCreate/search/PlaceSearchStep';
+import PlaceCategoryModal from '@/components/place/create/category/PlaceCategoryModal';
+import DateTimeInput from '@/components/place/create/information/DateTimeInput';
+import ImageInput from '@/components/place/create/information/ImageInput';
+import PlaceInformationModal from '@/components/place/create/information/PlaceInformationModal';
+import PriceInput from '@/components/place/create/information/PriceInput';
+import TextareaInput from '@/components/place/create/information/TextareaInput';
+import PlaceSearchModal from '@/components/place/create/search/PlaceSearchModal';
 import { PartyCreateStepItem } from '@/types/party';
-import { PlaceCreateStepItem } from '@/types/place';
+import { PlaceCreateStepItem, PlaceInformationStepItem } from '@/types/place';
 
 export const partyCreateStepItems: PartyCreateStepItem[] = [
   {
@@ -25,15 +31,42 @@ export const partyCreateStepItems: PartyCreateStepItem[] = [
 export const placeCreateStepItems: PlaceCreateStepItem[] = [
   {
     title: '후보지의 장소를 선택해 주세요.',
-    component: <PlaceSearchStep />,
+    component: <PlaceSearchModal />,
   },
   {
     title: '여기서 무엇을 하나요?',
-    component: <PlaceCategoryStep />,
+    component: <PlaceCategoryModal />,
   },
   {
     title: '부가 정보를 입력해 주세요.',
-    component: <PlaceInfoStep />,
+    component: <PlaceInformationModal />,
+  },
+];
+
+export const PlaceInformationStepItems: PlaceInformationStepItem[] = [
+  {
+    type: 'visitDate',
+    icon: <MdCalendarToday />,
+    text: '방문 예정일',
+    content: <DateTimeInput />,
+  },
+  {
+    type: 'expectedCost',
+    icon: <MdCreditCard />,
+    text: '예상 비용',
+    content: <PriceInput />,
+  },
+  {
+    type: 'image',
+    icon: <MdImage />,
+    text: '대표 사진',
+    content: <ImageInput />,
+  },
+  {
+    type: 'description',
+    icon: <MdOutlineComment />,
+    text: '메모',
+    content: <TextareaInput />,
   },
 ];
 

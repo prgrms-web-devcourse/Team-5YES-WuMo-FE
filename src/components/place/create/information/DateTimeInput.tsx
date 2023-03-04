@@ -9,30 +9,50 @@ import {
   NumberInputStepper,
 } from '@chakra-ui/number-input';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
+import { useRecoilState } from 'recoil';
 
-import { InputProps } from '@/types/place';
+import { createPlaceState } from '@/store/recoilPlaceState';
+import { Place } from '@/types/place';
 
-const DateTimeInput = ({ value, setValueHandler }: InputProps) => {
+const DateTimeInput = () => {
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
+  const [values, setValues] = useState({
+    date: new Date(),
+    hour: 0,
+    min: 0,
+  });
+
+  const handleChange = (type: 'date' | 'hour' | 'min', newValue: Date | number) => {
+    setValues({ ...values, [type]: newValue });
+
+    const newDate = new Date(values.date);
+    newDate.setHours(values.hour);
+    newDate.setMinutes(values.min);
+    setCreatePlaceBody({
+      ...createPlaceBody,
+      visitDate: newDate.toString(),
+    });
+  };
+
   return (
     <VStack>
       <Calendar
         locale='ko'
         calendarType='US'
-        value={new Date(value)}
+        value={values.date}
         formatDay={(_, date) => dayjs(date).format('DD')}
-        onChange={(v: Date) => setValueHandler('visitDate', v)}
+        onChange={(v: Date) => handleChange('date', v)}
       />
       <HStack>
         <NumberInput
           size='sm'
-          step={5}
+          step={1}
           min={0}
           max={23}
-          value={new Date(value).getHours()}
-          onChange={(valueString) =>
-            setValueHandler('visitDate', new Date(value).setHours(Number(valueString)))
-          }>
+          value={values.hour}
+          onChange={(v) => handleChange('hour', Number(v))}>
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper />
@@ -45,10 +65,8 @@ const DateTimeInput = ({ value, setValueHandler }: InputProps) => {
           step={5}
           min={0}
           max={59}
-          value={new Date(value).getMinutes()}
-          onChange={(valueString) =>
-            setValueHandler('visitDate', new Date(value).setMinutes(Number(valueString)))
-          }>
+          value={values.min}
+          onChange={(v) => handleChange('min', Number(v))}>
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper />

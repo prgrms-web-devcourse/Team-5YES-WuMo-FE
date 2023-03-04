@@ -1,15 +1,20 @@
 import { Flex, Textarea } from '@chakra-ui/react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { InputProps } from '@/types/place';
+import { createPlaceState } from '@/store/recoilPlaceState';
+import { Place } from '@/types/place';
+import { PLACE_DESCRIPTION_MAX_LENGTH } from '@/utils/constants/party';
 
-const TextareaInput = ({ value, setValueHandler }: InputProps) => {
-  const maxLength = 50;
+const TextareaInput = () => {
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
+  const [value, setValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    if (value.length > maxLength) return;
-    setValueHandler('description', e.target.value);
+    if (value.length > PLACE_DESCRIPTION_MAX_LENGTH) return;
+    setValue(e.target.value);
+    setCreatePlaceBody({ ...createPlaceBody, description: value });
   };
 
   return (
@@ -29,7 +34,7 @@ const TextareaInput = ({ value, setValueHandler }: InputProps) => {
         lineHeight='base'
       />
       <Flex justify='flex-end' fontSize='sm' color='gray.600'>
-        {value.length}/{maxLength}자
+        {value.length}/{PLACE_DESCRIPTION_MAX_LENGTH}자
       </Flex>
     </>
   );

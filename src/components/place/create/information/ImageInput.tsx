@@ -1,25 +1,31 @@
 import { Box, Button, Flex, Icon, Image } from '@chakra-ui/react';
 import { ChangeEvent, useRef, useState } from 'react';
 import { MdAddPhotoAlternate } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
 
-import { InputProps } from '@/types/place';
+import { createPlaceState } from '@/store/recoilPlaceState';
+import { ImageData, Place } from '@/types/place';
 
-const ImageInput = ({ value, setValueHandler }: InputProps) => {
+const ImageInput = () => {
+  const [createPlaceBody, setCreatePlaceBody] = useRecoilState<Place>(createPlaceState);
+  const [values, setValues] = useState<ImageData>({
+    imageBase64: '',
+    imageFile: null,
+  });
   const inputRef = useRef<HTMLInputElement>(null);
-  const [imageBase64, setImageBase64] = useState('');
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValueHandler('image', file);
+      setValues({ ...values, imageFile: file });
       encodeFileToBase64(file);
     }
   };
 
   const handleFileDelete = () => {
     if (confirm('사진을 삭제하시겠습니까?')) {
-      setValueHandler('image', null);
-      setImageBase64('');
+      setValues({ ...values, imageBase64: '', imageFile: null });
+      setCreatePlaceBody({ ...createPlaceBody, image: '' });
     }
   };
 
@@ -33,8 +39,8 @@ const ImageInput = ({ value, setValueHandler }: InputProps) => {
     return new Promise((resolve) => {
       reader.onload = () => {
         if (!reader.result || typeof reader.result !== 'string') return;
-        const result = reader.result;
-        setImageBase64(result);
+        setValues({ ...values, imageBase64: reader.result });
+        setCreatePlaceBody({ ...createPlaceBody, image: values.imageBase64 });
         resolve(Promise);
       };
     });
@@ -51,9 +57,9 @@ const ImageInput = ({ value, setValueHandler }: InputProps) => {
           accept='image/jpg, image/jpeg, image/png'
           onChange={handleFileChange}
         />
-        {imageBase64 || value ? (
+        {values.imageBase64 ? (
           <Image
-            src={imageBase64 || value}
+            src={values.imageBase64}
             alt='이미지 미리보기'
             maxH='sm'
             margin='0 auto'
@@ -73,7 +79,7 @@ const ImageInput = ({ value, setValueHandler }: InputProps) => {
           </Flex>
         )}
       </Box>
-      {(imageBase64 || value) && (
+      {(values.imageBase64 || values.imageFile) && (
         <Flex justify='flex-end' paddingTop='3'>
           <Button color='warning' onClick={handleFileDelete}>
             삭제

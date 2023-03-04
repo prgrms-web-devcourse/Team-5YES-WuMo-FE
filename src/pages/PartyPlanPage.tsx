@@ -1,14 +1,11 @@
-import { useDisclosure } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import PlaceList from '@/components/party/partyPlan/PlanPlaceList';
-import PlaceCreateModal from '@/components/placeCreate/PlaceCreateModal';
-import PlacePreviewMap from '@/components/placeCreate/search/PlacePreviewMap';
+import PlacePreviewMap from '@/components/place/create/search/PlacePreviewMap';
 import useMapScript from '@/hooks/useMapScript';
 import { PLACES_DUMMY_DATA } from '@/utils/constants/place';
 
 const PartyPlanPage = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { script } = useMapScript();
 
   useEffect(() => {
@@ -28,8 +25,7 @@ const PartyPlanPage = () => {
         level={8}
         draggable
       />
-      <PlaceList places={PLACES_DUMMY_DATA} openModalHandler={onOpen} />
-      <PlaceCreateModal isOpen={isOpen} closeModalHandler={onClose} />
+      <PlaceList places={PLACES_DUMMY_DATA} />
     </>
   );
 };
