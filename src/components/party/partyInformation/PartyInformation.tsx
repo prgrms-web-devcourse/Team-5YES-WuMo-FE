@@ -50,7 +50,7 @@ const PartyInformation = () => {
 
   return (
     <Box>
-      <BackNavigation />
+      <BackNavigation option='메뉴' />
       <Image src='https://via.placeholder.com/560x200' pt='4.75rem' />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>

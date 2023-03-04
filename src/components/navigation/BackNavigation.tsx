@@ -1,26 +1,47 @@
-import { Button, Container, Flex, Input } from '@chakra-ui/react';
+import { Button, Container, Flex, Input, useDisclosure } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdKeyboardArrowLeft } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdMenu, MdSearch } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { BackNavigationProps } from '@/types/backNavigation';
 
+import PartyUpdate from '../party/partyUpdate/PartyUpdate';
+
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const [isShowSearch, setIsShowSearch] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onClickOption = (option: string) => {
+    switch (option) {
+      case '검색':
+        setIsShowSearch(!isShowSearch);
+        break;
+      case '메뉴':
+        onOpen();
+        break;
+      default:
+        break;
+    }
+  };
 
   const navigate = useNavigate();
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20'>
       <Flex justify='space-between'>
-        <SpanButton onClick={() => navigate(-1)}>
+        <BackButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
-        </SpanButton>
+        </BackButton>
         <Title>{title}</Title>
-        <SpanButton onClick={() => setIsShowSearch(!isShowSearch)}>{option}</SpanButton>
+        <BackButton
+          onClick={() => {
+            if (option) onClickOption(option);
+          }}>
+          {option === '검색' ? <MdSearch /> : option === '메뉴' ? <MdMenu /> : ''}
+        </BackButton>
       </Flex>
-      {option && isShowSearch ? (
+      {option === '검색' && isShowSearch ? (
         <Flex
           py='1rem'
           justifyContent='space-between'
@@ -38,11 +59,12 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
       ) : (
         ''
       )}
+      <PartyUpdate isOpen={isOpen} onClose={onClose} />
     </Nav>
   );
 };
 
-const SpanButton = styled.span`
+const BackButton = styled.span`
   cursor: pointer;
   font-size: 1.5rem;
   padding-top: 0.25rem;
