@@ -12,6 +12,12 @@ export type PartyCreateBody = {
   password: string;
   role: string;
 };
+
+export type PartyUpdateProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
 export type PartyListProps = {
   coverImage: string;
   name: string;

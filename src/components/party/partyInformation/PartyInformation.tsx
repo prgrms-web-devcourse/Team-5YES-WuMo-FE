@@ -14,6 +14,7 @@ import { Outlet } from 'react-router-dom';
 
 import BackNavigation from '@/components/navigation/BackNavigation';
 import { CalculateStayDurationProps } from '@/types/party';
+import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import PartyMenuTabList from './PartyMenuTabList';
 import PartyUserList from './PartyUserList';
@@ -50,7 +51,7 @@ const PartyInformation = () => {
 
   return (
     <Box>
-      <BackNavigation />
+      <BackNavigation option={BACKNAVIGATION_OPTIONS.MENU} />
       <Image src='https://via.placeholder.com/560x200' pt='4.75rem' />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>

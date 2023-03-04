@@ -1,26 +1,49 @@
-import { Button, Container, Flex, Input } from '@chakra-ui/react';
+import { Button, Container, Flex, Input, useDisclosure } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdKeyboardArrowLeft } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdSearch, MdSettings } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { BackNavigationProps } from '@/types/backNavigation';
+import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
+
+import PartyUpdate from '../party/partyUpdate/PartyUpdate';
 
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
+  const { SEARCH, MENU } = BACKNAVIGATION_OPTIONS;
   const [isShowSearch, setIsShowSearch] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onClickOption = (option: string) => {
+    switch (option) {
+      case SEARCH:
+        setIsShowSearch(!isShowSearch);
+        break;
+      case MENU:
+        onOpen();
+        break;
+      default:
+        break;
+    }
+  };
 
   const navigate = useNavigate();
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20'>
       <Flex justify='space-between'>
-        <SpanButton onClick={() => navigate(-1)}>
+        <BackButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
-        </SpanButton>
+        </BackButton>
         <Title>{title}</Title>
-        <SpanButton onClick={() => setIsShowSearch(!isShowSearch)}>{option}</SpanButton>
+        <BackButton
+          onClick={() => {
+            if (option) onClickOption(option);
+          }}>
+          {option === SEARCH ? <MdSearch /> : option === MENU ? <MdSettings /> : ''}
+        </BackButton>
       </Flex>
-      {option && isShowSearch ? (
+      {option === SEARCH && isShowSearch ? (
         <Flex
           py='1rem'
           justifyContent='space-between'
@@ -33,16 +56,17 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
             fontSize='0.75rem'
             padding='0.5rem'
           />
-          <Button fontSize='0.875rem'>검색</Button>
+          <Button fontSize='0.875rem'>{SEARCH}</Button>
         </Flex>
       ) : (
         ''
       )}
+      <PartyUpdate isOpen={isOpen} onClose={onClose} />
     </Nav>
   );
 };
 
-const SpanButton = styled.span`
+const BackButton = styled.span`
   cursor: pointer;
   font-size: 1.5rem;
   padding-top: 0.25rem;
