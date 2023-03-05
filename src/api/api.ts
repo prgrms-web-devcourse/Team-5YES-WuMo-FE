@@ -21,16 +21,33 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
     };
 
     const errInterceptor = (error: AxiosError) => {
+      if (error.status === 401) {
+        console.log(error.message + ' 다시 로그인 하시죠.');
+      }
       console.log(error);
       return Promise.reject();
     };
 
-    const interceptor = instance.interceptors.response.use(
+    const interceptorResponse = instance.interceptors.response.use(
       resInterceptor,
       errInterceptor
     );
 
-    return () => instance.interceptors.response.eject(interceptor);
+    const interceptorRequest = instance.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('accessToken');
+        config.headers.Authorization = token ? `Bearer ${JSON.parse(token)}` : '';
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      instance.interceptors.response.eject(interceptorResponse);
+      instance.interceptors.request.eject(interceptorRequest);
+    };
   }, []);
 
   return children;
