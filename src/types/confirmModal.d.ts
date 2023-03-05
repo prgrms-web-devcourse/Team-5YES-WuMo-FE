@@ -4,11 +4,11 @@ export type ConfirmModalProps = {
   closeModalHandler: () => void;
   body: JSX.Element;
   buttonText: {
-    left?: string;
-    right?: string;
+    secondary?: string;
+    primary?: string;
   };
   clickButtonHandler: {
-    left?: () => void;
-    right?: () => void;
+    secondary?: () => void;
+    primary?: () => void;
   };
 };

@@ -29,24 +29,24 @@ const ConfirmModal = ({
         </ModalBody>
         <ModalFooter justifyContent='center'>
           <ButtonGroup gap='8' mt='4'>
-            {buttonText.left && (
+            {buttonText.secondary && (
               <Button
                 backgroundColor='gray'
                 color='white'
                 size='lg'
                 p='1.5rem 2.5rem'
-                onClick={clickButtonHandler?.left || closeModalHandler}>
-                {buttonText.left}
+                onClick={clickButtonHandler?.secondary || closeModalHandler}>
+                {buttonText.secondary}
               </Button>
             )}
-            {buttonText.right && (
+            {buttonText.primary && (
               <Button
                 backgroundColor='primary.red'
                 color='white'
                 size='lg'
                 p='1rem 2rem'
-                onClick={clickButtonHandler?.right}>
-                {buttonText.right}
+                onClick={clickButtonHandler?.primary}>
+                {buttonText.primary}
               </Button>
             )}
           </ButtonGroup>

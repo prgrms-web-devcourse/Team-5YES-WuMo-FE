@@ -39,8 +39,8 @@ const PartyPlanPage = () => {
             <Text>이 후보지를 일정을 추가할까요?</Text>
           </Box>
         }
-        buttonText={{ left: '수정', right: '추가' }}
-        clickButtonHandler={{ right: () => console.log('추가 완료') }}
+        buttonText={{ secondary: '수정', primary: '추가' }}
+        clickButtonHandler={{ primary: () => console.log('추가 완료') }}
       />
     </>
   );
