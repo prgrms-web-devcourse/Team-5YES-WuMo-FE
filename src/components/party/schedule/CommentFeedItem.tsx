@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Container, Flex, Image, Text } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 
-import { CommentTypes } from '@/types/schedule';
-import { replaceDateSlashWithDot } from '@/utils/dateTransform';
+import { CommentType } from '@/types/schedule';
 
 const CommentFeedItem = ({
   nickName,
@@ -10,8 +10,7 @@ const CommentFeedItem = ({
   content,
   image,
   createdAt,
-}: CommentTypes) => {
-  const customDate = replaceDateSlashWithDot(createdAt);
+}: CommentType) => {
   return (
     <Container p='1rem' borderBottom='solid 0.125rem' borderColor='blackAlpha.200'>
       <Flex align='center' mb='0.625rem'>
@@ -25,7 +24,7 @@ const CommentFeedItem = ({
           </Text>
         </Box>
         <Text mt='auto' mb='0.5rem'>
-          {customDate}
+          {dayjs(createdAt).format('YY.MM.DD')}
         </Text>
         <Box ml='auto'>
           <Button size='xs' mr='0.3125rem'>

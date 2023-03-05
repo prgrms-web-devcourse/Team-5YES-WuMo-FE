@@ -18,17 +18,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
+import axios from '@/api/api';
 import { SignProps } from '@/types/userSign';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
+import ROUTES from '@/utils/constants/routes';
 import { signUpSchema } from '@/utils/schema';
 
-const DUMMY = {
-  email: ['test@test.com', 'minjae@test.com'],
-  nickname: ['minjae', 'test'],
-};
-
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -51,24 +50,32 @@ const SignUpForm = () => {
     'passwordConfirm',
   ]);
 
-  const onSubmit = (values: SignProps) => {
+  const onSubmit = async (values: SignProps) => {
     if (!checkEmail) return setError('email', { message: FORM_ERROR_MESSAGES.DUPLICATE });
     if (!checkNickname)
       return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
 
-    console.log(values);
+    try {
+      await axios.post('/api/v1/members/signup', values);
+      navigate(ROUTES.SIGNIN);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleCheckEmail = async () => {
     const checkBefore = await trigger('email');
     const target = getValues('email');
-    //나중에 server error로 수정
     if (!checkBefore) return;
-    if (DUMMY.email.includes(target)) {
+
+    try {
+      await axios.post('/api/v1/members/check-email', {
+        email: target,
+      });
+      setCheckEmail(true);
+    } catch (error) {
       setCheckEmail(false);
       setError('email', { message: FORM_ERROR_MESSAGES.EMAIL_DUPLICATED });
-    } else {
-      setCheckEmail(true);
     }
   };
 
@@ -77,11 +84,14 @@ const SignUpForm = () => {
     const target = getValues('nickname');
     //나중에 server error로 수정
     if (!checkBefore) return;
-    if (DUMMY.nickname.includes(target)) {
+    try {
+      await axios.post('/api/v1/members/check-nickname', {
+        nickname: target,
+      });
+      setCheckNickname(true);
+    } catch (error) {
       setCheckNickname(false);
       setError('nickname', { message: FORM_ERROR_MESSAGES.NICKNAME_DUPLICATED });
-    } else {
-      setCheckNickname(true);
     }
   };
 
@@ -170,6 +180,7 @@ const SignUpForm = () => {
             <Input
               id='password'
               placeholder='비밀번호'
+              maxLength={12}
               type='password'
               {...register('password')}
             />
@@ -194,6 +205,7 @@ const SignUpForm = () => {
             <Input
               id='passwordConfirm'
               placeholder='비밀번호 확인'
+              maxLength={12}
               type='password'
               {...register('passwordConfirm')}
             />

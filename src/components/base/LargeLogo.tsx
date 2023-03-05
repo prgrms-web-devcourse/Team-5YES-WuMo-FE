@@ -1,10 +1,14 @@
 import { Center, Img } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const LargeLogo = () => {
+type LargeLogoProps = {
+  src: string;
+};
+
+const LargeLogo = ({ src }: LargeLogoProps) => {
   return (
     <Center>
-      <Logo src='/logo-lg.svg' p='5px 0 0 10px' />
+      <Logo src={src} />
     </Center>
   );
 };

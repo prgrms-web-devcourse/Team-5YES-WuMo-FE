@@ -24,36 +24,40 @@ const PlaceCategoryModal = () => {
     setStep(step + 1);
   };
 
+  console.log(categoryInfo);
+
   return (
     <>
       <ModalBody>
-        <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(3, 1fr)' gap='3'>
-          {Object.entries(categoryInfo).map(
-            ([name, information]) =>
-              'text' in information &&
-              'imageID' in information && (
-                <GridItem
-                  key={information.imageID}
-                  cursor='pointer'
-                  borderRadius='2xl'
-                  paddingTop='3.5'
-                  paddingBottom='3.5'
-                  backgroundColor='gray.50'
-                  _hover={{ backgroundColor: 'gray.100', fontWeight: 'bold' }}
-                  onClick={() => setValue(name)}
-                  {...(value === name && selectedCategoryStyle)}>
-                  <Flex direction='column' align='center' justify='center' gap='4'>
-                    <Image
-                      src={getCategoryImageURL(information.imageID)}
-                      alt={information.text}
-                      width='2rem'
-                    />
-                    {information.text}
-                  </Flex>
-                </GridItem>
-              )
-          )}
-        </Grid>
+        {categoryInfo && (
+          <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(3, 1fr)' gap='3'>
+            {Object.entries(categoryInfo).map(
+              ([name, information]) =>
+                'text' in information &&
+                'imageID' in information && (
+                  <GridItem
+                    key={information.imageID}
+                    cursor='pointer'
+                    borderRadius='2xl'
+                    paddingTop='3.5'
+                    paddingBottom='3.5'
+                    backgroundColor='gray.50'
+                    _hover={{ backgroundColor: 'gray.100', fontWeight: 'bold' }}
+                    onClick={() => setValue(name)}
+                    {...(value === name && selectedCategoryStyle)}>
+                    <Flex direction='column' align='center' justify='center' gap='4'>
+                      <Image
+                        src={getCategoryImageURL(information.imageID)}
+                        alt={information.text}
+                        width='2rem'
+                      />
+                      {information.text}
+                    </Flex>
+                  </GridItem>
+                )
+            )}
+          </Grid>
+        )}
       </ModalBody>
       <ModalFooter>
         <ModalButton text='다음' isDisabled={!value} clickButtonHandler={handleClick} />

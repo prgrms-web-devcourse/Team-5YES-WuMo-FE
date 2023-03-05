@@ -1,10 +1,10 @@
 import { Flex, Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
 
-import { PlaceInfoTableProps } from '@/types/place';
+import { PlaceInformationTableProps } from '@/types/place';
 import { PlaceInfoItems } from '@/utils/constants/place';
 import { formatDate, formatPrice } from '@/utils/formatter';
 
-const PlaceInfoTable = ({ data }: PlaceInfoTableProps) => {
+const PlaceInfoTable = ({ data }: PlaceInformationTableProps) => {
   return (
     <TableContainer>
       <Table>

@@ -14,7 +14,8 @@ import dayjs from 'dayjs';
 import { MdOutlinePlace } from 'react-icons/md';
 
 import { routeListProps } from '@/types/schedule';
-import { categoryInfo, getCategoryImageURL } from '@/utils/constants/place';
+import { getCategoryImageURL } from '@/utils/constants/place';
+import { getPriceText } from '@/utils/formatter';
 
 const RouteTimelineItem = ({
   name,
@@ -23,7 +24,7 @@ const RouteTimelineItem = ({
   visitDate,
   spending,
   category,
-  onClickhandler,
+  onClickHandler,
   routerButton,
 }: routeListProps) => {
   return (
@@ -38,7 +39,7 @@ const RouteTimelineItem = ({
           </Text>
           <ListIcon
             as={Image}
-            src={getCategoryImageURL(categoryInfo[category].imageID)}
+            src={getCategoryImageURL(category)}
             bg='gray.100'
             w='3.125rem'
             h='3.125rem'
@@ -47,11 +48,11 @@ const RouteTimelineItem = ({
             borderRadius='0.625rem'
           />
           <Text fontSize='xs' bg='white'>
-            {spending} 원
+            {getPriceText(spending)}
           </Text>
         </Flex>
-        <Box onClick={onClickhandler} w='70%' pos='relative' ml='1rem'>
-          <Flex align='center' justify='space-between' mb='18px'>
+        <Box onClick={onClickHandler} w='70%' pos='relative' ml='1rem'>
+          <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (
               <Button variant='ghost' size='xs'>

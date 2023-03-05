@@ -1,16 +1,21 @@
 import { Container } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
+import axios from '@/api/api';
 import SubmitButton from '@/components/base/SubmitButton';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { TokenProps } from '@/types/tokens';
 import { SignInProps } from '@/types/userSign';
+import ROUTES from '@/utils/constants/routes';
 import { signInSchema } from '@/utils/schema';
 
 import SignInInput from './SignInInput';
 
 const SignInForm = () => {
-  const [token, setToken] = useLocalStorage('token', '');
+  const navigate = useNavigate();
+  const [, setToken] = useLocalStorage('accessToken', '');
   const {
     control,
     handleSubmit,
@@ -24,10 +29,16 @@ const SignInForm = () => {
     resolver: yupResolver(signInSchema),
   });
 
-  const onSubmit = (values: SignInProps) => {
-    console.log(token);
-    console.log(values);
-    setToken(values);
+  const onSubmit = async (values: SignInProps) => {
+    try {
+      const response = await axios.post('/api/v1/members/login', values);
+      const { accessToken, refreshToken }: TokenProps = response.data;
+      document.cookie = `refreshToken=${refreshToken};`;
+      setToken(accessToken);
+      navigate(ROUTES.MAIN);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

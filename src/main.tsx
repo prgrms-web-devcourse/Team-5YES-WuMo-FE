@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 
+import { AxiosInterceptor } from './api/api';
 import App from './App';
 
 const {
@@ -23,6 +24,7 @@ const {
   NumberInput,
   Progress,
   List,
+  Menu,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -40,6 +42,7 @@ const theme = extendBaseTheme({
     Table,
     Tabs,
     Modal,
+    Menu,
     NumberInput,
     Progress,
     List,
@@ -66,7 +69,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <RecoilRoot>
       <ChakraBaseProvider theme={theme}>
-        <App />
+        <AxiosInterceptor>
+          <App />
+        </AxiosInterceptor>
       </ChakraBaseProvider>
     </RecoilRoot>
   </React.StrictMode>

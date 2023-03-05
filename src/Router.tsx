@@ -8,11 +8,11 @@ import {
   BestRouteListPage,
   LikeRouteListPage,
   MainPage,
+  NotFoundPage,
   PartyAlbumPage,
   PartyCommentPage,
   PartyCreatePage,
   PartyListPage,
-  // PartyNoticePage,
   PartyPlanPage,
   PartySchedulePage,
   PlacePage,
@@ -38,7 +38,6 @@ const Router = () => {
           <Route path={ROUTES.PARTY_LIST} element={<PartyListPage />} />
           <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
           <Route element={<PartyInformation />}>
-            {/* <Route path={ROUTES.NOTICE} element={<PartyNoticePage />} /> */}
             <Route path={ROUTES.SCHEDULE} element={<PartySchedulePage />} />
             <Route path={ROUTES.PLAN} element={<PartyPlanPage />} />
             <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
@@ -48,6 +47,7 @@ const Router = () => {
         </Route>
         <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
         <Route path={ROUTES.SIGNIN} element={<SignInPage />} />
+        <Route path={'*'} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

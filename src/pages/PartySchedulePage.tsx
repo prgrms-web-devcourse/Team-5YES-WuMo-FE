@@ -12,7 +12,7 @@ const PartySchedulePage = () => {
   return (
     <>
       <RouteTimeline
-        onClickhandler={onMoveCommentPage}
+        onClickHandler={onMoveCommentPage}
         routerButton={<MdArrowForwardIos />}
       />
     </>

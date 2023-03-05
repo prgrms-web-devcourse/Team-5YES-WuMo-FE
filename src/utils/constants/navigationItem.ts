@@ -52,3 +52,8 @@ export const NAVIGATION_ITEM: NavigationItem[] = [
     link: ROUTES.PROFILE,
   },
 ];
+
+export const BACKNAVIGATION_OPTIONS = {
+  SEARCH: '검색',
+  MENU: '메뉴',
+};

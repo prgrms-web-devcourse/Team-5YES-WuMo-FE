@@ -16,21 +16,20 @@ const PartyOwnRoleModal = () => {
     boxShadow: '0 0 0 2px #ea5148 inset',
   };
   const createPartyBody = useRecoilValue<PartyCreateBody>(createPartyState);
-  const [body, setBody] = useState(() => createPartyBody);
+  const [apiBody, setApiBody] = useState(() => createPartyBody);
   const [value, setValue] = useState('');
 
   const onClickRole = (text: string) => {
     setValue(text);
-    setBody({
+    setApiBody({
       ...createPartyBody,
-      memberId: 1,
       password: '1234',
       role: text,
     });
   };
 
-  const onClickNextStep = async () => {
-    console.log(body);
+  const handleCreateParty = async () => {
+    console.log(apiBody);
   };
 
   return (
@@ -60,7 +59,7 @@ const PartyOwnRoleModal = () => {
         </Grid>
       </ModalBody>
       <ModalFooter>
-        <ModalButton text='파티 생성' clickButtonHandler={onClickNextStep} />
+        <ModalButton text='파티 생성' clickButtonHandler={handleCreateParty} />
       </ModalFooter>
     </>
   );

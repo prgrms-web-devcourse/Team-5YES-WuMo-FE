@@ -1,4 +1,4 @@
 export type BackNavigationProps = {
-  title?: string;
-  option?: ReactNode;
+  title?: string | JSX.Element;
+  option?: string;
 };

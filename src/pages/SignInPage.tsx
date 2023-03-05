@@ -12,7 +12,7 @@ const SignInPage = () => {
       <BackNavigation />
       <Flex height='100%' flexDirection='column' justifyContent='center'>
         <Box>
-          <LargeLogo />
+          <LargeLogo src='/logo-lg.svg' />
           <SignInForm />
           <ToSignUp />
           <FindUserInfo />
