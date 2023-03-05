@@ -6,7 +6,7 @@ import CustomTextarea from '@/components/base/CustomTextarea';
 import FloatingButton from '@/components/base/FloatingButton';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
-import { getCategoryImageURL } from '@/utils/constants/place';
+import { getGitEmoji } from '@/utils/emoji';
 import { scrollToTop } from '@/utils/scrollToTop';
 
 import CommentFeedItem from './CommentFeedItem';
@@ -108,7 +108,7 @@ const RouteCommentFeed = () => {
           objectFit='cover'
         />
         <Img
-          src={getCategoryImageURL(PLACEDUMMYDATA.locations[0].category)}
+          src={getGitEmoji(PLACEDUMMYDATA.locations[0].category)}
           position='relative'
           left='5'
           bottom='8'

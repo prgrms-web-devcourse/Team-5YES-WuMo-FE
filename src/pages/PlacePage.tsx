@@ -7,7 +7,8 @@ import CommentForm from '@/components/place/CommentForm';
 import PlaceInfoTable from '@/components/place/PlaceInfoTable';
 import PlacePreviewMap from '@/components/placeCreate/search/PlacePreviewMap';
 import useMapScript from '@/hooks/useMapScript';
-import { getCategoryImageURL, PLACES_DUMMY_DATA } from '@/utils/constants/place';
+import { PLACES_DUMMY_DATA } from '@/utils/constants/place';
+import { getGitEmoji } from '@/utils/emoji';
 import { scrollToTop } from '@/utils/scrollToTop';
 
 const PlacePage = () => {
@@ -29,12 +30,7 @@ const PlacePage = () => {
       <BackNavigation />
       <Box height='2xs' marginTop='12'>
         <Image src={data.image} height='3xs' width='full' objectFit='cover' />
-        <Image
-          src={getCategoryImageURL(data.category)}
-          position='relative'
-          left='5'
-          bottom='8'
-        />
+        <Image src={getGitEmoji(data.category)} position='relative' left='5' bottom='8' />
       </Box>
       <Flex direction='column' padding='5' paddingTop='0' gap='2'>
         <ButtonGroup gap='1' variant='outline' size='sm' justifyContent='flex-end'>

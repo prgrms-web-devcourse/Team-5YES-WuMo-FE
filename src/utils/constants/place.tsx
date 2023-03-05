@@ -28,11 +28,6 @@ export const selectedCategoryStyle = {
   backgroundColor: 'gray.100',
 };
 
-export const getCategoryImageURL = (category: string) => {
-  const categoryImageID = categoryInfo[category].imageID;
-  return `https://github.githubassets.com/images/icons/emoji/unicode/${categoryImageID}.png?v8`;
-};
-
 export const categoryInfo: Category = {
   meal: {
     text: '식사',

@@ -7,14 +7,13 @@ import {
   ModalBody,
   ModalFooter,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
-import { partyCategoryList } from '@/utils/constants/party';
-import { getCategoryImageURL } from '@/utils/constants/place';
+import { partyRoleList } from '@/utils/constants/party';
+import { getGitEmoji } from '@/utils/emoji';
 
 const PartyOwnRoleModal = () => {
   const selected = {
@@ -44,7 +43,7 @@ const PartyOwnRoleModal = () => {
     <>
       <ModalBody>
         <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(3, 1fr)' gap='3'>
-          {partyCategoryList.map(({ text, imageID }) => (
+          {partyRoleList.map(({ text, imageID }) => (
             <GridItem
               key={imageID}
               cursor='pointer'
@@ -59,7 +58,7 @@ const PartyOwnRoleModal = () => {
               onClick={() => onClickRole(text)}
               {...(value === text && selected)}>
               <Flex direction='column' align='center' justify='center' gap='4'>
-                <Image src={getCategoryImageURL(imageID)} alt={text} width='2rem' />
+                <Image src={getGitEmoji(imageID)} alt={text} width='2rem' />
                 {text}
               </Flex>
             </GridItem>

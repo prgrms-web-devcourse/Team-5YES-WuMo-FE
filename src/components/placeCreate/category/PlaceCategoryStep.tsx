@@ -1,11 +1,8 @@
 import { Flex, Grid, GridItem, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import {
-  categoryInfo,
-  getCategoryImageURL,
-  selectedCategoryStyle,
-} from '@/utils/constants/place';
+import { categoryInfo, selectedCategoryStyle } from '@/utils/constants/place';
+import { getGitEmoji } from '@/utils/emoji';
 
 const PlaceCategoryStep = () => {
   const [value, setValue] = useState('');
@@ -27,11 +24,7 @@ const PlaceCategoryStep = () => {
               onClick={() => setValue(name)}
               {...(value === name && selectedCategoryStyle)}>
               <Flex direction='column' align='center' justify='center' gap='4'>
-                <Image
-                  src={getCategoryImageURL(info.imageID)}
-                  alt={info.text}
-                  width='2rem'
-                />
+                <Image src={getGitEmoji(info.imageID)} alt={info.text} width='2rem' />
                 {info.text}
               </Flex>
             </GridItem>
