@@ -11,10 +11,17 @@ import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 import MoreMenu from '../base/MoreMenu';
 import PartyUpdate from '../party/partyUpdate/PartyUpdate';
 
+const { SEARCH, MENU, MORE } = BACKNAVIGATION_OPTIONS;
+
 const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) => {
-  const { SEARCH, MENU, MORE } = BACKNAVIGATION_OPTIONS;
   const [isShowSearch, setIsShowSearch] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const optionList = {
+    [SEARCH]: <MdSearch />,
+    [MENU]: <MdSettings />,
+    [MORE]: <MoreMenu {...moreMenuEvent} />,
+  };
 
   const onClickOption = (option: string) => {
     switch (option) {
@@ -31,7 +38,7 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
 
   const navigate = useNavigate();
   return (
-    <Nav maxW='maxWidth.mobile' bg='white' zIndex='20' h='60px'>
+    <Nav maxW='maxWidth.mobile' bg='white' zIndex='20' h='3.75rem' userSelect='none'>
       <Flex justify='space-between'>
         <BackButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
@@ -41,20 +48,13 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           onClick={() => {
             if (option) onClickOption(option);
           }}>
-          {option === SEARCH ? (
-            <MdSearch />
-          ) : option === MENU ? (
-            <MdSettings />
-          ) : option === MORE ? (
-            <MoreMenu {...moreMenuEvent} />
-          ) : (
-            ''
-          )}
+          {option && optionList[option]}
         </BackButton>
       </Flex>
-      {option === SEARCH && isShowSearch ? (
+      {option === SEARCH && isShowSearch && (
         <Flex
           py='1rem'
+          bg='white'
           justifyContent='space-between'
           as={motion.div}
           initial={{ scale: 0 }}
@@ -67,8 +67,6 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           />
           <Button fontSize='0.875rem'>{SEARCH}</Button>
         </Flex>
-      ) : (
-        ''
       )}
       <PartyUpdate isOpen={isOpen} onClose={onClose} />
     </Nav>
