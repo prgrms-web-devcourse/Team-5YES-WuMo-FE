@@ -44,7 +44,7 @@ const ConfirmModal = ({
                 backgroundColor='primary.red'
                 color='white'
                 size='lg'
-                p='1rem 2rem'
+                p='1.5rem 2.5rem'
                 onClick={clickButtonHandler?.primary}>
                 {buttonText.primary}
               </Button>
