@@ -2,18 +2,18 @@ import { Divider } from '@chakra-ui/react';
 
 import BestRouteList from '@/components/main/BestRouteList';
 import MainHeader from '@/components/main/MainHeader';
-import TotalPartyNoticeList from '@/components/main/TotalPartyNoticeList';
+import PartCreateGuide from '@/components/main/PartCreateGuide';
 import UserPartyList from '@/components/main/UserPartyList';
 
 const MainPage = () => {
   return (
     <>
       <MainHeader />
+      <PartCreateGuide />
+      <Divider marginTop='2.5rem' borderTopWidth='0.625rem' />
       <BestRouteList />
       <Divider marginTop='2.5rem' borderTopWidth='0.625rem' />
       <UserPartyList />
-      <Divider marginTop='2.5rem' borderTopWidth='0.625rem' />
-      <TotalPartyNoticeList />
     </>
   );
 };

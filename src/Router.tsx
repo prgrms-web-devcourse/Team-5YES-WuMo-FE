@@ -13,7 +13,6 @@ import {
   PartyCommentPage,
   PartyCreatePage,
   PartyListPage,
-  // PartyNoticePage,
   PartyPlanPage,
   PartySchedulePage,
   PlacePage,
@@ -37,7 +36,6 @@ const Router = () => {
           <Route path={ROUTES.PARTY_LIST} element={<PartyListPage />} />
           <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
           <Route element={<PartyInformation />}>
-            {/* <Route path={ROUTES.NOTICE} element={<PartyNoticePage />} /> */}
             <Route path={ROUTES.SCHEDULE} element={<PartySchedulePage />} />
             <Route path={ROUTES.PLAN} element={<PartyPlanPage />} />
             <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
