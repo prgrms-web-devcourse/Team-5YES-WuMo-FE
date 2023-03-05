@@ -56,4 +56,5 @@ export const NAVIGATION_ITEM: NavigationItem[] = [
 export const BACKNAVIGATION_OPTIONS = {
   SEARCH: '검색',
   MENU: '메뉴',
+  MORE: '더보기',
 };

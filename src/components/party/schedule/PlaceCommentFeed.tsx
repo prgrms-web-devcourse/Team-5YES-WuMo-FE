@@ -6,6 +6,7 @@ import CustomTextarea from '@/components/base/CustomTextarea';
 import FloatingButton from '@/components/base/FloatingButton';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
+import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 import { getCategoryImageURL } from '@/utils/constants/place';
 import { scrollToTop } from '@/utils/scrollToTop';
 
@@ -85,6 +86,11 @@ const modalContent = {
   },
 };
 
+const moreMenuEvent = {
+  onEditEvent: () => alert('수정'),
+  onRemoveEvent: () => alert('삭제'),
+};
+
 const placeData = {
   place: PLACEDUMMYDATA.locations[0].name,
   visitDate: PLACEDUMMYDATA.locations[0].visitDate,
@@ -98,7 +104,11 @@ const RouteCommentFeed = () => {
   );
   return (
     <>
-      <BackNavigation title={scrollActive ? navigationTitle : ''} />
+      <BackNavigation
+        title={scrollActive ? navigationTitle : ''}
+        option={BACKNAVIGATION_OPTIONS.MORE}
+        moreMenuEvent={moreMenuEvent}
+      />
       <Box>
         <Img
           src={PLACEDUMMYDATA.locations[0].image}
