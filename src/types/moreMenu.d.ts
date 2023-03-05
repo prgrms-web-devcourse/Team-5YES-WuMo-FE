@@ -1,4 +1,4 @@
-export type menuListEventProps = {
-  editEvent: () => void;
-  removeEvent: () => void;
+export type MoreMenuListEventProps = {
+  onEditEvent: () => void;
+  onRemoveEvent: () => void;
 };
