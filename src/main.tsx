@@ -25,6 +25,7 @@ const {
   Progress,
   List,
   Menu,
+  Spinner,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -46,6 +47,7 @@ const theme = extendBaseTheme({
     NumberInput,
     Progress,
     List,
+    Spinner,
   },
   fonts: {
     heading: `'Pretendard-Regular', sans-serif`,
