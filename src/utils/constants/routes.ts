@@ -10,6 +10,7 @@ const ROUTES = {
   LIKE: '/like',
   PARTY_CREATE: '/party/new',
   PROFILE: '/profile',
+  PROFILE_EDIT: '/profile/edit',
   PLACE_NEW: '/place/new',
   PLACE_DETAIL: '/place/:id',
   PARTY_LIST: '/party-list',
