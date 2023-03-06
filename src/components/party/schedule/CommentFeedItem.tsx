@@ -35,7 +35,9 @@ const CommentFeedItem = ({
       </Flex>
       <Box>
         <Text p='0.625rem 0'>{content}</Text>
-        {image && <Image src={image} w='100%' m='0 auto' maxH='18.75rem' />}
+        {image && (
+          <Image src={image} w='100%' m='0 auto' maxH='18.75rem' objectFit='cover' />
+        )}
       </Box>
     </Container>
   );
