@@ -15,7 +15,7 @@ const PlacePreviewMap = ({
   draggable = false,
   mapMarkers,
 }: PlacePreviewMapProps) => {
-  const [selectedMarker, setSelectedMarker] = useState<number>();
+  const [selectedMarker, setSelectedMarker] = useState<number | null>();
 
   return (
     <Map
@@ -42,7 +42,7 @@ const PlacePreviewMap = ({
                 height: 40,
               },
             }}
-            onClick={() => setSelectedMarker(id)}>
+            onClick={() => setSelectedMarker(id === selectedMarker ? null : id)}>
             {selectedMarker === id && (
               <Link to={`/place/${id}`}>
                 <Box
