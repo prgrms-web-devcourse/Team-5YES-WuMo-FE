@@ -50,7 +50,10 @@ export type Place = {
   routeId?: number;
 };
 
-export type PlaceMarker = Pick<Place, 'id' | 'latitude' | 'longitude' | 'category'>;
+export type PlaceMarker = Pick<
+  Place,
+  'id' | 'name' | 'latitude' | 'longitude' | 'category'
+>;
 
 export type PlaceInformationType =
   | 'visitDate'

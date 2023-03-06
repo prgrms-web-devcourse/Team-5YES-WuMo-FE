@@ -16,6 +16,7 @@ const PartyPlanPage = () => {
     // });
   }, [script]);
 
+  // TODO: 등록한 후보지가 없을 때 처리
   return (
     <>
       <PlacePreviewMap
