@@ -6,14 +6,16 @@ import ROUTES from '@/utils/constants/routes';
 
 const PartySchedulePage = () => {
   const navigate = useNavigate();
-  const onMoveCommentPage = () => {
-    navigate(ROUTES.SCHEDULE_COMMENT);
+  const onMoveCommentPage = (locationId: number, routeId: number) => {
+    navigate(ROUTES.SCHEDULE_COMMENT, { state: { locationId, routeId } });
   };
+
   return (
     <>
       <RouteTimeline
         onClickHandler={onMoveCommentPage}
         routerButton={<MdArrowForwardIos />}
+        isPublic={false}
       />
     </>
   );

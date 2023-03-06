@@ -1,4 +1,4 @@
-import { LocationsTypes } from './party';
+import { LocationsType } from './party';
 
 export type ReceiptProps = {
   isOpen: boolean;
@@ -10,7 +10,7 @@ export type ReceiptProps = {
 };
 
 export type ReceiptItemProps = {
-  locations: LocationsTypes[];
+  locations: LocationsType[];
 };
 
 export type TriangleProps = {
