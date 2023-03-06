@@ -36,21 +36,23 @@ const BottomSheet = ({ isOpen, onClose, modal }: BottomSheetProps) => {
           <ModalHeader fontSize='2xl'>{modal.title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Center flexDir='column' mt='6' mb='4'>
+            <Center flexDir='column' mt='6' mb={modal.buttonText ? '4' : '20'}>
               {modal.content}
-              <Button
-                bg='primary.red'
-                color='white'
-                size='lg'
-                w='99%'
-                marginTop='40px'
-                onClick={() => {
-                  onClose();
-                  modal.onClick && modal.onClick();
-                }}
-                borderRadius='2xl'>
-                {modal.buttonText}
-              </Button>
+              {modal.buttonText && (
+                <Button
+                  bg='primary.red'
+                  color='white'
+                  size='lg'
+                  w='99%'
+                  marginTop='40px'
+                  onClick={() => {
+                    onClose();
+                    modal.onClick && modal.onClick();
+                  }}
+                  borderRadius='2xl'>
+                  {modal.buttonText}
+                </Button>
+              )}
             </Center>
           </ModalBody>
         </ModalContent>
