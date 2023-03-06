@@ -8,7 +8,7 @@ const BestRouteDetailPage = () => {
     <>
       <BackNavigation title='베스트 루트' />
       <Box py='20'>
-        <RouteTimeline />
+        <RouteTimeline isPublic={true} />
       </Box>
     </>
   );
