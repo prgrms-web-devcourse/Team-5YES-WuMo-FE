@@ -11,7 +11,7 @@ import { SignInProps } from '@/types/userSign';
 import ROUTES from '@/utils/constants/routes';
 import { signInSchema } from '@/utils/schema';
 
-import SignInInput from './SignInInput';
+import ControlledInput from '../base/ControlledInput';
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ const SignInForm = () => {
 
   return (
     <Container as='form' onSubmit={handleSubmit(onSubmit)}>
-      <SignInInput name='email' control={control} resetField={resetField} />
-      <SignInInput name='password' control={control} resetField={resetField} />
+      <ControlledInput name='email' control={control} resetField={resetField} />
+      <ControlledInput name='password' control={control} resetField={resetField} />
       <SubmitButton isSubmitting={isSubmitting} mt='64' width='100%' colorScheme='orange'>
         로그인
       </SubmitButton>

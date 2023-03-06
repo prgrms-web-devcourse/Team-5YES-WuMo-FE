@@ -13,6 +13,7 @@ import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet } from 'react-router-dom';
 
 import BackNavigation from '@/components/navigation/BackNavigation';
+import useScrollEvent from '@/hooks/useScrollEvent';
 import { CalculateStayDurationProps } from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
@@ -31,6 +32,7 @@ const DUMMYDATA = {
 
 const PartyInformation = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const { scrollActive } = useScrollEvent(300);
   const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProps) => {
     const stayDate = dayjs(endDate).diff(startDate, 'd');
     if (!stayDate) return '';
@@ -51,7 +53,10 @@ const PartyInformation = () => {
 
   return (
     <Box>
-      <BackNavigation option={BACKNAVIGATION_OPTIONS.MENU} />
+      <BackNavigation
+        title={scrollActive ? DUMMYDATA.name : ''}
+        option={BACKNAVIGATION_OPTIONS.MENU}
+      />
       <Image src='https://via.placeholder.com/560x200' pt='3.75rem' />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>

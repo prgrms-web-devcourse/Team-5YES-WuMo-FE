@@ -4,6 +4,7 @@ export const FORM_ERROR_MESSAGES = {
   EMAIL_DUPLICATED: '이미 있는 이메일입니다.',
   NICKNAME_REQUIRED: '닉네임을 입력해주세요.',
   NICKNAME_INWORD: '한글은 단어로 입력해주세요.',
+  NICKNAME_PATTERN: '한글, 영어, 숫자만 입력해주세요.',
   NICKNAME_DUPLICATED: '이미 있는 닉네임입니다.',
   PASSWORD_REQUIRED: '비밀번호를 작성해주세요.',
   PASSWORD_PATTERN: '숫자, 문자를 조합하여 작성해주세요',
