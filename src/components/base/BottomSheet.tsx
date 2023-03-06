@@ -27,16 +27,26 @@ const BottomSheet = ({ isOpen, onClose, modal }: BottomSheetProps) => {
           initial={{ y: 100 }}
           animate={{
             y: 0,
+            opacity: 1,
             transition: {
               type: 'spring',
               bounce: 0,
               duration: 0.3,
             },
+          }}
+          exit={{
+            opacity: 0,
+            y: 300,
+            transition: {
+              type: 'spring',
+              bounce: 0,
+              duration: 0.5,
+            },
           }}>
           <ModalHeader fontSize='2xl'>{modal.title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Center flexDir='column' mt='6' mb={modal.buttonText ? '4' : '20'}>
+            <Center flexDir='column' mb={modal.buttonText ? '4' : '20'}>
               {modal.content}
               {modal.buttonText && (
                 <Button

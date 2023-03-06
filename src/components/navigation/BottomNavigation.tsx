@@ -26,8 +26,8 @@ const BottomNavigation = () => {
           ))}
         </Flex>
       </Navigation>
-      <Box mb='5rem'>
-        <StyledOutlet />
+      <Box mb='5.625rem'>
+        <Outlet />
       </Box>
     </>
   );
@@ -39,10 +39,6 @@ export const Navigation = styled(Grid)`
   bottom: 0;
   padding: 1rem;
   border-top: 0.0625rem solid #e8e8e8;
-`;
-
-const StyledOutlet = styled(Outlet)`
-  margin-bottom: 5rem;
 `;
 
 export default BottomNavigation;

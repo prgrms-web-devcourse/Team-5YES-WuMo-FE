@@ -6,6 +6,7 @@ const CustomTextarea = () => {
       resize='none'
       w='99%'
       border='1px solid lightgray'
+      p='0.625rem'
       rows={10}
       borderRadius='0.625rem'
     />
