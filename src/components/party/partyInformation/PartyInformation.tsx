@@ -15,6 +15,7 @@ import { Outlet } from 'react-router-dom';
 
 import { fetchPartyInformation } from '@/api/partyInformation';
 import BackNavigation from '@/components/navigation/BackNavigation';
+import useScrollEvent from '@/hooks/useScrollEvent';
 import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
@@ -30,6 +31,7 @@ const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProp
 
 const PartyInformation = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const { scrollActive } = useScrollEvent(300);
 
   const {
     data: partyInformation,
@@ -60,7 +62,10 @@ const PartyInformation = () => {
 
   return (
     <Box>
-      <BackNavigation option={BACKNAVIGATION_OPTIONS.MENU} />
+      <BackNavigation
+        title={scrollActive ? partyInformation.name : ''}
+        option={BACKNAVIGATION_OPTIONS.MENU}
+      />
       <Image
         src={partyInformation.coverImage}
         mt='3.75rem'

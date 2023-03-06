@@ -15,7 +15,7 @@ const PartCreateGuide = () => {
   const navigate = useNavigate();
 
   return (
-    <Box px='1.875rem'>
+    <Box px='1.875rem' pt='1rem'>
       <Box>
         <Heading size='lg'>{USERDUMMYDATA.nickname}님,</Heading>
         <Heading size='md'>모임을 위한 일정관리가 필요하신가요?</Heading>

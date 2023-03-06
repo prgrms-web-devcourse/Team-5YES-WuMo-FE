@@ -94,6 +94,6 @@ export type PlaceInformationTableProps = {
 };
 
 export type ImageData = {
-  imageBase64: string;
+  imageBase64: string | null;
   imageFile: File | null;
 };

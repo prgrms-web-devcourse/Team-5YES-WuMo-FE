@@ -12,7 +12,9 @@ import { PartyCreateBody } from '@/types/party';
 import { processStep } from '@/utils/constants/processStep';
 
 const PartyPeriodModal = () => {
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState<any>(new Date());
+  console.log(value);
+
   const [createPartyBody, setCreatePartyBody] =
     useRecoilState<PartyCreateBody>(createPartyState);
   const [step, setStep] = useRecoilState<number>(stepState);
@@ -32,7 +34,7 @@ const PartyPeriodModal = () => {
           <Box mb='10' textAlign='center'>
             <Calendar
               onChange={onChange}
-              value={value}
+              // value={value}
               formatDay={(_, date) => dayjs(date).format('DD')}
               allowPartialRange={true}
               selectRange={true}
