@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil';
 import ModalButton from '@/components/base/ModalButton';
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
+import { getGitEmoji } from '@/utils/constants/emoji';
 import { partyCategoryList } from '@/utils/constants/party';
-import { getCategoryImageURL } from '@/utils/constants/place';
 
 const PartyOwnRoleModal = () => {
   const selected = {
@@ -51,7 +51,7 @@ const PartyOwnRoleModal = () => {
               onClick={() => onClickRole(text)}
               {...(value === text && selected)}>
               <Flex direction='column' align='center' justify='center' gap='4'>
-                <Image src={getCategoryImageURL(imageID)} alt={text} width='2rem' />
+                <Image src={getGitEmoji(imageID)} alt={text} width='2rem' />
                 {text}
               </Flex>
             </GridItem>

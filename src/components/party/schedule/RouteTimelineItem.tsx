@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import { MdOutlinePlace } from 'react-icons/md';
 
 import { routeListProps } from '@/types/schedule';
-import { getCategoryImageURL } from '@/utils/constants/place';
+import { getGitEmoji } from '@/utils/constants/emoji';
 import { getPriceText } from '@/utils/formatter';
 
 const RouteTimelineItem = ({
@@ -39,7 +39,7 @@ const RouteTimelineItem = ({
           </Text>
           <ListIcon
             as={Image}
-            src={getCategoryImageURL(category)}
+            src={getGitEmoji(category)}
             bg='gray.100'
             w='3.125rem'
             h='3.125rem'

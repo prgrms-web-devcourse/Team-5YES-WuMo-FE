@@ -4,11 +4,8 @@ import { useRecoilState } from 'recoil';
 
 import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState, createPlaceStepState } from '@/store/recoilPlaceState';
-import {
-  categoryInfo,
-  getCategoryImageURL,
-  selectedCategoryStyle,
-} from '@/utils/constants/place';
+import { getGitEmoji } from '@/utils/constants/emoji';
+import { categoryInfo, selectedCategoryStyle } from '@/utils/constants/place';
 
 const PlaceCategoryModal = () => {
   const [step, setStep] = useRecoilState<number>(createPlaceStepState);
@@ -24,12 +21,10 @@ const PlaceCategoryModal = () => {
     setStep(step + 1);
   };
 
-  console.log(categoryInfo);
-
   return (
     <>
       <ModalBody>
-        {categoryInfo && (
+        {
           <Grid templateColumns='repeat(3, 1fr)' templateRows='repeat(3, 1fr)' gap='3'>
             {Object.entries(categoryInfo).map(
               ([name, information]) =>
@@ -47,7 +42,7 @@ const PlaceCategoryModal = () => {
                     {...(value === name && selectedCategoryStyle)}>
                     <Flex direction='column' align='center' justify='center' gap='4'>
                       <Image
-                        src={getCategoryImageURL(information.imageID)}
+                        src={getGitEmoji(information.imageID)}
                         alt={information.text}
                         width='2rem'
                       />
@@ -57,7 +52,7 @@ const PlaceCategoryModal = () => {
                 )
             )}
           </Grid>
-        )}
+        }
       </ModalBody>
       <ModalFooter>
         <ModalButton text='다음' isDisabled={!value} clickButtonHandler={handleClick} />

@@ -29,11 +29,6 @@ export const selectedCategoryStyle = {
   boxShadow: '0 0 0 2px #ea5148 inset',
 };
 
-export const getCategoryImageURL = (category: string) => {
-  const categoryImageID = categoryInfo[category].imageID;
-  return `https://github.githubassets.com/images/icons/emoji/unicode/${categoryImageID}.png?v8`;
-};
-
 export const categoryInfo: Category = {
   meal: {
     text: '식사',
