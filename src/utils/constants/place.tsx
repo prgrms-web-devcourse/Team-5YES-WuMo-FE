@@ -30,39 +30,39 @@ export const selectedCategoryStyle = {
 };
 
 export const categoryInfo: Category = {
-  meal: {
+  MEAL: {
     text: '식사',
     imageID: '1f35a',
   },
-  coffee: {
+  COFFEE: {
     text: '커피',
     imageID: '2615',
   },
-  drinking: {
+  DRINKING: {
     text: '술',
     imageID: '1f37b',
   },
-  game: {
+  GAME: {
     text: '게임',
     imageID: '1f3ae',
   },
-  walking: {
+  WALKING: {
     text: '산책',
     imageID: '1f6b6',
   },
-  sightseeing: {
+  SIGHTSEEING: {
     text: '구경',
     imageID: '1f440',
   },
-  culture: {
+  CULTURE: {
     text: '문화',
     imageID: '1f3a8',
   },
-  nature: {
+  NATURE: {
     text: '자연',
     imageID: '1f3d5',
   },
-  sports: {
+  SPORTS: {
     text: '스포츠',
     imageID: '26bd',
   },
