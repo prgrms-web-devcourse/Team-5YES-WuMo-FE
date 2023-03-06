@@ -8,56 +8,71 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet } from 'react-router-dom';
 
+import { fetchPartyInformation } from '@/api/partyInformation';
 import BackNavigation from '@/components/navigation/BackNavigation';
-import { CalculateStayDurationProps } from '@/types/party';
+import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import PartyMenuTabList from './PartyMenuTabList';
 import PartyUserList from './PartyUserList';
 import PartyReceipt from './receipt/PartyReceipt';
 
-const DUMMYDATA = {
-  id: 1,
-  name: '오예스 워크샵',
-  startDate: '2023-02-21',
-  endDate: '2023-02-22',
-  description: '팀 설립 기념 워크샵',
-  coverImage: 'https://via.placeholder.com/560x200',
+const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProps) => {
+  const stayDate = dayjs(endDate).diff(startDate, 'd');
+  if (!stayDate) return '';
+  return `(${stayDate}박 ${stayDate + 1}일)`;
 };
 
 const PartyInformation = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProps) => {
-    const stayDate = dayjs(endDate).diff(startDate, 'd');
-    if (!stayDate) return '';
-    return `(${stayDate}박 ${stayDate + 1}일)`;
-  };
+
+  const {
+    data: partyInformation,
+    isLoading,
+    isError,
+  } = useQuery<PartyInformationType>(
+    ['partyInformation'],
+    () => fetchPartyInformation(11),
+    {
+      staleTime: 10000,
+    }
+  );
+
+  if (isLoading) return <></>;
+  if (isError) return <></>;
 
   const stayDurationDate = CalculateStayDuration({
-    startDate: DUMMYDATA.startDate,
-    endDate: DUMMYDATA.endDate,
+    startDate: partyInformation.startDate,
+    endDate: partyInformation.endDate,
   });
 
   const partyInfo = {
-    name: DUMMYDATA.name,
-    startDate: DUMMYDATA.startDate,
-    endDate: DUMMYDATA.endDate,
+    name: partyInformation.name,
+    startDate: partyInformation.startDate,
+    endDate: partyInformation.endDate,
     stayDurationDate,
   };
 
   return (
     <Box>
       <BackNavigation option={BACKNAVIGATION_OPTIONS.MENU} />
-      <Image src='https://via.placeholder.com/560x200' pt='3.75rem' />
+      <Image
+        src={partyInformation.coverImage}
+        mt='3.75rem'
+        h='200px'
+        w='100%'
+        objectFit='none'
+      />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>
-          <Heading size='md'>{DUMMYDATA.name}</Heading>
+          <Heading size='md'>{partyInformation.name}</Heading>
           <Text fontSize='sm'>
-            {DUMMYDATA.startDate} ~ {DUMMYDATA.endDate} {stayDurationDate}
+            {partyInformation.startDate} ~ {partyInformation.endDate} {stayDurationDate}
           </Text>
         </Container>
         <Flex p='0.625rem' textAlign='right' align='center'>
@@ -71,7 +86,7 @@ const PartyInformation = () => {
       </Flex>
       <PartyUserList />
       <Text margin='0.625rem' h='3.125rem'>
-        {DUMMYDATA.description}
+        {partyInformation.description}
       </Text>
       <PartyMenuTabList />
       <Box>
