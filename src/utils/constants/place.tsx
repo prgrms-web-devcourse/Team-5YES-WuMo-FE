@@ -5,7 +5,7 @@ import {
   MdOutlineComment,
 } from 'react-icons/md';
 
-import { Category, Comment, Place, PlaceInfoStepItem } from '@/types/place';
+import { Category, Comment, Place, PlaceInformationStepItem } from '@/types/place';
 
 export const description = [
   {
@@ -26,11 +26,7 @@ export const selectedCategoryStyle = {
   color: 'primary.red',
   fontWeight: 'bold',
   backgroundColor: 'gray.100',
-};
-
-export const getCategoryImageURL = (category: string) => {
-  const categoryImageID = categoryInfo[category].imageID;
-  return `https://github.githubassets.com/images/icons/emoji/unicode/${categoryImageID}.png?v8`;
+  boxShadow: '0 0 0 2px #ea5148 inset',
 };
 
 export const categoryInfo: Category = {
@@ -72,7 +68,7 @@ export const categoryInfo: Category = {
   },
 };
 
-export const PlaceInfoItems: PlaceInfoStepItem[] = [
+export const PlaceInfoItems: PlaceInformationStepItem[] = [
   {
     type: 'address',
     icon: <MdLocationPin />,

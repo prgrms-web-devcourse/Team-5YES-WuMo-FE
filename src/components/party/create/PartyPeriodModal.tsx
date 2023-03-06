@@ -1,11 +1,12 @@
 import 'react-calendar/dist/Calendar.css';
 
-import { Box, Button, Flex, ModalBody, ModalFooter, Text } from '@chakra-ui/react';
+import { Box, Flex, ModalBody, ModalFooter, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { useRecoilState } from 'recoil';
 
+import ModalButton from '@/components/base/ModalButton';
 import { createPartyState, stepState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { processStep } from '@/utils/constants/processStep';
@@ -60,21 +61,15 @@ const PartyPeriodModal = () => {
         </Flex>
       </ModalBody>
       <ModalFooter>
-        <Button
-          bg='primary.red'
-          color='#ffffff'
-          _hover={{
-            bg: 'primary.redHover',
-          }}
-          w='full'
-          onClick={() => {
+        <ModalButton
+          text='다음'
+          clickButtonHandler={() => {
             if (step !== processStep.partyCreateMax) {
               onClickNextStep();
               setStep(step + 1);
             }
-          }}>
-          다음
-        </Button>
+          }}
+        />
       </ModalFooter>
     </>
   );

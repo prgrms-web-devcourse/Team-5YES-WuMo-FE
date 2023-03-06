@@ -36,3 +36,5 @@ export const partyCategoryList = [
     imageID: '1f4f8',
   },
 ];
+
+export const PLACE_DESCRIPTION_MAX_LENGTH = 50;

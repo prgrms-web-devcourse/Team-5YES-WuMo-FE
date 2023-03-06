@@ -20,4 +20,4 @@ export const PLACE_SEARCH_ERROR_MESSAGES = {
   KEYWORD_REQUIRED: '키워드를 입력해 주세요.',
   NO_RESULT: '검색 결과가 존재하지 않습니다.',
   RESPONSE_ERROR: '검색 중 오류가 발생했습니다.',
-};
+} as const;

@@ -1,20 +1,12 @@
-import {
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Image,
-  ModalBody,
-  ModalFooter,
-} from '@chakra-ui/react';
-import axios from 'axios';
+import { Flex, Grid, GridItem, Image, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
+import ModalButton from '@/components/base/ModalButton';
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
+import { getGitEmoji } from '@/utils/constants/emoji';
 import { partyCategoryList } from '@/utils/constants/party';
-import { getCategoryImageURL } from '@/utils/constants/place';
 
 const PartyOwnRoleModal = () => {
   const selected = {
@@ -59,7 +51,7 @@ const PartyOwnRoleModal = () => {
               onClick={() => onClickRole(text)}
               {...(value === text && selected)}>
               <Flex direction='column' align='center' justify='center' gap='4'>
-                <Image src={getCategoryImageURL(imageID)} alt={text} width='2rem' />
+                <Image src={getGitEmoji(imageID)} alt={text} width='2rem' />
                 {text}
               </Flex>
             </GridItem>
@@ -67,16 +59,7 @@ const PartyOwnRoleModal = () => {
         </Grid>
       </ModalBody>
       <ModalFooter>
-        <Button
-          bg='primary.red'
-          color='#ffffff'
-          _hover={{
-            bg: 'primary.redHover',
-          }}
-          w='full'
-          onClick={handleCreateParty}>
-          파티 생성
-        </Button>
+        <ModalButton text='파티 생성' clickButtonHandler={handleCreateParty} />
       </ModalFooter>
     </>
   );

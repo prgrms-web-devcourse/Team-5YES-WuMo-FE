@@ -31,9 +31,7 @@ const useMapPlaces = () => {
     });
   };
 
-  const resetResult = () => setResult(undefined);
-
-  return { result, searchPlaces, resetResult };
+  return { result, searchPlaces };
 };
 
 export default useMapPlaces;

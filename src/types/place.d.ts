@@ -1,7 +1,14 @@
-export type PlaceListProps = {
-  selectedPlace: string | null;
-  places: kakao.maps.services.PlacesSearchResultItem[];
-  selectPlaceHandler: (place: kakao.maps.services.PlacesSearchResultItem) => void;
+export type PlaceSearchResult = {
+  keyword: string;
+  result: kakao.maps.services.PlacesSearchResult;
+  selectedPlace: Pick<
+    kakao.maps.services.PlacesSearchResultItem | 'id',
+    'place_name',
+    'address_name',
+    'road_address_name',
+    'x',
+    'y'
+  >;
 };
 
 export type PlacePreviewMapProps = {
@@ -12,16 +19,6 @@ export type PlacePreviewMapProps = {
   level?: number;
   draggable?: boolean;
   mapMarkers?: PlaceMarker[];
-};
-
-export type PlaceSearchFormProps = {
-  searchPlaceHandler: (keyword: string) => void;
-  resetPlaceHandler: () => void;
-};
-
-export type PlaceCreateModalProps = {
-  isOpen: boolean;
-  closeModalHandler: () => void;
 };
 
 export type StepItems = {
@@ -55,15 +52,15 @@ export type Place = {
 
 export type PlaceMarker = Pick<Place, 'id' | 'latitude' | 'longitude' | 'category'>;
 
-export type PlaceInfoType =
+export type PlaceInformationType =
   | 'visitDate'
   | 'expectedCost'
   | 'image'
   | 'description'
   | 'address';
 
-export type PlaceInfoStepItem = {
-  type: PlaceInfoType;
+export type PlaceInformationStepItem = {
+  type: PlaceInformationType;
   icon: JSX.Element;
   text: string;
   content?: JSX.Element;
@@ -78,12 +75,11 @@ export type InputValueType = string | number | File | Date | null;
 
 export type InputProps = {
   value: string;
-  setValueHandler: (key: PlaceInfoType, newValue: InputValueType) => void;
+  setValueHandler: (key: PlaceInformationType, newValue: InputValueType) => void;
 };
 
 export type PlanPlaceListProps = {
   places: Place[];
-  openModalHandler: () => void;
 };
 
 export type Comment = {
@@ -93,6 +89,11 @@ export type Comment = {
   partyMemberId: number;
 };
 
-export type PlaceInfoTableProps = {
+export type PlaceInformationTableProps = {
   data: Place;
+};
+
+export type ImageData = {
+  imageBase64: string;
+  imageFile: File | null;
 };

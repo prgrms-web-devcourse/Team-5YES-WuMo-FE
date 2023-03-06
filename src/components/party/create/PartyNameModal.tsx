@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 
+import ModalButton from '@/components/base/ModalButton';
 import { createPartyState, stepState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { processStep } from '@/utils/constants/processStep';
@@ -120,22 +121,16 @@ const PartyNameModal = () => {
         </Box>
       </ModalBody>
       <ModalFooter>
-        <Button
+        <ModalButton
+          text='다음'
           isDisabled={buttonDisabled}
-          bg='primary.red'
-          color='#ffffff'
-          _hover={{
-            bg: 'primary.redHover',
-          }}
-          w='full'
-          onClick={() => {
+          clickButtonHandler={() => {
             if (step !== processStep.partyCreateMax) {
               onClickNextStep();
               setStep(step + 1);
             }
-          }}>
-          다음
-        </Button>
+          }}
+        />
       </ModalFooter>
     </>
   );
