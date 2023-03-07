@@ -1,11 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import ScrollToTop from './components/base/ScrollToTop';
 import BottomNavigation from './components/navigation/BottomNavigation';
 import PartyInformation from './components/party/partyInformation/PartyInformation';
+import useLocalStorage from './hooks/useLocalStorage';
 import {
   BestRouteDetailPage,
   BestRouteListPage,
+  LandingPage,
   LikeRouteListPage,
   MainPage,
   NotFoundPage,
@@ -25,6 +27,8 @@ import {
 import ROUTES from './utils/constants/routes';
 
 const Router = () => {
+  const [token, _] = useLocalStorage('accessToken', '');
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -47,8 +51,18 @@ const Router = () => {
           <Route path={ROUTES.SCHEDULE_COMMENT} element={<PartyCommentPage />} />
           <Route path={ROUTES.PLACE_DETAIL} element={<PlacePage />} />
         </Route>
-        <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
-        <Route path={ROUTES.SIGNIN} element={<SignInPage />} />
+        <Route
+          path={ROUTES.LANDING}
+          element={token ? <Navigate to={ROUTES.MAIN} /> : <LandingPage />}
+        />
+        <Route
+          path={ROUTES.SIGNUP}
+          element={token ? <Navigate to={ROUTES.MAIN} /> : <SignUpPage />}
+        />
+        <Route
+          path={ROUTES.SIGNIN}
+          element={token ? <Navigate to={ROUTES.MAIN} /> : <SignInPage />}
+        />
         <Route path={'*'} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
