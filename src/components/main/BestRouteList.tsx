@@ -32,7 +32,7 @@ const BestRouteList = () => {
 
   const parameter = {
     pageSize: 10000,
-    sortType: 'NEWEST',
+    sortType: 'LIKES',
   };
 
   const onMoveRoutePage = (id: string | number) => {
