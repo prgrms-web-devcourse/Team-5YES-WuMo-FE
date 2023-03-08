@@ -8,12 +8,12 @@ const PrivateRoute = ({
   authentication = true,
   redirectPath,
 }: PrivateRouteProps): ReactElement | null => {
-  const [token, _] = useLocalStorage('accessToken', '');
+  const [tokens, _] = useLocalStorage('tokens', {});
 
   if (authentication) {
-    return token ? <Outlet /> : <Navigate to={redirectPath} />;
+    return tokens.accessToken ? <Outlet /> : <Navigate to={redirectPath} />;
   } else {
-    return token ? <Navigate to={redirectPath} /> : <Outlet />;
+    return tokens.accessToken ? <Navigate to={redirectPath} /> : <Outlet />;
   }
 };
 
