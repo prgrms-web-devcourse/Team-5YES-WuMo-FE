@@ -1,9 +1,9 @@
 import axiosInstance from './api';
 
-export const fetchScheduleList = async (routeId: number, isPublic: boolean) => {
+export const fetchScheduleList = async (partyId: number, isPublic: boolean) => {
   try {
     const response = await axiosInstance.get(
-      `api/v1/routes/${11}?path=${isPublic ? 1 : 0}`
+      `api/v1/routes/${partyId}?path=${isPublic ? 1 : 0}`
     );
     if (response) return response.data;
   } catch (error) {
