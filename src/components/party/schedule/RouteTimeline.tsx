@@ -3,29 +3,33 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchScheduleList } from '@/api/schedules';
+import Loading from '@/components/base/Loading';
 import { ScheduleType, TimeLineProps } from '@/types/schedule';
 
 import RouteTimelineItem from './RouteTimelineItem';
 
 const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps) => {
-  const { data: scheduleList, status } = useQuery<ScheduleType>(
-    ['scheduleList'],
-    () => fetchScheduleList(1, isPublic),
-    {
-      staleTime: 10000,
-    }
-  );
+  const {
+    data: scheduleList,
+    isLoading,
+    isError,
+  } = useQuery<ScheduleType>(['scheduleList'], () => fetchScheduleList(11, isPublic), {
+    staleTime: 10000,
+  });
 
-  if (status === 'error') return <></>;
-  if (status === 'loading') return <></>;
-
+  if (isLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (isError) return <></>;
   return (
     <StyleList>
       {scheduleList.locations.map((route) => (
         <RouteTimelineItem
           key={route.id}
           {...route}
-          routeId={scheduleList.id}
           onClickHandler={onClickHandler}
           routerButton={routerButton}
         />

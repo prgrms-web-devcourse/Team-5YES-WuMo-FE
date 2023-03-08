@@ -25,7 +25,6 @@ const RouteTimelineItem = ({
   spending,
   category,
   id,
-  routeId,
   onClickHandler,
   routerButton,
 }: routeListProps) => {
@@ -53,7 +52,7 @@ const RouteTimelineItem = ({
             {getPriceText(spending)}
           </Text>
         </Flex>
-        <Box onClick={() => onClickHandler(id, routeId)} w='70%' pos='relative' ml='1rem'>
+        <Box onClick={() => onClickHandler(id)} w='70%' pos='relative' ml='1rem'>
           <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (
