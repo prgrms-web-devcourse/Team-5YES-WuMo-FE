@@ -2,28 +2,15 @@ import { Button } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
 import styled from '@emotion/styled';
-import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Slider from 'react-slick';
 
 import LargeLogo from '@/components/base/LargeLogo';
-import useLocalStorage from '@/hooks/useLocalStorage';
 import { LandingPageItem } from '@/utils/constants/landingPageItem';
 import ROUTES from '@/utils/constants/routes';
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const [dragging, setDragging] = useState<boolean>(false);
-
-  const [token, _] = useLocalStorage('accessToken', '');
-
-  const onBeforeChange = useCallback(() => {
-    setDragging(true);
-  }, []);
-
-  const onAfterChange = useCallback(() => {
-    setDragging(false);
-  }, []);
 
   const settings = {
     dots: true,
@@ -36,8 +23,6 @@ const LandingPage = () => {
     autoplaySpeed: 3000,
     pauseOnHover: true,
     touchThreshold: 200,
-    beforeChange: onBeforeChange,
-    afterChange: onAfterChange,
     adaptiveHeight: false,
   };
 
@@ -46,11 +31,11 @@ const LandingPage = () => {
       <LargeLogo src='/logo-lg.svg' />
       <Box bg='#ececec' mx='2rem' borderRadius='1rem'>
         <StyledSlider {...settings}>
-          {LandingPageItem.map((item) => (
-            <VStack key={item.id} textAlign='center'>
-              <Image src={item.imageUrl} w='100%' />
+          {LandingPageItem.map(({ id, imageUrl, content }) => (
+            <VStack key={id} textAlign='center'>
+              <Image src={imageUrl} w='100%' />
               <Text fontWeight='bold' fontSize='1.2rem' pt='1rem' wordBreak='keep-all'>
-                {item.content}
+                {content}
               </Text>
             </VStack>
           ))}
