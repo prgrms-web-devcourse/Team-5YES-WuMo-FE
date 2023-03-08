@@ -39,15 +39,22 @@ export type Place = {
   id?: number;
   name: string;
   address: string;
+  searchAddress?: string;
   latitude: number;
   longitude: number;
-  image: string;
+  imageURL?: string;
+  imageFile?: File | null;
   category: CategoryName;
   description: string;
   visitDate: string;
   expectedCost: number;
   spending?: number;
   routeId?: number;
+  partyId?: number;
+};
+
+export type createPlaceReturnValues = {
+  placeId: number;
 };
 
 export type PlaceMarker = Pick<

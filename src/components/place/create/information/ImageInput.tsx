@@ -9,7 +9,7 @@ import { ImageData } from '@/types/place';
 const ImageInput = () => {
   const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
   const [values, setValues] = useState<ImageData>({
-    imageBase64: createPlaceBody.image,
+    imageBase64: createPlaceBody?.imageURL || null,
     imageFile: null,
   });
   const inputRef = useRef<HTMLInputElement>(null);
@@ -18,14 +18,16 @@ const ImageInput = () => {
     const file = e.target.files?.[0];
     if (file) {
       setValues({ ...values, imageFile: file });
+      setCreatePlaceBody({ ...createPlaceBody, imageFile: file });
       encodeFileToBase64(file);
+      e.target.value = '';
     }
   };
 
   const handleFileDelete = () => {
     if (confirm('사진을 삭제하시겠습니까?')) {
       setValues({ ...values, imageBase64: '', imageFile: null });
-      setCreatePlaceBody({ ...createPlaceBody, image: '' });
+      setCreatePlaceBody({ ...createPlaceBody, imageURL: '', imageFile: null });
     }
   };
 
@@ -41,7 +43,6 @@ const ImageInput = () => {
         const result = reader.result;
         if (!result || typeof result !== 'string') return;
         setValues({ ...values, imageBase64: result });
-        setCreatePlaceBody({ ...createPlaceBody, image: result });
         resolve(Promise);
       };
     });

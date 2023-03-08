@@ -96,7 +96,7 @@ export const PLACE_DUMMY_DATA: Place = {
   address: '서울 강남구 강남대로 358',
   latitude: 37.4950612185917,
   longitude: 127.029794890834,
-  image:
+  imageURL:
     'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
   category: 'meal',
   description: '된장찌개 맛있는 곳!',
@@ -111,7 +111,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     address: '서울 강남구 강남대로96길 13',
     latitude: 37.4999549951152,
     longitude: 127.028120848084,
-    image:
+    imageURL:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F4887364A683A4370BB2F646C88393BD8',
     category: 'meal',
     description: '웨이팅 주의',
@@ -126,7 +126,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     address: '서울 서초구 서초대로74길 33',
     latitude: 37.49459498836523,
     longitude: 127.02777846305729,
-    image:
+    imageURL:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F66BF9E6CF94E46C2873CAB0C2C5798AE',
     category: 'drinking',
     description: '치맥치맥',
@@ -141,7 +141,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     address: '서울 강남구 테헤란로1길 19',
     latitude: 37.4996136518153,
     longitude: 127.027534918874,
-    image:
+    imageURL:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flocal%2FkakaomapPhoto%2Freview%2Fc9819e433a15527daf9cd0209e7d4f9916e79667%3Foriginal',
     category: 'meal',
     description: '항상 사람 많더라,,?',
@@ -156,7 +156,7 @@ export const PLACES_DUMMY_DATA: Place[] = [
     address: '서울 강남구 강남대로 358',
     latitude: 37.4950612185917,
     longitude: 127.029794890834,
-    image:
+    imageURL:
       'https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F3877A50090A846F89585BF436F48E425',
     category: 'meal',
     description: '된장찌개 맛있는 곳!',
@@ -184,3 +184,25 @@ export const COMMENT_DUMMY_DATA: Comment[] = [
     partyMemberId: 3,
   },
 ];
+
+export const MAX_ADDRESS_LENGTH = 50;
+
+export const getSearchAddress = (address: string) => {
+  const cityList = [
+    '서울',
+    '부산',
+    '인천',
+    '대구',
+    '대전',
+    '광주',
+    '울산',
+    '세종',
+    '제주',
+  ];
+  const provinceList = ['강원', '경기', '경북', '경남', '전북', '전남', '충북', '충남'];
+
+  const target = address.split(' ')[0];
+  if (cityList.includes(target)) return target;
+  else if (provinceList.includes(target)) return address.split(' ')[1];
+  return '';
+};
