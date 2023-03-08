@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '@/api/api';
+import axiosInstance from '@/api/api';
 import { SignProps } from '@/types/userSign';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 import ROUTES from '@/utils/constants/routes';
@@ -56,7 +56,7 @@ const SignUpForm = () => {
       return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
 
     try {
-      await axios.post('/api/v1/members/signup', values);
+      await axiosInstance.post('/api/v1/members/signup', values);
       navigate(ROUTES.SIGNIN);
     } catch (error) {
       console.error(error);
@@ -69,7 +69,7 @@ const SignUpForm = () => {
     if (!checkBefore) return;
 
     try {
-      await axios.post('/api/v1/members/check-email', {
+      await axiosInstance.post('/api/v1/members/check-email', {
         email: target,
       });
       setCheckEmail(true);
@@ -85,7 +85,7 @@ const SignUpForm = () => {
     //나중에 server error로 수정
     if (!checkBefore) return;
     try {
-      await axios.post('/api/v1/members/check-nickname', {
+      await axiosInstance.post('/api/v1/members/check-nickname', {
         nickname: target,
       });
       setCheckNickname(true);

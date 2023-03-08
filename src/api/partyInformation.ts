@@ -1,8 +1,8 @@
-import axios from '@/api/api';
+import axiosInstance from '@/api/api';
 
 export const fetchPartyInformation = async (partyId: number) => {
   try {
-    const response = await axios.get(`api/v1/parties/${partyId}`);
+    const response = await axiosInstance.get(`api/v1/parties/${partyId}`);
     if (response) return response.data;
   } catch (error) {
     console.error(error);
@@ -11,7 +11,7 @@ export const fetchPartyInformation = async (partyId: number) => {
 
 export const fetchPartyUserList = async (partyId: number) => {
   try {
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `api/v1/parties/${partyId}/members?cursorId=0&pageSize=5`
     );
     if (response) return response.data;
