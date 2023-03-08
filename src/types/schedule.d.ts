@@ -56,3 +56,15 @@ export type routeListProps = {
   spending: number;
   category: string;
 } & Pick<TimeLineProps, 'onClickHandler', 'routerButton'>;
+
+export type CreateCommentBody = {
+  content: string;
+  image?: string;
+  partyId: number;
+  locationId: number;
+};
+
+export type CommentCreateType = {
+  content: string;
+  image: File | null;
+};
