@@ -1,8 +1,10 @@
-import axios from '@/api/api';
+import axiosInstance from './api';
 
 export const fetchScheduleList = async (routeId: number, isPublic: boolean) => {
   try {
-    const response = await axios.get(`api/v1/routes/${routeId}?path=${isPublic ? 1 : 0}`);
+    const response = await axiosInstance.get(
+      `api/v1/routes/${11}?path=${isPublic ? 1 : 0}`
+    );
     if (response) return response.data;
   } catch (error) {
     console.error(error);
@@ -11,7 +13,7 @@ export const fetchScheduleList = async (routeId: number, isPublic: boolean) => {
 
 export const fetchLocationCommentList = async (cursorId: number, locationId: number) => {
   try {
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `api/v1/party-route-comments?cursorId=${cursorId}&pageSize=5&locationId=${locationId}`
     );
     if (response) return response.data;

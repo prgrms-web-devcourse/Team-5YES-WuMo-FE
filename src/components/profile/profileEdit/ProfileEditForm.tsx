@@ -12,7 +12,7 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCameraAlt } from 'react-icons/md';
 
-import axios from '@/api/api';
+import axiosInstance from '@/api/api';
 import BottomSheet from '@/components/base/BottomSheet';
 import ControlledInput from '@/components/base/ControlledInput';
 import SubmitButton from '@/components/base/SubmitButton';
@@ -54,7 +54,7 @@ const ProfileEditForm = () => {
     fields.id = member_dummy_data.id;
     // 이미지 등록 후 url만 저장하여 전송
     console.log(fields);
-    const response = axios.patch('/api/v1/members', values);
+    const response = axiosInstance.patch('/api/v1/members', values);
     console.log(response);
   };
 
