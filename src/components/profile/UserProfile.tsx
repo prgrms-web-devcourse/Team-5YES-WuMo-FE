@@ -1,6 +1,7 @@
 import { Avatar, Button, Flex, Stack, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
+import { logout } from '@/api/user';
 import ROUTES from '@/utils/constants/routes';
 
 const member_dummy_data = {
@@ -36,7 +37,7 @@ const UserProfile = () => {
         <Button size='lg' w='full' onClick={toProfileEdit}>
           프로필 수정
         </Button>
-        <Button size='lg' w='full' colorScheme='red'>
+        <Button onClick={logout} size='lg' w='full' colorScheme='red'>
           로그아웃
         </Button>
       </Stack>
