@@ -7,9 +7,6 @@ type AxiosInterceptorChildrenType = {
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
   withCredentials: true,
 });
 
@@ -86,7 +83,12 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
           config.headers.Authorization = null;
           return config;
         }
-
+        config.headers = config.headers ?? {};
+        if (config.data instanceof FormData) {
+          config.headers['Content-Type'] = 'multipart/form-data';
+        } else {
+          config.headers['Content-Type'] = 'application/json';
+        }
         if (config.headers && tokens) {
           const { accessToken } = JSON.parse(tokens);
           config.headers.Authorization = `Bearer ${accessToken}`;
