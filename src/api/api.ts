@@ -76,6 +76,13 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
       (config) => {
         const tokens = localStorage.getItem('tokens');
 
+        config.headers = config.headers ?? {};
+        if (config.data instanceof FormData) {
+          config.headers['Content-Type'] = 'multipart/form-data';
+        } else {
+          config.headers['Content-Type'] = 'application/json';
+        }
+
         if (!tokens) {
           config.headers.Authorization = null;
           return config;

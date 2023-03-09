@@ -8,29 +8,51 @@ export type PartyCreateBody = {
   startDate: string;
   endDate: string;
   description: string;
-  coverImage: string;
-  password: string;
+  coverImage?: string;
+  password?: string;
+  role?: string;
+};
+
+export type PartyUpdateBody = {
+  name: string | undefined;
+  description: string | undefined;
+  coverImage: string | undefined;
+  startDate: string;
+  endDate: string;
+};
+
+export type RoleUpdateBody = {
   role: string;
 };
 
-export type PartyUpdateProps = {
+export type PartyModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  partyDetail?: PartyListProps;
 };
 
 export type PartyListProps = {
+  id: number;
   coverImage: string;
-  name: string;
   description: string;
+  name: string;
   startDate: string;
   endDate: string;
-  id: number;
+  members: PartyMemberProps;
+  totalMembers: number;
 };
 
 export type PartyMemberProps = {
   memberId: number;
   nickname: string;
   role?: string;
+  profileImage: string;
+}[];
+
+export type PartyMemberListProps = {
+  totalMembers: number;
+  members: PartyMemberProps;
+  lastId: number;
   profileImage: string | null;
 };
 
@@ -51,8 +73,8 @@ export type LocationsType = {
 };
 
 export type CalculateStayDurationProps = {
-  startDate: string;
-  endDate: string;
+  startDate: string | undefined;
+  endDate: string | undefined;
 };
 
 export type PartyInformationType = {

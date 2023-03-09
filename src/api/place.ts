@@ -9,7 +9,7 @@ export const fetchPlaces = async (
 ) => {
   try {
     const response = await axiosInstance.get(
-      `api/v1/locations?cursorId=${cursorId}&pageSize=${pageSize}&partyId=${partyId}`
+      `/locations?cursorId=${cursorId}&pageSize=${pageSize}&partyId=${partyId}`
     );
     if (response) return response.data;
   } catch (error) {
@@ -19,7 +19,7 @@ export const fetchPlaces = async (
 
 export const fetchPlace = async (locationId: number) => {
   try {
-    const response = await axiosInstance.get(`api/v1/locations/${locationId}`);
+    const response = await axiosInstance.get(`/locations/${locationId}`);
     if (response) return response.data;
   } catch (error) {
     console.error(error);
@@ -28,7 +28,7 @@ export const fetchPlace = async (locationId: number) => {
 
 export const createPlace = async (data: Place) => {
   try {
-    const response = await axiosInstance.post('api/v1/locations', data);
+    const response = await axiosInstance.post('/locations', data);
     if (response) return response.data;
   } catch (error) {
     console.error(error);

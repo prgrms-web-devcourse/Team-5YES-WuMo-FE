@@ -13,10 +13,14 @@ import dayjs from 'dayjs';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { fetchPartyInformation } from '@/api/partyInformation';
+import { fetchPartyInformation, fetchPartyMembers } from '@/api/party';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
-import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
+import {
+  CalculateStayDurationProps,
+  PartyInformationType,
+  PartyMemberProps,
+} from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import PartyMenuTabList from './PartyMenuTabList';
@@ -36,14 +40,26 @@ const PartyInformation = () => {
 
   const {
     data: partyInformation,
-    isLoading,
-    isError,
+    isLoading: partyInformationLoading,
+    isError: partyInformationError,
   } = useQuery<PartyInformationType>(['partyInformation'], () =>
     fetchPartyInformation(state.partyId)
   );
 
-  if (isLoading) return <></>;
-  if (isError) return <></>;
+  const {
+    data: partyUserList,
+    isLoading: partyUserListLoading,
+    isError: partyUserListError,
+  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(
+    ['partyUserList'],
+    () => fetchPartyMembers(14),
+    {
+      staleTime: 10000,
+    }
+  );
+
+  if (partyInformationLoading || partyUserListLoading) return <></>;
+  if (partyInformationError || partyUserListError) return <></>;
 
   const stayDurationDate = CalculateStayDuration({
     startDate: partyInformation.startDate,

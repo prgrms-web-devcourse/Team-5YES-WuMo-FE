@@ -9,7 +9,7 @@ import { BackNavigationProps } from '@/types/backNavigation';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import MoreMenu from '../base/MoreMenu';
-import PartyUpdate from '../party/partyUpdate/PartyUpdate';
+import PartySetting from '../party/update/PartySetting';
 
 const { SEARCH, MENU, MORE } = BACKNAVIGATION_OPTIONS;
 
@@ -68,7 +68,7 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           <Button fontSize='0.875rem'>{SEARCH}</Button>
         </Flex>
       )}
-      <PartyUpdate isOpen={isOpen} onClose={onClose} />
+      <PartySetting isOpen={isOpen} onClose={onClose} />
     </Nav>
   );
 };
