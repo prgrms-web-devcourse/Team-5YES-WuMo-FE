@@ -1,4 +1,4 @@
-export const partyCategoryList = [
+export const partyRoleList = [
   {
     text: '총무',
     imageID: '1f4b8',

@@ -31,7 +31,7 @@ const SignInForm = () => {
 
   const onSubmit = async (values: SignInProps) => {
     try {
-      const response = await axiosInstance.post('/api/v1/members/login', values);
+      const response = await axiosInstance.post('/members/login', values);
       const { accessToken, refreshToken }: TokenProps = response.data;
       setToken({
         accessToken,

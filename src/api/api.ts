@@ -25,10 +25,7 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
     const tokens = localStorage.getItem('tokens');
     if (tokens) {
       try {
-        const response = await axiosInstance.post(
-          '/api/v1/members/reissue',
-          JSON.parse(tokens)
-        );
+        const response = await axiosInstance.post('/members/reissue', JSON.parse(tokens));
         const { accessToken, refreshToken } = response.data;
         lock = false;
         onRrefreshed(accessToken);

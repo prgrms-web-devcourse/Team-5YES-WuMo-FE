@@ -32,7 +32,7 @@ export const NAVIGATION_ITEM: NavigationItem[] = [
   },
   {
     id: '3',
-    name: '파티 생성',
+    name: '모임 생성',
     icon: MdAddCircleOutline,
     activeIcon: MdAddCircle,
     link: ROUTES.PARTY_CREATE,
