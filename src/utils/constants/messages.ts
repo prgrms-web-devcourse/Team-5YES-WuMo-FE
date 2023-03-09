@@ -4,6 +4,7 @@ export const FORM_ERROR_MESSAGES = {
   EMAIL_DUPLICATED: '이미 있는 이메일입니다.',
   NICKNAME_REQUIRED: '닉네임을 입력해주세요.',
   NICKNAME_INWORD: '한글은 단어로 입력해주세요.',
+  NICKNAME_PATTERN: '한글, 영어, 숫자만 입력해주세요.',
   NICKNAME_DUPLICATED: '이미 있는 닉네임입니다.',
   PASSWORD_REQUIRED: '비밀번호를 작성해주세요.',
   PASSWORD_PATTERN: '숫자, 문자를 조합하여 작성해주세요',
@@ -20,4 +21,4 @@ export const PLACE_SEARCH_ERROR_MESSAGES = {
   KEYWORD_REQUIRED: '키워드를 입력해 주세요.',
   NO_RESULT: '검색 결과가 존재하지 않습니다.',
   RESPONSE_ERROR: '검색 중 오류가 발생했습니다.',
-};
+} as const;

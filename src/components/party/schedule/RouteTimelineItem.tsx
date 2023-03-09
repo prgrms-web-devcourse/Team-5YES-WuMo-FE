@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import { MdOutlinePlace } from 'react-icons/md';
 
 import { routeListProps } from '@/types/schedule';
-import { getGitEmoji } from '@/utils/emoji';
+import { getGitEmoji } from '@/utils/constants/emoji';
 import { getPriceText } from '@/utils/formatter';
 
 const RouteTimelineItem = ({
@@ -24,6 +24,8 @@ const RouteTimelineItem = ({
   visitDate,
   spending,
   category,
+  id,
+  routeId,
   onClickHandler,
   routerButton,
 }: routeListProps) => {
@@ -51,7 +53,7 @@ const RouteTimelineItem = ({
             {getPriceText(spending)}
           </Text>
         </Flex>
-        <Box onClick={onClickHandler} w='70%' pos='relative' ml='1rem'>
+        <Box onClick={() => onClickHandler(id, routeId)} w='70%' pos='relative' ml='1rem'>
           <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (
@@ -61,7 +63,13 @@ const RouteTimelineItem = ({
             )}
           </Flex>
           <Card>
-            <Image src={image} w='100%' maxH='12.5rem' borderTopRadius='0.625rem' />
+            <Image
+              src={image}
+              w='100%'
+              maxH='12.5rem'
+              borderTopRadius='0.625rem'
+              objectFit='cover'
+            />
             <Flex h='3.125rem' align='center' p='10px'>
               <MdOutlinePlace
                 css={css`

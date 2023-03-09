@@ -1,10 +1,10 @@
 import { Flex, Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
 
-import { PlaceInfoTableProps } from '@/types/place';
+import { PlaceInformationTableProps } from '@/types/place';
 import { PlaceInfoItems } from '@/utils/constants/place';
-import { formatPrice, getDateTimeText } from '@/utils/formatter';
+import { formatDate, formatPrice } from '@/utils/formatter';
 
-const PlaceInfoTable = ({ data }: PlaceInfoTableProps) => {
+const PlaceInfoTable = ({ data }: PlaceInformationTableProps) => {
   return (
     <TableContainer>
       <Table>
@@ -18,9 +18,9 @@ const PlaceInfoTable = ({ data }: PlaceInfoTableProps) => {
                 </Flex>
                 <Text textAlign='end' whiteSpace='normal'>
                   {item.type === 'expectedCost'
-                    ? `${formatPrice(String(data[item.type]))}원`
+                    ? `${formatPrice(data[item.type])}원`
                     : item.type === 'visitDate'
-                    ? getDateTimeText(data[item.type])
+                    ? formatDate(data[item.type])
                     : data[item.type]}
                 </Text>
               </Td>

@@ -11,12 +11,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MdAdd, MdLocationPin } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { PlanPlaceListProps } from '@/types/place';
-import { getDateTimeText } from '@/utils/formatter';
+import ROUTES from '@/utils/constants/routes';
+import { formatDate } from '@/utils/formatter';
 
-const PlanPlaceList = ({ places, openModalHandler }: PlanPlaceListProps) => {
+const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
+  const navigate = useNavigate();
+
   return (
     <Box padding='5'>
       <Flex justify='space-between'>
@@ -27,9 +30,9 @@ const PlanPlaceList = ({ places, openModalHandler }: PlanPlaceListProps) => {
         <Button
           variant='ghost'
           size='md'
-          onClick={openModalHandler}
           leftIcon={<MdAdd />}
-          color='gray.500'>
+          color='gray.500'
+          onClick={() => navigate(ROUTES.PLACE_NEW)}>
           후보지 추가하기
         </Button>
       </Flex>
@@ -52,7 +55,7 @@ const PlanPlaceList = ({ places, openModalHandler }: PlanPlaceListProps) => {
                 {place.name}
               </Heading>
               <Text fontSize='sm'>{place.address}</Text>
-              <Text fontSize='xs'>{getDateTimeText(place.visitDate)}</Text>
+              <Text fontSize='xs'>{formatDate(place.visitDate)}</Text>
             </CardBody>
             <CardFooter alignItems='center' padding='0' paddingRight='3'>
               <IconButton

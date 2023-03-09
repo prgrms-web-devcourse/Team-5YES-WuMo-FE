@@ -1,8 +1,8 @@
 import { Flex, Grid, GridItem, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { getGitEmoji } from '@/utils/constants/emoji';
 import { categoryInfo, selectedCategoryStyle } from '@/utils/constants/place';
-import { getGitEmoji } from '@/utils/emoji';
 
 const PlaceCategoryStep = () => {
   const [value, setValue] = useState('');

@@ -1,29 +1,26 @@
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { MdCancel, MdSearch } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
 
-import { PlaceSearchFormProps } from '@/types/place';
+import useMapPlaces from '@/hooks/useMapPlaces';
+import { placeSearchState } from '@/store/recoilPlaceState';
 import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/constants/messages';
 
-const PlaceSearchForm = ({
-  searchPlaceHandler,
-  resetPlaceHandler,
-}: PlaceSearchFormProps) => {
-  const [keyword, setKeyword] = useState('');
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
+const PlaceSearchForm = () => {
+  const [searchState, setSearchState] = useRecoilState(placeSearchState);
+  const [keyword, setKeyword] = useState(searchState.keyword);
+  const { result, searchPlaces } = useMapPlaces();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    resetPlaceHandler();
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
       alert(PLACE_SEARCH_ERROR_MESSAGES.KEYWORD_REQUIRED);
       return;
     }
-    searchPlaceHandler(keyword);
+    searchPlaces(keyword);
+    if (result) setSearchState({ ...searchState, keyword, result });
   };
 
   return (
@@ -34,7 +31,7 @@ const PlaceSearchForm = ({
           borderColor='gray.300'
           paddingLeft='0'
           value={keyword}
-          onChange={handleChange}
+          onChange={(e) => setKeyword(e.target.value)}
           placeholder='장소를 검색하세요.'
           focusBorderColor='primary.red'
         />
@@ -44,15 +41,7 @@ const PlaceSearchForm = ({
           gap='4'
           right='1'
           justifyContent='flex-end'>
-          {keyword && (
-            <MdCancel
-              onClick={() => {
-                setKeyword('');
-                resetPlaceHandler();
-              }}
-              color='gray'
-            />
-          )}
+          {keyword && <MdCancel onClick={() => setKeyword('')} color='gray' />}
           <MdSearch onClick={handleSubmit} />
         </InputRightElement>
       </InputGroup>

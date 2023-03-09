@@ -1,7 +1,7 @@
 import { Container } from '@chakra-ui/react';
 
 import BackNavigation from '@/components/navigation/BackNavigation';
-import PartyListGrid from '@/components/profile/PartyListGrid';
+import PartyListGrid from '@/components/party/partyList/PartyListGrid';
 import UserProfile from '@/components/profile/UserProfile';
 
 const ProfilePage = () => {

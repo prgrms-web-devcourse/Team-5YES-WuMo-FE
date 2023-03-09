@@ -1,5 +1,7 @@
 import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
 import chakraTheme from '@chakra-ui/theme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
@@ -25,6 +27,7 @@ const {
   Progress,
   List,
   Menu,
+  Spinner,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -46,6 +49,7 @@ const theme = extendBaseTheme({
     NumberInput,
     Progress,
     List,
+    Spinner,
   },
   fonts: {
     heading: `'Pretendard-Regular', sans-serif`,
@@ -65,14 +69,19 @@ const theme = extendBaseTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <RecoilRoot>
-      <ChakraBaseProvider theme={theme}>
-        <AxiosInterceptor>
-          <App />
-        </AxiosInterceptor>
-      </ChakraBaseProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraBaseProvider theme={theme}>
+          <AxiosInterceptor>
+            <App />
+          </AxiosInterceptor>
+          <ReactQueryDevtools panelPosition='top' />
+        </ChakraBaseProvider>
+      </QueryClientProvider>
     </RecoilRoot>
   </React.StrictMode>
 );

@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { LocationsTypes, PartyMemberProps } from '@/types/party';
+import { LocationsType, PartyMemberProps } from '@/types/party';
 import { ReceiptProps } from '@/types/receiptModal';
 import { getPriceText } from '@/utils/formatter';
 
@@ -112,11 +112,11 @@ const PartyReceipt = ({
   endDate,
   stayDurationDate,
 }: ReceiptProps) => {
-  const getExpensesArray = (locations: LocationsTypes[]) => {
+  const getExpensesArray = (locations: LocationsType[]) => {
     return locations.map(({ spending }) => spending);
   };
 
-  const CalculateTotalExpenses = (locations: LocationsTypes[]) => {
+  const CalculateTotalExpenses = (locations: LocationsType[]) => {
     const TotalExpenses = getExpensesArray(locations);
 
     return TotalExpenses.reduce((acc, cur) => acc + cur, 0);

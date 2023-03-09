@@ -53,11 +53,12 @@ export type PartyMemberListProps = {
   totalMembers: number;
   members: PartyMemberProps;
   lastId: number;
+  profileImage: string | null;
 };
 
 export type PartyListPropsWithMembers = PartyListProps & { members: PartyMemberProps[] };
 
-export type LocationsTypes = {
+export type LocationsType = {
   id: number;
   name: string;
   address: string;
@@ -74,4 +75,13 @@ export type LocationsTypes = {
 export type CalculateStayDurationProps = {
   startDate: string | undefined;
   endDate: string | undefined;
+};
+
+export type PartyInformationType = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+  coverImage: string;
 };

@@ -61,8 +61,7 @@ const PartyListCard = ({
             {members.map((member) => (
               <Avatar
                 key={member.memberId}
-                name={member.nickname}
-                src={member.profileImage}
+                src={member.profileImage === null ? undefined : member.profileImage}
               />
             ))}
           </AvatarGroup>

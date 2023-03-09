@@ -23,8 +23,8 @@ const globalStyle = css`
         width: 100%;
         border: none;
         .react-calendar__tile--now {
-          background: #ffffff;
-          color: #f4cf47;
+          background: #d9d9d9;
+          color: #080808;
         }
         .react-calendar__tile--now:enabled:hover,
         .react-calendar__tile--now:enabled:focus {

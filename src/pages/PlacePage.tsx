@@ -1,15 +1,21 @@
-import { Box, Button, ButtonGroup, Flex, Heading, Image } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import BackNavigation from '@/components/navigation/BackNavigation';
 import CommentForm from '@/components/place/CommentForm';
+import PlacePreviewMap from '@/components/place/create/search/PlacePreviewMap';
 import PlaceInfoTable from '@/components/place/PlaceInfoTable';
-import PlacePreviewMap from '@/components/placeCreate/search/PlacePreviewMap';
 import useMapScript from '@/hooks/useMapScript';
+import { getGitEmoji } from '@/utils/constants/emoji';
+import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 import { PLACES_DUMMY_DATA } from '@/utils/constants/place';
-import { getGitEmoji } from '@/utils/emoji';
 import { scrollToTop } from '@/utils/scrollToTop';
+
+const moreMenuEvent = {
+  onEditEvent: () => alert('수정'),
+  onRemoveEvent: () => alert('삭제'),
+};
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -27,16 +33,15 @@ const PlacePage = () => {
 
   return (
     <>
-      <BackNavigation />
+      <BackNavigation
+        option={BACKNAVIGATION_OPTIONS.MORE}
+        moreMenuEvent={moreMenuEvent}
+      />
       <Box height='2xs' marginTop='12'>
         <Image src={data.image} height='3xs' width='full' objectFit='cover' />
         <Image src={getGitEmoji(data.category)} position='relative' left='5' bottom='8' />
       </Box>
       <Flex direction='column' padding='5' paddingTop='0' gap='2'>
-        <ButtonGroup gap='1' variant='outline' size='sm' justifyContent='flex-end'>
-          <Button borderRadius='2xl'>수정</Button>
-          <Button borderRadius='2xl'>삭제</Button>
-        </ButtonGroup>
         <Heading as='h2' size='lg' paddingTop='3' paddingBottom='3'>
           {data.name}
         </Heading>

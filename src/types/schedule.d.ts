@@ -1,10 +1,17 @@
 export type CommentType = {
+  id: number;
   nickName: string;
-  profileImage: string;
+  profileImage: string | null;
   memberRole: string;
   content: string;
   image?: string;
   createdAt: string;
+  updatedAt: string;
+};
+
+export type CommentListType = {
+  partyRouteComments: CommentType[];
+  lastId: number;
 };
 
 export type CommentFeedTitleProps = {
@@ -19,8 +26,26 @@ export type AmountType = {
 };
 
 export type TimeLineProps = {
-  onClickHandler?: () => void;
+  onClickHandler?: (locationId: number, routeId: number) => void;
   routerButton?: JSX.Element;
+  isPublic: boolean;
+};
+
+export type ScheduleLocationType = {
+  id: number;
+  name: string;
+  address: string;
+  image: string;
+  visitDate: string;
+  spending: number;
+  category: string;
+};
+
+export type ScheduleType = {
+  id: number;
+  isPublic: boolean;
+  locations: ScheduleLocationType[];
+  partyId: number;
 };
 
 export type routeListProps = {
@@ -30,4 +55,4 @@ export type routeListProps = {
   visitDate: string;
   spending: number;
   category: string;
-} & TimeLineProps;
+} & Pick<TimeLineProps, 'onClickHandler', 'routerButton'>;

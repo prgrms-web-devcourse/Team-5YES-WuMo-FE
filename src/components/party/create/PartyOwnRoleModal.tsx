@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   Grid,
   GridItem,
@@ -14,12 +13,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { createPartyAPI } from '@/api/party';
+import { createParty } from '@/api/party';
+import ModalButton from '@/components/base/ModalButton';
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
+import { getGitEmoji } from '@/utils/constants/emoji';
 import { partyRoleList } from '@/utils/constants/party';
 import ROUTES from '@/utils/constants/routes';
-import { getGitEmoji } from '@/utils/emoji';
 
 const PartyOwnRoleModal = () => {
   const selected = {
@@ -43,7 +43,7 @@ const PartyOwnRoleModal = () => {
   };
 
   const handleCreateParty = async () => {
-    const data = await createPartyAPI(partyAPIBody);
+    const data = await createParty(partyAPIBody);
     if (data) {
       // 파티 생성 완료 toast 추가예정
       navigate(ROUTES.PARTY_LIST);
@@ -92,16 +92,7 @@ const PartyOwnRoleModal = () => {
         />
       </ModalBody>
       <ModalFooter>
-        <Button
-          bg='primary.red'
-          color='#ffffff'
-          _hover={{
-            bg: 'primary.redHover',
-          }}
-          w='full'
-          onClick={handleCreateParty}>
-          모임 생성
-        </Button>
+        <ModalButton text='파티 생성' clickButtonHandler={handleCreateParty} />
       </ModalFooter>
     </>
   );

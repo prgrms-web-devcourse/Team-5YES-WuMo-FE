@@ -1,7 +1,7 @@
 import { Box, Button } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 
-import { FloatingButtonProps } from '@/types/floatingButton';
+import { FloatingButtonProps } from '@/types/button';
 
 const FloatingButton = ({ icon, onClick }: FloatingButtonProps) => {
   return (

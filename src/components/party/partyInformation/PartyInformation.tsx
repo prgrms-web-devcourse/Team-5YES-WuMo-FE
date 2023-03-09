@@ -8,23 +8,18 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { fetchPartyDetailAPI, fetchPartyMembersAPI } from '@/api/party';
+import { fetchPartyInformation, fetchPartyMembers } from '@/api/party';
 import BackNavigation from '@/components/navigation/BackNavigation';
-import {
-  isUpdateData,
-  partyDetailState,
-  partyMemberListState,
-} from '@/store/recoilPartyState';
+import useScrollEvent from '@/hooks/useScrollEvent';
 import {
   CalculateStayDurationProps,
-  PartyListProps,
-  PartyMemberListProps,
+  PartyInformationType,
+  PartyMemberProps,
 } from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
@@ -32,83 +27,94 @@ import PartyMenuTabList from './PartyMenuTabList';
 import PartyUserList from './PartyUserList';
 import PartyReceipt from './receipt/PartyReceipt';
 
+const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProps) => {
+  const stayDate = dayjs(endDate).diff(startDate, 'd');
+  if (!stayDate) return '';
+  return `(${stayDate}박 ${stayDate + 1}일)`;
+};
+
 const PartyInformation = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const { scrollActive } = useScrollEvent(300);
 
-  const [partyDetail, setPartyDetail] = useRecoilState<PartyListProps>(partyDetailState);
-  const setPartyMembersList =
-    useSetRecoilState<PartyMemberListProps>(partyMemberListState);
-  const getUpdated = useRecoilValue(isUpdateData);
+  const {
+    data: partyInformation,
+    isLoading: partyInformationLoading,
+    isError: partyInformationError,
+  } = useQuery<PartyInformationType>(
+    ['partyInformation'],
+    () => fetchPartyInformation(11),
+    {
+      staleTime: 10000,
+    }
+  );
 
-  const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProps) => {
-    const stayDate = dayjs(endDate).diff(startDate, 'd');
-    if (!stayDate) return '';
-    return `(${stayDate}박 ${stayDate + 1}일)`;
-  };
+  const {
+    data: partyUserList,
+    isLoading: partyUserListLoading,
+    isError: partyUserListError,
+  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(
+    ['partyUserList'],
+    () => fetchPartyMembers(14),
+    {
+      staleTime: 10000,
+    }
+  );
 
-  useEffect(() => {
-    const initPartyDetail = async () => {
-      const partyData = await fetchPartyDetailAPI();
-      const partyMembers = await fetchPartyMembersAPI(14);
-
-      if (partyData && partyMembers) {
-        setPartyDetail(partyData);
-        setPartyMembersList(partyMembers);
-      }
-    };
-    initPartyDetail();
-  }, [getUpdated]);
+  if (partyInformationLoading || partyUserListLoading) return <></>;
+  if (partyInformationError || partyUserListError) return <></>;
 
   const stayDurationDate = CalculateStayDuration({
-    startDate: partyDetail && partyDetail.startDate,
-    endDate: partyDetail && partyDetail.endDate,
+    startDate: partyInformation.startDate,
+    endDate: partyInformation.endDate,
   });
 
   const partyInfo = {
-    name: partyDetail && partyDetail.name,
-    startDate: partyDetail && partyDetail.startDate,
-    endDate: partyDetail && partyDetail.endDate,
+    name: partyInformation.name,
+    startDate: partyInformation.startDate,
+    endDate: partyInformation.endDate,
     stayDurationDate,
   };
 
   return (
-    <>
-      {partyDetail && (
-        <Box>
-          <BackNavigation option={BACKNAVIGATION_OPTIONS.MENU} />
-          <Image src={partyDetail.coverImage} pt='4.75rem' />
-          <Flex justify='space-between'>
-            <Container p='0.625rem' m='0'>
-              <Heading size='md'>{partyDetail.name}</Heading>
-              <Text fontSize='sm'>
-                {partyDetail.startDate} ~ {partyDetail.endDate} {stayDurationDate}
-              </Text>
-            </Container>
-            <Flex p='0.625rem' textAlign='right' align='center'>
-              <Button
-                colorScheme='teal'
-                size='xs'
-                marginRight='0.625rem'
-                onClick={onOpen}>
-                영수증
-              </Button>
-              <Button bg='transparent' size='xs'>
-                <BsFillShareFill />
-              </Button>
-            </Flex>
-          </Flex>
-          <PartyUserList userList={partyDetail.members} />
-          <Text margin='0.625rem' h='3.125rem' whiteSpace='pre-line'>
-            {partyDetail.description}
+    <Box>
+      <BackNavigation
+        title={scrollActive ? partyInformation.name : ''}
+        option={BACKNAVIGATION_OPTIONS.MENU}
+      />
+      <Image
+        src={partyInformation.coverImage}
+        mt='3.75rem'
+        h='200px'
+        w='100%'
+        objectFit='none'
+      />
+      <Flex justify='space-between'>
+        <Container p='0.625rem' m='0'>
+          <Heading size='md'>{partyInformation.name}</Heading>
+          <Text fontSize='sm'>
+            {partyInformation.startDate} ~ {partyInformation.endDate} {stayDurationDate}
           </Text>
-          <PartyMenuTabList />
-          <Box>
-            <Outlet />
-          </Box>
-          <PartyReceipt isOpen={isOpen} onClose={onClose} {...partyInfo} />
-        </Box>
-      )}
-    </>
+        </Container>
+        <Flex p='0.625rem' textAlign='right' align='center'>
+          <Button colorScheme='teal' size='xs' marginRight='0.625rem' onClick={onOpen}>
+            영수증
+          </Button>
+          <Button bg='transparent' size='xs'>
+            <BsFillShareFill />
+          </Button>
+        </Flex>
+      </Flex>
+      <PartyUserList />
+      <Text margin='0.625rem' h='3.125rem'>
+        {partyInformation.description}
+      </Text>
+      <PartyMenuTabList />
+      <Box>
+        <Outlet />
+      </Box>
+      <PartyReceipt isOpen={isOpen} onClose={onClose} {...partyInfo} />
+    </Box>
   );
 };
 

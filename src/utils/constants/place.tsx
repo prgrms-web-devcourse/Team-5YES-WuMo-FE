@@ -5,7 +5,7 @@ import {
   MdOutlineComment,
 } from 'react-icons/md';
 
-import { Category, Comment, Place, PlaceInfoStepItem } from '@/types/place';
+import { Category, Comment, Place, PlaceInformationStepItem } from '@/types/place';
 
 export const description = [
   {
@@ -26,48 +26,49 @@ export const selectedCategoryStyle = {
   color: 'primary.red',
   fontWeight: 'bold',
   backgroundColor: 'gray.100',
+  boxShadow: '0 0 0 2px #ea5148 inset',
 };
 
 export const categoryInfo: Category = {
-  meal: {
+  MEAL: {
     text: '식사',
     imageID: '1f35a',
   },
-  coffee: {
+  COFFEE: {
     text: '커피',
     imageID: '2615',
   },
-  drinking: {
+  DRINKING: {
     text: '술',
     imageID: '1f37b',
   },
-  game: {
+  GAME: {
     text: '게임',
     imageID: '1f3ae',
   },
-  walking: {
+  WALKING: {
     text: '산책',
     imageID: '1f6b6',
   },
-  sightseeing: {
+  SIGHTSEEING: {
     text: '구경',
     imageID: '1f440',
   },
-  culture: {
+  CULTURE: {
     text: '문화',
     imageID: '1f3a8',
   },
-  nature: {
+  NATURE: {
     text: '자연',
     imageID: '1f3d5',
   },
-  sports: {
+  SPORTS: {
     text: '스포츠',
     imageID: '26bd',
   },
 };
 
-export const PlaceInfoItems: PlaceInfoStepItem[] = [
+export const PlaceInfoItems: PlaceInformationStepItem[] = [
   {
     type: 'address',
     icon: <MdLocationPin />,
