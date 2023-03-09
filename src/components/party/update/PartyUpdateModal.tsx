@@ -22,7 +22,7 @@ import { MdAddPhotoAlternate, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useSetRecoilState } from 'recoil';
 
 import { createImageUrlAPI } from '@/api/image';
-import { patchPartyDetailAPI } from '@/api/party';
+import { patchPartyDetail } from '@/api/party';
 import { partyDetailState } from '@/store/recoilPartyState';
 import { PartyListProps, PartyModalProps } from '@/types/party';
 
@@ -73,7 +73,7 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
 
     if (partyDetail?.id && partyAPIBody) {
       console.log(partyAPIBody);
-      const data = await patchPartyDetailAPI(partyDetail.id, partyAPIBody);
+      const data = await patchPartyDetail(partyDetail.id, partyAPIBody);
       if (data) {
         setPartyDetail(data);
         alert('모임이 정상적으로 수정되었어요.');

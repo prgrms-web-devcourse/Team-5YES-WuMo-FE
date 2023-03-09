@@ -28,8 +28,8 @@ import {
   partyMemberListState,
 } from '@/store/recoilPartyState';
 import { PartyListProps, PartyMemberListProps, PartyModalProps } from '@/types/party';
+import { getGitEmoji } from '@/utils/constants/emoji';
 import { partyRoleList } from '@/utils/constants/party';
-import { getGitEmoji } from '@/utils/emoji';
 
 import PartyUpdateModal from './PartyUpdateModal';
 

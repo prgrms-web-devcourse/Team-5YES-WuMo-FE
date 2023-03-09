@@ -1,23 +1,22 @@
+import axiosInstance from '@/api/api';
 import { PartyCreateBody, PartyUpdateBody } from '@/types/party';
 
-import instance from './api';
-
-export const createPartyAPI = async (partyAPIBody: PartyCreateBody) => {
+export const createParty = async (partyAPIBody: PartyCreateBody) => {
   try {
-    const response = await instance.post('/api/v1/parties', partyAPIBody);
+    const response = await axiosInstance.post('/api/v1/parties', partyAPIBody);
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const fetchPartyMembersAPI = async (partyId: number) => {
+export const fetchPartyMembers = async (partyId: number) => {
   const params = {
     pageSize: 10,
   };
   if (partyId) {
     try {
-      const response = await instance.get(`/api/v1/parties/${partyId}/members`, {
+      const response = await axiosInstance.get(`/api/v1/parties/${partyId}/members`, {
         params,
       });
       return response.data;
@@ -27,23 +26,24 @@ export const fetchPartyMembersAPI = async (partyId: number) => {
   }
 };
 
-export const fetchPartyDetailAPI = async () => {
-  // 파티 목록 구현되면 동적으로 받아올 예정
-  const id = 14;
+export const fetchPartyInformation = async (partyId: number) => {
   try {
-    const response = await instance.get(`/api/v1/parties/${id}`);
-    return response.data;
+    const response = await axiosInstance.get(`api/v1/parties/${partyId}`);
+    if (response) return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const patchPartyDetailAPI = async (
+export const patchPartyDetail = async (
   partyId: number,
   partyAPIBody: PartyUpdateBody
 ) => {
   try {
-    const response = await instance.patch(`/api/v1/parties/${partyId}`, partyAPIBody);
+    const response = await axiosInstance.patch(
+      `/api/v1/parties/${partyId}`,
+      partyAPIBody
+    );
     if (response.status === 200) return response.data;
     else console.log(response);
   } catch (error) {
