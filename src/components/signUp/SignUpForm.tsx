@@ -68,15 +68,15 @@ const SignUpForm = () => {
     const target = getValues('email');
     if (!checkBefore) return;
 
-    try {
-      await axiosInstance.post('/api/v1/members/check-email', {
-        email: target,
+    await axiosInstance
+      .get(`/api/v1/members/check-email?email=${target}`)
+      .then(() => {
+        setCheckEmail(true);
+      })
+      .catch(() => {
+        setCheckEmail(false);
+        setError('email', { message: FORM_ERROR_MESSAGES.EMAIL_DUPLICATED });
       });
-      setCheckEmail(true);
-    } catch (error) {
-      setCheckEmail(false);
-      setError('email', { message: FORM_ERROR_MESSAGES.EMAIL_DUPLICATED });
-    }
   };
 
   const handleCheckNickname = async () => {
@@ -85,9 +85,7 @@ const SignUpForm = () => {
     //나중에 server error로 수정
     if (!checkBefore) return;
     try {
-      await axiosInstance.post('/api/v1/members/check-nickname', {
-        nickname: target,
-      });
+      await axiosInstance.get(`/api/v1/members/check-nickname?nickname=${target}`);
       setCheckNickname(true);
     } catch (error) {
       setCheckNickname(false);
