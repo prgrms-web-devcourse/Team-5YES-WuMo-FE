@@ -5,7 +5,7 @@ import instance from './api';
 export const patchOwnRole = async (partyId: number, rolePatchAPIBody: RolePatchBody) => {
   try {
     const response = await instance.patch(
-      `/api/v1/parties/${partyId}/members`,
+      `/parties/${partyId}/members`,
       rolePatchAPIBody
     );
     if (response.status === 200) return response.data;

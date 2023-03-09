@@ -3,7 +3,7 @@ import { PartyCreateBody, PartyUpdateBody } from '@/types/party';
 
 export const createParty = async (partyAPIBody: PartyCreateBody) => {
   try {
-    const response = await axiosInstance.post('/api/v1/parties', partyAPIBody);
+    const response = await axiosInstance.post('/parties', partyAPIBody);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -15,7 +15,7 @@ export const fetchPartyMembers = async (partyId: number) => {
     pageSize: 10,
   };
   try {
-    const response = await axiosInstance.get(`/api/v1/parties/${partyId}/members`, {
+    const response = await axiosInstance.get(`/parties/${partyId}/members`, {
       params,
     });
     return response.data;
@@ -26,7 +26,7 @@ export const fetchPartyMembers = async (partyId: number) => {
 
 export const fetchPartyInformation = async (partyId: number) => {
   try {
-    const response = await axiosInstance.get(`api/v1/parties/${partyId}`);
+    const response = await axiosInstance.get(`/parties/${partyId}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -38,10 +38,7 @@ export const patchPartyDetail = async (
   partyAPIBody: PartyUpdateBody
 ) => {
   try {
-    const response = await axiosInstance.patch(
-      `/api/v1/parties/${partyId}`,
-      partyAPIBody
-    );
+    const response = await axiosInstance.patch(`/parties/${partyId}`, partyAPIBody);
     return response.data;
   } catch (error) {
     console.error(error);
