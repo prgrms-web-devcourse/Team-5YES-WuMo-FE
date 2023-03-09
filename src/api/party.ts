@@ -14,22 +14,20 @@ export const fetchPartyMembers = async (partyId: number) => {
   const params = {
     pageSize: 10,
   };
-  if (partyId) {
-    try {
-      const response = await axiosInstance.get(`/api/v1/parties/${partyId}/members`, {
-        params,
-      });
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
+  try {
+    const response = await axiosInstance.get(`/api/v1/parties/${partyId}/members`, {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
 };
 
 export const fetchPartyInformation = async (partyId: number) => {
   try {
     const response = await axiosInstance.get(`api/v1/parties/${partyId}`);
-    if (response) return response.data;
+    return response.data;
   } catch (error) {
     console.error(error);
   }
@@ -44,8 +42,7 @@ export const patchPartyDetail = async (
       `/api/v1/parties/${partyId}`,
       partyAPIBody
     );
-    if (response.status === 200) return response.data;
-    else console.log(response);
+    return response.data;
   } catch (error) {
     console.error(error);
   }
