@@ -11,9 +11,9 @@ const PartyUserList = () => {
     data: partyUserList,
     isLoading,
     isError,
-  } = useQuery<{ members: PartyMemberProps; lastID: number }>(
+  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(
     ['partyUserList'],
-    () => fetchPartyUserList(state.partyId),
+    () => fetchPartyMembers(state.partyId),
     {
       staleTime: 10000,
     }

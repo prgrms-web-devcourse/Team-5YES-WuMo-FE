@@ -52,7 +52,7 @@ const PartyInformation = () => {
     isError: partyUserListError,
   } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(
     ['partyUserList'],
-    () => fetchPartyMembers(14),
+    () => fetchPartyMembers(state.partyId),
     {
       staleTime: 10000,
     }

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import { fetchMyPartyList } from '@/api/main';
-import { MyPartyList } from '@/types/party';
+import { MyPartyList, MyPartyListParams } from '@/types/party';
 import ROUTES from '@/utils/constants/routes';
 
 import Loading from '../base/Loading';
@@ -18,7 +18,7 @@ const UserPartyList = () => {
   const [dragging, setDragging] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const parameter = {
+  const parameter: MyPartyListParams = {
     pageSize: 10000,
     partyType: 'ONGOING',
   };

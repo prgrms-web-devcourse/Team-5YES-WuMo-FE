@@ -1,5 +1,5 @@
 import axiosInstance from '@/api/api';
-import { MyPartyListPrams } from '@/types/party';
+import { MyPartyListParams } from '@/types/party';
 import { BestRouteListParams } from '@/types/routeList';
 
 export const fetchBestRouteList = async ({
@@ -26,7 +26,7 @@ export const fetchMyPartyList = async ({
   cursorId,
   pageSize,
   partyType,
-}: MyPartyListPrams) => {
+}: MyPartyListParams) => {
   try {
     const response = await axiosInstance.get(
       `/parties/members/me?partyType=${partyType}&cursorId=${

@@ -36,11 +36,11 @@ export type PartyMemberProps = {
   nickname: string;
   role?: string;
   profileImage: string;
-}[];
+};
 
 export type PartyMemberListProps = {
   totalMembers: number;
-  members: PartyMemberProps;
+  members: PartyMemberProps[];
   lastId: number;
   profileImage: string | null;
 };
@@ -85,7 +85,7 @@ export type MyPartyList = {
   lastId: number;
 };
 
-export type MyPartyListPrams = {
+export type MyPartyListParams = {
   partyType: 'ONGOING' | 'COMPLETED' | 'ALL';
   cursorId?: number;
   pageSize: number;

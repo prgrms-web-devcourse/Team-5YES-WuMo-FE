@@ -1,6 +1,10 @@
 import { atom } from 'recoil';
 
-import { PartyCreateBody, PartyListProps, PartyMemberListProps } from '@/types/party';
+import {
+  PartyCreateBody,
+  PartyListPropsWithMembers,
+  PartyMemberListProps,
+} from '@/types/party';
 
 export const createPartyState = atom<PartyCreateBody>({
   key: 'createPartyState',
@@ -15,7 +19,7 @@ export const createPartyState = atom<PartyCreateBody>({
   },
 });
 
-export const partyDetailState = atom<PartyListProps>({
+export const partyDetailState = atom<PartyListPropsWithMembers>({
   key: 'updatePartyState',
   default: {
     id: 0,
@@ -35,6 +39,7 @@ export const partyMemberListState = atom<PartyMemberListProps>({
     totalMembers: 0,
     members: [],
     lastId: 0,
+    profileImage: null,
   },
 });
 

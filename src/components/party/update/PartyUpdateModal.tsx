@@ -21,15 +21,15 @@ import { Calendar } from 'react-calendar';
 import { MdAddPhotoAlternate, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useSetRecoilState } from 'recoil';
 
-import { createImageUrlAPI } from '@/api/image';
+import { createImage } from '@/api/image';
 import { patchPartyDetail } from '@/api/party';
 import { partyDetailState } from '@/store/recoilPartyState';
-import { PartyListProps, PartyModalProps } from '@/types/party';
+import { PartyListPropsWithMembers, PartyModalProps } from '@/types/party';
 
 const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const setPartyDetail = useSetRecoilState<PartyListProps>(partyDetailState);
+  const setPartyDetail = useSetRecoilState<PartyListPropsWithMembers>(partyDetailState);
 
   const [name, setName] = useState(partyDetail?.name);
   const [description, setDescription] = useState(partyDetail?.description);
@@ -55,7 +55,7 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
     const formData = new FormData();
     formData.append('image', targetFiles[0]);
 
-    const data = await createImageUrlAPI(formData);
+    const data = await createImage(formData);
     if (data) {
       setImageUrl(data.imageUrl);
     }

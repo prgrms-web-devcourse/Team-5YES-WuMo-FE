@@ -27,7 +27,11 @@ import {
   partyDetailState,
   partyMemberListState,
 } from '@/store/recoilPartyState';
-import { PartyListProps, PartyMemberListProps, PartyModalProps } from '@/types/party';
+import {
+  PartyInformationType,
+  PartyMemberListProps,
+  PartyModalProps,
+} from '@/types/party';
 import { getGitEmoji } from '@/utils/constants/emoji';
 import { partyRoleList } from '@/utils/constants/party';
 
@@ -43,7 +47,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const getPartyMembersList = useRecoilValue<PartyMemberListProps>(partyMemberListState);
-  const getPartyDetail = useRecoilValue<PartyListProps>(partyDetailState);
+  const getPartyDetail = useRecoilValue<PartyInformationType>(partyDetailState);
   const setUpdated = useSetRecoilState(isUpdateData);
 
   const [role, setRole] = useState('');

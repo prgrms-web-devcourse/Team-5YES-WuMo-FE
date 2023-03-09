@@ -15,7 +15,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { MdAddPhotoAlternate } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 
-import { createImageUrlAPI } from '@/api/image';
+import { createImage } from '@/api/image';
 import ModalButton from '@/components/base/ModalButton';
 import { createPartyState, stepState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
@@ -50,7 +50,7 @@ const PartyNameModal = () => {
     const formData = new FormData();
     formData.append('image', targetFiles[0]);
 
-    const data = await createImageUrlAPI(formData);
+    const data = await createImage(formData);
     if (data) {
       setImageUrl(data.imageUrl);
     }
