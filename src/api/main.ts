@@ -10,7 +10,7 @@ export const fetchBestRouteList = async ({
 }: BestRouteListParams) => {
   try {
     const response = await axiosInstance.get(
-      `/api/v1/routes?cursorId=${
+      `/routes?cursorId=${
         cursorId ? cursorId : ''
       }&pageSize=${pageSize}&sortType=${sortType}&searchWord=${
         searchWord ? searchWord : ''
@@ -29,7 +29,7 @@ export const fetchMyPartyList = async ({
 }: MyPartyListPrams) => {
   try {
     const response = await axiosInstance.get(
-      `/api/v1/parties/members/me?partyType=${partyType}&cursorId=${
+      `/parties/members/me?partyType=${partyType}&cursorId=${
         cursorId ? cursorId : ''
       }&pageSize=${pageSize}`
     );
