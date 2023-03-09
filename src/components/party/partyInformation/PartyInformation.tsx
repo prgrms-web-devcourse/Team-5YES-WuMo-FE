@@ -42,8 +42,12 @@ const PartyInformation = () => {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation'], () =>
-    fetchPartyInformation(state.partyId)
+  } = useQuery<PartyInformationType>(
+    ['partyInformation'],
+    () => fetchPartyInformation(state.partyId),
+    {
+      staleTime: 5000,
+    }
   );
 
   const {
