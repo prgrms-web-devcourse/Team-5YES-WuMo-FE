@@ -53,6 +53,22 @@ export type Place = {
   partyId?: number;
 };
 
+export type PlaceInformation = {
+  id: number;
+  name: string;
+  address: string;
+  searchAddress: string;
+  latitude: number;
+  longitude: number;
+  image: string;
+  category: CategoryName;
+  description: string;
+  visitDate: string;
+  expectedCost: number;
+  spending: number;
+  routeId: number;
+};
+
 export type PlaceMarker = Pick<
   Place,
   'id' | 'name' | 'latitude' | 'longitude' | 'category'
@@ -96,7 +112,7 @@ export type Comment = {
 };
 
 export type PlaceInformationTableProps = {
-  data: Place;
+  data: PlaceInformation;
 };
 
 export type ImageData = {

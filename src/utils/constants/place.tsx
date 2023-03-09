@@ -5,7 +5,9 @@ import {
   MdOutlineComment,
 } from 'react-icons/md';
 
-import { Category, Comment, Place, PlaceInformationStepItem } from '@/types/place';
+import { Category, Comment, Place, PlaceInformation } from '@/types/place';
+
+import { formatDate, getPriceText } from '../formatter';
 
 export const description = [
   {
@@ -68,26 +70,30 @@ export const categoryInfo: Category = {
   },
 };
 
-export const PlaceInfoItems: PlaceInformationStepItem[] = [
+export const PlaceInfoItems = (data: PlaceInformation) => [
   {
     type: 'address',
     icon: <MdLocationPin />,
     text: '주소',
+    value: data.address,
   },
   {
     type: 'visitDate',
     icon: <MdCalendarToday />,
     text: '일정',
+    value: formatDate(data.visitDate),
   },
   {
     type: 'expectedCost',
     icon: <MdCreditCard />,
     text: '예상 비용',
+    value: getPriceText(data.expectedCost),
   },
   {
     type: 'description',
     icon: <MdOutlineComment />,
     text: '메모',
+    value: data.description,
   },
 ];
 
