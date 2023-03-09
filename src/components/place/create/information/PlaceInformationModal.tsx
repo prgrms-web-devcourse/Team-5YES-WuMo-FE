@@ -13,9 +13,10 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { createImage } from '@/api/image';
-import { createLocation } from '@/api/place';
+import { createPlace } from '@/api/place';
 import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState } from '@/store/recoilPlaceState';
+import { PLACE_SEARCH_MESSAGES } from '@/utils/constants/messages';
 import { getSearchAddress, MAX_ADDRESS_LENGTH } from '@/utils/constants/place';
 import { PlaceInformationStepItems } from '@/utils/constants/processStep';
 
@@ -34,12 +35,12 @@ const PlaceInformationModal = () => {
   const navigate = useNavigate();
 
   const { mutateAsync: createImageUrl, reset: imageReset } = useMutation(createImage);
-  const { mutateAsync: createPlace } = useMutation(createLocation);
+  const { mutateAsync: createNewPlace } = useMutation(createPlace);
 
   const onClickButton = async () => {
-    if (!visitDate) return '방문 예정일을 입력해 주세요.';
-    if (!expectedCost) return '예상 비용을 입력해 주세요.';
-    if (!imageFile) return '대표 이미지를 선택해 주세요.';
+    if (!visitDate) return PLACE_SEARCH_MESSAGES.VISIT_DATE_REQUIRED;
+    if (!expectedCost) return PLACE_SEARCH_MESSAGES.EXPECTED_COST_REQUIRED;
+    if (!imageFile) return PLACE_SEARCH_MESSAGES.IMAGE_FILE_REQUIRED;
 
     await onSubmitNewPlace();
   };
@@ -69,7 +70,7 @@ const PlaceInformationModal = () => {
       partyId: 17, // TODO: PartyId 받아와야 함
     };
 
-    await createPlace(placeBody, {
+    await createNewPlace(placeBody, {
       onSuccess: (data) => {
         if (!data?.id) return;
         navigate(`/place/${data.id}`);
