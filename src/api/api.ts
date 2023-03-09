@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { useEffect } from 'react';
 
 type AxiosInterceptorChildrenType = {
   children: JSX.Element;
@@ -42,75 +41,59 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
     }
   };
 
-  useEffect(() => {
-    const interceptorResponse = axiosInstance.interceptors.response.use(
-      (response: AxiosResponse) => {
-        return response;
-      },
-      async (error: AxiosError) => {
-        const { config: originalConfig, response } = error;
-        if (response?.status === 401 && originalConfig) {
-          if (lock) {
-            return new Promise((resolve) => {
-              subscribeTokenRefresh((token: string) => {
-                originalConfig.headers.Authorization = `Bearer ${token}`;
-                resolve(axios(originalConfig));
-              });
+  axiosInstance.interceptors.response.use(
+    (response: AxiosResponse) => {
+      return response;
+    },
+    async (error: AxiosError) => {
+      const { config: originalConfig, response } = error;
+
+      if (response?.status === 401 && originalConfig) {
+        if (lock) {
+          return new Promise((resolve) => {
+            subscribeTokenRefresh((token: string) => {
+              originalConfig.headers.Authorization = `Bearer ${token}`;
+              resolve(axios(originalConfig));
             });
-          }
-
-          lock = true;
-          const accessToken = await getRefreshToken();
-
-          if (typeof accessToken === 'string') {
-            originalConfig.headers.Authorization = `Bearer ${accessToken}`;
-            return axios(originalConfig);
-          }
-
-          return Promise.reject(error);
+          });
         }
+
+        lock = true;
+        const accessToken = await getRefreshToken();
+
+        originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+        return axios(originalConfig);
       }
-    );
+      return Promise.reject(error);
+    }
+  );
 
-    const interceptorRequest = axiosInstance.interceptors.request.use(
-      (config) => {
-        const tokens = localStorage.getItem('tokens');
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      const tokens = localStorage.getItem('tokens');
 
-        config.headers = config.headers ?? {};
-        if (config.data instanceof FormData) {
-          config.headers['Content-Type'] = 'multipart/form-data';
-        } else {
-          config.headers['Content-Type'] = 'application/json';
-        }
-
-        if (!tokens) {
-          config.headers.Authorization = null;
-          return config;
-        }
-        config.headers = config.headers ?? {};
-        if (config.data instanceof FormData) {
-          config.headers['Content-Type'] = 'multipart/form-data';
-        } else {
-          config.headers['Content-Type'] = 'application/json';
-        }
-        if (config.headers && tokens) {
-          const { accessToken } = JSON.parse(tokens);
-          config.headers.Authorization = `Bearer ${accessToken}`;
-          return config;
-        }
-
+      if (!tokens) {
+        config.headers.Authorization = null;
         return config;
-      },
-      (error) => {
-        return Promise.reject(error);
       }
-    );
+      config.headers = config.headers ?? {};
+      if (config.data instanceof FormData) {
+        config.headers['Content-Type'] = 'multipart/form-data';
+      } else {
+        config.headers['Content-Type'] = 'application/json';
+      }
+      if (tokens) {
+        const { accessToken } = JSON.parse(tokens);
+        config.headers.Authorization = `Bearer ${accessToken}`;
+        return config;
+      }
 
-    return () => {
-      axiosInstance.interceptors.response.eject(interceptorResponse);
-      axiosInstance.interceptors.request.eject(interceptorRequest);
-    };
-  }, []);
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   return children;
 };

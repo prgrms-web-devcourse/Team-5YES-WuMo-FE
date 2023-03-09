@@ -31,17 +31,6 @@ export type PartyModalProps = {
   partyDetail?: PartyListProps;
 };
 
-export type PartyListProps = {
-  id: number;
-  coverImage: string;
-  description: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  members: PartyMemberProps;
-  totalMembers: number;
-};
-
 export type PartyMemberProps = {
   memberId: number;
   nickname: string;
@@ -55,8 +44,6 @@ export type PartyMemberListProps = {
   lastId: number;
   profileImage: string | null;
 };
-
-export type PartyListPropsWithMembers = PartyListProps & { members: PartyMemberProps[] };
 
 export type LocationsType = {
   id: number;
@@ -86,13 +73,20 @@ export type PartyInformationType = {
   coverImage: string;
 };
 
-export type MyPartyList = {
-  lastId: number;
-  party: [PartyInformationType & { members: PartyMemberProps[] }];
+type PartyMembersType = {
+  totalMembers: number;
+  members: PartyMemberProps[];
 };
 
-type MyPartyListPrams = {
+export type PartyListPropsWithMembers = PartyInformationType & PartyMembersType;
+
+export type MyPartyList = {
+  party: PartyListPropsWithMembers[];
+  lastId: number;
+};
+
+export type MyPartyListPrams = {
+  partyType: 'ONGOING' | 'COMPLETED' | 'ALL';
   cursorId?: number;
   pageSize: number;
-  partyType: string;
 };
