@@ -4,12 +4,15 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Divider,
   Flex,
   Heading,
   Image,
   Stack,
   Text,
 } from '@chakra-ui/react';
+import dayjs from 'dayjs';
+import { MdAdd } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { PartyListPropsWithMembers } from '@/types/party';
@@ -22,52 +25,83 @@ const PartyListCard = ({
   endDate,
   description,
   coverImage,
+  totalMembers,
   members,
 }: PartyListPropsWithMembers) => {
   const navigate = useNavigate();
-  const handleClick = (id: number) => {
-    console.log(id);
-    navigate(ROUTES.SCHEDULE);
+  const onMovePartyPage = (id: number) => {
+    navigate(ROUTES.SCHEDULE, {
+      state: {
+        partyId: id,
+      },
+    });
   };
   return (
-    <Card
-      key={id}
-      cursor='pointer'
-      onClick={() => handleClick(id)}
-      py='10'
-      direction={{ base: 'column', sm: 'row' }}
-      overflow='hidden'
-      variant='outline'>
-      <Image
-        objectFit='cover'
-        borderRadius={20}
-        maxW={{ base: '100%', sm: '200px' }}
-        src={coverImage}
-        alt='Caffe Latte'
-      />
+    <>
+      <Card
+        key={id}
+        cursor='pointer'
+        borderRadius='2'
+        onClick={() => onMovePartyPage(id)}
+        direction={{ base: 'row' }}
+        overflow='hidden'
+        variant='unstyled'>
+        <Image
+          objectFit='cover'
+          borderRadius='2'
+          maxW={{ base: '160px', sm: '200px' }}
+          src={coverImage}
+          alt='Caffe Latte'
+        />
 
-      <Stack w='100%' justifyContent='space-between' px='4' pb='3'>
-        <CardBody>
-          <Flex alignItems='center' justifyContent='space-between'>
-            <Heading size='md'>{name}</Heading>
-            <Text fontSize='xs'>{`${startDate.slice(2)} - ${endDate.slice(2)}`}</Text>
-          </Flex>
+        <Stack w='100%' justifyContent='space-between' px='4' pb='3'>
+          <CardBody>
+            <Heading
+              overflow='hidden'
+              textOverflow='ellipsis'
+              whiteSpace='nowrap'
+              wordBreak='break-all'
+              maxW='90%'
+              size='md'>
+              {name}
+            </Heading>
+            <Text mt='2' fontSize='xs'>{`${dayjs(startDate).format('YY.MM.DD')} - ${dayjs(
+              endDate
+            ).format('YY.MM.DD')}`}</Text>
+            <Text
+              overflow='hidden'
+              textOverflow='ellipsis'
+              whiteSpace='nowrap'
+              wordBreak='break-all'
+              maxW='90%'
+              py='2'>
+              {description}
+            </Text>
+          </CardBody>
 
-          <Text py='2'>{description}</Text>
-        </CardBody>
-
-        <CardFooter>
-          <AvatarGroup size='sm' max={3}>
+          <CardFooter>
             {members.map((member) => (
-              <Avatar
-                key={member.memberId}
-                src={member.profileImage === null ? undefined : member.profileImage}
-              />
+              <Flex alignItems='center' key={member.memberId}>
+                <AvatarGroup max={3}>
+                  <Avatar
+                    size='sm'
+                    key={member.memberId}
+                    src={member.profileImage === null ? undefined : member.profileImage}
+                  />
+                </AvatarGroup>
+                {totalMembers - 1 > 0 && (
+                  <>
+                    <MdAdd />
+                    {totalMembers - 1}
+                  </>
+                )}
+              </Flex>
             ))}
-          </AvatarGroup>
-        </CardFooter>
-      </Stack>
-    </Card>
+          </CardFooter>
+        </Stack>
+      </Card>
+      <Divider py='2' />
+    </>
   );
 };
 
