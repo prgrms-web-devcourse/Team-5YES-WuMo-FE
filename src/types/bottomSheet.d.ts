@@ -1,10 +1,10 @@
 export type BottomSheetProps = {
   isOpen: boolean;
   onClose: () => void;
-  modal: {
-    title?: string;
-    content: JSX.Element;
-    onClick?: () => void;
-    buttonText?: string;
-  };
+  modal: ModalType;
+};
+
+export type ModalType = {
+  title?: string;
+  content: JSX.Element;
 };
