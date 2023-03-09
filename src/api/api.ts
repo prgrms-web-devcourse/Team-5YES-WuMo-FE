@@ -7,16 +7,12 @@ type AxiosInterceptorChildrenType = {
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
   withCredentials: true,
 });
 
 const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
   useEffect(() => {
     const resInterceptor = (response: AxiosResponse) => {
-      console.log(response);
       return response;
     };
 
@@ -36,6 +32,12 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
     const interceptorRequest = instance.interceptors.request.use(
       (config) => {
         const token = localStorage.getItem('accessToken');
+        config.headers = config.headers ?? {};
+        if (config.data instanceof FormData) {
+          config.headers['Content-Type'] = 'multipart/form-data';
+        } else {
+          config.headers['Content-Type'] = 'application/json';
+        }
         config.headers.Authorization = token ? `Bearer ${JSON.parse(token)}` : '';
         return config;
       },
