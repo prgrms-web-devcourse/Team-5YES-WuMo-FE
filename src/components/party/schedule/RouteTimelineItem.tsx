@@ -29,7 +29,7 @@ const RouteTimelineItem = ({
   routerButton,
 }: routeListProps) => {
   return (
-    <ListItem pt='1.875rem'>
+    <ListItem pt='3.125rem'>
       <Flex justify='center'>
         <Flex direction='column' align='center' zIndex='10'>
           <Text fontSize='xs' bg='white'>
@@ -56,7 +56,7 @@ const RouteTimelineItem = ({
           <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (
-              <Button variant='ghost' size='xs'>
+              <Button variant='ghost' size='xs' p='0'>
                 {routerButton}
               </Button>
             )}
