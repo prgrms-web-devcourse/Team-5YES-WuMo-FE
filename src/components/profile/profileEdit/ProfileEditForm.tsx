@@ -91,7 +91,7 @@ const ProfileEditForm = () => {
 
   const modalContent = {
     content: (
-      <Stack w='100%' spacing='4'>
+      <Stack w='100%' spacing='4' mb='20'>
         <Button onClick={handleFileChoose}>이미지 가져오기</Button>
         <Button onClick={handleDefaultImage}>기본이미지로 변경</Button>
       </Stack>
