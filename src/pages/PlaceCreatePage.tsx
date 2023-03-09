@@ -18,7 +18,6 @@ import {
   placeSearchState,
 } from '@/store/recoilPlaceState';
 import { placeCreateStepItems, processStep } from '@/utils/constants/processStep';
-import ROUTES from '@/utils/constants/routes';
 
 const PlaceCreatePage = () => {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const PlaceCreatePage = () => {
       setCreatePlaceBody(initialPlaceState);
       setPlaceSearchState(initialPlaceSearchState);
       setIsOpen(false);
-      navigate(ROUTES.PLAN);
+      navigate(-1);
     }
   };
 
