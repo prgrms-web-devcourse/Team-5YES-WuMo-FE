@@ -31,10 +31,8 @@ const PartyList = () => {
     }
   );
 
-  if (onGoingLoading) return <></>;
-  if (completedLoading) return <></>;
-  if (onGoingError) return <></>;
-  if (completedError) return <></>;
+  if (onGoingLoading || completedLoading) return <></>;
+  if (onGoingError || completedError) return <></>;
 
   return (
     <Box pt='14'>
