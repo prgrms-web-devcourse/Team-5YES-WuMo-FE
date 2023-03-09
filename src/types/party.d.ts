@@ -63,3 +63,14 @@ export type PartyInformationType = {
   description: string;
   coverImage: string;
 };
+
+export type MyPartyList = {
+  lastId: number;
+  party: [PartyInformationType & { members: PartyMemberProps[] }];
+};
+
+type MyPartyListPrams = {
+  cursorId?: number;
+  pageSize: number;
+  partyType: string;
+};
