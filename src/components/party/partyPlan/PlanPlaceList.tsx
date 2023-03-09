@@ -45,7 +45,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             marginTop='3'
             marginBottom='3'
             height='7rem'>
-            <Image src={place.image} alt={place.name} width='30%' objectFit='cover' />
+            <Image src={place.imageURL} alt={place.name} width='30%' objectFit='cover' />
             <CardBody
               display='flex'
               flexDirection='column'

@@ -53,10 +53,6 @@ export type Place = {
   partyId?: number;
 };
 
-export type createPlaceReturnValues = {
-  placeId: number;
-};
-
 export type PlaceMarker = Pick<
   Place,
   'id' | 'name' | 'latitude' | 'longitude' | 'category'
@@ -65,7 +61,7 @@ export type PlaceMarker = Pick<
 export type PlaceInformationType =
   | 'visitDate'
   | 'expectedCost'
-  | 'image'
+  | 'imageURL'
   | 'description'
   | 'address';
 
