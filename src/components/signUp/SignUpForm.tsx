@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-import axiosInstance from '@/api/api';
+import { fetchCheckEmail, fetchNickname, signUp } from '@/api/user';
 import { SignProps } from '@/types/userSign';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 import ROUTES from '@/utils/constants/routes';
@@ -55,12 +55,8 @@ const SignUpForm = () => {
     if (!checkNickname)
       return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
 
-    try {
-      await axiosInstance.post('/members/signup', values);
-      navigate(ROUTES.SIGNIN);
-    } catch (error) {
-      console.error(error);
-    }
+    await signUp(values);
+    navigate(ROUTES.SIGNIN);
   };
 
   const handleCheckEmail = async () => {
@@ -68,24 +64,23 @@ const SignUpForm = () => {
     const target = getValues('email');
     if (!checkBefore) return;
 
-    await axiosInstance
-      .get(`/members/check-email?email=${target}`)
-      .then(() => {
-        setCheckEmail(true);
-      })
-      .catch(() => {
-        setCheckEmail(false);
-        setError('email', { message: FORM_ERROR_MESSAGES.EMAIL_DUPLICATED });
-      });
+    try {
+      await fetchCheckEmail(target);
+      setCheckEmail(true);
+    } catch (error) {
+      setCheckEmail(false);
+      setError('email', { message: FORM_ERROR_MESSAGES.EMAIL_DUPLICATED });
+      console.error(error);
+    }
   };
 
   const handleCheckNickname = async () => {
     const checkBefore = await trigger('nickname');
     const target = getValues('nickname');
-    //나중에 server error로 수정
     if (!checkBefore) return;
+
     try {
-      await axiosInstance.get(`/members/check-nickname?nickname=${target}`);
+      await fetchNickname(target);
       setCheckNickname(true);
     } catch (error) {
       setCheckNickname(false);
