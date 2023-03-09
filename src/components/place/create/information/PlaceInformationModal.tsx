@@ -16,7 +16,7 @@ import { createImage } from '@/api/image';
 import { createPlace } from '@/api/place';
 import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState } from '@/store/recoilPlaceState';
-import { PLACE_SEARCH_MESSAGES } from '@/utils/constants/messages';
+import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 import { getSearchAddress, MAX_ADDRESS_LENGTH } from '@/utils/constants/place';
 import { PlaceInformationStepItems } from '@/utils/constants/processStep';
 
@@ -38,9 +38,9 @@ const PlaceInformationModal = () => {
   const { mutateAsync: createNewPlace } = useMutation(createPlace);
 
   const onClickButton = async () => {
-    if (!visitDate) return PLACE_SEARCH_MESSAGES.VISIT_DATE_REQUIRED;
-    if (!expectedCost) return PLACE_SEARCH_MESSAGES.EXPECTED_COST_REQUIRED;
-    if (!imageFile) return PLACE_SEARCH_MESSAGES.IMAGE_FILE_REQUIRED;
+    if (!visitDate) return PLACE_ERROR_MESSAGES.VISIT_DATE_REQUIRED;
+    if (!expectedCost) return PLACE_ERROR_MESSAGES.EXPECTED_COST_REQUIRED;
+    if (!imageFile) return PLACE_ERROR_MESSAGES.IMAGE_FILE_REQUIRED;
 
     await onSubmitNewPlace();
   };
