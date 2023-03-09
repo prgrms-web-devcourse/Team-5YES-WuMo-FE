@@ -27,7 +27,7 @@ export const fetchPartyMembers = async (partyId: number) => {
 export const fetchPartyInformation = async (partyId: number) => {
   try {
     const response = await axiosInstance.get(`/parties/${partyId}`);
-    return response.data;
+    if (response) return response.data;
   } catch (error) {
     console.error(error);
   }
