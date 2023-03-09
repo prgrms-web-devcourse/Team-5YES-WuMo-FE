@@ -5,7 +5,7 @@ import axiosInstance from './api';
 export const fetchPlaces = async (
   cursorId: number,
   pageSize: number,
-  partyId: string
+  partyId: number
 ) => {
   try {
     const response = await axiosInstance.get(
@@ -26,7 +26,7 @@ export const fetchPlace = async (locationId: number) => {
   }
 };
 
-export const createLocation = async (data: Place) => {
+export const createPlace = async (data: Place) => {
   try {
     const response = await axiosInstance.post('api/v1/locations', data);
     if (response) return response.data;

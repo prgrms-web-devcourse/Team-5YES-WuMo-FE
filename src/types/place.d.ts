@@ -53,6 +53,11 @@ export type Place = {
   partyId?: number;
 };
 
+export type Places = {
+  locations: PlaceInformation[];
+  lastId: number;
+};
+
 export type PlaceInformation = {
   id: number;
   name: string;
@@ -101,7 +106,7 @@ export type InputProps = {
 };
 
 export type PlanPlaceListProps = {
-  places: Place[];
+  places: PlaceInformation[];
 };
 
 export type Comment = {
