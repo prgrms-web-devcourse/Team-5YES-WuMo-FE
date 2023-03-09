@@ -35,7 +35,7 @@ const PlacePage = () => {
         option={BACKNAVIGATION_OPTIONS.MORE}
         moreMenuEvent={moreMenuEvent}
       />
-      <Box height='2xs' marginTop='12'>
+      <Box height='2xs' marginTop='14'>
         <Image src={data.image} height='3xs' width='full' objectFit='cover' />
         <Image src={getGitEmoji(data.category)} position='relative' left='5' bottom='8' />
       </Box>
