@@ -38,7 +38,7 @@ const PlacePage = () => {
         moreMenuEvent={moreMenuEvent}
       />
       <Box height='2xs' marginTop='12'>
-        <Image src={data.image} height='3xs' width='full' objectFit='cover' />
+        <Image src={data.imageURL} height='3xs' width='full' objectFit='cover' />
         <Image src={getGitEmoji(data.category)} position='relative' left='5' bottom='8' />
       </Box>
       <Flex direction='column' padding='5' paddingTop='0' gap='2'>
