@@ -130,3 +130,9 @@ export type FetchPlacesParams = {
   pageSize: number;
   partyId: number;
 };
+
+export type PlaceToRoute = {
+  routeId: number;
+  locationId: number;
+  partyId: number;
+};
