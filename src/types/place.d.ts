@@ -124,3 +124,9 @@ export type ImageData = {
   imageBase64: string | null;
   imageFile: File | null;
 };
+
+export type FetchPlacesParams = {
+  cursorId: number;
+  pageSize: number;
+  partyId: number;
+};

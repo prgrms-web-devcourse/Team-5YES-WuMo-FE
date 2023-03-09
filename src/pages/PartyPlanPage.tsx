@@ -14,7 +14,7 @@ const PartyPlanPage = () => {
 
   const { data, isLoading, isError } = useQuery<Places>(
     ['placeList'],
-    () => fetchPlaces(0, 10000, Number(partyId)),
+    () => fetchPlaces({ cursorId: 0, pageSize: 10000, partyId: Number(partyId) }),
     {
       staleTime: 10000,
     }

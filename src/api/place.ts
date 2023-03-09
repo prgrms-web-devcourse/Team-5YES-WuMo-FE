@@ -1,12 +1,8 @@
-import { Place } from '@/types/place';
+import { FetchPlacesParams, Place } from '@/types/place';
 
 import axiosInstance from './api';
 
-export const fetchPlaces = async (
-  cursorId: number,
-  pageSize: number,
-  partyId: number
-) => {
+export const fetchPlaces = async ({ cursorId, pageSize, partyId }: FetchPlacesParams) => {
   try {
     const response = await axiosInstance.get(
       `/locations?cursorId=${cursorId}&pageSize=${pageSize}&partyId=${partyId}`
