@@ -11,4 +11,4 @@ export const parsePrice = (value: number) => Number(String(value).replace(/^\$/,
 
 export const getPriceText = (price: number) => `${formatPrice(price)}원`;
 
-export const formatDate = (date: string) => dayjs(date).format('YYYY.M.D HH:MM');
+export const formatDateTime = (date: string) => dayjs(date).format('YYYY.M.D HH:MM');

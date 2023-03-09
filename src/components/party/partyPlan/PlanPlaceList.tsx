@@ -15,7 +15,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { PlanPlaceListProps } from '@/types/place';
 import ROUTES from '@/utils/constants/routes';
-import { formatDate } from '@/utils/formatter';
+import { formatDateTime } from '@/utils/formatter';
 
 const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
                 {place.name}
               </Heading>
               <Text fontSize='sm'>{place.address}</Text>
-              <Text fontSize='xs'>{formatDate(place.visitDate)}</Text>
+              <Text fontSize='xs'>{formatDateTime(place.visitDate)}</Text>
             </CardBody>
             <CardFooter alignItems='center' padding='0' paddingRight='3'>
               <IconButton
