@@ -23,12 +23,12 @@ const globalStyle = css`
         width: 100%;
         border: none;
         .react-calendar__tile--now {
-          background: #f4cf47;
-          color: #080808;
+          background: #ffffff;
+          color: #f4cf47;
         }
         .react-calendar__tile--now:enabled:hover,
         .react-calendar__tile--now:enabled:focus {
-          background: #f4cf47;
+          background: #d9d9d9;
           color: #080808;
         }
         .react-calendar__navigation__label > span {

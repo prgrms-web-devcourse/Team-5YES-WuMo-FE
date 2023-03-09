@@ -38,7 +38,7 @@ const PlaceSearchStep = () => {
         </>
       ) : (
         <Stack spacing='8' marginLeft='0' paddingTop='5'>
-          <Text size='sm'>파티원과 공유하고 싶은 장소를 검색해 보세요.</Text>
+          <Text size='sm'>멤버들과 공유하고 싶은 장소를 검색해 보세요.</Text>
           {description.map(({ subtitle, example }, id) => (
             <Stack key={id} spacing='2'>
               <Text fontWeight='bold' size='xs' color='gray.600'>

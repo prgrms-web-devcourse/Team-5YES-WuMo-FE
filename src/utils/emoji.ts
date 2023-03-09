@@ -1,8 +1,6 @@
 import { categoryInfo } from './constants/place';
 
 export const getGitEmoji = (category: string) => {
-  console.log(category);
-
   const gitEmojiID = Object.keys(categoryInfo).includes(category)
     ? categoryInfo[category].imageID
     : category;

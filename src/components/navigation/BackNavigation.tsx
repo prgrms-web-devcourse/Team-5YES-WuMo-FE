@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { BackNavigationProps } from '@/types/backNavigation';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
-import PartyUpdate from '../party/partyUpdate/PartyUpdate';
+import PartySetting from '../party/update/PartySetting';
 
 const BackNavigation = ({ title, option }: BackNavigationProps) => {
   const { SEARCH, MENU } = BACKNAVIGATION_OPTIONS;
@@ -61,7 +61,7 @@ const BackNavigation = ({ title, option }: BackNavigationProps) => {
       ) : (
         ''
       )}
-      <PartyUpdate isOpen={isOpen} onClose={onClose} />
+      <PartySetting isOpen={isOpen} onClose={onClose} />
     </Nav>
   );
 };
