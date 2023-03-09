@@ -1,12 +1,9 @@
-import { Box, Img, useDisclosure } from '@chakra-ui/react';
+import { Box, Img } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import { AiOutlinePlus } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
 
 import { fetchLocationCommentList, fetchScheduleList } from '@/api/schedules';
-import BottomSheet from '@/components/base/BottomSheet';
-import CustomTextarea from '@/components/base/CustomTextarea';
-import FloatingButton from '@/components/base/FloatingButton';
+import Loading from '@/components/base/Loading';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
 import { CommentListType, ScheduleLocationType, ScheduleType } from '@/types/schedule';
@@ -14,18 +11,10 @@ import { getGitEmoji } from '@/utils/constants/emoji';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 import { scrollToTop } from '@/utils/scrollToTop';
 
+import CommentCreate from './CommentCreate';
 import CommentFeedItem from './CommentFeedItem';
 import CommentFeedTitle from './CommentFeedTitle';
 import PlaceAmountField from './PlaceAmountField';
-
-const modalContent = {
-  title: '새 피드 작성',
-  content: <CustomTextarea />,
-  buttonText: 'submit',
-  onClick: () => {
-    alert('제출 성공');
-  },
-};
 
 const moreMenuEvent = {
   onEditEvent: () => alert('수정'),
@@ -33,7 +22,6 @@ const moreMenuEvent = {
 };
 
 const RouteCommentFeed = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { scrollActive } = useScrollEvent(300);
   const { state } = useLocation();
 
@@ -49,11 +37,16 @@ const RouteCommentFeed = () => {
     data: scheduleList,
     isLoading: scheduleLoading,
     isError: scheduleError,
-  } = useQuery<ScheduleType>(['scheduleList'], () => fetchScheduleList(1, false), {
+  } = useQuery<ScheduleType>(['scheduleList'], () => fetchScheduleList(11, false), {
     staleTime: 10000,
   });
 
-  if (commentLoading || scheduleLoading) return <></>;
+  if (commentLoading || scheduleLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
   if (commentError || scheduleError) return <></>;
 
   const pickCurrentLocation = (locations: ScheduleLocationType[], locationId: number) => {
@@ -109,8 +102,7 @@ const RouteCommentFeed = () => {
             <CommentFeedItem key={comment.id} {...comment} />
           ))}
         </Box>
-        <FloatingButton icon={<AiOutlinePlus />} onClick={onOpen} />
-        <BottomSheet isOpen={isOpen} onClose={onClose} modal={modalContent} />
+        <CommentCreate />
       </Box>
     </>
   );

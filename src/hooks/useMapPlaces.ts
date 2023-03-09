@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/constants/messages';
+import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 
 import useMapScript from './useMapScript';
 
@@ -24,9 +24,9 @@ const useMapPlaces = () => {
       if (status === kakao.maps.services.Status.OK) {
         setResult(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert(PLACE_SEARCH_ERROR_MESSAGES.NO_RESULT);
+        alert(PLACE_ERROR_MESSAGES.NO_RESULT);
       } else if (status === kakao.maps.services.Status.ERROR) {
-        alert(PLACE_SEARCH_ERROR_MESSAGES.RESPONSE_ERROR);
+        alert(PLACE_ERROR_MESSAGES.RESPONSE_ERROR);
       }
     });
   };

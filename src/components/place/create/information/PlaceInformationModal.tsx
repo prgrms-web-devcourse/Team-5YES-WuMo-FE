@@ -8,20 +8,76 @@ import {
   ModalBody,
   ModalFooter,
 } from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
+import { createImage } from '@/api/image';
+import { createPlace } from '@/api/place';
 import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState } from '@/store/recoilPlaceState';
+import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
+import { getSearchAddress, MAX_ADDRESS_LENGTH } from '@/utils/constants/place';
 import { PlaceInformationStepItems } from '@/utils/constants/processStep';
 
 const PlaceInformationModal = () => {
-  const createPlaceBody = useRecoilValue(createPlaceState);
+  const {
+    name,
+    address,
+    latitude,
+    longitude,
+    imageFile,
+    category,
+    description,
+    visitDate,
+    expectedCost,
+  } = useRecoilValue(createPlaceState);
+  const navigate = useNavigate();
 
-  const handleClick = () => {
-    if (!createPlaceBody.visitDate) return '방문 예정일을 입력해 주세요.';
-    if (!createPlaceBody.expectedCost) return '예상 비용을 입력해 주세요.';
-    if (!createPlaceBody.image) return '대표 이미지를 선택해 주세요.';
-    console.log(createPlaceBody); // TODO: API 연동
+  const { mutateAsync: createImageUrl, reset: imageReset } = useMutation(createImage);
+  const { mutateAsync: createNewPlace } = useMutation(createPlace);
+
+  const onClickButton = async () => {
+    if (!visitDate) return PLACE_ERROR_MESSAGES.VISIT_DATE_REQUIRED;
+    if (!expectedCost) return PLACE_ERROR_MESSAGES.EXPECTED_COST_REQUIRED;
+    if (!imageFile) return PLACE_ERROR_MESSAGES.IMAGE_FILE_REQUIRED;
+
+    await onSubmitNewPlace();
+  };
+
+  const onSubmitImageFile = async () => {
+    if (!imageFile) return null;
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    const imageUrl = await createImageUrl(formData);
+    return imageUrl;
+  };
+
+  const onSubmitNewPlace = async () => {
+    const imageUrl = await onSubmitImageFile();
+
+    const placeBody = {
+      name,
+      latitude,
+      longitude,
+      category,
+      description,
+      visitDate,
+      expectedCost,
+      image: imageUrl,
+      address: address.slice(0, MAX_ADDRESS_LENGTH),
+      searchAddress: getSearchAddress(address),
+      partyId: 17, // TODO: PartyId 받아와야 함
+    };
+
+    await createNewPlace(placeBody, {
+      onSuccess: (data) => {
+        if (!data?.id) return;
+        navigate(`/place/${data.id}`);
+      },
+    });
+
+    imageReset();
   };
 
   return (
@@ -45,12 +101,8 @@ const PlaceInformationModal = () => {
       <ModalFooter>
         <ModalButton
           text='후보지 추가'
-          isDisabled={
-            !createPlaceBody.visitDate ||
-            !createPlaceBody.expectedCost ||
-            !createPlaceBody.image
-          }
-          clickButtonHandler={handleClick}
+          isDisabled={!visitDate || !expectedCost || !imageFile}
+          clickButtonHandler={onClickButton}
         />
       </ModalFooter>
     </>

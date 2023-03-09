@@ -39,7 +39,7 @@ const DateTimeInput = () => {
     newDate.setMinutes(values.min);
     setCreatePlaceBody({
       ...createPlaceBody,
-      visitDate: newDate.toString(),
+      visitDate: newDate.toISOString(),
     });
   };
 

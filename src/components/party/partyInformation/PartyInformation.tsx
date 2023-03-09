@@ -11,7 +11,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BsFillShareFill } from 'react-icons/bs';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { fetchPartyInformation, fetchPartyMembers } from '@/api/party';
 import BackNavigation from '@/components/navigation/BackNavigation';
@@ -36,17 +36,14 @@ const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProp
 const PartyInformation = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const { scrollActive } = useScrollEvent(300);
+  const { state } = useLocation();
 
   const {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(
-    ['partyInformation'],
-    () => fetchPartyInformation(11),
-    {
-      staleTime: 10000,
-    }
+  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+    fetchPartyInformation(state.partyId)
   );
 
   const {

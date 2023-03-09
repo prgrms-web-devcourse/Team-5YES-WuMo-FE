@@ -26,10 +26,7 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
     const tokens = localStorage.getItem('tokens');
     if (tokens) {
       try {
-        const response = await axiosInstance.post(
-          '/api/v1/members/reissue',
-          JSON.parse(tokens)
-        );
+        const response = await axiosInstance.post('/members/reissue', JSON.parse(tokens));
         const { accessToken, refreshToken } = response.data;
         lock = false;
         onRrefreshed(accessToken);
@@ -90,7 +87,12 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
           config.headers.Authorization = null;
           return config;
         }
-
+        config.headers = config.headers ?? {};
+        if (config.data instanceof FormData) {
+          config.headers['Content-Type'] = 'multipart/form-data';
+        } else {
+          config.headers['Content-Type'] = 'application/json';
+        }
         if (config.headers && tokens) {
           const { accessToken } = JSON.parse(tokens);
           config.headers.Authorization = `Bearer ${accessToken}`;

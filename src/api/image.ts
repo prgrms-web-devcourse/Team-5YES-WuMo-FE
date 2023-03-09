@@ -1,10 +1,13 @@
-import instance from './api';
+import axiosInstance from './api';
 
-export const createImageUrlAPI = async (formData: FormData) => {
+export const createImage = async (image: FormData) => {
   try {
-    const response = await instance.post('/api/v1/images', formData);
-    return response.data;
+    const response = await axiosInstance.post(`/images`, image);
+
+    if (response) return response.data.imageUrl;
   } catch (error) {
     console.error(error);
+
+    throw error;
   }
 };

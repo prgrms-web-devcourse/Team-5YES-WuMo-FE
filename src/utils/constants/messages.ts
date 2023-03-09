@@ -17,8 +17,11 @@ export const FORM_ERROR_MESSAGES = {
   MAX: (max: number) => `최대 ${max}글자까지만 가능합니다.`,
 } as const;
 
-export const PLACE_SEARCH_ERROR_MESSAGES = {
+export const PLACE_ERROR_MESSAGES = {
   KEYWORD_REQUIRED: '키워드를 입력해 주세요.',
   NO_RESULT: '검색 결과가 존재하지 않습니다.',
   RESPONSE_ERROR: '검색 중 오류가 발생했습니다.',
+  VISIT_DATE_REQUIRED: '방문 예정일을 입력해 주세요.',
+  EXPECTED_COST_REQUIRED: '예상 비용을 입력해 주세요.',
+  IMAGE_FILE_REQUIRED: '대표 이미지를 선택해 주세요.',
 } as const;

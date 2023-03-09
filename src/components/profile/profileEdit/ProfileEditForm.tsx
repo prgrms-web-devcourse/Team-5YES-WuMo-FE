@@ -54,7 +54,7 @@ const ProfileEditForm = () => {
     fields.id = member_dummy_data.id;
     // 이미지 등록 후 url만 저장하여 전송
     console.log(fields);
-    const response = axiosInstance.patch('/api/v1/members', values);
+    const response = axiosInstance.patch('/members', values);
     console.log(response);
   };
 
@@ -91,7 +91,7 @@ const ProfileEditForm = () => {
 
   const modalContent = {
     content: (
-      <Stack w='100%' spacing='4'>
+      <Stack w='100%' spacing='4' mb='20'>
         <Button onClick={handleFileChoose}>이미지 가져오기</Button>
         <Button onClick={handleDefaultImage}>기본이미지로 변경</Button>
       </Stack>
