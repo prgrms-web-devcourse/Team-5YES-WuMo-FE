@@ -11,12 +11,12 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { MdAdd, MdLocationPin } from 'react-icons/md';
+import { MdAdd, MdClear, MdLocationPin } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { createPlaceToRoute } from '@/api/place';
+import { createPlaceToRoute, deletePlaceFromRoute } from '@/api/place';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import { PlanPlaceListProps } from '@/types/place';
 import { formatDateTime } from '@/utils/formatter';
@@ -29,32 +29,46 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
   useEffect(() => {
     if (routeId) return;
     for (const place of places) {
-      if (place.routeId) setRouteId(place.routeId);
-      return;
+      if (place.routeId) {
+        setRouteId(place.routeId);
+        return;
+      }
     }
-  }, [places]);
+  }, []);
 
-  const initialModalText = {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modal, setModal] = useState({
     name: '',
     visitDate: '',
-  };
-  const [modalText, setModalText] = useState(initialModalText);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+    check: '',
+    buttonText: {},
+    buttonClickhandler: {},
+  });
 
-  const { mutateAsync: addPlaceToRoute } = useMutation(createPlaceToRoute);
+  const queryClient = useQueryClient();
+  const { mutateAsync: addPlace } = useMutation(createPlaceToRoute);
+  const { mutateAsync: removePlace } = useMutation(deletePlaceFromRoute);
 
-  const onClickPrimaryButton = async (placeId: number) => {
+  const onAddPlaceToRoute = async (placeId: number) => {
     const placeToRouteBody = {
       routeId,
       locationId: placeId,
       partyId: Number(partyId),
     };
 
-    console.log(placeToRouteBody);
-
-    await addPlaceToRoute(placeToRouteBody, {
+    await addPlace(placeToRouteBody, {
       onSuccess: () => {
         onClose();
+        return queryClient.invalidateQueries(['placeList']);
+      },
+    });
+  };
+
+  const onDeletePlaceFromRoute = async (placeId: number) => {
+    await removePlace(placeId, {
+      onSuccess: () => {
+        onClose();
+        return queryClient.invalidateQueries(['placeList']);
       },
     });
   };
@@ -83,7 +97,8 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           cursor='pointer'
           marginTop='3'
           marginBottom='3'
-          height='7rem'>
+          height='7rem'
+          border={routeId && place.routeId === routeId ? '2px solid #2b6cb0' : ''}>
           <Image
             src={place.image}
             alt={place.name}
@@ -100,20 +115,60 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             <Heading as='h4' size='sm'>
               {place.name}
             </Heading>
-            <Text fontSize='sm'>{place.address}</Text>
+            <Text
+              display='block'
+              width='10.5rem'
+              fontSize='sm'
+              overflow='hidden'
+              textOverflow='ellipsis'
+              whiteSpace='nowrap'
+              wordBreak='break-all'>
+              {place.address}
+            </Text>
             <Text fontSize='xs'>{formatDateTime(place.visitDate)}</Text>
           </CardBody>
           <CardFooter alignItems='center' padding='0' paddingRight='3'>
-            <IconButton
-              variant='outline'
-              borderRadius='50px'
-              aria-label='일정에 후보지 추가'
-              icon={<MdAdd />}
-              onClick={() => {
-                setModalText({ name: place.name, visitDate: place.visitDate });
-                onOpen();
-              }}
-            />
+            {routeId && place.routeId === routeId ? (
+              <IconButton
+                variant='outline'
+                borderRadius='50px'
+                aria-label='일정에서 후보지 삭제'
+                icon={<MdClear />}
+                onClick={() => {
+                  setModal({
+                    name: '',
+                    visitDate: '',
+                    check: '이 후보지를 일정에서 삭제할까요?',
+                    buttonText: { secondary: '취소', primary: '삭제' },
+                    buttonClickhandler: {
+                      primary: () => onDeletePlaceFromRoute(Number(place.id)),
+                      secondary: () => console.log('수정 페이지로 이동'), // TODO: 해당 후보지 수정 페이지로 이동
+                    },
+                  });
+                  onOpen();
+                }}
+              />
+            ) : (
+              <IconButton
+                variant='outline'
+                borderRadius='50px'
+                aria-label='일정에 후보지 추가'
+                icon={<MdAdd />}
+                onClick={() => {
+                  setModal({
+                    name: place.name,
+                    visitDate: place.visitDate,
+                    check: '이 후보지를 일정을 추가할까요?',
+                    buttonText: { secondary: '수정', primary: '추가' },
+                    buttonClickhandler: {
+                      primary: () => onAddPlaceToRoute(Number(place.id)),
+                      secondary: () => onClose(),
+                    },
+                  });
+                  onOpen();
+                }}
+              />
+            )}
           </CardFooter>
           <ConfirmModal
             hasCloseButton
@@ -121,16 +176,15 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             closeModalHandler={onClose}
             body={
               <Box textAlign='center'>
-                <Text>장소: {modalText.name}</Text>
-                <Text>방문일: {formatDateTime(modalText.visitDate)}</Text>
-                <Text>이 후보지를 일정을 추가할까요?</Text>
+                {modal.name && <Text>장소: {modal.name}</Text>}
+                {modal.visitDate && (
+                  <Text>방문일: {formatDateTime(modal.visitDate)}</Text>
+                )}
+                <Text>{modal.check}</Text>
               </Box>
             }
-            buttonText={{ secondary: '수정', primary: '추가' }}
-            clickButtonHandler={{
-              primary: () => onClickPrimaryButton(Number(place.id)),
-              secondary: () => console.log('수정 페이지로 이동'), // TODO: 해당 후보지 수정 페이지로 이동
-            }}
+            buttonText={modal.buttonText}
+            clickButtonHandler={modal.buttonClickhandler}
           />
         </Card>
       ))}

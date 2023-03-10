@@ -10,9 +10,9 @@ import useMapScript from '@/hooks/useMapScript';
 import { Places } from '@/types/place';
 
 const PartyPlanPage = () => {
-  useMapScript();
   const navigate = useNavigate();
   const { partyId } = useParams();
+  useMapScript();
 
   const { data, isLoading, isError } = useQuery<Places>(['placeList'], () =>
     fetchPlaces({ cursorId: 0, pageSize: 10000, partyId: Number(partyId) })

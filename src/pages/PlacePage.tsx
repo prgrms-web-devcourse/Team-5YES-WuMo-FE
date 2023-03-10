@@ -22,8 +22,7 @@ const PlacePage = () => {
   useMapScript();
   const { data, isLoading, isError } = useQuery<PlaceInformation>(
     ['placeInformation'],
-    () => fetchPlace(Number(placeId)),
-    { staleTime: 10000 }
+    () => fetchPlace(Number(placeId))
   );
 
   if (isLoading) return <></>;
