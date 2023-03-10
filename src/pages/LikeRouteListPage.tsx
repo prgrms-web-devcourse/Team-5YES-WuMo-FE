@@ -1,14 +1,14 @@
 import { Box } from '@chakra-ui/react';
 
 import BackNavigation from '@/components/navigation/BackNavigation';
-import Route from '@/components/route/Route';
+import LikeRouteList from '@/components/routeList/LikeRouteList';
 
 const LikeRouteListPage = () => {
   return (
     <>
       <BackNavigation title='관심 목록' />
       <Box padding='5rem 2rem'>
-        <Route />
+        <LikeRouteList />
       </Box>
     </>
   );

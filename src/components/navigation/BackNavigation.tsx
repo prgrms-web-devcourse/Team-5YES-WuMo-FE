@@ -1,11 +1,33 @@
-import { Button, Container, Flex, Input, useDisclosure } from '@chakra-ui/react';
+import {
+  Button,
+  Container,
+  Flex,
+  Icon,
+  Input,
+  Tab,
+  TabList,
+  Tabs,
+  useDisclosure,
+} from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdKeyboardArrowLeft, MdSearch, MdSettings } from 'react-icons/md';
+import {
+  MdKeyboardArrowLeft,
+  MdOutlineCancel,
+  MdSearch,
+  MdSettings,
+} from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { fetchBestRouteList } from '@/api/schedules';
+import {
+  bestRouteListSortSearchState,
+  searchResultList,
+} from '@/store/recoilRouteListState';
 import { BackNavigationProps } from '@/types/backNavigation';
+import { BestRouteListSortSearchProps } from '@/types/routeList';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import MoreMenu from '../base/MoreMenu';
@@ -14,8 +36,12 @@ import PartyUpdate from '../party/partyUpdate/PartyUpdate';
 const { SEARCH, MENU, MORE } = BACKNAVIGATION_OPTIONS;
 
 const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) => {
-  const [isShowSearch, setIsShowSearch] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isShowSearch, setIsShowSearch] = useState(false);
+  const [bestRouteData, setBestRouteData] = useRecoilState<BestRouteListSortSearchProps>(
+    bestRouteListSortSearchState
+  );
+  const setSearchResultList = useSetRecoilState(searchResultList);
 
   const optionList = {
     [SEARCH]: <MdSearch />,
@@ -36,10 +62,15 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
     }
   };
 
+  const handleBestRouteSearch = async () => {
+    const data = await fetchBestRouteList(bestRouteData);
+    setSearchResultList(data);
+  };
+
   const navigate = useNavigate();
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20' h='3.75rem' userSelect='none'>
-      <Flex justify='space-between'>
+      <Flex justify='space-between' mb='0.5rem'>
         <BackButton onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </BackButton>
@@ -51,21 +82,51 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           {option && optionList[option]}
         </BackButton>
       </Flex>
+      {option === SEARCH && (
+        <Tabs
+          bg='white'
+          zIndex='20'
+          colorScheme='red'
+          onChange={(index) =>
+            setBestRouteData({
+              ...bestRouteData,
+              sortType: index === 0 ? 'NEWEST' : 'LIKES',
+            })
+          }>
+          <TabList>
+            <Tab flex='1'>최신순</Tab>
+            <Tab flex='1'>좋아요순</Tab>
+          </TabList>
+        </Tabs>
+      )}
       {option === SEARCH && isShowSearch && (
         <Flex
+          gap='0.5rem'
           py='1rem'
           bg='white'
           justifyContent='space-between'
           as={motion.div}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}>
+          <Button px='2' onClick={() => setIsShowSearch(!isShowSearch)}>
+            <Icon as={MdOutlineCancel} boxSize='4' />
+          </Button>
           <Input
-            placeholder='검색어를 입력하세요.'
+            placeholder='지역명 검색 ex) 서울, 경기, 인천'
             w='80%'
-            fontSize='0.75rem'
+            fontSize='0.875rem'
             padding='0.5rem'
+            value={bestRouteData.searchWord}
+            onChange={(e) => {
+              setBestRouteData({
+                ...bestRouteData,
+                searchWord: e.target.value,
+              });
+            }}
           />
-          <Button fontSize='0.875rem'>{SEARCH}</Button>
+          <Button fontSize='0.875rem' onClick={handleBestRouteSearch}>
+            {SEARCH}
+          </Button>
         </Flex>
       )}
       <PartyUpdate isOpen={isOpen} onClose={onClose} />
