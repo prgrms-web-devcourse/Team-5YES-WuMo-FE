@@ -1,5 +1,4 @@
 import {
-  Button,
   Center,
   Modal,
   ModalBody,
@@ -46,24 +45,7 @@ const BottomSheet = ({ isOpen, onClose, modal }: BottomSheetProps) => {
           <ModalHeader fontSize='2xl'>{modal.title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Center flexDir='column' mb={modal.buttonText ? '4' : '20'}>
-              {modal.content}
-              {modal.buttonText && (
-                <Button
-                  bg='primary.red'
-                  color='white'
-                  size='lg'
-                  w='99%'
-                  marginTop='40px'
-                  onClick={() => {
-                    onClose();
-                    modal.onClick && modal.onClick();
-                  }}
-                  borderRadius='2xl'>
-                  {modal.buttonText}
-                </Button>
-              )}
-            </Center>
+            <Center flexDir='column'>{modal.content}</Center>
           </ModalBody>
         </ModalContent>
       </Modal>

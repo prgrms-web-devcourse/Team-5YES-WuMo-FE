@@ -8,26 +8,35 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { MdCreditCard } from 'react-icons/md';
+import { useLocation } from 'react-router-dom';
 
-import { AmountType } from '@/types/schedule';
+import { patchChangeAmount } from '@/api/schedules';
+import { AmountType, ChangeAmountType } from '@/types/schedule';
 
-const PlaceAmountField = () => {
+const PlaceAmountField = ({ spending }: { spending: number }) => {
+  const { mutate: changeAmount } = useMutation(patchChangeAmount);
+  const { state } = useLocation();
   const {
     register,
     handleSubmit,
     formState: { isDirty },
   } = useForm<AmountType>({
     defaultValues: {
-      amount: '', //서버에 저장된 값이 있을 경우 불러오도록 설정해야 함.
+      amount: spending,
     },
   });
 
   const onSubmitAmount = ({ amount }: AmountType) => {
     if (!isDirty) return;
-    //서버 통신
-    alert(`${amount}원`);
+    const amountBody: ChangeAmountType = {
+      locationId: state.locationId,
+      spending: Number(amount),
+    };
+    changeAmount(amountBody);
+    alert(`${amount}원으로 변경되었습니다.`);
   };
 
   return (

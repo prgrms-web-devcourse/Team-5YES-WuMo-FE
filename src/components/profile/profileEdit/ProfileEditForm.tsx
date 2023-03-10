@@ -12,7 +12,7 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCameraAlt } from 'react-icons/md';
 
-import axiosInstance from '@/api/api';
+import { patchMyProfile } from '@/api/user';
 import BottomSheet from '@/components/base/BottomSheet';
 import ControlledInput from '@/components/base/ControlledInput';
 import SubmitButton from '@/components/base/SubmitButton';
@@ -50,11 +50,11 @@ const ProfileEditForm = () => {
     resolver: yupResolver(userEditSchema),
   });
 
-  const onSubmit = (fields: UserEditProps) => {
+  const onSubmit = async (fields: UserEditProps) => {
     fields.id = member_dummy_data.id;
     // 이미지 등록 후 url만 저장하여 전송
     console.log(fields);
-    const response = axiosInstance.patch('/api/v1/members', values);
+    const response = await patchMyProfile(fields);
     console.log(response);
   };
 
@@ -91,7 +91,7 @@ const ProfileEditForm = () => {
 
   const modalContent = {
     content: (
-      <Stack w='100%' spacing='4'>
+      <Stack w='100%' spacing='4' mb='20'>
         <Button onClick={handleFileChoose}>이미지 가져오기</Button>
         <Button onClick={handleDefaultImage}>기본이미지로 변경</Button>
       </Stack>

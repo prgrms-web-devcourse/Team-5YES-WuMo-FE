@@ -11,12 +11,16 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BsFillShareFill } from 'react-icons/bs';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 
-import { fetchPartyInformation } from '@/api/partyInformation';
+import { fetchPartyInformation, fetchPartyMembers } from '@/api/party';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
-import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
+import {
+  CalculateStayDurationProps,
+  PartyInformationType,
+  PartyMemberProps,
+} from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import PartyMenuTabList from './PartyMenuTabList';
@@ -32,21 +36,26 @@ const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProp
 const PartyInformation = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const { scrollActive } = useScrollEvent(300);
+  const { partyId } = useParams();
 
   const {
     data: partyInformation,
-    isLoading,
-    isError,
-  } = useQuery<PartyInformationType>(
-    ['partyInformation'],
-    () => fetchPartyInformation(11),
-    {
-      staleTime: 10000,
-    }
+    isLoading: partyInformationLoading,
+    isError: partyInformationError,
+  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+    fetchPartyInformation(Number(partyId))
   );
 
-  if (isLoading) return <></>;
-  if (isError) return <></>;
+  const {
+    data: partyUserList,
+    isLoading: partyUserListLoading,
+    isError: partyUserListError,
+  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
+    fetchPartyMembers(Number(partyId))
+  );
+
+  if (partyInformationLoading || partyUserListLoading) return <></>;
+  if (partyInformationError || partyUserListError) return <></>;
 
   const stayDurationDate = CalculateStayDuration({
     startDate: partyInformation.startDate,

@@ -1,20 +1,18 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
-import { fetchPartyUserList } from '@/api/partyInformation';
+import { fetchPartyMembers } from '@/api/party';
 import { PartyMemberProps } from '@/types/party';
 
 const PartyUserList = () => {
+  const { partyId } = useParams();
   const {
     data: partyUserList,
     isLoading,
     isError,
-  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(
-    ['partyUserList'],
-    () => fetchPartyUserList(11),
-    {
-      staleTime: 10000,
-    }
+  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
+    fetchPartyMembers(Number(partyId))
   );
 
   if (isLoading) return <></>;

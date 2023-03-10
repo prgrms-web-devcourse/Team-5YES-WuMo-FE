@@ -1,60 +1,41 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { useCallback, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
+import { fetchBestRouteList } from '@/api/main';
+import { BestRouteListType } from '@/types/routeList';
 import ROUTES from '@/utils/constants/routes';
 
-const DUMMYDATA = [
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '졸업 기념 여행',
-    place: '부산',
-    id: '1',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '덕질 여행 가보자고',
-    place: '일본',
-    id: '2',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '갈 땐 4명이지만 올 땐 2명',
-    place: '서울',
-    id: '3',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '뉴진스 하입보이요',
-    place: '강릉',
-    id: '4',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '회사원도 여행갈 수 있어요',
-    place: '서울',
-    id: '5',
-  },
-];
+import Loading from '../base/Loading';
 
 const BestRouteList = () => {
   const [dragging, setDragging] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const onBeforeChange = useCallback(() => {
-    setDragging(true);
-  }, []);
+  const {
+    data: BestRouteList,
+    isLoading,
+    isError,
+  } = useQuery<BestRouteListType>(
+    ['BestRouteList'],
+    () => fetchBestRouteList(parameter),
+    {
+      staleTime: 10000,
+    }
+  );
 
-  const onAfterChange = useCallback(() => {
-    setDragging(false);
-  }, []);
+  const parameter = {
+    pageSize: 10000,
+    sortType: 'LIKES',
+  };
 
-  const onMoveRoutePage = (id: string) => {
+  const onMoveRoutePage = (id: string | number) => {
     navigate(`/route/${id}`);
   };
 
@@ -75,8 +56,8 @@ const BestRouteList = () => {
     pauseOnHover: true,
     centerPadding: '100px',
     touchThreshold: 200,
-    beforeChange: onBeforeChange,
-    afterChange: onAfterChange,
+    beforeChange: () => setDragging(true),
+    afterChange: () => setDragging(false),
     adaptiveHeight: false,
     responsive: [
       {
@@ -87,31 +68,37 @@ const BestRouteList = () => {
       },
     ],
   };
+  if (isLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (isError) return <></>;
 
   return (
     <>
       <Flex direction='row' justify='space-between' align='center' p='1.25rem 1.875rem'>
-        <Heading size='sm'>베스트 여행루트</Heading>
+        <Heading size='sm'>베스트 모임루트</Heading>
         <Button size='sm' onClick={onMoveBestRoutePage}>
           더보기
         </Button>
       </Flex>
       <>
         <StyledSlider {...settings}>
-          {DUMMYDATA.map((route) => (
+          {BestRouteList.routes.map((route) => (
             <Box
-              key={route.id}
-              onClick={() => !dragging && onMoveRoutePage(route.id)}
+              key={route.routeId}
+              onClick={() => !dragging && onMoveRoutePage(route.routeId)}
               outline='none'>
               <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' />
               <Box
                 pos='absolute'
-                top='calc(50% - 1.5625rem)'
+                top='calc(50% - 1.125rem)'
                 left='calc(50% - 6.25rem)'
                 w='12.5rem'
                 textAlign='center'>
                 <Heading size='md'>{route.name}</Heading>
-                <Text>{route.place}</Text>
               </Box>
             </Box>
           ))}

@@ -19,6 +19,15 @@ const UserProfile = () => {
     navigate(ROUTES.PROFILE_EDIT);
   };
 
+  const toLanding = () => {
+    navigate(ROUTES.LANDING);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    toLanding();
+  };
+
   return (
     <Flex direction='column' alignItems='center'>
       <Avatar
@@ -37,7 +46,7 @@ const UserProfile = () => {
         <Button size='lg' w='full' onClick={toProfileEdit}>
           프로필 수정
         </Button>
-        <Button onClick={logout} size='lg' w='full' colorScheme='red'>
+        <Button onClick={handleLogout} size='lg' w='full' colorScheme='red'>
           로그아웃
         </Button>
       </Stack>

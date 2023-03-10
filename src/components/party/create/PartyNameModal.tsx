@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   Flex,
+  HStack,
+  Icon,
   Image,
   Input,
   ModalBody,
@@ -9,52 +11,62 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { MdAddPhotoAlternate } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 
+import { createImage } from '@/api/image';
 import ModalButton from '@/components/base/ModalButton';
 import { createPartyState, stepState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { processStep } from '@/utils/constants/processStep';
 
 const PartyNameModal = () => {
-  const { register, watch } = useForm();
-
-  const imageInput = useRef<HTMLInputElement>(null);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageSrc, setImageSrc] = useState('');
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   // 스탭별로 데이터 저장하기 위한 recoil state
   const [createPartyBody, setCreatePartyBody] =
     useRecoilState<PartyCreateBody>(createPartyState);
   const [step, setStep] = useRecoilState<number>(stepState);
 
+  const [name, setName] = useState(createPartyBody.name || '');
+  const [description, setDescription] = useState(createPartyBody.description || '');
+  const [imageUrl, setImageUrl] = useState(createPartyBody.coverImage || '');
+
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const onClickImageUpload = () => {
-    if (!imageInput.current) return;
-    imageInput.current.click();
+    imageInputRef.current?.click();
   };
 
-  const handleImageUpload = (e: React.ChangeEvent) => {
+  const handleFileDelete = () => {
+    if (confirm('사진을 삭제하시겠습니까?')) {
+      setImageUrl('');
+    }
+  };
+
+  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const targetFiles = (e.target as HTMLInputElement).files as FileList;
-    const selectedFiles = URL.createObjectURL(targetFiles[0]);
-    setImageSrc(selectedFiles);
+    const formData = new FormData();
+    formData.append('image', targetFiles[0]);
+
+    const data = await createImage(formData);
+    if (data) {
+      setImageUrl(data);
+    }
   };
 
   useEffect(() => {
-    if (watch('name') === '' || watch('description') === '' || imageSrc === '')
-      setButtonDisabled(true);
+    if (name === '' || description === '') setButtonDisabled(true);
     else setButtonDisabled(false);
-  }, [watch()]);
+  }, [name, description]);
 
   const onClickNextStep = () => {
     setCreatePartyBody({
       ...createPartyBody,
       name: name,
       description: description,
-      coverImage: imageSrc,
+      coverImage: imageUrl,
     });
   };
 
@@ -72,7 +84,7 @@ const PartyNameModal = () => {
             focusBorderColor='primary.red'
             borderRadius='8'
             placeholder='모임 이름을 입력해주세요.'
-            {...register('name')}
+            value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </Box>
@@ -89,33 +101,37 @@ const PartyNameModal = () => {
             resize='none'
             outlineColor='primary.red'
             placeholder='어떤 모임인지 설명해주세요.'
-            {...register('description')}
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </Box>
-        {/* 이미지 부분은 나중에 유리가 만든 컴포넌트 재사용 예정 */}
+        <Text fontSize='0.875rem' mb='2' color='#808080'>
+          모임 커버 이미지
+        </Text>
         <Box>
-          <Text fontSize='0.875rem' mb='2' color='#808080'>
-            모임 커버 이미지
-          </Text>
           <input
             type='file'
-            style={{ display: 'none' }}
-            accept='image/*'
-            {...register('imageSrc')}
+            hidden
+            accept='image/jpg, image/jpeg, image/png'
             onChange={(e) => handleImageUpload(e)}
-            ref={imageInput}
+            ref={imageInputRef}
           />
-          {imageSrc !== '' ? (
+          {imageUrl !== '' ? (
             <Flex flexDirection='column' alignItems='center'>
-              <Image src={imageSrc} boxSize='200px' />
-              <Button w='100%' h='10' onClick={onClickImageUpload}>
-                이미지 변경
-              </Button>
+              <Image src={imageUrl} boxSize='200px' />
+              <HStack pt='1rem'>
+                <Button h='10' onClick={onClickImageUpload}>
+                  이미지 변경
+                </Button>
+                <Button color='red' h='10' onClick={handleFileDelete}>
+                  이미지 삭제
+                </Button>
+              </HStack>
             </Flex>
           ) : (
             <Button w='100%' h='28' onClick={onClickImageUpload}>
-              클릭해서 이미지 가져오기
+              <Icon as={MdAddPhotoAlternate} boxSize={8} />
+              클릭하여 이미지를 추가하세요.
             </Button>
           )}
         </Box>

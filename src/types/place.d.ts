@@ -39,6 +39,30 @@ export type Place = {
   id?: number;
   name: string;
   address: string;
+  searchAddress?: string;
+  latitude: number;
+  longitude: number;
+  imageURL?: string;
+  imageFile?: File | null;
+  category: CategoryName;
+  description: string;
+  visitDate: string;
+  expectedCost: number;
+  spending?: number;
+  routeId?: number;
+  partyId?: number;
+};
+
+export type Places = {
+  locations: PlaceInformation[];
+  lastId: number;
+};
+
+export type PlaceInformation = {
+  id: number;
+  name: string;
+  address: string;
+  searchAddress: string;
   latitude: number;
   longitude: number;
   image: string;
@@ -46,8 +70,8 @@ export type Place = {
   description: string;
   visitDate: string;
   expectedCost: number;
-  spending?: number;
-  routeId?: number;
+  spending: number;
+  routeId: number;
 };
 
 export type PlaceMarker = Pick<
@@ -58,7 +82,7 @@ export type PlaceMarker = Pick<
 export type PlaceInformationType =
   | 'visitDate'
   | 'expectedCost'
-  | 'image'
+  | 'imageURL'
   | 'description'
   | 'address';
 
@@ -82,7 +106,7 @@ export type InputProps = {
 };
 
 export type PlanPlaceListProps = {
-  places: Place[];
+  places: PlaceInformation[];
 };
 
 export type Comment = {
@@ -93,7 +117,7 @@ export type Comment = {
 };
 
 export type PlaceInformationTableProps = {
-  data: Place;
+  data: PlaceInformation;
 };
 
 export type ImageData = {

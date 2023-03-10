@@ -57,7 +57,7 @@ export const PlaceInformationStepItems: PlaceInformationStepItem[] = [
     content: <PriceInput />,
   },
   {
-    type: 'image',
+    type: 'imageURL',
     icon: <MdImage />,
     text: '대표 사진',
     content: <ImageInput />,

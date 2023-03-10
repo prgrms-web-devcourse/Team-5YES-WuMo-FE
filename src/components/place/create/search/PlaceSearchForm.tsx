@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 
 import useMapPlaces from '@/hooks/useMapPlaces';
 import { placeSearchState } from '@/store/recoilPlaceState';
-import { PLACE_SEARCH_ERROR_MESSAGES } from '@/utils/constants/messages';
+import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 
 const PlaceSearchForm = () => {
   const [searchState, setSearchState] = useRecoilState(placeSearchState);
@@ -16,7 +16,7 @@ const PlaceSearchForm = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-      alert(PLACE_SEARCH_ERROR_MESSAGES.KEYWORD_REQUIRED);
+      alert(PLACE_ERROR_MESSAGES.KEYWORD_REQUIRED);
       return;
     }
     searchPlaces(keyword);

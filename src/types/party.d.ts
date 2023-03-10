@@ -8,33 +8,42 @@ export type PartyCreateBody = {
   startDate: string;
   endDate: string;
   description: string;
-  coverImage: string;
-  password: string;
+  coverImage?: string;
+  password?: string;
+  role?: string;
+};
+
+export type PartyUpdateBody = {
+  name: string | undefined;
+  description: string | undefined;
+  coverImage: string | undefined;
+  startDate: string;
+  endDate: string;
+};
+
+export type RoleUpdateBody = {
   role: string;
 };
 
-export type PartyUpdateProps = {
+export type PartyModalProps = {
   isOpen: boolean;
   onClose: () => void;
-};
-
-export type PartyListProps = {
-  coverImage: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  id: number;
+  partyDetail?: PartyListProps;
 };
 
 export type PartyMemberProps = {
   memberId: number;
   nickname: string;
   role?: string;
-  profileImage: string | null;
+  profileImage: string;
 };
 
-export type PartyListPropsWithMembers = PartyListProps & { members: PartyMemberProps[] };
+export type PartyMemberListProps = {
+  totalMembers: number;
+  members: PartyMemberProps[];
+  lastId: number;
+  profileImage: string | null;
+};
 
 export type LocationsType = {
   id: number;
@@ -51,8 +60,8 @@ export type LocationsType = {
 };
 
 export type CalculateStayDurationProps = {
-  startDate: string;
-  endDate: string;
+  startDate: string | undefined;
+  endDate: string | undefined;
 };
 
 export type PartyInformationType = {
@@ -62,4 +71,22 @@ export type PartyInformationType = {
   endDate: string;
   description: string;
   coverImage: string;
+};
+
+type PartyMembersType = {
+  totalMembers: number;
+  members: PartyMemberProps[];
+};
+
+export type PartyListPropsWithMembers = PartyInformationType & PartyMembersType;
+
+export type MyPartyList = {
+  party: PartyListPropsWithMembers[];
+  lastId: number;
+};
+
+export type MyPartyListParams = {
+  partyType: 'ONGOING' | 'COMPLETED' | 'ALL';
+  cursorId?: number;
+  pageSize: number;
 };

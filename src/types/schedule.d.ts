@@ -22,7 +22,11 @@ export type CommentFeedTitleProps = {
 };
 
 export type AmountType = {
-  amount: string;
+  amount: number;
+};
+export type ChangeAmountType = {
+  locationId: number;
+  spending: number;
 };
 
 export type TimeLineProps = {
@@ -56,3 +60,15 @@ export type routeListProps = {
   spending: number;
   category: string;
 } & Pick<TimeLineProps, 'onClickHandler', 'routerButton'>;
+
+export type CreateCommentBody = {
+  content: string;
+  image?: string;
+  partyId: number;
+  locationId: number;
+};
+
+export type CommentCreateType = {
+  content: string;
+  image: File | null;
+};

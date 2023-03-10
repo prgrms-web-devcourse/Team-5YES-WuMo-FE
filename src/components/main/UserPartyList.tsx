@@ -3,54 +3,47 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import { Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { useCallback, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
+import { fetchMyPartyList } from '@/api/main';
+import { MyPartyList, MyPartyListParams } from '@/types/party';
 import ROUTES from '@/utils/constants/routes';
 
-const DUMMYDATA = [
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '가보자고',
-    id: '1',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '먹부림',
-    id: '2',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '겨울바다여행레츠고',
-    id: '3',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '퇴사기념',
-    id: '4',
-  },
-  {
-    image: 'https://via.placeholder.com/700x500',
-    name: '취업기념',
-    id: '5',
-  },
-];
+import Loading from '../base/Loading';
 
 const UserPartyList = () => {
   const [dragging, setDragging] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const onBeforeChange = useCallback(() => {
-    setDragging(true);
-  }, []);
+  const parameter: MyPartyListParams = {
+    pageSize: 10000,
+    partyType: 'ONGOING',
+  };
+  const {
+    data: myPartyList,
+    isLoading,
+    isError,
+  } = useQuery<MyPartyList>(['myPartyList'], () => fetchMyPartyList(parameter), {
+    staleTime: 10000,
+  });
 
-  const onAfterChange = useCallback(() => {
-    setDragging(false);
-  }, []);
+  if (isError) return <></>;
+  if (isLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
 
-  const onMovePartyPage = (id: string) => {
-    navigate(`/party/${id}`);
+  const onMovePartyPage = (id: number) => {
+    navigate(ROUTES.SCHEDULE, {
+      state: {
+        partyId: id,
+      },
+    });
   };
 
   const onMovePartyListPage = () => {
@@ -61,7 +54,7 @@ const UserPartyList = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     autoplay: true,
@@ -69,8 +62,8 @@ const UserPartyList = () => {
     pauseOnHover: true,
     variableWidth: true,
     touchThreshold: 200,
-    beforeChange: onBeforeChange,
-    afterChange: onAfterChange,
+    beforeChange: () => setDragging(true),
+    afterChange: () => setDragging(false),
     adaptiveHeight: false,
   };
   return (
@@ -82,11 +75,11 @@ const UserPartyList = () => {
         </Button>
       </Flex>
       <StyledSlider {...settings}>
-        {DUMMYDATA.map((party) => (
+        {myPartyList.party.map((party) => (
           <Box key={party.id} onClick={() => !dragging && onMovePartyPage(party.id)}>
             <Box p='relative' w='5rem' h='5rem'>
               <Image
-                src={party.image}
+                src={party.coverImage}
                 p='absolute'
                 top='0'
                 left='0'

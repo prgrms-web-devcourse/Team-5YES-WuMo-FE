@@ -1,19 +1,18 @@
 import { ReactElement } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import useLocalStorage from '@/hooks/useLocalStorage';
 import { PrivateRouteProps } from '@/types/router';
 
 const PrivateRoute = ({
   authentication = true,
   redirectPath,
 }: PrivateRouteProps): ReactElement | null => {
-  const [tokens, _] = useLocalStorage('tokens', {});
+  const tokens = localStorage.getItem('tokens');
 
   if (authentication) {
-    return tokens.accessToken ? <Outlet /> : <Navigate to={redirectPath} />;
+    return tokens ? <Outlet /> : <Navigate to={redirectPath} />;
   } else {
-    return tokens.accessToken ? <Navigate to={redirectPath} /> : <Outlet />;
+    return tokens ? <Navigate to={redirectPath} /> : <Outlet />;
   }
 };
 
