@@ -132,7 +132,7 @@ export type FetchPlacesParams = {
 };
 
 export type PlaceToRoute = {
-  routeId: number;
+  routeId: number | null;
   locationId: number;
   partyId: number;
 };

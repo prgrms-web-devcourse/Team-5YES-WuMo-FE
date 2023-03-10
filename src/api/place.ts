@@ -33,7 +33,7 @@ export const createPlace = async (data: Place) => {
 
 export const createPlaceToRoute = async (data: PlaceToRoute) => {
   try {
-    const response = await axiosInstance.post('api/v1/routes', data);
+    const response = await axiosInstance.post('/routes', data);
     if (response) return response.data;
   } catch (error) {
     console.error(error);
@@ -42,7 +42,7 @@ export const createPlaceToRoute = async (data: PlaceToRoute) => {
 
 export const deletePlaceFromRoute = async (locationId: number) => {
   try {
-    await axiosInstance.delete(`api/v1/locations?locationId=${locationId}`);
+    await axiosInstance.delete(`/locations?locationId=${locationId}`);
   } catch (error) {
     console.error(error);
   }

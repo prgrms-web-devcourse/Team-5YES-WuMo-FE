@@ -18,11 +18,11 @@ const moreMenuEvent = {
 };
 
 const PlacePage = () => {
-  const { id } = useParams();
+  const { placeId } = useParams();
   useMapScript();
   const { data, isLoading, isError } = useQuery<PlaceInformation>(
     ['placeInformation'],
-    () => fetchPlace(Number(id)),
+    () => fetchPlace(Number(placeId)),
     { staleTime: 10000 }
   );
 
