@@ -22,7 +22,11 @@ export type CommentFeedTitleProps = {
 };
 
 export type AmountType = {
-  amount: string;
+  amount: number;
+};
+export type ChangeAmountType = {
+  locationId: number;
+  spending: number;
 };
 
 export type TimeLineProps = {
