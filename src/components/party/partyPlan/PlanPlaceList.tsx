@@ -59,7 +59,10 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
     await addPlace(placeToRouteBody, {
       onSuccess: () => {
         onClose();
-        return queryClient.invalidateQueries(['placeList']);
+        return (
+          queryClient.invalidateQueries(['placeList']),
+          queryClient.invalidateQueries(['scheduleList'])
+        );
       },
     });
   };
@@ -68,7 +71,10 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
     await removePlace(placeId, {
       onSuccess: () => {
         onClose();
-        return queryClient.invalidateQueries(['placeList']);
+        return (
+          queryClient.invalidateQueries(['placeList']),
+          queryClient.invalidateQueries(['scheduleList'])
+        );
       },
     });
   };
