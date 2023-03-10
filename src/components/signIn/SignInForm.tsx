@@ -3,10 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import axiosInstance from '@/api/api';
+import { signIn } from '@/api/user';
 import SubmitButton from '@/components/base/SubmitButton';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { TokenProps } from '@/types/tokens';
 import { SignInProps } from '@/types/userSign';
 import ROUTES from '@/utils/constants/routes';
 import { signInSchema } from '@/utils/schema';
@@ -31,8 +30,7 @@ const SignInForm = () => {
 
   const onSubmit = async (values: SignInProps) => {
     try {
-      const response = await axiosInstance.post('/members/login', values);
-      const { accessToken, refreshToken }: TokenProps = response.data;
+      const { accessToken, refreshToken } = await signIn(values);
       setToken({
         accessToken,
         refreshToken,
