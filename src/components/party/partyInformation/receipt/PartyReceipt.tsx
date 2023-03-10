@@ -100,7 +100,7 @@ const USERDOMMYDATA = {
   ],
 };
 
-const countPartyMember = (members: PartyMemberProps) => {
+const countPartyMember = (members: PartyMemberProps[]) => {
   return members.length;
 };
 
@@ -124,7 +124,7 @@ const PartyReceipt = ({
 
   const divideTotalExpenseByMembers = (
     totalExpenses: number,
-    members: PartyMemberProps
+    members: PartyMemberProps[]
   ) => {
     const totalMember = countPartyMember(members);
 
