@@ -74,7 +74,7 @@ const PlaceInformationModal = () => {
     await createNewPlace(placeBody, {
       onSuccess: (data) => {
         if (!data?.id) return;
-        navigate(`/party/${partyId}/place/${data.id}`);
+        navigate(`/party/${partyId}/place/${data.id}`, { replace: true });
       },
     });
 
