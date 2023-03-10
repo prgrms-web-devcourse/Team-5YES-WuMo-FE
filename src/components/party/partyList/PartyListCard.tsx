@@ -16,7 +16,6 @@ import { MdAdd } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { PartyListPropsWithMembers } from '@/types/party';
-import ROUTES from '@/utils/constants/routes';
 
 const PartyListCard = ({
   id,
@@ -29,12 +28,8 @@ const PartyListCard = ({
   members,
 }: PartyListPropsWithMembers) => {
   const navigate = useNavigate();
-  const onMovePartyPage = (id: number) => {
-    navigate(ROUTES.SCHEDULE, {
-      state: {
-        partyId: id,
-      },
-    });
+  const onMovePartyPage = (partyId: number) => {
+    navigate(`/party/${partyId}`);
   };
   return (
     <>
