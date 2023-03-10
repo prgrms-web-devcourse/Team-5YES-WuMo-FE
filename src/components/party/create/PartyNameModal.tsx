@@ -52,7 +52,7 @@ const PartyNameModal = () => {
 
     const data = await createImage(formData);
     if (data) {
-      setImageUrl(data.imageUrl);
+      setImageUrl(data);
     }
   };
 
