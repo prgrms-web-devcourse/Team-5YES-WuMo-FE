@@ -1,7 +1,7 @@
 import { Box, List } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { fetchScheduleList } from '@/api/schedules';
 import Loading from '@/components/base/Loading';
@@ -11,7 +11,7 @@ import RouteReleaseChange from './RouteReleaseChange';
 import RouteTimelineItem from './RouteTimelineItem';
 
 const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps) => {
-  const { state } = useLocation();
+  const { partyId } = useParams();
 
   const {
     data: scheduleList,
@@ -19,7 +19,7 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
     isError,
   } = useQuery<ScheduleType>(
     ['scheduleList'],
-    () => fetchScheduleList(state.partyId, isPublic),
+    () => fetchScheduleList(Number(partyId), isPublic),
     {
       staleTime: 10000,
     }

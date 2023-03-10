@@ -10,7 +10,6 @@ import {
   LikeRouteListPage,
   MainPage,
   NotFoundPage,
-  PartyAlbumPage,
   PartyCommentPage,
   PartyCreatePage,
   PartyListPage,
@@ -60,15 +59,12 @@ const Router = () => {
             <Route path={ROUTES.PROFILE_EDIT} element={<ProfileEditPage />} />
           </Route>
 
-          <Route element={<PartyInformation />}>
+          <Route path={ROUTES.PARTY} element={<PartyInformation />}>
             <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
-              <Route path={ROUTES.SCHEDULE} element={<PartySchedulePage />} />
+              <Route index element={<PartySchedulePage />} />
             </Route>
             <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
               <Route path={ROUTES.PLAN} element={<PartyPlanPage />} />
-            </Route>
-            <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
-              <Route path={ROUTES.ALBUM} element={<PartyAlbumPage />} />
             </Route>
           </Route>
 

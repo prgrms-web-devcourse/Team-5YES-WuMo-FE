@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
 import { fetchPlaces } from '@/api/place';
 import PlanPlaceList from '@/components/party/partyPlan/PlanPlaceList';
@@ -9,10 +10,11 @@ import { Places } from '@/types/place';
 
 const PartyPlanPage = () => {
   useMapScript();
+  const { partyId } = useParams();
 
   const { data, isLoading, isError } = useQuery<Places>(
     ['placeList'],
-    () => fetchPlaces(0, 10000, 17),
+    () => fetchPlaces(0, 10000, Number(partyId)),
     {
       staleTime: 10000,
     }
