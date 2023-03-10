@@ -95,7 +95,7 @@ const RouteCommentFeed = () => {
           pos='relative'
           top='-18'>
           <CommentFeedTitle placeData={placeData} />
-          <PlaceAmountField />
+          <PlaceAmountField spending={currentLocation.spending} />
         </Box>
         <Box pos='relative' top='-6'>
           {commentList.partyRouteComments.map((comment) => (

@@ -1,4 +1,4 @@
-import { CreateCommentBody } from '@/types/schedule';
+import { ChangeAmountType, CreateCommentBody } from '@/types/schedule';
 
 import axiosInstance from './api';
 
@@ -32,6 +32,16 @@ export const createLocationComment = async (body: CreateCommentBody) => {
     });
 
     if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const patchChangeAmount = async (body: ChangeAmountType) => {
+  try {
+    await axiosInstance.patch(`/locations/spending`, {
+      ...body,
+    });
   } catch (error) {
     console.error(error);
   }
