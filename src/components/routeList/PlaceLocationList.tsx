@@ -5,7 +5,7 @@ import { MdOutlineLinearScale } from 'react-icons/md';
 import { CustomScrollX } from '@/styles/globalStyle';
 import { RoutePlaceListProps } from '@/types/routeList';
 
-const PlaceList = ({ locations }: RoutePlaceListProps) => {
+const PlaceLocationList = ({ locations }: RoutePlaceListProps) => {
   return (
     <CustomScrollX
       mb='6'
@@ -38,4 +38,4 @@ const PlaceItem = styled(Flex)`
   align-items: center;
 `;
 
-export { PlaceList };
+export default PlaceLocationList;
