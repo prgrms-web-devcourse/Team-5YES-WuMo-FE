@@ -8,7 +8,7 @@ export type PartyCreateBody = {
   startDate: string;
   endDate: string;
   description: string;
-  coverImage?: string;
+  coverImage?: string | null;
   password?: string;
   role?: string;
 };
@@ -16,7 +16,7 @@ export type PartyCreateBody = {
 export type PartyUpdateBody = {
   name: string | undefined;
   description: string | undefined;
-  coverImage: string | undefined;
+  coverImage?: string | null;
   startDate: string;
   endDate: string;
 };
@@ -35,14 +35,15 @@ export type PartyMemberProps = {
   memberId: number;
   nickname: string;
   role?: string;
-  profileImage: string;
+  profileImage?: string | undefined;
+  isLeader?: boolean;
 };
 
 export type PartyMemberListProps = {
   totalMembers: number;
   members: PartyMemberProps[];
   lastId: number;
-  profileImage: string | null;
+  profileImage?: string | null;
 };
 
 export type LocationsType = {
@@ -70,7 +71,7 @@ export type PartyInformationType = {
   startDate: string;
   endDate: string;
   description: string;
-  coverImage: string;
+  coverImage: string | undefined;
 };
 
 type PartyMembersType = {

@@ -12,10 +12,13 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
-import { fetchPartyInformation, fetchPartyMembers } from '@/api/party';
+import { fetchPartyInformation, fetchPartyMembersMeInfo } from '@/api/party';
+import Loading from '@/components/base/Loading';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
+import { partyDetailState, partyMeRoleState } from '@/store/recoilPartyState';
 import {
   CalculateStayDurationProps,
   PartyInformationType,
@@ -38,6 +41,9 @@ const PartyInformation = () => {
   const { scrollActive } = useScrollEvent(300);
   const { partyId } = useParams();
 
+  const setPartyDetail = useSetRecoilState(partyDetailState);
+  const setPartyMeRole = useSetRecoilState(partyMeRoleState);
+
   const {
     data: partyInformation,
     isLoading: partyInformationLoading,
@@ -47,15 +53,25 @@ const PartyInformation = () => {
   );
 
   const {
-    data: partyUserList,
-    isLoading: partyUserListLoading,
-    isError: partyUserListError,
-  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
-    fetchPartyMembers(Number(partyId))
+    data: partyMemberMeInfo,
+    isLoading: partyMemberMeInfoLoading,
+    isError: partyMemberMeInfoError,
+  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
+    fetchPartyMembersMeInfo(Number(partyId))
   );
 
-  if (partyInformationLoading || partyUserListLoading) return <></>;
-  if (partyInformationError || partyUserListError) return <></>;
+  if (partyInformation && partyMemberMeInfo) {
+    setPartyDetail(partyInformation);
+    setPartyMeRole(partyMemberMeInfo);
+  }
+
+  if (partyInformationLoading || partyMemberMeInfoLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (partyInformationError || partyMemberMeInfoError) return <></>;
 
   const stayDurationDate = CalculateStayDuration({
     startDate: partyInformation.startDate,
