@@ -1,19 +1,18 @@
 import { Avatar, Button, Flex, Stack, Text } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { logout } from '@/api/user';
+import { fetchMyProfileInfo, logout } from '@/api/user';
+import { UserProps } from '@/types/user';
 import ROUTES from '@/utils/constants/routes';
-
-const member_dummy_data = {
-  id: 1,
-  email: '5yes@gmail.com',
-  nickname: '오예스',
-  password: '!5yes1234',
-  profileImage: 'https://~',
-};
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const {
+    data: myProfileInfo,
+    isLoading,
+    isError,
+  } = useQuery<UserProps>(['myProfileInfo'], () => fetchMyProfileInfo());
 
   const toProfileEdit = () => {
     navigate(ROUTES.PROFILE_EDIT);
@@ -28,19 +27,24 @@ const UserProfile = () => {
     toLanding();
   };
 
+  if (isLoading) return <></>;
+  if (isError) return <></>;
+
+  const { email, nickname, profileImage } = myProfileInfo;
+
   return (
     <Flex direction='column' alignItems='center'>
       <Avatar
         size='2xl'
-        bg='gray'
-        name={member_dummy_data.nickname}
-        src={member_dummy_data.profileImage}
+        bg='#D9D9D9'
+        name={nickname}
+        src={profileImage === null ? undefined : profileImage}
       />
       <Stack mt='6' spacing='2' alignItems='center'>
         <Text fontSize='2xl' fontWeight='extrabold'>
-          {member_dummy_data.nickname}
+          {nickname}
         </Text>
-        <Text>{member_dummy_data.email}</Text>
+        <Text>{email}</Text>
       </Stack>
       <Stack mt='6' spacing='4' w='full' alignItems='center'>
         <Button size='lg' w='full' onClick={toProfileEdit}>
