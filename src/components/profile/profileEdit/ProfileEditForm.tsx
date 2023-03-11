@@ -32,13 +32,31 @@ const ProfileEditForm = () => {
   const navigate = useNavigate();
 
   const {
+    control,
+    handleSubmit,
+    resetField,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<UserEditProps>({
+    defaultValues: {
+      nickname: '',
+      profileImage: '',
+    },
+    mode: 'all',
+    resolver: yupResolver(userEditSchema),
+  });
+
+  const {
     data: myProfileInfo,
     isLoading,
     isError,
   } = useQuery<UserEditProps>(['myProfileInfo'], () => fetchMyProfileInfo(), {
     onSuccess(data) {
       setOldImage(data.profileImage);
-      setValue('nickname', data.nickname);
+      reset({
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+      });
     },
   });
 
@@ -48,21 +66,6 @@ const ProfileEditForm = () => {
   const [imageValues, setImageValues] = useState<ImageData>({
     imageBase64: oldImage,
     imageFile: null,
-  });
-
-  const {
-    control,
-    setValue,
-    handleSubmit,
-    resetField,
-    formState: { isSubmitting },
-  } = useForm<UserEditProps>({
-    defaultValues: {
-      nickname: '',
-      profileImage: '',
-    },
-    mode: 'all',
-    resolver: yupResolver(userEditSchema),
   });
 
   if (isError) return <></>;
