@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { fetchPartyInformation } from '@/api/party';
 import { patchChangRouteReleased } from '@/api/route';
@@ -27,7 +27,7 @@ const RouteReleaseChange = ({
   scheduleList: ScheduleType;
   routeId: number;
 }) => {
-  const { state } = useLocation();
+  const { partyId } = useParams();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const queryClient = useQueryClient();
   const { mutate: changeReleased } = useMutation(patchChangRouteReleased);
@@ -38,7 +38,7 @@ const RouteReleaseChange = ({
     isError,
   } = useQuery<PartyInformationType>(
     ['partyInformation'],
-    () => fetchPartyInformation(state.partyId),
+    () => fetchPartyInformation(Number(partyId)),
     {
       staleTime: 5000,
     }

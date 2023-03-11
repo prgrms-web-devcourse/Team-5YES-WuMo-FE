@@ -12,3 +12,10 @@ export type UserEditProps = Pick<UserProps, 'nickname' | 'password'> & {
   id: number;
   profileImage: string | null;
 };
+
+export type MyProfile = {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImage: string | null;
+};
