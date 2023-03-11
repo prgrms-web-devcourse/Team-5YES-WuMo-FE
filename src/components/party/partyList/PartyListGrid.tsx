@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { fetchMyPartyList } from '@/api/main';
 import Loading from '@/components/base/Loading';
 import { MyPartyList, MyPartyListParams } from '@/types/party';
-import ROUTES from '@/utils/constants/routes';
 
 const PartyListGrid = () => {
   const navigate = useNavigate();
@@ -21,12 +20,8 @@ const PartyListGrid = () => {
     staleTime: 10000,
   });
 
-  const onMovePartyPage = (id: number) => {
-    navigate(ROUTES.SCHEDULE, {
-      state: {
-        partyId: id,
-      },
-    });
+  const onMovePartyPage = (partyId: number) => {
+    navigate(`/party/${partyId}`);
   };
 
   if (isError) return <></>;
