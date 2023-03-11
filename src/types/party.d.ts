@@ -81,6 +81,11 @@ type PartyMembersType = {
 
 export type PartyListPropsWithMembers = PartyInformationType & PartyMembersType;
 
+type deleteMemberBanishProps = {
+  partyId: number;
+  memberId: number;
+};
+
 export type MyPartyList = {
   party: PartyListPropsWithMembers[];
   lastId: number;

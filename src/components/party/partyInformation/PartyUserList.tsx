@@ -10,6 +10,7 @@ import { PartyMemberProps } from '@/types/party';
 const PartyUserList = () => {
   const { partyId } = useParams();
   const updated = useRecoilValue(isUpdateData);
+
   const {
     data: partyUserList,
     isLoading,

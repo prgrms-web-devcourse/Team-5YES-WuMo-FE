@@ -17,6 +17,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -63,6 +64,10 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
 
   const [role, setRole] = useState(getPartyMeRole.role);
 
+  const queryClient = useQueryClient();
+  const { mutate: handleRemoveParty } = useMutation(deleteParty);
+  const { mutate: handleWithdrawalParty } = useMutation(deleteWithdrawalParty);
+
   const handlePartyModal = (type: string) => {
     if (type === 'update') {
       onClose();
@@ -96,10 +101,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
             <Text fontSize='0.875rem' mb='2' color='#808080'>
               멤버 ({getPartyMembersList.totalMembers}명)
             </Text>
-            <MemberList
-              members={getPartyMembersList.members}
-              partyId={getPartyDetail.id}
-            />
+            <MemberList partyId={getPartyDetail.id} />
             <Text fontSize='0.875rem' mb='2' color='#808080'>
               내 역할 설정
             </Text>
@@ -201,14 +203,27 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
             }
             clickButtonHandler={{
               primary: () => {
-                {
-                  getPartyMeRole.isLeader
-                    ? deleteParty(getPartyDetail.id)
-                    : deleteWithdrawalParty(getPartyDetail.id);
+                if (getPartyMeRole.isLeader) {
+                  handleRemoveParty(getPartyDetail.id, {
+                    onSuccess: () => {
+                      return queryClient.invalidateQueries(['onGoingPartyList']);
+                    },
+                  });
+                } else {
+                  handleWithdrawalParty(getPartyDetail.id, {
+                    onSuccess: () => {
+                      return queryClient.invalidateQueries(['onGoingPartyList']);
+                    },
+                  });
                 }
+                // {
+                //   getPartyMeRole.isLeader
+                //     ? deleteParty(getPartyDetail.id)
+                //     : deleteWithdrawalParty(getPartyDetail.id);
+                // }
+                setUpdated(true);
                 setRemovePartyModalOpen(false);
                 navigate(ROUTES.PARTY_LIST, { replace: true });
-                setUpdated(true);
               },
             }}
             buttonText={

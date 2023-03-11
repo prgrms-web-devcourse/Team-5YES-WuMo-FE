@@ -1,5 +1,5 @@
 import axiosInstance from '@/api/api';
-import { PartyCreateBody, PartyUpdateBody } from '@/types/party';
+import { deleteMemberBanishProps, PartyCreateBody, PartyUpdateBody } from '@/types/party';
 
 export const createParty = async (partyAPIBody: PartyCreateBody) => {
   try {
@@ -56,7 +56,10 @@ export const patchPartyDetail = async (
 };
 
 // 멤버 방출
-export const deleteMemberBanish = async (partyId: number, memberId: number) => {
+export const deleteMemberBanish = async ({
+  partyId,
+  memberId,
+}: deleteMemberBanishProps) => {
   try {
     const response = await axiosInstance.delete(
       `/parties/${partyId}/members/${memberId}`
