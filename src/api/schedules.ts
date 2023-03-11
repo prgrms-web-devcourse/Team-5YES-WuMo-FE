@@ -1,3 +1,4 @@
+import { BestRouteListSortSearchProps } from '@/types/routeList';
 import { ChangeAmountType, CreateCommentBody } from '@/types/schedule';
 
 import axiosInstance from './api';
@@ -20,6 +21,28 @@ export const fetchLocationCommentList = async (cursorId: number, locationId: num
       `/party-route-comments?cursorId=${cursorId}&pageSize=1000&locationId=${locationId}`
     );
     if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 공개된 루트 (베스트루트 목록) 조회
+export const fetchBestRouteList = async ({
+  pageSize,
+  sortType,
+  searchWord,
+}: BestRouteListSortSearchProps) => {
+  const params = {
+    pageSize,
+    sortType,
+    searchWord,
+  };
+
+  try {
+    const response = await axiosInstance.get('/routes', { params });
+    if (response) {
+      return response.data;
+    }
   } catch (error) {
     console.error(error);
   }
