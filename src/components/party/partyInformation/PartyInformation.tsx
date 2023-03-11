@@ -18,6 +18,7 @@ import {
   fetchPartyInformation,
   fetchPartyMembers,
 } from '@/api/party';
+import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
@@ -47,7 +48,7 @@ const PartyInformation = () => {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+  } = useQuery<PartyInformationType>(['partyInformation', partyId], () =>
     fetchPartyInformation(Number(partyId))
   );
 
@@ -55,8 +56,9 @@ const PartyInformation = () => {
     data: partyUserList,
     isLoading: partyUserListLoading,
     isError: partyUserListError,
-  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
-    fetchPartyMembers(Number(partyId))
+  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(
+    ['partyUserList', partyId],
+    () => fetchPartyMembers(Number(partyId))
   );
 
   const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
@@ -76,7 +78,12 @@ const PartyInformation = () => {
     },
   });
 
-  if (partyInformationLoading || partyUserListLoading) return <></>;
+  if (partyInformationLoading || partyUserListLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
   if (partyInformationError || partyUserListError) return <></>;
 
   const copyPartyInvitationCode = async (url: string) => {
