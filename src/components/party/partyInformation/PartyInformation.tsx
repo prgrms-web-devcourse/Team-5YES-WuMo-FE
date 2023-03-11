@@ -70,7 +70,7 @@ const PartyInformation = () => {
     onError: () => {
       Toast.show({
         title: '초대링크 복사에 실패했어요.',
-        message: '복사에 실패했어요. 다시 시도해주세요!',
+        message: '모임 기간이 지나 친구를 초대할 수 없어요. 새 모임을 만들어주세요.',
         type: 'error',
       });
     },
