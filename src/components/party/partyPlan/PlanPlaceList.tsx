@@ -19,6 +19,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createPlaceToRoute, deletePlaceFromRoute } from '@/api/place';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import { PlanPlaceListProps } from '@/types/place';
+import ROUTES from '@/utils/constants/routes';
 import { formatDateTime } from '@/utils/formatter';
 
 const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
@@ -91,7 +92,9 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           size='md'
           leftIcon={<MdAdd />}
           color='gray.500'
-          onClick={() => navigate(`/place/new`, { state: { partyId: Number(partyId) } })}>
+          onClick={() =>
+            navigate(ROUTES.PLACE_NEW, { state: { partyId: Number(partyId) } })
+          }>
           후보지 추가하기
         </Button>
       </Flex>

@@ -8,6 +8,7 @@ import PlanPlaceList from '@/components/party/partyPlan/PlanPlaceList';
 import PlacePreviewMap from '@/components/place/create/search/PlacePreviewMap';
 import useMapScript from '@/hooks/useMapScript';
 import { Places } from '@/types/place';
+import ROUTES from '@/utils/constants/routes';
 
 const PartyPlanPage = () => {
   const navigate = useNavigate();
@@ -40,7 +41,9 @@ const PartyPlanPage = () => {
           size='md'
           leftIcon={<MdAdd />}
           color='gray.500'
-          onClick={() => navigate(`/place/new`, { state: { partyId: Number(partyId) } })}>
+          onClick={() =>
+            navigate(ROUTES.PLACE_NEW, { state: { partyId: Number(partyId) } })
+          }>
           후보지 추가하기
         </Button>
       </Flex>
