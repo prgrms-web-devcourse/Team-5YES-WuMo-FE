@@ -12,6 +12,7 @@ import {
 import { css } from '@emotion/react';
 import dayjs from 'dayjs';
 import { MdOutlinePlace } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
 
 import { routeListProps } from '@/types/schedule';
 import { getGitEmoji } from '@/utils/constants/emoji';
@@ -28,6 +29,8 @@ const RouteTimelineItem = ({
   onClickHandler,
   routerButton,
 }: routeListProps) => {
+  const { partyId } = useParams();
+
   return (
     <ListItem pt='3.125rem'>
       <Flex justify='center'>
@@ -52,7 +55,7 @@ const RouteTimelineItem = ({
             {getPriceText(spending)}
           </Text>
         </Flex>
-        <Box onClick={() => onClickHandler(id)} w='70%' pos='relative' ml='1rem'>
+        <Box onClick={() => onClickHandler(id, partyId)} w='70%' pos='relative' ml='1rem'>
           <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (

@@ -6,6 +6,7 @@ import PartyInformation from './components/party/partyInformation/PartyInformati
 import {
   BestRouteDetailPage,
   BestRouteListPage,
+  InvitationPage,
   LandingPage,
   LikeRouteListPage,
   MainPage,
@@ -89,6 +90,7 @@ const Router = () => {
           element={<PrivateRoute authentication={false} redirectPath={ROUTES.MAIN} />}>
           <Route path={ROUTES.SIGNIN} element={<SignInPage />} />
         </Route>
+        <Route path={ROUTES.INVITATION} element={<InvitationPage />} />
         <Route path={'*'} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

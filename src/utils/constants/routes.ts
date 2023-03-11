@@ -5,7 +5,7 @@ const ROUTES = {
   NOTICE: '/notice',
   PARTY: '/party/:partyId',
   SCHEDULE: 'schedule',
-  SCHEDULE_COMMENT: '/party/schedule-comment',
+  SCHEDULE_COMMENT: '/party/:partyId/schedule-comment',
   PLAN: 'plan',
   ALBUM: '/album',
   LIKE: '/like',
@@ -19,6 +19,7 @@ const ROUTES = {
   BEST_ROUTE_DETAIL: '/best-route-detail',
   LANDING: '/landing',
   NOTFOUND: '/notfound',
+  INVITATION: '/invitation/:roomId',
 } as const;
 
 export default ROUTES;
