@@ -45,7 +45,7 @@ const PlacePreviewMap = ({
             }}
             onClick={() => setSelectedMarker(id === selectedMarker ? null : id)}>
             {selectedMarker === id && (
-              <Link to={`/party/${partyId}/place/${id}`}>
+              <Link to={`/place/${id}`} state={{ partyId: Number(partyId) }}>
                 <Box
                   display='inline-block'
                   width='150px'

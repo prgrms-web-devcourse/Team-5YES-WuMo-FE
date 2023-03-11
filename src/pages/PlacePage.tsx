@@ -1,8 +1,8 @@
 import { Box, Flex, Heading, Image } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { fetchPlace } from '@/api/place';
+import { deletePlace, fetchPlace } from '@/api/place';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import CommentForm from '@/components/place/CommentForm';
 import PlacePreviewMap from '@/components/place/create/search/PlacePreviewMap';
@@ -12,18 +12,37 @@ import { PlaceInformation } from '@/types/place';
 import { getGitEmoji } from '@/utils/constants/emoji';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
-const moreMenuEvent = {
-  onEditEvent: () => alert('수정'),
-  onRemoveEvent: () => alert('삭제'),
-};
-
 const PlacePage = () => {
-  const { placeId } = useParams();
   useMapScript();
+
+  const { placeId } = useParams();
+  const { state } = useLocation();
+
   const { data, isLoading, isError } = useQuery<PlaceInformation>(
     ['placeInformation'],
     () => fetchPlace(Number(placeId))
   );
+
+  const { mutateAsync: removePlace } = useMutation(deletePlace);
+  const navigate = useNavigate();
+
+  const moreMenuEvent = {
+    onEditEvent: () => alert('수정'),
+    onRemoveEvent: async () => {
+      const canRemove = confirm('후보지를 삭제할까요?');
+      if (!canRemove) return;
+      await onRemovePlace(Number(placeId));
+    },
+  };
+
+  const onRemovePlace = async (placeId: number) => {
+    if (!data) return;
+    await removePlace(placeId, {
+      onSuccess: () => {
+        navigate(`/party/${state.partyId}/plan`, { replace: true });
+      },
+    });
+  };
 
   if (isLoading) return <></>;
   if (isError) return <></>;

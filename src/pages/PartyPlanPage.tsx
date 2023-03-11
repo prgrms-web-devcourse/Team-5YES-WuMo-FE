@@ -40,7 +40,7 @@ const PartyPlanPage = () => {
           size='md'
           leftIcon={<MdAdd />}
           color='gray.500'
-          onClick={() => navigate(`/party/${partyId}/place/new`)}>
+          onClick={() => navigate(`/place/new`, { state: { partyId: Number(partyId) } })}>
           후보지 추가하기
         </Button>
       </Flex>

@@ -91,7 +91,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           size='md'
           leftIcon={<MdAdd />}
           color='gray.500'
-          onClick={() => navigate(`/party/${partyId}/place/new`)}>
+          onClick={() => navigate(`/place/new`, { state: { partyId: Number(partyId) } })}>
           후보지 추가하기
         </Button>
       </Flex>
@@ -110,14 +110,14 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             alt={place.name}
             width='30%'
             objectFit='cover'
-            onClick={() => navigate(`/party/${partyId}/place/${place.id}`)}
+            onClick={() => navigate(`/place/${place.id}`, { state: { place } })}
           />
           <CardBody
             display='flex'
             flexDirection='column'
             justifyContent='center'
             gap='1.5'
-            onClick={() => navigate(`/party/${partyId}/place/${place.id}`)}>
+            onClick={() => navigate(`/place/${place.id}`)}>
             <Heading as='h4' size='sm'>
               {place.name}
             </Heading>

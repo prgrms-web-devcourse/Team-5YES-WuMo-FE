@@ -9,7 +9,7 @@ import {
   ModalFooter,
 } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { createImage } from '@/api/image';
@@ -33,7 +33,7 @@ const PlaceInformationModal = () => {
     expectedCost,
   } = useRecoilValue(createPlaceState);
   const navigate = useNavigate();
-  const { partyId } = useParams();
+  const { state } = useLocation();
 
   const { mutateAsync: createImageUrl, reset: imageReset } = useMutation(createImage);
   const { mutateAsync: createNewPlace } = useMutation(createPlace);
@@ -68,13 +68,16 @@ const PlaceInformationModal = () => {
       image: imageUrl,
       address: address.slice(0, MAX_ADDRESS_LENGTH),
       searchAddress: getSearchAddress(address),
-      partyId: Number(partyId),
+      partyId: state.partyId,
     };
 
     await createNewPlace(placeBody, {
       onSuccess: (data) => {
         if (!data?.id) return;
-        navigate(`/party/${partyId}/place/${data.id}`, { replace: true });
+        navigate(`/place/${data.id}`, {
+          replace: true,
+          state: { partyId: state.partyId },
+        });
       },
     });
 
