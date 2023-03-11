@@ -1,52 +1,56 @@
 import { Box, Flex, Heading, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
-const party_dummy_data = [
-  {
-    image: 'https://via.placeholder.com/140x140',
-    name: '가보자고',
-    id: '1',
-  },
-  {
-    image: 'https://via.placeholder.com/140x140',
-    name: '먹부림',
-    id: '2',
-  },
-  {
-    image: 'https://via.placeholder.com/140x140',
-    name: '겨울바다여행',
-    id: '3',
-  },
-  {
-    image: 'https://via.placeholder.com/140x140',
-    name: '퇴사기념',
-    id: '4',
-  },
-  {
-    image: 'https://via.placeholder.com/140x140',
-    name: '취업기념',
-    id: '5',
-  },
-  {
-    image: 'https://via.placeholder.com/140x140',
-    name: '확인1',
-    id: '6',
-  },
-  {
-    image: 'https://via.placeholder.com/140x140',
-    name: '확인2',
-    id: '7',
-  },
-];
+import { fetchMyPartyList } from '@/api/main';
+import Loading from '@/components/base/Loading';
+import { MyPartyList, MyPartyListParams } from '@/types/party';
+import ROUTES from '@/utils/constants/routes';
 
 const PartyListGrid = () => {
+  const navigate = useNavigate();
+  const parameter: MyPartyListParams = {
+    pageSize: 10000,
+    partyType: 'ONGOING',
+  };
+  const {
+    data: myPartyList,
+    isLoading,
+    isError,
+  } = useQuery<MyPartyList>(['myPartyList'], () => fetchMyPartyList(parameter), {
+    staleTime: 10000,
+  });
+
+  const onMovePartyPage = (id: number) => {
+    navigate(ROUTES.SCHEDULE, {
+      state: {
+        partyId: id,
+      },
+    });
+  };
+
+  if (isError) return <></>;
+  if (isLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+
   return (
     <Box mt='6' pb='10'>
       <Heading size='md'>내 모임 목록</Heading>
       <SimpleGrid mt='4' columns={3} spacing='10px'>
-        {party_dummy_data.map(({ id, image, name }) => (
-          <Flex direction='column' justify='center' align='center' key={id}>
+        {myPartyList.party.map(({ id, coverImage, name }) => (
+          <Flex
+            cursor='pointer'
+            onClick={() => onMovePartyPage(id)}
+            direction='column'
+            justify='center'
+            align='center'
+            key={id}>
             <Image
-              src={image}
+              src={coverImage ? '/logo-lg.svg' : coverImage}
               h='8.75rem'
               w='8.75rem'
               alignItems='center'
