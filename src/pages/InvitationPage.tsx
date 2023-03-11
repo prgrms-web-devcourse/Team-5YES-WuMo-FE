@@ -123,7 +123,7 @@ const InvitationPage = () => {
         }}
         buttonText={{
           secondary: '거절',
-          primary: '확인',
+          primary: '참여',
         }}
       />
     </>
