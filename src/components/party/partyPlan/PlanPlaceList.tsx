@@ -117,7 +117,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             flexDirection='column'
             justifyContent='center'
             gap='1.5'
-            onClick={() => navigate(`/place/${place.id}`)}>
+            onClick={() => navigate(`/place/${place.id}`, { state: { place } })}>
             <Heading as='h4' size='sm'>
               {place.name}
             </Heading>
