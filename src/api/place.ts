@@ -1,12 +1,8 @@
-import { Place } from '@/types/place';
+import { FetchPlacesParams, Place, PlaceToRoute, UpdatePlaceBody } from '@/types/place';
 
 import axiosInstance from './api';
 
-export const fetchPlaces = async (
-  cursorId: number,
-  pageSize: number,
-  partyId: number
-) => {
+export const fetchPlaces = async ({ cursorId, pageSize, partyId }: FetchPlacesParams) => {
   try {
     const response = await axiosInstance.get(
       `/locations?cursorId=${cursorId}&pageSize=${pageSize}&partyId=${partyId}`
@@ -30,6 +26,40 @@ export const createPlace = async (data: Place) => {
   try {
     const response = await axiosInstance.post('/locations', data);
     if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updatePlace = async (data: UpdatePlaceBody) => {
+  try {
+    const response = await axiosInstance.post('/locations', data);
+    if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deletePlace = async (locationId: number) => {
+  try {
+    await axiosInstance.delete(`/locations/${locationId}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const createPlaceToRoute = async (data: PlaceToRoute) => {
+  try {
+    const response = await axiosInstance.post('/routes', data);
+    if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deletePlaceFromRoute = async (locationId: number) => {
+  try {
+    await axiosInstance.delete(`/locations?locationId=${locationId}`);
   } catch (error) {
     console.error(error);
   }

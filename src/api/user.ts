@@ -37,6 +37,15 @@ export const fetchNickname = async (target: string) => {
   await axiosInstance.get(`/members/check-nickname?nickname=${target}`);
 };
 
+export const fetchMyProfileInfo = async () => {
+  try {
+    const response = await axiosInstance.get('/members');
+    return response?.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const patchMyProfile = async (fields: UserEditProps) => {
   try {
     const response = axiosInstance.patch('/members', fields);

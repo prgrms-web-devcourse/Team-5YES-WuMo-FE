@@ -71,11 +71,11 @@ const UserPartyList = () => {
         </Button>
       </Flex>
       <StyledSlider {...settings}>
-        {myPartyList.party.map((party) => (
-          <Box key={party.id} onClick={() => !dragging && onMovePartyPage(party.id)}>
+        {myPartyList.party.map(({ id, coverImage, name }) => (
+          <Box key={id} onClick={() => !dragging && onMovePartyPage(id)}>
             <Box p='relative' w='5rem' h='5rem'>
               <Image
-                src={party.coverImage}
+                src={coverImage ? coverImage : '/logo-lg.svg'}
                 p='absolute'
                 top='0'
                 left='0'
@@ -86,7 +86,7 @@ const UserPartyList = () => {
               />
             </Box>
             <Heading size='xs' wordBreak='break-all' textAlign='center'>
-              {party.name}
+              {name}
             </Heading>
           </Box>
         ))}

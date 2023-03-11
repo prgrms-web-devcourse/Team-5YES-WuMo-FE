@@ -13,7 +13,7 @@ import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import { PartyInformationType } from '@/types/party';
-import { MyProfile } from '@/types/user';
+import { UserProps } from '@/types/user';
 import ROUTES from '@/utils/constants/routes';
 
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -82,7 +82,7 @@ const InvitationPage = () => {
     }
   );
 
-  const { data: myInformation } = useQuery<MyProfile>(['myProfile'], fetchMyInformation, {
+  const { data: myInformation } = useQuery<UserProps>(['myProfile'], fetchMyInformation, {
     enabled: !!checkCode,
   });
 

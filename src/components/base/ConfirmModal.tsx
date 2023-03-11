@@ -21,7 +21,13 @@ const ConfirmModal = ({
 }: ConfirmModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={closeModalHandler} isCentered>
-      <ModalOverlay maxW='maxWidth.mobile' left='0' right='0' m='0 auto' />
+      <ModalOverlay
+        bg='blackAlpha.300'
+        maxW='maxWidth.mobile'
+        left='0'
+        right='0'
+        m='0 auto'
+      />
       <ModalContent w='90%' pt='8' pb='5' borderRadius='3xl'>
         {hasCloseButton && <ModalCloseButton />}
         <ModalBody fontSize='lg' pt='4'>
