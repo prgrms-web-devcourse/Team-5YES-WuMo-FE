@@ -110,14 +110,18 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             alt={place.name}
             width='30%'
             objectFit='cover'
-            onClick={() => navigate(`/place/${place.id}`, { state: { place } })}
+            onClick={() =>
+              navigate(`/place/${place.id}`, { state: { partyId: Number(partyId) } })
+            }
           />
           <CardBody
             display='flex'
             flexDirection='column'
             justifyContent='center'
             gap='1.5'
-            onClick={() => navigate(`/place/${place.id}`, { state: { place } })}>
+            onClick={() =>
+              navigate(`/place/${place.id}`, { state: { partyId: Number(partyId) } })
+            }>
             <Heading as='h4' size='sm'>
               {place.name}
             </Heading>
