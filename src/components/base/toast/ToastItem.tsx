@@ -5,38 +5,6 @@ import { useEffect, useState } from 'react';
 import { ToastItemType } from '@/types/toast';
 import { toastType } from '@/utils/constants/toast';
 
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  width: 21.875rem;
-  height: 100%;
-  padding: 1.25rem;
-  align-items: center;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  opacity: 1;
-  transition: opacity 0.4s ease-in-out;
-  &:first-of-type {
-    animation: move 0.4s ease-out forwards;
-  }
-
-  &:not(:first-of-type) {
-    margin-top: 8px;
-  }
-
-  @keyframes move {
-    0% {
-      margin-top: 80px;
-    }
-
-    100% {
-      margin-top: 0;
-    }
-  }
-`;
-
 const ToastItem = ({
   message,
   duration,
@@ -81,3 +49,35 @@ const ToastItem = ({
 };
 
 export default ToastItem;
+
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  width: 21.875rem;
+  height: 100%;
+  padding: 1.25rem;
+  align-items: center;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+  &:first-of-type {
+    animation: move 0.4s ease-out forwards;
+  }
+
+  &:not(:first-of-type) {
+    margin-top: 8px;
+  }
+
+  @keyframes move {
+    0% {
+      margin-top: 80px;
+    }
+
+    100% {
+      margin-top: 0;
+    }
+  }
+`;
