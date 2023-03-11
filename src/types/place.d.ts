@@ -74,6 +74,17 @@ export type PlaceInformation = {
   routeId: number;
 };
 
+export type UpdatePlaceBody = Pick<
+  PlaceInformation,
+  'id',
+  'image',
+  'category',
+  'description',
+  'visitDate',
+  'expectedCost',
+  'partyId'
+>;
+
 export type PlaceMarker = Pick<
   Place,
   'id' | 'name' | 'latitude' | 'longitude' | 'category'

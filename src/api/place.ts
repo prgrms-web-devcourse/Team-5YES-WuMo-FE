@@ -1,4 +1,4 @@
-import { FetchPlacesParams, Place, PlaceToRoute } from '@/types/place';
+import { FetchPlacesParams, Place, PlaceToRoute, UpdatePlaceBody } from '@/types/place';
 
 import axiosInstance from './api';
 
@@ -26,6 +26,23 @@ export const createPlace = async (data: Place) => {
   try {
     const response = await axiosInstance.post('/locations', data);
     if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updatePlace = async (data: UpdatePlaceBody) => {
+  try {
+    const response = await axiosInstance.post('/locations', data);
+    if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deletePlace = async (locationId: number) => {
+  try {
+    await axiosInstance.delete(`/locations/${locationId}`);
   } catch (error) {
     console.error(error);
   }
