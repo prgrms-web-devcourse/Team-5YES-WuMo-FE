@@ -1,5 +1,5 @@
 import axiosInstance from '@/api/api';
-import { PartyCreateBody, PartyUpdateBody } from '@/types/party';
+import { ExpiredDateType, PartyCreateBody, PartyUpdateBody } from '@/types/party';
 
 export const createParty = async (partyAPIBody: PartyCreateBody) => {
   try {
@@ -43,4 +43,28 @@ export const patchPartyDetail = async (
   } catch (error) {
     console.error(error);
   }
+};
+
+export const createPartyInvitation = async (props: ExpiredDateType) => {
+  const response = await axiosInstance.post(`/parties/${props.partyId}/invitations`, {
+    expiredDate: props.expiredDate,
+  });
+
+  if (response) return response.data;
+};
+
+export const fetchPartyInvitationCode = async (code: string) => {
+  try {
+    const response = await axiosInstance.get(`/parties/invitations/${code}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const createRegisterParty = async (partyId: string) => {
+  const response = await axiosInstance.post(`/parties/${partyId}/members`, {
+    role: '광대',
+  });
+  return response.data;
 };
