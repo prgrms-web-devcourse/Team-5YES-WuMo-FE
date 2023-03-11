@@ -52,12 +52,4 @@ export const userEditSchema = yup.object({
     .matches(regex_spacing, FORM_ERROR_MESSAGES.SPACING)
     .matches(regex_nickname, FORM_ERROR_MESSAGES.NICKNAME_PATTERN)
     .max(20, FORM_ERROR_MESSAGES.MAX(20)),
-  password: yup
-    .string()
-    .required(FORM_ERROR_MESSAGES.PASSWORD_REQUIRED)
-    .matches(regex_password, FORM_ERROR_MESSAGES.PASSWORD_PATTERN)
-    .matches(regex_spacing, FORM_ERROR_MESSAGES.SPACING)
-    .matches(regex_nospecial, FORM_ERROR_MESSAGES.SPEACIAL)
-    .min(8, FORM_ERROR_MESSAGES.MIN(8))
-    .max(12, FORM_ERROR_MESSAGES.MAX(12)),
 });

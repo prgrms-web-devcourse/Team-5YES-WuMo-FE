@@ -11,3 +11,17 @@ export const createImage = async (image: FormData) => {
     throw error;
   }
 };
+
+export const deleteImage = async (image: string) => {
+  try {
+    await axiosInstance.delete(`/images`, {
+      data: {
+        imageUrl: image,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+
+    throw error;
+  }
+};
