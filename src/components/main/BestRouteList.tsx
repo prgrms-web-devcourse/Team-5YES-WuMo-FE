@@ -90,8 +90,9 @@ const BestRouteList = () => {
             <Box
               key={route.routeId}
               onClick={() => !dragging && onMoveRoutePage(route.routeId)}
-              outline='none'>
-              <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' />
+              outline='none'
+              h='180px'>
+              <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' h='100%' />
               <Box
                 pos='absolute'
                 top='calc(50% - 1.125rem)'
