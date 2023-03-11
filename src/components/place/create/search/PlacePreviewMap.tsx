@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { PlacePreviewMapProps } from '@/types/place';
 import { getGitEmoji } from '@/utils/constants/emoji';
@@ -15,6 +15,7 @@ const PlacePreviewMap = ({
   draggable = false,
   mapMarkers,
 }: PlacePreviewMapProps) => {
+  const { partyId } = useParams();
   const [selectedMarker, setSelectedMarker] = useState<number | null>();
 
   return (
@@ -44,7 +45,7 @@ const PlacePreviewMap = ({
             }}
             onClick={() => setSelectedMarker(id === selectedMarker ? null : id)}>
             {selectedMarker === id && (
-              <Link to={`/place/${id}`}>
+              <Link to={`/place/${id}`} state={{ partyId: Number(partyId) }}>
                 <Box
                   display='inline-block'
                   width='150px'
