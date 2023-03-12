@@ -53,7 +53,7 @@ const PartyInformation = () => {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+  } = useQuery<PartyInformationType>(['partyInformation', partyId], () =>
     fetchPartyInformation(Number(partyId))
   );
 
@@ -126,7 +126,7 @@ const PartyInformation = () => {
         mt='3.75rem'
         h='200px'
         w='100%'
-        objectFit='none'
+        objectFit='cover'
       />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>

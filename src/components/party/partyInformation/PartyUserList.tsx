@@ -16,7 +16,7 @@ const PartyUserList = () => {
     isLoading,
     isError,
   } = useQuery<{ members: PartyMemberProps[]; lastId: number; totalMembers: number }>(
-    ['partyUserList', updated],
+    ['partyUserList', partyId, updated],
     () => fetchPartyMembers(Number(partyId))
   );
 

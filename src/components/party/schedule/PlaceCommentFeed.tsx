@@ -1,8 +1,10 @@
-import { Box, Img } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
-import { useLocation } from 'react-router-dom';
+import { Box, Img, Text, useDisclosure } from '@chakra-ui/react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
+import { deletePlaceFromRoute } from '@/api/place';
 import { fetchLocationCommentList, fetchScheduleList } from '@/api/schedules';
+import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
@@ -16,15 +18,19 @@ import CommentFeedItem from './CommentFeedItem';
 import CommentFeedTitle from './CommentFeedTitle';
 import PlaceAmountField from './PlaceAmountField';
 
-const moreMenuEvent = {
-  onEditEvent: () => alert('수정'),
-  onRemoveEvent: () => alert('삭제'),
-};
-
 const RouteCommentFeed = () => {
   const { scrollActive } = useScrollEvent(300);
   const { state } = useLocation();
+  const { partyId } = useParams();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
+  const { mutateAsync: deleteRoute } = useMutation(deletePlaceFromRoute, {
+    onSuccess: () => {
+      return queryClient.invalidateQueries(['scheduleList']);
+    },
+  });
   const {
     data: commentList,
     isLoading: commentLoading,
@@ -37,9 +43,13 @@ const RouteCommentFeed = () => {
     data: scheduleList,
     isLoading: scheduleLoading,
     isError: scheduleError,
-  } = useQuery<ScheduleType>(['scheduleList'], () => fetchScheduleList(11, false), {
-    staleTime: 10000,
-  });
+  } = useQuery<ScheduleType>(
+    ['scheduleList'],
+    () => fetchScheduleList(Number(partyId), false),
+    {
+      staleTime: 10000,
+    }
+  );
 
   if (commentLoading || scheduleLoading)
     return (
@@ -49,6 +59,11 @@ const RouteCommentFeed = () => {
     );
   if (commentError || scheduleError) return <></>;
 
+  const moreMenuEvent = {
+    onEditEvent: () => alert('수정'),
+    onRemoveEvent: () => onOpen(),
+  };
+
   const pickCurrentLocation = (locations: ScheduleLocationType[], locationId: number) => {
     return locations.filter((location) => location.id === locationId);
   };
@@ -57,6 +72,8 @@ const RouteCommentFeed = () => {
     scheduleList.locations,
     state.locationId
   )[0];
+
+  if (!currentLocation) return <></>;
 
   const placeData = {
     place: currentLocation.name,
@@ -104,6 +121,21 @@ const RouteCommentFeed = () => {
         </Box>
         <CommentCreate />
       </Box>
+      <ConfirmModal
+        isOpen={isOpen}
+        closeModalHandler={onClose}
+        body={<Text> &quot;{currentLocation.name}&quot; 일정을 취소 하시겠습니까?</Text>}
+        clickButtonHandler={{
+          primary: async () => {
+            await deleteRoute(state.locationId);
+            navigate(`/party/${partyId}`);
+          },
+        }}
+        buttonText={{
+          secondary: '취소',
+          primary: '삭제',
+        }}
+      />
     </>
   );
 };

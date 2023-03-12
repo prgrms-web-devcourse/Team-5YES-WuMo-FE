@@ -16,15 +16,12 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
   const {
     data: scheduleList,
     isLoading,
+    isFetching,
     isError,
-  } = useQuery<ScheduleType>(
-    ['scheduleList'],
-    () => fetchScheduleList(Number(partyId), isPublic),
-    {
-      staleTime: 10000,
-    }
+  } = useQuery<ScheduleType>(['scheduleList', partyId], () =>
+    fetchScheduleList(Number(partyId), isPublic)
   );
-  if (isLoading)
+  if (isLoading || isFetching)
     return (
       <>
         <Loading />
