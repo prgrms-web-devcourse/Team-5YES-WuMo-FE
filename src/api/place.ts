@@ -33,7 +33,7 @@ export const createPlace = async (data: Place) => {
 
 export const patchPlace = async (data: PlacePatchBody) => {
   try {
-    const response = await axiosInstance.post('/locations', data);
+    const response = await axiosInstance.patch('/locations', data);
     if (response) return response.data;
   } catch (error) {
     console.error(error);

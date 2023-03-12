@@ -155,7 +155,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
                     buttonText: { secondary: '취소', primary: '삭제' },
                     buttonClickhandler: {
                       primary: () => onDeletePlaceFromRoute(Number(place.id)),
-                      secondary: () => console.log('수정 페이지로 이동'), // TODO: 해당 후보지 수정 페이지로 이동
+                      secondary: () => onClose(),
                     },
                   });
                   onOpen();
@@ -175,7 +175,10 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
                     buttonText: { secondary: '수정', primary: '추가' },
                     buttonClickhandler: {
                       primary: () => onAddPlaceToRoute(Number(place.id)),
-                      secondary: () => onClose(),
+                      secondary: () =>
+                        navigate(ROUTES.PLACE_EDIT, {
+                          state: { place, partyId: Number(partyId) },
+                        }),
                     },
                   });
                   onOpen();

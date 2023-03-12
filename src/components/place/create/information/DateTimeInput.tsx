@@ -21,7 +21,7 @@ const DateTimeInput = () => {
     createPlaceBody.visitDate
       ? {
           date: new Date(createPlaceBody.visitDate),
-          hour: new Date(createPlaceBody.visitDate).getHours() - 9,
+          hour: new Date(createPlaceBody.visitDate).getHours(),
           min: new Date(createPlaceBody.visitDate).getMinutes(),
         }
       : {
@@ -35,7 +35,7 @@ const DateTimeInput = () => {
     setValues({ ...values, [type]: newValue });
 
     const newDate = new Date(values.date);
-    newDate.setHours(values.hour + 9, values.min);
+    newDate.setHours(values.hour, values.min);
     setCreatePlaceBody({
       ...createPlaceBody,
       visitDate: newDate.toISOString(),
