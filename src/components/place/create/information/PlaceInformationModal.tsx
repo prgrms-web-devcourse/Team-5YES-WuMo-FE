@@ -40,7 +40,6 @@ const PlaceInformationModal = () => {
 
   const onClickButton = async () => {
     if (!visitDate) return PLACE_ERROR_MESSAGES.VISIT_DATE_REQUIRED;
-    if (!expectedCost) return PLACE_ERROR_MESSAGES.EXPECTED_COST_REQUIRED;
     if (!imageFile) return PLACE_ERROR_MESSAGES.IMAGE_FILE_REQUIRED;
 
     await onSubmitNewPlace();
@@ -105,7 +104,7 @@ const PlaceInformationModal = () => {
       <ModalFooter>
         <ModalButton
           text='후보지 추가'
-          isDisabled={!visitDate || !expectedCost || !imageFile}
+          isDisabled={!visitDate || !imageFile}
           clickButtonHandler={onClickButton}
         />
       </ModalFooter>
