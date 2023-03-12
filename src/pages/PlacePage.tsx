@@ -27,7 +27,7 @@ const PlacePage = () => {
   const navigate = useNavigate();
 
   const moreMenuEvent = {
-    onEditEvent: () => alert('수정'),
+    onEditEvent: () => navigate('/place/edit', { state: { place: data } }),
     onRemoveEvent: async () => {
       const canRemove = confirm('후보지를 삭제할까요?');
       if (!canRemove) return;

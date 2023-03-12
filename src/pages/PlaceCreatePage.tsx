@@ -32,7 +32,7 @@ const PlaceCreatePage = () => {
 
   const isFirstStep = () => step === processStep.min;
 
-  const handleCloseModal = () => {
+  const onCloseModal = () => {
     if (!isFirstStep()) setStep(step - 1);
     else {
       const canClose = confirm('후보지 추가를 취소하시겠습니까?'); // TODO: 값 선택한 경우에만 하도록 처리
@@ -46,7 +46,7 @@ const PlaceCreatePage = () => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleCloseModal} size='full'>
+    <Modal isOpen={isOpen} onClose={onCloseModal} size='full'>
       <ModalContent w='maxWidth.mobile'>
         <ModalCloseButton
           position='initial'
