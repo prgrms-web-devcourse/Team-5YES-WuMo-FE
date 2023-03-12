@@ -29,6 +29,7 @@ const {
   Menu,
   Spinner,
   Switch,
+  PinInput,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -52,6 +53,7 @@ const theme = extendBaseTheme({
     List,
     Spinner,
     Switch,
+    PinInput,
   },
   fonts: {
     heading: `'Pretendard-Regular', sans-serif`,
