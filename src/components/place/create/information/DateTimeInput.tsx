@@ -67,7 +67,7 @@ const DateTimeInput = () => {
             onChange={(e) => handleChange('min', Number(e.target.value))}
             size='md'>
             {Array.from({ length: 12 }, (_, i) => i * 5).map((v) => (
-              <option key={`hour-${v}`} value={v}>
+              <option key={`min-${v}`} value={v}>
                 {v}
               </option>
             ))}

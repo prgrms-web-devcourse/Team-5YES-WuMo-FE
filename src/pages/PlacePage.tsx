@@ -55,7 +55,7 @@ const PlacePage = () => {
 
   return (
     <>
-      {data.isEditable && state ? (
+      {data.isEditable ? (
         <BackNavigation
           option={BACKNAVIGATION_OPTIONS.MORE}
           moreMenuEvent={moreMenuEvent}

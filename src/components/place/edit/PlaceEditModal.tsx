@@ -122,7 +122,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
       return;
     }
     if (data.image !== place.image) await deleteImage(place.image);
-    navigate(`/place/${place.id}`, { replace: true });
+    navigate(-1);
   };
 
   return (
@@ -180,7 +180,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
                       onChange={(e) => onDateTimeChange('min', Number(e.target.value))}
                       size='md'>
                       {Array.from({ length: 12 }, (_, i) => i * 5).map((v) => (
-                        <option key={`hour-${v}`} value={v}>
+                        <option key={`min-${v}`} value={v}>
                           {v}
                         </option>
                       ))}
