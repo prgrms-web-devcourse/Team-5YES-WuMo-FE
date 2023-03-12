@@ -21,32 +21,36 @@ import { Calendar } from 'react-calendar';
 import { MdAddPhotoAlternate, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useSetRecoilState } from 'recoil';
 
-import { createImage } from '@/api/image';
+import { createImage, deleteImage } from '@/api/image';
 import { patchPartyDetail } from '@/api/party';
-import { partyDetailState } from '@/store/recoilPartyState';
+import useButtonDisabled from '@/hooks/useButtonDisabled';
+import { partyUpdateState } from '@/store/recoilPartyState';
 import { PartyListPropsWithMembers, PartyModalProps } from '@/types/party';
 
 const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const setPartyDetail = useSetRecoilState<PartyListPropsWithMembers>(partyDetailState);
+  const setPartyDetail = useSetRecoilState<PartyListPropsWithMembers>(partyUpdateState);
 
   const [name, setName] = useState(partyDetail?.name);
   const [description, setDescription] = useState(partyDetail?.description);
   const [imageUrl, setImageUrl] = useState(partyDetail?.coverImage);
 
-  const [value, setValue] = useState(() => {
-    if (!partyDetail) return [new Date(), new Date()];
+  const [period, setPeriod] = useState(() => {
+    if (!partyDetail) return ['', ''];
     else return [new Date(partyDetail.startDate), new Date(partyDetail.endDate)];
   });
+
+  const buttonDisabled = useButtonDisabled([name, description, period[0], period[1]]);
 
   const onClickImageUpload = () => {
     imageInputRef.current?.click();
   };
 
-  const handleFileDelete = () => {
+  const handleFileDelete = async () => {
     if (confirm('사진을 삭제하시겠습니까?')) {
-      setImageUrl('');
+      await deleteImage(imageUrl);
+      setImageUrl(null);
     }
   };
 
@@ -57,12 +61,12 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
 
     const data = await createImage(formData);
     if (data) {
-      setImageUrl(data.imageUrl);
+      setImageUrl(data);
     }
   };
 
   const handleUpdateParty = async () => {
-    const [startDate, endDate] = value;
+    const [startDate, endDate] = period;
     const partyAPIBody = {
       name,
       description,
@@ -72,8 +76,8 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
     };
 
     if (partyDetail?.id && partyAPIBody) {
-      console.log(partyAPIBody);
       const data = await patchPartyDetail(partyDetail.id, partyAPIBody);
+
       if (data) {
         setPartyDetail(data);
         alert('모임이 정상적으로 수정되었어요.');
@@ -134,7 +138,7 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
               onChange={(e) => handleImageUpload(e)}
               ref={imageInputRef}
             />
-            {imageUrl !== '' ? (
+            {imageUrl !== null ? (
               <Flex flexDirection='column' alignItems='center'>
                 <Image src={imageUrl} boxSize='200px' />
                 <HStack pt='1rem'>
@@ -156,39 +160,52 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
           <Text fontSize='0.875rem' mb='2' color='#808080'>
             모임 일정
           </Text>
-          <Flex mb='8' flexDirection='column' justify='center' alignItems='center'>
+          <Flex flexDirection='column' justify='center' alignItems='center'>
             <Box mb='10' textAlign='center'>
               <Calendar
-                onChange={(value: Date[]) => setValue(value)}
+                onChange={(period: Date[]) => setPeriod(period)}
                 formatDay={(_, date) => dayjs(date).format('D')}
                 allowPartialRange={true}
                 selectRange={true}
                 calendarType='US'
               />
             </Box>
-            <Flex gap={4} alignItems='center'>
+            <Box px='1rem' py='0.5rem' mb='10' borderRadius='10px' bg='#ffe6e6'>
+              <strong>시작 날짜</strong>와 <strong>종료 날짜</strong>를 한번씩
+              선택해주세요.
+            </Box>
+            <Flex
+              gap='1.5rem'
+              alignItems='flex-start'
+              flexDirection='column'
+              w='100%'
+              px='4'>
               <Box>
                 <Text fontSize='sm' color='#3b3b3b' mb='2'>
                   모임 시작 날짜
                 </Text>
                 <Text fontWeight='bold' fontSize='lg' color='#0000000'>
-                  {dayjs(value[0]).format('YYYY년 M월 D일')}
+                  {period[0]
+                    ? dayjs(period[0]).format('YYYY년 M월 D일')
+                    : '날짜를 선택해주세요.'}
                 </Text>
               </Box>
-              <Text>~</Text>
               <Box>
                 <Text fontSize='sm' color='#3b3b3b' mb='2'>
                   모임 종료 날짜
                 </Text>
                 <Text fontWeight='bold' fontSize='lg' color='#0000000'>
-                  {dayjs(value[1]).format('YYYY년 M월 D일')}
+                  {period[1]
+                    ? dayjs(period[1]).format('YYYY년 M월 D일')
+                    : '날짜를 선택해주세요.'}
                 </Text>
               </Box>
             </Flex>
           </Flex>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter mt='10'>
           <Button
+            isDisabled={buttonDisabled}
             bg='primary.red'
             color='#ffffff'
             _hover={{

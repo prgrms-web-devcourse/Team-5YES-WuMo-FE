@@ -11,12 +11,13 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { MdAddPhotoAlternate } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 
-import { createImage } from '@/api/image';
+import { createImage, deleteImage } from '@/api/image';
 import ModalButton from '@/components/base/ModalButton';
+import useButtonDisabled from '@/hooks/useButtonDisabled';
 import { createPartyState, stepState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { processStep } from '@/utils/constants/processStep';
@@ -33,15 +34,16 @@ const PartyNameModal = () => {
   const [description, setDescription] = useState(createPartyBody.description || '');
   const [imageUrl, setImageUrl] = useState(createPartyBody.coverImage || '');
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const buttonDisabled = useButtonDisabled([name, description, imageUrl]);
 
   const onClickImageUpload = () => {
     imageInputRef.current?.click();
   };
 
-  const handleFileDelete = () => {
+  const handleFileDelete = async () => {
     if (confirm('사진을 삭제하시겠습니까?')) {
       setImageUrl('');
+      await deleteImage(imageUrl);
     }
   };
 
@@ -55,11 +57,6 @@ const PartyNameModal = () => {
       setImageUrl(data);
     }
   };
-
-  useEffect(() => {
-    if (name === '' || description === '') setButtonDisabled(true);
-    else setButtonDisabled(false);
-  }, [name, description]);
 
   const onClickNextStep = () => {
     setCreatePartyBody({

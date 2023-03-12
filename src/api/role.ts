@@ -8,8 +8,7 @@ export const patchOwnRole = async (partyId: number, rolePatchAPIBody: RolePatchB
       `/parties/${partyId}/members`,
       rolePatchAPIBody
     );
-    if (response.status === 200) return response.data;
-    else console.log(response);
+    if (response) return response.data;
   } catch (error) {
     console.error(error);
   }
