@@ -2,6 +2,7 @@ import { Box, Flex, Heading, Image } from '@chakra-ui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
+import { deleteImage } from '@/api/image';
 import { deletePlace, fetchPlace } from '@/api/place';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import CommentForm from '@/components/place/CommentForm';
@@ -42,7 +43,8 @@ const PlacePage = () => {
   const onRemovePlace = async (placeId: number) => {
     if (!data) return;
     await removePlace(placeId, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await deleteImage(data.image);
         navigate(`/party/${state.partyId}/plan`, { replace: true });
       },
     });
