@@ -1,4 +1,4 @@
-import { BestRouteListSortSearchProps } from '@/types/routeList';
+import { BestRouteListParamsType } from '@/types/routeList';
 import { ChangeAmountType, CreateCommentBody } from '@/types/schedule';
 
 import axiosInstance from './api';
@@ -31,7 +31,7 @@ export const fetchBestRouteList = async ({
   pageSize,
   sortType,
   searchWord,
-}: BestRouteListSortSearchProps) => {
+}: BestRouteListParamsType) => {
   const params = {
     pageSize,
     sortType,
@@ -40,6 +40,25 @@ export const fetchBestRouteList = async ({
 
   try {
     const response = await axiosInstance.get('/routes', { params });
+    if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchLikeRouteList = async ({
+  pageSize,
+  sortType,
+  searchWord,
+}: BestRouteListParamsType) => {
+  const params = {
+    pageSize,
+    sortType,
+    searchWord,
+  };
+
+  try {
+    const response = await axiosInstance.get('/routes/likes', { params });
     if (response) {
       return response.data;
     }

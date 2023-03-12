@@ -1,4 +1,3 @@
-export { default as BestRouteDetailPage } from './BestRouteDetailPage';
 export { default as BestRouteListPage } from './BestRouteListPage';
 export { default as InvitationPage } from './InvitationPage';
 export { default as LandingPage } from './LandingPage';
@@ -15,5 +14,6 @@ export { default as PlaceCreatePage } from './PlaceCreatePage';
 export { default as PlacePage } from './PlacePage';
 export { default as ProfileEditPage } from './ProfileEditPage';
 export { default as ProfilePage } from './ProfilePage';
+export { default as RouteDetailPage } from './RouteDetailPage';
 export { default as SignInPage } from './SignInPage';
 export { default as SignUpPage } from './SignUpPage';

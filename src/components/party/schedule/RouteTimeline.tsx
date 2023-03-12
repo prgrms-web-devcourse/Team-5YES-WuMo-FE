@@ -11,7 +11,9 @@ import RouteReleaseChange from './RouteReleaseChange';
 import RouteTimelineItem from './RouteTimelineItem';
 
 const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps) => {
-  const { partyId } = useParams();
+  // 상세조회를 partyId로 할지 routeId로 할지
+  // 둘 다 할지 백엔드에서 아직 결정이 안남
+  const { partyId, routeId } = useParams();
 
   const {
     data: scheduleList,
@@ -19,7 +21,7 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
     isError,
   } = useQuery<ScheduleType>(
     ['scheduleList'],
-    () => fetchScheduleList(Number(partyId), isPublic),
+    () => fetchScheduleList(Number(partyId || routeId), isPublic),
     {
       staleTime: 10000,
     }
