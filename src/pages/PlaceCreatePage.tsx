@@ -8,21 +8,19 @@ import {
 import { useEffect, useState } from 'react';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { useNavigate } from 'react-router';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import {
   createPlaceState,
   createPlaceStepState,
-  initialPlaceSearchState,
-  initialPlaceState,
   placeSearchState,
 } from '@/store/recoilPlaceState';
 import { placeCreateStepItems, processStep } from '@/utils/constants/processStep';
 
 const PlaceCreatePage = () => {
   const navigate = useNavigate();
-  const setCreatePlaceBody = useSetRecoilState(createPlaceState);
-  const setPlaceSearchState = useSetRecoilState(placeSearchState);
+  const resetCreatePlaceBody = useResetRecoilState(createPlaceState);
+  const resetPlaceSearchState = useResetRecoilState(placeSearchState);
   const [step, setStep] = useRecoilState<number>(createPlaceStepState);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,8 +36,8 @@ const PlaceCreatePage = () => {
       const canClose = confirm('후보지 추가를 취소하시겠습니까?'); // TODO: 값 선택한 경우에만 하도록 처리
       if (!canClose) return;
 
-      setCreatePlaceBody(initialPlaceState);
-      setPlaceSearchState(initialPlaceSearchState);
+      resetCreatePlaceBody();
+      resetPlaceSearchState();
       setIsOpen(false);
       navigate(-1);
     }
