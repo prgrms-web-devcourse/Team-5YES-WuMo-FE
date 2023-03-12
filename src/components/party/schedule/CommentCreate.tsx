@@ -2,7 +2,7 @@ import { Box, useDisclosure } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { createImage } from '@/api/image';
 import { createLocationComment } from '@/api/schedules';
@@ -18,6 +18,7 @@ import CommentImageInput from './CommentImageInput';
 const CommentCreate = () => {
   const queryClient = useQueryClient();
   const { state } = useLocation();
+  const { partyId } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     control,
@@ -48,7 +49,7 @@ const CommentCreate = () => {
     const commentBody: CreateCommentBody = {
       content,
       image: imageUrl,
-      partyId: 11, //이후 router state로 받아올 예정
+      partyId: Number(partyId),
       locationId: state.locationId,
     };
 

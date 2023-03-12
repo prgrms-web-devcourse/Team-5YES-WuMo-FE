@@ -96,3 +96,8 @@ export type MyPartyListParams = {
   cursorId?: number;
   pageSize: number;
 };
+
+export type ExpiredDateType = {
+  partyId: number;
+  expiredDate: string;
+};

@@ -32,7 +32,7 @@ const PartyUserList = () => {
   return (
     <Flex direction='row'>
       {partyUserList.members.map((user) => (
-        <Flex key={user.role} direction='column' align='center' marginLeft='0.625rem'>
+        <Flex key={user.memberId} direction='column' align='center' marginLeft='0.625rem'>
           <Avatar
             src={user.profileImage === null ? undefined : user.profileImage}
             size='sm'

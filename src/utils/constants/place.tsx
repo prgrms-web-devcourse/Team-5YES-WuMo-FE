@@ -48,7 +48,7 @@ export const categoryInfo: Category = {
     text: '게임',
     imageID: '1f3ae',
   },
-  WALKING: {
+  WALK: {
     text: '산책',
     imageID: '1f6b6',
   },

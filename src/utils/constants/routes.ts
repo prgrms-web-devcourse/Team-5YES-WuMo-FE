@@ -5,7 +5,7 @@ const ROUTES = {
   NOTICE: '/notice',
   PARTY: '/party/:partyId',
   SCHEDULE: 'schedule',
-  SCHEDULE_COMMENT: '/party/schedule-comment',
+  SCHEDULE_COMMENT: '/party/:partyId/schedule-comment',
   PLAN: 'plan',
   ALBUM: '/album',
   LIKE: '/like',
@@ -13,12 +13,13 @@ const ROUTES = {
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile/edit',
   PLACE_NEW: '/place/new',
-  PLACE_DETAIL: '/place/:id',
+  PLACE_DETAIL: '/place/:placeId',
   PARTY_LIST: '/party-list',
   BEST_ROUTE_LIST: '/best-route-list',
   BEST_ROUTE_DETAIL: '/best-route-detail',
   LANDING: '/landing',
   NOTFOUND: '/notfound',
+  INVITATION: '/invitation/:roomId',
 } as const;
 
 export default ROUTES;

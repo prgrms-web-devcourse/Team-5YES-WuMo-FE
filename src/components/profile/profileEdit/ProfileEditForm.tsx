@@ -4,58 +4,99 @@ import {
   Button,
   Center,
   Container,
+  Input,
   Stack,
   useDisclosure,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useQuery } from '@tanstack/react-query';
 import { ChangeEvent, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCameraAlt } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
-import { patchMyProfile } from '@/api/user';
+import { createImage, deleteImage } from '@/api/image';
+import { fetchMyProfileInfo, patchMyProfile } from '@/api/user';
 import BottomSheet from '@/components/base/BottomSheet';
 import ControlledInput from '@/components/base/ControlledInput';
+import Loading from '@/components/base/Loading';
 import SubmitButton from '@/components/base/SubmitButton';
 import { ImageData } from '@/types/place';
 import { UserEditProps } from '@/types/user';
+import ROUTES from '@/utils/constants/routes';
 import { userEditSchema } from '@/utils/schema';
-
-const member_dummy_data = {
-  id: 1,
-  email: '5yes@gmail.com',
-  nickname: '오예스',
-  profileImage: null,
-};
 
 const ProfileEditForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [values, setValues] = useState<ImageData>({
-    imageBase64: member_dummy_data.profileImage,
-    imageFile: null,
-  });
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
     resetField,
+    reset,
     formState: { isSubmitting },
   } = useForm<UserEditProps>({
     defaultValues: {
-      id: member_dummy_data.id,
-      nickname: member_dummy_data.nickname,
-      password: '',
-      profileImage: member_dummy_data.profileImage,
+      nickname: '',
+      profileImage: '',
     },
     mode: 'all',
     resolver: yupResolver(userEditSchema),
   });
 
+  const {
+    data: myProfileInfo,
+    isLoading,
+    isError,
+  } = useQuery<UserEditProps>(['myProfileInfo'], () => fetchMyProfileInfo(), {
+    onSuccess(data) {
+      setOldImage(data.profileImage);
+      reset({
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+      });
+    },
+  });
+
+  const [oldImage, setOldImage] = useState(
+    myProfileInfo ? myProfileInfo.profileImage : null
+  );
+  const [imageValues, setImageValues] = useState<ImageData>({
+    imageBase64: oldImage,
+    imageFile: null,
+  });
+
+  if (isError) return <></>;
+  if (isLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+
+  const onSubmitImageFile = async (image: File | null) => {
+    if (!image) return null;
+    const formData = new FormData();
+    formData.append('image', image);
+    const imageUrl = await createImage(formData);
+    return imageUrl;
+  };
+
   const onSubmit = async (fields: UserEditProps) => {
-    fields.id = member_dummy_data.id;
-    // 이미지 등록 후 url만 저장하여 전송
-    console.log(fields);
-    const response = await patchMyProfile(fields);
-    console.log(response);
+    if (oldImage === null && myProfileInfo.profileImage !== null) {
+      await deleteImage(myProfileInfo.profileImage);
+    }
+    if (oldImage !== null) {
+      fields.profileImage = myProfileInfo.profileImage;
+    } else {
+      const imageUrl = await onSubmitImageFile(imageValues.imageFile);
+      fields.profileImage = imageUrl;
+    }
+    fields.id = myProfileInfo.id;
+    await patchMyProfile(fields);
+    navigate(ROUTES.PROFILE);
   };
 
   const handleFileChoose = () => {
@@ -65,9 +106,9 @@ const ProfileEditForm = () => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValues({ ...values, imageFile: file });
       encodeFileToBase64(file);
     }
+    e.target.value = '';
   };
 
   const encodeFileToBase64 = (fileBlob: File) => {
@@ -77,17 +118,26 @@ const ProfileEditForm = () => {
       reader.onload = () => {
         const result = reader.result;
         if (!result || typeof result !== 'string') return;
-        setValues({ ...values, imageBase64: result });
+        setImageValues({ imageFile: fileBlob, imageBase64: result });
         resolve(Promise);
         onClose();
       };
     });
   };
 
-  const handleDefaultImage = () => {
-    setValues({ imageBase64: '', imageFile: null });
+  const handleDefaultImage = async () => {
+    setOldImage(null);
+    setImageValues({ imageBase64: null, imageFile: null });
     onClose();
   };
+
+  const handleUserImage = () => {
+    if (imageValues.imageBase64) return imageValues.imageBase64;
+    if (oldImage) return oldImage;
+    return undefined;
+  };
+
+  const userImage = handleUserImage();
 
   const modalContent = {
     content: (
@@ -101,12 +151,7 @@ const ProfileEditForm = () => {
   return (
     <Container p='7rem 2rem' as='form' onSubmit={handleSubmit(onSubmit)}>
       <Center mb='12'>
-        <Avatar
-          size='2xl'
-          bg='#D9D9D9'
-          src={values.imageBase64 === null ? undefined : values.imageBase64}
-          cursor='pointer'
-          onClick={onOpen}>
+        <Avatar size='2xl' bg='#D9D9D9' src={userImage} cursor='pointer' onClick={onOpen}>
           <AvatarBadge
             bottom='4'
             right='2'
@@ -116,7 +161,7 @@ const ProfileEditForm = () => {
             <MdCameraAlt fontSize='28' color='gray' />
           </AvatarBadge>
         </Avatar>
-        <input
+        <Input
           hidden
           ref={inputRef}
           type='file'
@@ -126,7 +171,6 @@ const ProfileEditForm = () => {
         />
       </Center>
       <ControlledInput name='nickname' control={control} resetField={resetField} />
-      <ControlledInput name='password' control={control} resetField={resetField} />
       <SubmitButton isSubmitting={isSubmitting} mt='24' width='100%' colorScheme='orange'>
         프로필 수정
       </SubmitButton>
