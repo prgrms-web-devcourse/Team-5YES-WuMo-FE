@@ -79,7 +79,7 @@ const RouteReleaseChange = ({
   };
 
   return (
-    <Box pos='absolute' right='2' zIndex='20'>
+    <Box pos='absolute' right='2' zIndex='10'>
       <FormControl>
         <Flex align='center' justify='flex-end' px='16px' pt='8px'>
           <FormLabel htmlFor='release' m='0' mr='0.625rem'>
