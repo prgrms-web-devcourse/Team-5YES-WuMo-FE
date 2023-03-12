@@ -11,10 +11,11 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { createParty } from '@/api/party';
 import ModalButton from '@/components/base/ModalButton';
+import useButtonDisabled from '@/hooks/useButtonDisabled';
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { getGitEmoji } from '@/utils/constants/emoji';
@@ -30,9 +31,14 @@ const PartyOwnRoleModal = () => {
   };
 
   const navigate = useNavigate();
+  const resetCreatePartyBody = useResetRecoilState(createPartyState);
   const prevCreatePartyBody = useRecoilValue<PartyCreateBody>(createPartyState);
-  const [partyAPIBody, setPartyAPIBody] = useState(() => prevCreatePartyBody);
+  const [partyAPIBody, setPartyAPIBody] = useState<PartyCreateBody>(
+    () => prevCreatePartyBody
+  );
   const [role, setRole] = useState('');
+
+  const buttonDisabled = useButtonDisabled([role]);
 
   const onClickRole = (role: string) => {
     setRole(role);
@@ -46,7 +52,9 @@ const PartyOwnRoleModal = () => {
     const data = await createParty(partyAPIBody);
     if (data) {
       // 파티 생성 완료 toast 추가예정
-      navigate(ROUTES.PARTY_LIST);
+      alert('모임이 생성되었습니다.');
+      resetCreatePartyBody();
+      navigate(ROUTES.PARTY_LIST, { replace: true });
     }
   };
 
@@ -92,7 +100,11 @@ const PartyOwnRoleModal = () => {
         />
       </ModalBody>
       <ModalFooter>
-        <ModalButton text='파티 생성' clickButtonHandler={handleCreateParty} />
+        <ModalButton
+          isDisabled={buttonDisabled}
+          text='파티 생성'
+          clickButtonHandler={handleCreateParty}
+        />
       </ModalFooter>
     </>
   );

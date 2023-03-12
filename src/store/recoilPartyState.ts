@@ -2,32 +2,41 @@ import { atom } from 'recoil';
 
 import {
   PartyCreateBody,
+  PartyInformationType,
   PartyListPropsWithMembers,
   PartyMemberListProps,
+  PartyMemberProps,
 } from '@/types/party';
+
+const partyBaseState = {
+  name: '',
+  description: '',
+  coverImage: null || '',
+  startDate: '',
+  endDate: '',
+};
 
 export const createPartyState = atom<PartyCreateBody>({
   key: 'createPartyState',
   default: {
-    name: '',
-    startDate: '',
-    endDate: '',
-    description: '',
-    coverImage: '',
-    password: '',
+    ...partyBaseState,
     role: '',
   },
 });
 
-export const partyDetailState = atom<PartyListPropsWithMembers>({
+export const partyDetailState = atom<PartyInformationType>({
   key: 'updatePartyState',
   default: {
+    ...partyBaseState,
     id: 0,
-    name: '',
-    description: '',
-    coverImage: '',
-    startDate: '',
-    endDate: '',
+  },
+});
+
+export const partyUpdateState = atom<PartyListPropsWithMembers>({
+  key: 'partyUpdateState',
+  default: {
+    ...partyBaseState,
+    id: 0,
     members: [],
     totalMembers: 0,
   },
@@ -39,7 +48,17 @@ export const partyMemberListState = atom<PartyMemberListProps>({
     totalMembers: 0,
     members: [],
     lastId: 0,
-    profileImage: null,
+  },
+});
+
+export const partyMeRoleState = atom<PartyMemberProps>({
+  key: 'partyMeRoleState',
+  default: {
+    memberId: 0,
+    nickname: '',
+    role: '',
+    profileImage: null || '',
+    isLeader: false,
   },
 });
 

@@ -1,18 +1,22 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
 
 import { fetchMyPartyList } from '@/api/main';
+import { isUpdateData } from '@/store/recoilPartyState';
 import { MyPartyList } from '@/types/party';
 
 import PartyListCard from './PartyListCard';
 
 const PartyList = () => {
+  const updated = useRecoilValue(isUpdateData);
+
   const {
     data: onGoingPartyList,
     isLoading: onGoingLoading,
     isError: onGoingError,
   } = useQuery<MyPartyList>(
-    ['onGoingPartyList'],
+    ['onGoingPartyList', updated],
     () => fetchMyPartyList({ partyType: 'ONGOING', pageSize: 1000 }),
     {
       staleTime: 10000,
