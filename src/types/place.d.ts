@@ -72,6 +72,7 @@ export type PlaceInformation = {
   expectedCost: number;
   spending: number;
   routeId: number;
+  isEditable: boolean;
 };
 
 export type PlacePatchBody = Pick<
@@ -98,7 +99,7 @@ export type PlaceInformationType =
   | 'address'
   | 'category';
 
-export type PlaceInformationStepItem = {
+export type PlaceInformationItem = {
   type: PlaceInformationType;
   icon: JSX.Element;
   text: string;

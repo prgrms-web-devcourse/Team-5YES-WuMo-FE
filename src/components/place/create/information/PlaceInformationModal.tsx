@@ -18,7 +18,7 @@ import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState } from '@/store/recoilPlaceState';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 import { getSearchAddress, MAX_ADDRESS_LENGTH } from '@/utils/constants/place';
-import { PlaceInformationStepItems } from '@/utils/constants/processStep';
+import { PlaceInformationItems } from '@/utils/constants/processStep';
 
 const PlaceInformationModal = () => {
   const {
@@ -87,7 +87,7 @@ const PlaceInformationModal = () => {
     <>
       <ModalBody>
         <Accordion allowToggle>
-          {PlaceInformationStepItems.map(({ type, icon, text, content }) => (
+          {PlaceInformationItems.map(({ type, icon, text, content }) => (
             <AccordionItem key={type}>
               <AccordionButton justifyContent='space-between'>
                 <Flex gap='1.5' align='center'>
