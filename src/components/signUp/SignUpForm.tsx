@@ -110,6 +110,7 @@ const SignUpForm = () => {
     if (!checkEmail) return;
     try {
       setIsLoading(true);
+      setPinShow(false);
       await sendEmailCertificationCode(target);
       setPinShow(true);
       setIsLoading(false);
