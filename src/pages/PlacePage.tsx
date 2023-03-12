@@ -55,11 +55,13 @@ const PlacePage = () => {
 
   return (
     <>
-      {data.isEditable && (
+      {data.isEditable && state ? (
         <BackNavigation
           option={BACKNAVIGATION_OPTIONS.MORE}
           moreMenuEvent={moreMenuEvent}
         />
+      ) : (
+        <BackNavigation />
       )}
       <Box height='2xs' marginTop='14'>
         <Image src={data.image} height='3xs' width='full' objectFit='cover' />

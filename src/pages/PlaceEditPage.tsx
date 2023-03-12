@@ -10,6 +10,8 @@ const PlaceEditPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
+  console.log(state);
+
   useEffect(() => {
     setIsOpen(true);
   }, []);
