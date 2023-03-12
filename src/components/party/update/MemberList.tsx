@@ -44,9 +44,7 @@ const MemberList = ({ partyId }: { partyId: number }) => {
               </Text>
             </Box>
           </Flex>
-          {isLeader ? (
-            ''
-          ) : (
+          {!isLeader && (
             <Button
               fontSize='1rem'
               color='primary.red'

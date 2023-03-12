@@ -61,10 +61,7 @@ export const deleteMemberBanish = async ({
   memberId,
 }: deleteMemberBanishProps) => {
   try {
-    const response = await axiosInstance.delete(
-      `/parties/${partyId}/members/${memberId}`
-    );
-    if (response) return response.data;
+    await axiosInstance.delete(`/parties/${partyId}/members/${memberId}`);
   } catch (error) {
     console.error(error);
   }
