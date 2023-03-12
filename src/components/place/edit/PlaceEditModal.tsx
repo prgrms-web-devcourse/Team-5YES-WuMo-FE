@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
   Icon,
   Image,
   ModalBody,
@@ -17,9 +16,9 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Select,
   Text,
   Textarea,
-  VStack,
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { ChangeEvent, useRef, useState } from 'react';
@@ -151,7 +150,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
               </Flex>
             </AccordionButton>
             <AccordionPanel>
-              <VStack>
+              <>
                 <Calendar
                   locale='ko'
                   calendarType='US'
@@ -159,37 +158,37 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
                   formatDay={(_, date) => dayjs(date).format('DD')}
                   onChange={(v: Date) => onDateTimeChange('date', v)}
                 />
-                <HStack>
-                  <NumberInput
-                    size='sm'
-                    step={1}
-                    min={0}
-                    max={23}
-                    value={dateTime.hour}
-                    onChange={(v) => onDateTimeChange('hour', Number(v))}>
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                  <Text>시</Text>
-                  <NumberInput
-                    size='sm'
-                    step={5}
-                    min={0}
-                    max={59}
-                    value={dateTime.min}
-                    onChange={(v) => onDateTimeChange('min', Number(v))}>
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                  <Text>분</Text>
-                </HStack>
-              </VStack>
+                <Flex gap='5' justify='center' mt='4'>
+                  <Flex align='center' gap='1'>
+                    <Select
+                      variant='outline'
+                      value={dateTime.hour}
+                      onChange={(e) => onDateTimeChange('hour', Number(e.target.value))}
+                      size='md'>
+                      {Array.from({ length: 23 }, (_, i) => i).map((v) => (
+                        <option key={`hour-${v}`} value={v}>
+                          {v}
+                        </option>
+                      ))}
+                    </Select>
+                    <Text>시</Text>
+                  </Flex>
+                  <Flex align='center' gap='1'>
+                    <Select
+                      variant='outline'
+                      value={dateTime.min}
+                      onChange={(e) => onDateTimeChange('min', Number(e.target.value))}
+                      size='md'>
+                      {Array.from({ length: 12 }, (_, i) => i * 5).map((v) => (
+                        <option key={`hour-${v}`} value={v}>
+                          {v}
+                        </option>
+                      ))}
+                    </Select>
+                    <Text>분</Text>
+                  </Flex>
+                </Flex>
+              </>
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
