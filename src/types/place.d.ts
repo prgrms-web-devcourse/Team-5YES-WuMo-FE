@@ -35,6 +35,11 @@ export type Category = {
   };
 };
 
+export type CategoryGridProps = {
+  value: string;
+  setValueHandler: (name: string) => void;
+};
+
 export type Place = {
   id?: number;
   name: string;
@@ -138,9 +143,8 @@ export type ImageData = {
   imageFile: File | null;
 };
 
-export type PlacesParams = {
-  cursorId: number;
-  pageSize: number;
+type PlaceEditModalProps = {
+  place: PlacePatchBody;
   partyId: number;
 };
 
@@ -148,4 +152,18 @@ export type PlaceToRoute = {
   routeId: number | null;
   locationId: number;
   partyId: number;
+};
+
+export type PlaceCommentCreateBody = {
+  content: string;
+  image: string;
+  locationId: number;
+  partyId: number;
+};
+
+export type PlaceCommentPatchBody = Pick<
+  'PlaceCommentCreateBody' | 'content',
+  'image'
+> & {
+  id: number;
 };

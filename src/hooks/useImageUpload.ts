@@ -2,12 +2,10 @@ import { ChangeEvent, RefObject, useState } from 'react';
 
 import { ImageData } from '@/types/place';
 
-type useImageInputProps = {
-  initialValues: ImageData;
-  inputRef: RefObject<HTMLInputElement>;
-};
-
-const useImageUpload = ({ initialValues, inputRef }: useImageInputProps) => {
+const useImageUpload = (
+  initialValues: ImageData,
+  inputRef: RefObject<HTMLInputElement>
+) => {
   const [values, setValues] = useState<ImageData>(initialValues);
 
   const onFileChoose = () => {

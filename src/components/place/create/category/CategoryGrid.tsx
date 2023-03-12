@@ -1,12 +1,8 @@
 import { Flex, Grid, GridItem, Image } from '@chakra-ui/react';
 
+import { CategoryGridProps } from '@/types/place';
 import { getGitEmoji } from '@/utils/constants/emoji';
 import { categoryInfo, selectedCategoryStyle } from '@/utils/constants/place';
-
-type CategoryGridProps = {
-  value: string;
-  setValueHandler: (name: string) => void;
-};
 
 const CategoryGrid = ({ value, setValueHandler }: CategoryGridProps) => {
   return (

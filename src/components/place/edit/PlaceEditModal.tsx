@@ -37,17 +37,12 @@ import { createImage, deleteImage } from '@/api/image';
 import { patchPlace } from '@/api/place';
 import ModalButton from '@/components/base/ModalButton';
 import useImageUpload from '@/hooks/useImageUpload';
-import { PlacePatchBody } from '@/types/place';
+import { PlaceEditModalProps } from '@/types/place';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 import { PLACE_DESCRIPTION_MAX_LENGTH } from '@/utils/constants/party';
 import { convertDateTime, formatPrice } from '@/utils/formatter';
 
 import CategoryGrid from '../create/category/CategoryGrid';
-
-type PlaceEditModalProps = {
-  place: PlacePatchBody;
-  partyId: number;
-};
 
 const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
   const navigate = useNavigate();
@@ -66,13 +61,13 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
     onFileChange,
     onFileChoose,
     onFileDelete,
-  } = useImageUpload({
-    initialValues: {
+  } = useImageUpload(
+    {
       imageBase64: place.image,
       imageFile: null,
     },
-    inputRef,
-  });
+    inputRef
+  );
 
   const onDateTimeChange = (type: 'date' | 'hour' | 'min', newValue: Date | number) => {
     setDateTime({ ...dateTime, [type]: newValue });
