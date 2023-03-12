@@ -7,26 +7,19 @@ type useImageInputProps = {
   inputRef: RefObject<HTMLInputElement>;
 };
 
-const useImageInput = ({ initialValues, inputRef }: useImageInputProps) => {
+const useImageUpload = ({ initialValues, inputRef }: useImageInputProps) => {
   const [values, setValues] = useState<ImageData>(initialValues);
+
+  const onFileChoose = () => {
+    inputRef.current?.click();
+  };
 
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValues({ ...values, imageFile: file });
       encodeFileToBase64(file);
-      e.target.value = '';
     }
-  };
-
-  const onFileDelete = () => {
-    if (confirm('사진을 삭제하시겠습니까?')) {
-      setValues({ ...values, imageBase64: '', imageFile: null });
-    }
-  };
-
-  const onFileChoose = () => {
-    inputRef.current?.click();
+    e.target.value = '';
   };
 
   const encodeFileToBase64 = (fileBlob: File) => {
@@ -36,13 +29,19 @@ const useImageInput = ({ initialValues, inputRef }: useImageInputProps) => {
       reader.onload = () => {
         const result = reader.result;
         if (!result || typeof result !== 'string') return;
-        setValues({ ...values, imageBase64: result });
+        setValues({ ...values, imageBase64: result, imageFile: fileBlob });
         resolve(Promise);
       };
     });
   };
 
+  const onFileDelete = () => {
+    if (confirm('사진을 삭제하시겠습니까?')) {
+      setValues({ ...values, imageBase64: '', imageFile: null });
+    }
+  };
+
   return { values, onFileChange, onFileChoose, onFileDelete };
 };
 
-export default useImageInput;
+export default useImageUpload;
