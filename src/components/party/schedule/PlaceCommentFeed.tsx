@@ -1,8 +1,8 @@
 import { Box, Img } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
-import { fetchLocationCommentList, fetchScheduleList } from '@/api/schedules';
+import { fetchRouteCommentList, fetchScheduleList } from '@/api/schedules';
 import Loading from '@/components/base/Loading';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
@@ -24,22 +24,27 @@ const moreMenuEvent = {
 const RouteCommentFeed = () => {
   const { scrollActive } = useScrollEvent(300);
   const { state } = useLocation();
+  const { partyId } = useParams();
 
   const {
     data: commentList,
     isLoading: commentLoading,
     isError: commentError,
   } = useQuery<CommentListType>(['commentList'], () =>
-    fetchLocationCommentList(0, state.locationId)
+    fetchRouteCommentList(0, state.locationId)
   );
 
   const {
     data: scheduleList,
     isLoading: scheduleLoading,
     isError: scheduleError,
-  } = useQuery<ScheduleType>(['scheduleList'], () => fetchScheduleList(11, false), {
-    staleTime: 10000,
-  });
+  } = useQuery<ScheduleType>(
+    ['scheduleList'],
+    () => fetchScheduleList(Number(partyId), false),
+    {
+      staleTime: 10000,
+    }
+  );
 
   if (commentLoading || scheduleLoading)
     return (
@@ -57,6 +62,8 @@ const RouteCommentFeed = () => {
     scheduleList.locations,
     state.locationId
   )[0];
+
+  if (!currentLocation) return <></>;
 
   const placeData = {
     place: currentLocation.name,
