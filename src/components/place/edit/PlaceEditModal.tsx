@@ -40,7 +40,7 @@ import useImageUpload from '@/hooks/useImageUpload';
 import { PlacePatchBody } from '@/types/place';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 import { PLACE_DESCRIPTION_MAX_LENGTH } from '@/utils/constants/party';
-import { formatPrice } from '@/utils/formatter';
+import { convertDateTime, formatPrice } from '@/utils/formatter';
 
 import CategoryGrid from '../create/category/CategoryGrid';
 
@@ -100,7 +100,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
   const getDateTime = () => {
     const newDate = new Date(dateTime.date);
     newDate.setHours(dateTime.hour, dateTime.min);
-    return newDate.toISOString();
+    return convertDateTime(newDate);
   };
 
   const onSubmit = async () => {
@@ -165,7 +165,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
                       value={dateTime.hour}
                       onChange={(e) => onDateTimeChange('hour', Number(e.target.value))}
                       size='md'>
-                      {Array.from({ length: 23 }, (_, i) => i).map((v) => (
+                      {Array.from({ length: 24 }, (_, i) => i).map((v) => (
                         <option key={`hour-${v}`} value={v}>
                           {v}
                         </option>

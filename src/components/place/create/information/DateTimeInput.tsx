@@ -27,13 +27,6 @@ const DateTimeInput = () => {
 
   const handleChange = (type: 'date' | 'hour' | 'min', newValue: Date | number) => {
     setValues({ ...values, [type]: newValue });
-
-    const newDate = new Date(values.date);
-    newDate.setHours(values.hour, values.min);
-    setCreatePlaceBody({
-      ...createPlaceBody,
-      visitDate: newDate.toISOString(),
-    });
   };
 
   return (
@@ -50,7 +43,15 @@ const DateTimeInput = () => {
           <Select
             variant='outline'
             value={values.hour}
-            onChange={(e) => handleChange('hour', Number(e.target.value))}
+            onChange={(e) => {
+              handleChange('hour', Number(e.target.value));
+              const newDate = values.date;
+              newDate.setHours(Number(e.target.value));
+              setCreatePlaceBody({
+                ...createPlaceBody,
+                visitDate: values.date.toISOString(),
+              });
+            }}
             size='md'>
             {Array.from({ length: 24 }, (_, i) => i).map((v) => (
               <option key={`hour-${v}`} value={v}>
@@ -64,7 +65,15 @@ const DateTimeInput = () => {
           <Select
             variant='outline'
             value={values.min}
-            onChange={(e) => handleChange('min', Number(e.target.value))}
+            onChange={(e) => {
+              handleChange('min', Number(e.target.value));
+              const newDate = values.date;
+              newDate.setMinutes(Number(e.target.value));
+              setCreatePlaceBody({
+                ...createPlaceBody,
+                visitDate: values.date.toISOString(),
+              });
+            }}
             size='md'>
             {Array.from({ length: 12 }, (_, i) => i * 5).map((v) => (
               <option key={`min-${v}`} value={v}>

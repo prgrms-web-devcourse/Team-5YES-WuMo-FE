@@ -19,6 +19,7 @@ import { createPlaceState } from '@/store/recoilPlaceState';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 import { getSearchAddress, MAX_ADDRESS_LENGTH } from '@/utils/constants/place';
 import { PlaceInformationItems } from '@/utils/constants/processStep';
+import { convertDateTime } from '@/utils/formatter';
 
 const PlaceInformationModal = () => {
   const {
@@ -62,7 +63,7 @@ const PlaceInformationModal = () => {
       longitude,
       category,
       description,
-      visitDate,
+      visitDate: convertDateTime(new Date(visitDate)),
       expectedCost,
       image: imageUrl,
       address: address.slice(0, MAX_ADDRESS_LENGTH),
