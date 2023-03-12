@@ -12,15 +12,18 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
 import {
   createPartyInvitation,
   fetchPartyInformation,
-  fetchPartyMembers,
+  fetchPartyMembersMeInfo,
 } from '@/api/party';
+import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
+import { partyDetailState, partyMeRoleState } from '@/store/recoilPartyState';
 import {
   CalculateStayDurationProps,
   PartyInformationType,
@@ -43,6 +46,9 @@ const PartyInformation = () => {
   const { scrollActive } = useScrollEvent(300);
   const { partyId } = useParams();
 
+  const setPartyDetail = useSetRecoilState(partyDetailState);
+  const setPartyMeRole = useSetRecoilState(partyMeRoleState);
+
   const {
     data: partyInformation,
     isLoading: partyInformationLoading,
@@ -52,13 +58,17 @@ const PartyInformation = () => {
   );
 
   const {
-    data: partyUserList,
-    isLoading: partyUserListLoading,
-    isError: partyUserListError,
-  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
-    fetchPartyMembers(Number(partyId))
+    data: partyMemberMeInfo,
+    isLoading: partyMemberMeInfoLoading,
+    isError: partyMemberMeInfoError,
+  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
+    fetchPartyMembersMeInfo(Number(partyId))
   );
 
+  if (partyInformation && partyMemberMeInfo) {
+    setPartyDetail(partyInformation);
+    setPartyMeRole(partyMemberMeInfo);
+  }
   const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
     onSuccess: () => {
       Toast.show({
@@ -76,8 +86,13 @@ const PartyInformation = () => {
     },
   });
 
-  if (partyInformationLoading || partyUserListLoading) return <></>;
-  if (partyInformationError || partyUserListError) return <></>;
+  if (partyInformationLoading || partyMemberMeInfoLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (partyInformationError || partyMemberMeInfoError) return <></>;
 
   const copyPartyInvitationCode = async (url: string) => {
     const body = {
