@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { createPlaceState } from '@/store/recoilPlaceState';
+import { MAX_EXPECTED_COST } from '@/utils/constants/place';
 import { formatPrice, parsePrice } from '@/utils/formatter';
 
 const PriceInput = () => {
@@ -26,6 +27,7 @@ const PriceInput = () => {
       value={formatPrice(Number(value))}
       onChange={handleChange}
       min={0}
+      max={MAX_EXPECTED_COST}
       borderColor='gray.300'
       focusBorderColor='primary.red'>
       <NumberInputField />

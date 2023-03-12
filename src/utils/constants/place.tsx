@@ -116,6 +116,7 @@ export const COMMENT_DUMMY_DATA: Comment[] = [
 ];
 
 export const MAX_ADDRESS_LENGTH = 50;
+export const MAX_EXPECTED_COST = 2147483647;
 
 export const getSearchAddress = (address: string) => {
   const cityList = [
