@@ -74,7 +74,7 @@ export type PlaceInformation = {
   routeId: number;
 };
 
-export type UpdatePlaceBody = Pick<
+export type PlacePatchBody = Pick<
   PlaceInformation,
   'id',
   'image',
@@ -95,7 +95,8 @@ export type PlaceInformationType =
   | 'expectedCost'
   | 'imageURL'
   | 'description'
-  | 'address';
+  | 'address'
+  | 'category';
 
 export type PlaceInformationStepItem = {
   type: PlaceInformationType;
@@ -136,7 +137,7 @@ export type ImageData = {
   imageFile: File | null;
 };
 
-export type FetchPlacesParams = {
+export type PlacesParams = {
   cursorId: number;
   pageSize: number;
   partyId: number;

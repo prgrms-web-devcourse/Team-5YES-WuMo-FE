@@ -1,8 +1,8 @@
-import { FetchPlacesParams, Place, PlaceToRoute, UpdatePlaceBody } from '@/types/place';
+import { Place, PlacePatchBody, PlacesParams, PlaceToRoute } from '@/types/place';
 
 import axiosInstance from './api';
 
-export const fetchPlaces = async ({ cursorId, pageSize, partyId }: FetchPlacesParams) => {
+export const fetchPlaces = async ({ cursorId, pageSize, partyId }: PlacesParams) => {
   try {
     const response = await axiosInstance.get(
       `/locations?cursorId=${cursorId}&pageSize=${pageSize}&partyId=${partyId}`
@@ -31,7 +31,7 @@ export const createPlace = async (data: Place) => {
   }
 };
 
-export const updatePlace = async (data: UpdatePlaceBody) => {
+export const patchPlace = async (data: PlacePatchBody) => {
   try {
     const response = await axiosInstance.post('/locations', data);
     if (response) return response.data;

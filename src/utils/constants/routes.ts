@@ -13,6 +13,7 @@ const ROUTES = {
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile/edit',
   PLACE_NEW: '/place/new',
+  PLACE_EDIT: '/place/edit',
   PLACE_DETAIL: '/place/:placeId',
   PARTY_LIST: '/party-list',
   BEST_ROUTE_LIST: '/best-route-list',
