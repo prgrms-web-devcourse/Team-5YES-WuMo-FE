@@ -47,6 +47,8 @@ export type ScheduleLocationType = {
 
 export type ScheduleType = {
   id: number;
+  isLiking: boolean;
+  name: string;
   isPublic: boolean;
   locations: ScheduleLocationType[];
   partyId: number;

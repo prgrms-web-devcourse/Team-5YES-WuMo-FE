@@ -16,6 +16,7 @@ export type BestRouteListSort = {
 export type BestRouteListType = {
   routes: {
     routeId: number;
+    partyId: number;
     image: string;
     likeCount: number;
     isLiking: boolean;

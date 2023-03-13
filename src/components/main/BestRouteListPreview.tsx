@@ -89,7 +89,7 @@ const BestRouteListPreview = () => {
           {BestRouteList.routes.map((route) => (
             <Box
               key={route.routeId}
-              onClick={() => !dragging && onMoveRoutePage(route.routeId)}
+              onClick={() => !dragging && onMoveRoutePage(route.partyId)}
               outline='none'
               h='180px'>
               <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' h='100%' />
