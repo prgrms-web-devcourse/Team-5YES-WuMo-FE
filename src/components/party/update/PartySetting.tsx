@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Drawer,
@@ -17,24 +16,32 @@ import {
   Input,
   Text,
 } from '@chakra-ui/react';
+import styled from '@emotion/styled';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { MdLogout } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { deleteParty, deleteWithdrawalParty } from '@/api/party';
 import { patchOwnRole } from '@/api/role';
+import ConfirmModal from '@/components/base/ConfirmModal';
 import {
   isUpdateData,
   partyDetailState,
   partyMemberListState,
+  partyMeRoleState,
 } from '@/store/recoilPartyState';
 import {
   PartyInformationType,
   PartyMemberListProps,
+  PartyMemberProps,
   PartyModalProps,
 } from '@/types/party';
 import { getGitEmoji } from '@/utils/constants/emoji';
 import { partyRoleList } from '@/utils/constants/party';
+import ROUTES from '@/utils/constants/routes';
 
+import MemberList from './MemberList';
 import PartyUpdateModal from './PartyUpdateModal';
 
 const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
@@ -45,24 +52,29 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
     boxShadow: '0 0 0 2px #ea5148 inset',
   };
 
+  const navigate = useNavigate();
+
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [removePartyModalOpen, setRemovePartyModalOpen] = useState(false);
+
   const getPartyMembersList = useRecoilValue<PartyMemberListProps>(partyMemberListState);
+  const getPartyMeRole = useRecoilValue<PartyMemberProps>(partyMeRoleState);
   const getPartyDetail = useRecoilValue<PartyInformationType>(partyDetailState);
   const setUpdated = useSetRecoilState(isUpdateData);
 
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState(getPartyMeRole.role);
 
-  const onClickRole = (role: string) => {
-    setRole(role);
-  };
+  const queryClient = useQueryClient();
+  const { mutate: handleRemoveParty } = useMutation(deleteParty);
+  const { mutate: handleWithdrawalParty } = useMutation(deleteWithdrawalParty);
 
-  const onClickUpdateParty = () => {
-    onClose();
-    setIsUpdateModalOpen(true);
-  };
-
-  const onCloseUpdateModal = () => {
-    setIsUpdateModalOpen(false);
+  const handlePartyModal = (type: string) => {
+    if (type === 'update') {
+      onClose();
+      setIsUpdateModalOpen(true);
+    } else if (type === 'remove') {
+      setRemovePartyModalOpen(true);
+    }
   };
 
   const handleUpdateRole = async () => {
@@ -89,32 +101,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
             <Text fontSize='0.875rem' mb='2' color='#808080'>
               멤버 ({getPartyMembersList.totalMembers}명)
             </Text>
-            <Box mb='10' maxH='240px' overflowY='scroll'>
-              {getPartyMembersList.members.map(
-                ({ memberId, nickname, role, profileImage }) => (
-                  <Flex
-                    key={memberId}
-                    p='0.75rem'
-                    alignItems='center'
-                    borderBottom='1px solid #eeeeee'
-                    justify='space-between'
-                    borderRadius='0.5rem'>
-                    <Flex alignItems='center' gap='1rem'>
-                      <Avatar src={profileImage} w='38px' height='38px' />
-                      <Box>
-                        <Text>{nickname}</Text>
-                        <Text fontSize='0.75rem' color='#808080'>
-                          {role}
-                        </Text>
-                      </Box>
-                    </Flex>
-                    <Button fontSize='1rem' color='primary.red' p='0.5rem'>
-                      <MdLogout />
-                    </Button>
-                  </Flex>
-                )
-              )}
-            </Box>
+            <MemberList partyId={getPartyDetail.id} />
             <Text fontSize='0.875rem' mb='2' color='#808080'>
               내 역할 설정
             </Text>
@@ -134,7 +121,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
                       backgroundColor: 'gray.100',
                       fontWeight: 'bold',
                     }}
-                    onClick={() => onClickRole(text)}
+                    onClick={() => setRole(text)}
                     {...(role === text && selected)}>
                     <Flex
                       direction='column'
@@ -167,29 +154,91 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
           </DrawerBody>
 
           <DrawerFooter flexDirection='row' gap='1rem'>
-            <Button onClick={onClickUpdateParty} w='100%' bg='primary.yellow'>
-              모임 수정
-            </Button>
-            <Button
-              w='100%'
-              bg='primary.red'
-              color='white'
-              _hover={{
-                bg: 'primary.redHover',
-              }}>
-              {/* 파티장은 모임삭제 */}
-              {/* 파티원은 모임탈퇴 */}
-              모임 삭제
-            </Button>
+            {getPartyMeRole.isLeader ? (
+              <>
+                <Button
+                  onClick={() => handlePartyModal('update')}
+                  w='100%'
+                  bg='primary.yellow'>
+                  모임 수정
+                </Button>
+                <CustomButton
+                  onClick={() => handlePartyModal('remove')}
+                  bg='primary.red'
+                  _hover={{
+                    bg: 'primary.redHover',
+                  }}>
+                  모임 삭제
+                </CustomButton>
+              </>
+            ) : (
+              <CustomButton
+                onClick={() => handlePartyModal('remove')}
+                bg='primary.red'
+                _hover={{
+                  bg: 'primary.redHover',
+                }}>
+                모임에서 나가기
+              </CustomButton>
+            )}
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
       {getPartyDetail.id !== 0 ? (
-        <PartyUpdateModal
-          partyDetail={getPartyDetail}
-          isOpen={isUpdateModalOpen}
-          onClose={onCloseUpdateModal}
-        />
+        <>
+          <PartyUpdateModal
+            partyDetail={getPartyDetail}
+            isOpen={isUpdateModalOpen}
+            onClose={() => setIsUpdateModalOpen(false)}
+          />
+          <ConfirmModal
+            isOpen={removePartyModalOpen}
+            closeModalHandler={() => setRemovePartyModalOpen(false)}
+            body={
+              <Flex direction='column' align='center' pt='0'>
+                {getPartyMeRole.isLeader
+                  ? `${getPartyDetail.name} 모임을 삭제할까요?`
+                  : `${getPartyDetail.name} 모임에서 나갈까요?`}
+              </Flex>
+            }
+            clickButtonHandler={{
+              primary: () => {
+                if (getPartyMeRole.isLeader) {
+                  handleRemoveParty(getPartyDetail.id, {
+                    onSuccess: () => {
+                      return queryClient.invalidateQueries(['onGoingPartyList']);
+                    },
+                  });
+                } else {
+                  handleWithdrawalParty(getPartyDetail.id, {
+                    onSuccess: () => {
+                      return queryClient.invalidateQueries(['onGoingPartyList']);
+                    },
+                  });
+                }
+                // {
+                //   getPartyMeRole.isLeader
+                //     ? deleteParty(getPartyDetail.id)
+                //     : deleteWithdrawalParty(getPartyDetail.id);
+                // }
+                setUpdated(true);
+                setRemovePartyModalOpen(false);
+                navigate(ROUTES.PARTY_LIST, { replace: true });
+              },
+            }}
+            buttonText={
+              getPartyMeRole.isLeader
+                ? {
+                    secondary: '취소',
+                    primary: '삭제',
+                  }
+                : {
+                    secondary: '취소',
+                    primary: '나가기',
+                  }
+            }
+          />
+        </>
       ) : (
         ''
       )}
@@ -198,3 +247,8 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
 };
 
 export default PartySetting;
+
+const CustomButton = styled(Button)`
+  width: 100%;
+  color: white;
+`;

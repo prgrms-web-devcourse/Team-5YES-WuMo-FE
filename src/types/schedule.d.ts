@@ -7,6 +7,7 @@ export type CommentType = {
   image?: string;
   createdAt: string;
   updatedAt: string;
+  isEditable: boolean;
 };
 
 export type CommentListType = {
@@ -19,6 +20,12 @@ export type CommentFeedTitleProps = {
     place: string;
     visitDate: string;
   };
+};
+
+export type UpdateCommentType = {
+  id: number;
+  content: string;
+  image: string | undefined;
 };
 
 export type AmountType = {
@@ -39,8 +46,12 @@ export type ScheduleLocationType = {
   id: number;
   name: string;
   address: string;
+  latitude: number;
+  longitude: number;
   image: string;
+  description: string;
   visitDate: string;
+  expectedCost: number;
   spending: number;
   category: string;
 };
@@ -71,4 +82,11 @@ export type CreateCommentBody = {
 export type CommentCreateType = {
   content: string;
   image: File | null;
+};
+
+export type CommentDeleteType = {
+  isOpen: boolean;
+  onClose: () => void;
+  id: number;
+  image: string | undefined;
 };

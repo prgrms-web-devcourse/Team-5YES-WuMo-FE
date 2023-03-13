@@ -4,7 +4,6 @@ import ScrollToTop from './components/base/ScrollToTop';
 import BottomNavigation from './components/navigation/BottomNavigation';
 import PartyInformation from './components/party/partyInformation/PartyInformation';
 import {
-  BestRouteDetailPage,
   BestRouteListPage,
   InvitationPage,
   LandingPage,
@@ -20,6 +19,7 @@ import {
   PlacePage,
   ProfileEditPage,
   ProfilePage,
+  RouteDetailPage,
   SignInPage,
   SignUpPage,
 } from './pages';
@@ -49,7 +49,10 @@ const Router = () => {
             <Route path={ROUTES.BEST_ROUTE_LIST} element={<BestRouteListPage />} />
           </Route>
           <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
-            <Route path={ROUTES.BEST_ROUTE_DETAIL} element={<BestRouteDetailPage />} />
+            <Route path={ROUTES.BEST_ROUTE_DETAIL} element={<RouteDetailPage />} />
+          </Route>
+          <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
+            <Route path={ROUTES.LIKE_DETAIL} element={<RouteDetailPage />} />
           </Route>
           <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
             <Route path={ROUTES.PARTY_LIST} element={<PartyListPage />} />

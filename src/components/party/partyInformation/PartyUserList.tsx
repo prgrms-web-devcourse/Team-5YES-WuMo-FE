@@ -1,19 +1,33 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { fetchPartyMembers } from '@/api/party';
+import { isUpdateData, partyMemberListState } from '@/store/recoilPartyState';
 import { PartyMemberProps } from '@/types/party';
 
 const PartyUserList = () => {
   const { partyId } = useParams();
+  const updated = useRecoilValue(isUpdateData);
+
   const {
     data: partyUserList,
     isLoading,
     isError,
-  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
-    fetchPartyMembers(Number(partyId))
+  } = useQuery<{ members: PartyMemberProps[]; lastId: number; totalMembers: number }>(
+    ['partyUserList', partyId, updated],
+    () => fetchPartyMembers(Number(partyId))
   );
+
+  const setPartyMemberList = useSetRecoilState(partyMemberListState);
+
+  useEffect(() => {
+    if (partyUserList) {
+      setPartyMemberList(partyUserList);
+    }
+  }, [partyUserList]);
 
   if (isLoading) return <></>;
   if (isError) return <></>;

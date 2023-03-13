@@ -1,26 +1,5 @@
 import axiosInstance from '@/api/api';
 import { MyPartyListParams } from '@/types/party';
-import { BestRouteListParams } from '@/types/routeList';
-
-export const fetchBestRouteList = async ({
-  cursorId,
-  pageSize,
-  sortType,
-  searchWord,
-}: BestRouteListParams) => {
-  try {
-    const response = await axiosInstance.get(
-      `/routes?cursorId=${
-        cursorId ? cursorId : ''
-      }&pageSize=${pageSize}&sortType=${sortType}&searchWord=${
-        searchWord ? searchWord : ''
-      }`
-    );
-    if (response) return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 export const fetchMyPartyList = async ({
   cursorId,

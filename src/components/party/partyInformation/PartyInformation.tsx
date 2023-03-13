@@ -10,17 +10,21 @@ import {
 } from '@chakra-ui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import { useEffect } from 'react';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
 import {
   createPartyInvitation,
   fetchPartyInformation,
-  fetchPartyMembers,
+  fetchPartyMembersMeInfo,
 } from '@/api/party';
+import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
+import { partyDetailState, partyMeRoleState } from '@/store/recoilPartyState';
 import {
   CalculateStayDurationProps,
   PartyInformationType,
@@ -43,21 +47,31 @@ const PartyInformation = () => {
   const { scrollActive } = useScrollEvent(300);
   const { partyId } = useParams();
 
+  const setPartyDetail = useSetRecoilState(partyDetailState);
+  const setPartyMeRole = useSetRecoilState(partyMeRoleState);
+
   const {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+  } = useQuery<PartyInformationType>(['partyInformation', partyId], () =>
     fetchPartyInformation(Number(partyId))
   );
 
   const {
-    data: partyUserList,
-    isLoading: partyUserListLoading,
-    isError: partyUserListError,
-  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
-    fetchPartyMembers(Number(partyId))
+    data: partyMemberMeInfo,
+    isLoading: partyMemberMeInfoLoading,
+    isError: partyMemberMeInfoError,
+  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
+    fetchPartyMembersMeInfo(Number(partyId))
   );
+
+  useEffect(() => {
+    if (partyInformation && partyMemberMeInfo) {
+      setPartyDetail(partyInformation);
+      setPartyMeRole(partyMemberMeInfo);
+    }
+  }, [partyInformation, partyMemberMeInfo]);
 
   const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
     onSuccess: () => {
@@ -76,8 +90,13 @@ const PartyInformation = () => {
     },
   });
 
-  if (partyInformationLoading || partyUserListLoading) return <></>;
-  if (partyInformationError || partyUserListError) return <></>;
+  if (partyInformationLoading || partyMemberMeInfoLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (partyInformationError || partyMemberMeInfoError) return <></>;
 
   const copyPartyInvitationCode = async (url: string) => {
     const body = {
@@ -97,6 +116,7 @@ const PartyInformation = () => {
     name: partyInformation.name,
     startDate: partyInformation.startDate,
     endDate: partyInformation.endDate,
+    totalMembers: partyInformation.totalMembers,
     stayDurationDate,
   };
 
@@ -111,7 +131,7 @@ const PartyInformation = () => {
         mt='3.75rem'
         h='200px'
         w='100%'
-        objectFit='none'
+        objectFit='cover'
       />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>

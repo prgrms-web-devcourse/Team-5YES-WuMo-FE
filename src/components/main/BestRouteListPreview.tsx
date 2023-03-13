@@ -8,13 +8,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
-import { fetchBestRouteList } from '@/api/main';
+import { fetchBestRouteList } from '@/api/schedules';
 import { BestRouteListType } from '@/types/routeList';
 import ROUTES from '@/utils/constants/routes';
 
 import Loading from '../base/Loading';
 
-const BestRouteList = () => {
+const BestRouteListPreview = () => {
   const [dragging, setDragging] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -31,12 +31,12 @@ const BestRouteList = () => {
   );
 
   const parameter = {
-    pageSize: 10000,
+    pageSize: 5,
     sortType: 'LIKES',
   };
 
   const onMoveRoutePage = (id: string | number) => {
-    navigate(`/route/${id}`);
+    navigate(`/best-route/${id}`);
   };
 
   const onMoveBestRoutePage = () => {
@@ -90,8 +90,9 @@ const BestRouteList = () => {
             <Box
               key={route.routeId}
               onClick={() => !dragging && onMoveRoutePage(route.routeId)}
-              outline='none'>
-              <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' />
+              outline='none'
+              h='180px'>
+              <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' h='100%' />
               <Box
                 pos='absolute'
                 top='calc(50% - 1.125rem)'
@@ -108,7 +109,7 @@ const BestRouteList = () => {
   );
 };
 
-export default BestRouteList;
+export default BestRouteListPreview;
 
 const StyledSlider = styled(Slider)`
   .slick-slide {

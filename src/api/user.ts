@@ -55,11 +55,10 @@ export const patchMyProfile = async (fields: UserEditProps) => {
   }
 };
 
-export const fetchMyInformation = async () => {
-  try {
-    const response = await axiosInstance.get('/members');
-    return response?.data;
-  } catch (error) {
-    console.error(error);
-  }
+export const sendEmailCertificationCode = async (target: string) => {
+  await axiosInstance.get(`/members/send-code?address=${target}`);
+};
+
+export const checkEmailCertificaitonCode = async (email: string, code: string) => {
+  await axiosInstance.get(`/members/check-code?address=${email}&code=${code}`);
 };
