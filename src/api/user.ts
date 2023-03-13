@@ -74,7 +74,13 @@ export const patchMyProfile = async (fields: UserEditProps) => {
     const response = axiosInstance.patch('/members/me', fields);
     return response;
   } catch (error) {
-    console.error(error);
+    if (axios.isAxiosError(error)) {
+      return Toast.show({
+        title: '프로필 수정을 실패하였습니다.',
+        message: '잠시 후 다시 시도해주세요.',
+        type: 'error',
+      });
+    }
   }
 };
 
