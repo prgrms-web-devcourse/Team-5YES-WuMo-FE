@@ -2,6 +2,7 @@ export const FORM_ERROR_MESSAGES = {
   EMAIL_REQUIRED: '이메일을 입력해주세요.',
   EMAIL_PATTERN: '올바른 이메일 형식이 아닙니다.',
   EMAIL_DUPLICATED: '이미 있는 이메일입니다.',
+  EMAIL_CERTIFIED: '이메일 인증이 필요합니다.',
   NICKNAME_REQUIRED: '닉네임을 입력해주세요.',
   NICKNAME_INWORD: '한글은 단어로 입력해주세요.',
   NICKNAME_PATTERN: '한글, 영어, 숫자만 입력해주세요.',
@@ -24,4 +25,5 @@ export const PLACE_ERROR_MESSAGES = {
   VISIT_DATE_REQUIRED: '방문 예정일을 입력해 주세요.',
   EXPECTED_COST_REQUIRED: '예상 비용을 입력해 주세요.',
   IMAGE_FILE_REQUIRED: '대표 이미지를 선택해 주세요.',
+  COMMENT_REQUIRED: '사진을 추가하거나 내용을 입력해 주세요.',
 } as const;

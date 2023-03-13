@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import { useEffect } from 'react';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
@@ -65,10 +66,13 @@ const PartyInformation = () => {
     fetchPartyMembersMeInfo(Number(partyId))
   );
 
-  if (partyInformation && partyMemberMeInfo) {
-    setPartyDetail(partyInformation);
-    setPartyMeRole(partyMemberMeInfo);
-  }
+  useEffect(() => {
+    if (partyInformation && partyMemberMeInfo) {
+      setPartyDetail(partyInformation);
+      setPartyMeRole(partyMemberMeInfo);
+    }
+  }, [partyInformation, partyMemberMeInfo]);
+
   const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
     onSuccess: () => {
       Toast.show({
@@ -112,6 +116,7 @@ const PartyInformation = () => {
     name: partyInformation.name,
     startDate: partyInformation.startDate,
     endDate: partyInformation.endDate,
+    totalMembers: partyInformation.totalMembers,
     stayDurationDate,
   };
 

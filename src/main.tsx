@@ -22,6 +22,8 @@ const {
   Input,
   Table,
   Tabs,
+  Tag,
+  Textarea,
   Modal,
   NumberInput,
   Progress,
@@ -29,6 +31,8 @@ const {
   Menu,
   Spinner,
   Switch,
+  Select,
+  PinInput,
 } = chakraTheme.components;
 
 const theme = extendBaseTheme({
@@ -45,6 +49,8 @@ const theme = extendBaseTheme({
     Input,
     Table,
     Tabs,
+    Tag,
+    Textarea,
     Modal,
     Menu,
     NumberInput,
@@ -52,6 +58,8 @@ const theme = extendBaseTheme({
     List,
     Spinner,
     Switch,
+    Select,
+    PinInput,
   },
   fonts: {
     heading: `'Pretendard-Regular', sans-serif`,

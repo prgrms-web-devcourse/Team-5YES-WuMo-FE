@@ -1,5 +1,6 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -22,9 +23,11 @@ const PartyUserList = () => {
 
   const setPartyMemberList = useSetRecoilState(partyMemberListState);
 
-  if (partyUserList) {
-    setPartyMemberList(partyUserList);
-  }
+  useEffect(() => {
+    if (partyUserList) {
+      setPartyMemberList(partyUserList);
+    }
+  }, [partyUserList]);
 
   if (isLoading) return <></>;
   if (isError) return <></>;

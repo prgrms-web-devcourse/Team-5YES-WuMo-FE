@@ -23,6 +23,7 @@ import {
   SignInPage,
   SignUpPage,
 } from './pages';
+import PlaceEditPage from './pages/PlaceEditPage';
 import { PrivateRoute } from './utils/constants/redirect';
 import ROUTES from './utils/constants/routes';
 
@@ -77,6 +78,9 @@ const Router = () => {
           </Route>
           <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
             <Route path={ROUTES.PLACE_DETAIL} element={<PlacePage />} />
+          </Route>
+          <Route element={<PrivateRoute redirectPath={ROUTES.NOTFOUND} />}>
+            <Route path={ROUTES.PLACE_EDIT} element={<PlaceEditPage />} />
           </Route>
         </Route>
 

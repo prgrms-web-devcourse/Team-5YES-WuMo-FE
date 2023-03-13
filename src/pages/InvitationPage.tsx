@@ -3,16 +3,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import {
-  createRegisterParty,
-  fetchPartyInformation,
-  fetchPartyInvitationCode,
-} from '@/api/party';
-import { fetchMyInformation } from '@/api/user';
+import { createRegisterParty, fetchPartyInvitationCode } from '@/api/party';
+import { fetchMyProfileInfo } from '@/api/user';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
-import { PartyInformationType } from '@/types/party';
 import { UserProps } from '@/types/user';
 import ROUTES from '@/utils/constants/routes';
 
@@ -34,13 +29,13 @@ const InvitationPage = () => {
         type: 'warning',
         duration: 3000,
       });
-      navigate(ROUTES.LANDING);
+      navigate(ROUTES.LANDING, { replace: true });
     }
   }, []);
 
   const { mutateAsync: registerUser } = useMutation(createRegisterParty, {
     onSuccess: () => {
-      navigate(`/party/${checkCode.partyId}`);
+      navigate(`/party/${checkCode.partyId}`, { replace: true });
       Toast.show({
         title: `모임에 참여하게 되었어요!`,
         message: '우측 상단 톱니바퀴를 눌러서 내 역할을 설정해보세요!',
@@ -55,7 +50,7 @@ const InvitationPage = () => {
         duration: 3000,
         type: 'error',
       });
-      navigate(`/party/${checkCode.partyId}`);
+      navigate(`/party/${checkCode.partyId}`, { replace: true });
     },
   });
 
@@ -71,26 +66,20 @@ const InvitationPage = () => {
   );
 
   const {
-    data: partyInformation,
+    data: myInformation,
     isError,
     isLoading,
-  } = useQuery<PartyInformationType>(
-    ['partyInformation'],
-    () => fetchPartyInformation(checkCode.partyId),
-    {
-      enabled: !!checkCode,
-    }
-  );
-
-  const { data: myInformation } = useQuery<UserProps>(['myProfile'], fetchMyInformation, {
+  } = useQuery<UserProps>(['myProfileInfo'], fetchMyProfileInfo, {
     enabled: !!checkCode,
   });
 
-  if (isError) <></>;
+  if (isError) return <></>;
   if (isLoading)
-    <>
-      <Loading />
-    </>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
 
   return (
     <>
@@ -106,8 +95,7 @@ const InvitationPage = () => {
               파티에 초대되었어요!
             </Heading>
             <Text wordBreak='keep-all' textAlign='center' pb='0.625rem'>
-              &quot;{partyInformation?.name}&quot; 모임에서 {myInformation?.nickname}님을
-              초대하셨어요.
+              모임에서 {myInformation?.nickname}님을 초대하셨어요.
             </Text>
             <Text>파티에 참여하시겠습니까?</Text>
           </Flex>
@@ -118,7 +106,7 @@ const InvitationPage = () => {
           },
           secondary: () => {
             localStorage.removeItem('invitation');
-            navigate(ROUTES.MAIN);
+            navigate(ROUTES.MAIN, { replace: true });
           },
         }}
         buttonText={{

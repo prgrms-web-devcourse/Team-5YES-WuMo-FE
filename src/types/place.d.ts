@@ -35,6 +35,11 @@ export type Category = {
   };
 };
 
+export type CategoryGridProps = {
+  value: string;
+  setValueHandler: (name: string) => void;
+};
+
 export type Place = {
   id?: number;
   name: string;
@@ -72,9 +77,10 @@ export type PlaceInformation = {
   expectedCost: number;
   spending: number;
   routeId: number;
+  isEditable: boolean;
 };
 
-export type UpdatePlaceBody = Pick<
+export type PlacePatchBody = Pick<
   PlaceInformation,
   'id',
   'image',
@@ -95,9 +101,10 @@ export type PlaceInformationType =
   | 'expectedCost'
   | 'imageURL'
   | 'description'
-  | 'address';
+  | 'address'
+  | 'category';
 
-export type PlaceInformationStepItem = {
+export type PlaceInformationItem = {
   type: PlaceInformationType;
   icon: JSX.Element;
   text: string;
@@ -136,14 +143,57 @@ export type ImageData = {
   imageFile: File | null;
 };
 
-export type FetchPlacesParams = {
-  cursorId: number;
-  pageSize: number;
+type PlaceEditModalProps = {
+  place: PlacePatchBody;
   partyId: number;
 };
 
 export type PlaceToRoute = {
-  routeId: number | null;
   locationId: number;
   partyId: number;
+};
+
+export type PlaceCommentCreateBody = {
+  content: string;
+  image: string;
+  locationId: number;
+  partyId: number;
+};
+
+export type PlaceCommentPatchBody = Pick<
+  'PlaceCommentCreateBody' | 'content',
+  'image'
+> & {
+  id: number;
+};
+
+export type CommentListProps = {
+  placeId: number;
+};
+
+type PlaceComment = {
+  id: number;
+  nickName: string;
+  profileImage?: string;
+  memberRole: string;
+  content?: string;
+  image?: string;
+  createdAt: string;
+  updatedAt: string;
+  isEditable: boolean;
+};
+
+export type PlaceCommentType = {
+  locationComments: PlaceComment[];
+  lastId: number;
+};
+
+export type CommentFormProps = {
+  type: 'create' | 'edit';
+  oldContent?: string | null;
+  oldImage?: string | null;
+  partyId?: number;
+  placeId?: number;
+  commentId?: number;
+  setEditHandler?: () => void;
 };

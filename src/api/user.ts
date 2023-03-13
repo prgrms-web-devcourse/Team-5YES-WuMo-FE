@@ -39,7 +39,7 @@ export const fetchNickname = async (target: string) => {
 
 export const fetchMyProfileInfo = async () => {
   try {
-    const response = await axiosInstance.get('/members');
+    const response = await axiosInstance.get('/members/me');
     return response?.data;
   } catch (error) {
     console.error(error);
@@ -48,18 +48,17 @@ export const fetchMyProfileInfo = async () => {
 
 export const patchMyProfile = async (fields: UserEditProps) => {
   try {
-    const response = axiosInstance.patch('/members', fields);
+    const response = axiosInstance.patch('/members/me', fields);
     return response;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const fetchMyInformation = async () => {
-  try {
-    const response = await axiosInstance.get('/members');
-    return response?.data;
-  } catch (error) {
-    console.error(error);
-  }
+export const sendEmailCertificationCode = async (target: string) => {
+  await axiosInstance.get(`/members/send-code?address=${target}`);
+};
+
+export const checkEmailCertificaitonCode = async (email: string, code: string) => {
+  await axiosInstance.get(`/members/check-code?address=${email}&code=${code}`);
 };

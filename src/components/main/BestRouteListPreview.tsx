@@ -1,7 +1,7 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
+import { Button, Flex, Heading } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -13,6 +13,7 @@ import { BestRouteListType } from '@/types/routeList';
 import ROUTES from '@/utils/constants/routes';
 
 import Loading from '../base/Loading';
+import BestRouteListItem from './BestRouteListItem';
 
 const BestRouteListPreview = () => {
   const [dragging, setDragging] = useState<boolean>(false);
@@ -35,10 +36,6 @@ const BestRouteListPreview = () => {
     sortType: 'LIKES',
   };
 
-  const onMoveRoutePage = (id: string | number) => {
-    navigate(`/best-route/${id}`);
-  };
-
   const onMoveBestRoutePage = () => {
     navigate(ROUTES.BEST_ROUTE_LIST);
   };
@@ -54,7 +51,7 @@ const BestRouteListPreview = () => {
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
-    centerPadding: '100px',
+    centerPadding: '120px',
     touchThreshold: 200,
     beforeChange: () => setDragging(true),
     afterChange: () => setDragging(false),
@@ -87,21 +84,7 @@ const BestRouteListPreview = () => {
       <>
         <StyledSlider {...settings}>
           {BestRouteList.routes.map((route) => (
-            <Box
-              key={route.routeId}
-              onClick={() => !dragging && onMoveRoutePage(route.partyId)}
-              outline='none'
-              h='180px'>
-              <Image src={route.image} pos='relative' w='100%' maxH='12.5rem' h='100%' />
-              <Box
-                pos='absolute'
-                top='calc(50% - 1.125rem)'
-                left='calc(50% - 6.25rem)'
-                w='12.5rem'
-                textAlign='center'>
-                <Heading size='md'>{route.name}</Heading>
-              </Box>
-            </Box>
+            <BestRouteListItem key={route.routeId} dragging={dragging} {...route} />
           ))}
         </StyledSlider>
       </>
@@ -113,12 +96,12 @@ export default BestRouteListPreview;
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
-    opacity: 0.8;
     transform: scale(0.9);
     transition: all 500ms ease;
     display: inline-block;
-    max-height: 12.5rem;
+    max-height: 13.75rem;
     padding: 0 1.25rem;
+    height: 13.75rem;
   }
 
   .slick-center {

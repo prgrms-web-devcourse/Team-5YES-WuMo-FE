@@ -19,7 +19,7 @@ const MainPage = () => {
         message: '초대받은 모임이 있어요.',
         type: 'info',
       });
-      navigate(`/invitation/${storedValue.roomId}`);
+      navigate(`/invitation/${storedValue.roomId}`, { replace: true });
       localStorage.removeItem('invitation');
     }
   }, []);

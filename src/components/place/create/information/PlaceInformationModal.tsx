@@ -18,7 +18,8 @@ import ModalButton from '@/components/base/ModalButton';
 import { createPlaceState } from '@/store/recoilPlaceState';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 import { getSearchAddress, MAX_ADDRESS_LENGTH } from '@/utils/constants/place';
-import { PlaceInformationStepItems } from '@/utils/constants/processStep';
+import { PlaceInformationItems } from '@/utils/constants/processStep';
+import { convertDateTime } from '@/utils/formatter';
 
 const PlaceInformationModal = () => {
   const {
@@ -40,7 +41,6 @@ const PlaceInformationModal = () => {
 
   const onClickButton = async () => {
     if (!visitDate) return PLACE_ERROR_MESSAGES.VISIT_DATE_REQUIRED;
-    if (!expectedCost) return PLACE_ERROR_MESSAGES.EXPECTED_COST_REQUIRED;
     if (!imageFile) return PLACE_ERROR_MESSAGES.IMAGE_FILE_REQUIRED;
 
     await onSubmitNewPlace();
@@ -63,7 +63,7 @@ const PlaceInformationModal = () => {
       longitude,
       category,
       description,
-      visitDate,
+      visitDate: convertDateTime(new Date(visitDate)),
       expectedCost,
       image: imageUrl,
       address: address.slice(0, MAX_ADDRESS_LENGTH),
@@ -88,7 +88,7 @@ const PlaceInformationModal = () => {
     <>
       <ModalBody>
         <Accordion allowToggle>
-          {PlaceInformationStepItems.map(({ type, icon, text, content }) => (
+          {PlaceInformationItems.map(({ type, icon, text, content }) => (
             <AccordionItem key={type}>
               <AccordionButton justifyContent='space-between'>
                 <Flex gap='1.5' align='center'>
@@ -105,7 +105,7 @@ const PlaceInformationModal = () => {
       <ModalFooter>
         <ModalButton
           text='후보지 추가'
-          isDisabled={!visitDate || !expectedCost || !imageFile}
+          isDisabled={!visitDate || !imageFile}
           clickButtonHandler={onClickButton}
         />
       </ModalFooter>

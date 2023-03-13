@@ -10,6 +10,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -87,11 +88,19 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20' h='3.75rem' userSelect='none'>
       <Flex justify='space-between' mb='0.5rem'>
-        <BackButton onClick={() => navigate(-1)}>
+        <BackButton
+          css={css`
+            margin-right: 10px;
+          `}
+          onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </BackButton>
         <Title>{title}</Title>
         <BackButton
+          css={css`
+            margin-left: 10px;
+            direction: rtl;
+          `}
           onClick={() => {
             if (option) onClickOption(option);
           }}>
@@ -167,6 +176,7 @@ const BackButton = styled.span`
   cursor: pointer;
   font-size: 1.5rem;
   padding-top: 0.25rem;
+  flex-grow: 1;
 `;
 
 const Nav = styled(Container)`
@@ -177,10 +187,12 @@ const Nav = styled(Container)`
 `;
 
 const Title = styled.h1`
-  position: absolute;
   font-size: 1.25rem;
-  left: 50%;
-  transform: translateX(-50%);
+  flex-grow: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
 `;
 
 export default BackNavigation;
