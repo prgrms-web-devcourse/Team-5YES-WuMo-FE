@@ -24,10 +24,6 @@ const RouteTitle = ({ scheduleList }: { scheduleList: ScheduleType }) => {
       text: '내용',
       url: `https://5yes-wumo.vercel.app/best-route/${partyId}`,
     });
-    Toast.show({
-      message: '링크 복사가 완료되었어요!',
-      type: 'success',
-    });
   };
 
   useEffect(() => {
