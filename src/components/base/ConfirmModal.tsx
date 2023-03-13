@@ -18,6 +18,7 @@ const ConfirmModal = ({
   body,
   buttonText,
   clickButtonHandler,
+  disabled,
 }: ConfirmModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={closeModalHandler} isCentered>
@@ -48,6 +49,7 @@ const ConfirmModal = ({
             {buttonText.primary && (
               <Button
                 backgroundColor='primary.red'
+                isDisabled={disabled}
                 color='white'
                 size='lg'
                 p='1.5rem 2.5rem'

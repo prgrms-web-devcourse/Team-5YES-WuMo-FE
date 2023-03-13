@@ -11,4 +11,5 @@ export type ConfirmModalProps = {
     secondary?: () => void;
     primary?: () => void;
   };
+  disabled?: boolean;
 };
