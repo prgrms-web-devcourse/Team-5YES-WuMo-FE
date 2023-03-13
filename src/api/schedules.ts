@@ -6,7 +6,7 @@ import axiosInstance from './api';
 export const fetchScheduleList = async (partyId: number, isPublic: boolean) => {
   try {
     const response = await axiosInstance.get(
-      `/routes/${partyId}?path=${isPublic ? 1 : 0}`
+      `/routes/detail?party=${partyId}&path=${isPublic ? 1 : 0}`
     );
 
     if (response) return response.data;

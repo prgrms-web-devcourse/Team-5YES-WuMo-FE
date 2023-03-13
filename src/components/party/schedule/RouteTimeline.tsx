@@ -1,4 +1,4 @@
-import { Box, List } from '@chakra-ui/react';
+import { Box, Flex, Heading, Img, List, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
@@ -33,7 +33,16 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
         <Loading />
       </>
     );
-  if (isError) return <></>;
+  if (isError)
+    return (
+      <Flex direction='column' align='center'>
+        <Heading size='md' textAlign='center' pt='36px'>
+          참여중인 모임이 없습니다
+        </Heading>
+        <Text pt='16px'>계획을 일정으로 등록해보세요!</Text>
+        <Img src='/landing-1.svg' w='300px' />
+      </Flex>
+    );
 
   return (
     <Box pos='relative'>

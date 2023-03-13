@@ -3,16 +3,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import {
-  createRegisterParty,
-  fetchPartyInformation,
-  fetchPartyInvitationCode,
-} from '@/api/party';
-import { fetchMyInformation } from '@/api/user';
+import { createRegisterParty, fetchPartyInvitationCode } from '@/api/party';
+import { fetchMyProfileInfo } from '@/api/user';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
-import { PartyInformationType } from '@/types/party';
 import { UserProps } from '@/types/user';
 import ROUTES from '@/utils/constants/routes';
 
@@ -71,26 +66,20 @@ const InvitationPage = () => {
   );
 
   const {
-    data: partyInformation,
+    data: myInformation,
     isError,
     isLoading,
-  } = useQuery<PartyInformationType>(
-    ['partyInformation'],
-    () => fetchPartyInformation(checkCode.partyId),
-    {
-      enabled: !!checkCode,
-    }
-  );
-
-  const { data: myInformation } = useQuery<UserProps>(['myProfile'], fetchMyInformation, {
+  } = useQuery<UserProps>(['myProfileInfo'], fetchMyProfileInfo, {
     enabled: !!checkCode,
   });
 
-  if (isError) <></>;
+  if (isError) return <></>;
   if (isLoading)
-    <>
-      <Loading />
-    </>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
 
   return (
     <>
@@ -106,8 +95,7 @@ const InvitationPage = () => {
               파티에 초대되었어요!
             </Heading>
             <Text wordBreak='keep-all' textAlign='center' pb='0.625rem'>
-              &quot;{partyInformation?.name}&quot; 모임에서 {myInformation?.nickname}님을
-              초대하셨어요.
+              모임에서 {myInformation?.nickname}님을 초대하셨어요.
             </Text>
             <Text>파티에 참여하시겠습니까?</Text>
           </Flex>

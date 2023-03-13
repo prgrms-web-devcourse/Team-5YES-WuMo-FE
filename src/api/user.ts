@@ -39,7 +39,7 @@ export const fetchNickname = async (target: string) => {
 
 export const fetchMyProfileInfo = async () => {
   try {
-    const response = await axiosInstance.get('/members');
+    const response = await axiosInstance.get('/members/me');
     return response?.data;
   } catch (error) {
     console.error(error);
@@ -48,7 +48,7 @@ export const fetchMyProfileInfo = async () => {
 
 export const patchMyProfile = async (fields: UserEditProps) => {
   try {
-    const response = axiosInstance.patch('/members', fields);
+    const response = axiosInstance.patch('/members/me', fields);
     return response;
   } catch (error) {
     console.error(error);

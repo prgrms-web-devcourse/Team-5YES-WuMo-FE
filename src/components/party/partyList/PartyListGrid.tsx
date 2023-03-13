@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, SimpleGrid } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,16 +45,21 @@ const PartyListGrid = () => {
             align='center'
             key={id}>
             <Image
-              src={coverImage ? '/logo-lg.svg' : coverImage}
-              h='8.75rem'
-              w='8.75rem'
+              src={coverImage ? coverImage : '/logo-lg.svg'}
+              h='100%'
+              maxH='8.75rem'
               alignItems='center'
               objectFit='cover'
               borderRadius='1.25rem'
             />
-            <Text mt='2' size='xs' wordBreak='break-all' textAlign='center'>
+            <Heading
+              mt='2'
+              size='xs'
+              wordBreak='break-all'
+              textAlign='center'
+              noOfLines={1}>
               {name}
-            </Text>
+            </Heading>
           </Flex>
         ))}
       </SimpleGrid>
