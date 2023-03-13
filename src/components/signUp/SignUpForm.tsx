@@ -26,7 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   checkEmailCertificaitonCode,
   fetchCheckEmail,
-  fetchNickname,
+  fetchCheckNickname,
   sendEmailCertificationCode,
   signUp,
 } from '@/api/user';
@@ -73,7 +73,7 @@ const SignUpForm = () => {
       return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
 
     await signUp(values);
-    navigate(ROUTES.SIGNIN);
+    navigate(ROUTES.SIGNIN, { replace: true });
   };
 
   const handleCheckEmail = async () => {
@@ -97,7 +97,7 @@ const SignUpForm = () => {
     if (!checkBefore) return;
 
     try {
-      await fetchNickname(target);
+      await fetchCheckNickname(target);
       setCheckNickname(true);
     } catch (error) {
       setCheckNickname(false);

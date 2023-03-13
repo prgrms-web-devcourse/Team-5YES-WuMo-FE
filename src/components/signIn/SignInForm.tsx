@@ -35,7 +35,7 @@ const SignInForm = () => {
         accessToken,
         refreshToken,
       });
-      navigate(ROUTES.MAIN);
+      navigate(ROUTES.MAIN, { replace: true });
     } catch (error) {
       console.error(error);
     }

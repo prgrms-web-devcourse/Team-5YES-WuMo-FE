@@ -15,11 +15,11 @@ const UserProfile = () => {
   } = useQuery<UserProps>(['myProfileInfo'], () => fetchMyProfileInfo());
 
   const toProfileEdit = () => {
-    navigate(ROUTES.PROFILE_EDIT);
+    navigate(ROUTES.PROFILE_EDIT, { replace: true });
   };
 
   const toLanding = () => {
-    navigate(ROUTES.LANDING);
+    navigate(ROUTES.LANDING, { replace: true });
   };
 
   const handleLogout = async () => {

@@ -4,6 +4,7 @@ import {
   Button,
   Center,
   Container,
+  Flex,
   Input,
   Stack,
   useDisclosure,
@@ -16,13 +17,14 @@ import { MdCameraAlt } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { createImage, deleteImage } from '@/api/image';
-import { fetchMyProfileInfo, patchMyProfile } from '@/api/user';
+import { fetchCheckNickname, fetchMyProfileInfo, patchMyProfile } from '@/api/user';
 import BottomSheet from '@/components/base/BottomSheet';
 import ControlledInput from '@/components/base/ControlledInput';
 import Loading from '@/components/base/Loading';
 import SubmitButton from '@/components/base/SubmitButton';
 import { ImageData } from '@/types/place';
 import { UserEditProps } from '@/types/user';
+import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 import ROUTES from '@/utils/constants/routes';
 import { userEditSchema } from '@/utils/schema';
 
@@ -35,8 +37,11 @@ const ProfileEditForm = () => {
     control,
     handleSubmit,
     resetField,
-    reset,
-    formState: { isSubmitting },
+    setValue,
+    trigger,
+    getValues,
+    setError,
+    formState: { isSubmitting, isDirty },
   } = useForm<UserEditProps>({
     defaultValues: {
       nickname: '',
@@ -52,11 +57,10 @@ const ProfileEditForm = () => {
     isError,
   } = useQuery<UserEditProps>(['myProfileInfo'], () => fetchMyProfileInfo(), {
     onSuccess(data) {
+      if (isDirty) return;
       setOldImage(data.profileImage);
-      reset({
-        nickname: data.nickname,
-        profileImage: data.profileImage,
-      });
+      setValue('nickname', data.nickname);
+      setValue('profileImage', data.profileImage);
     },
   });
 
@@ -67,6 +71,7 @@ const ProfileEditForm = () => {
     imageBase64: oldImage,
     imageFile: null,
   });
+  const [checkNickname, setCheckNickname] = useState(false);
 
   if (isError) return <></>;
   if (isLoading)
@@ -85,6 +90,8 @@ const ProfileEditForm = () => {
   };
 
   const onSubmit = async (fields: UserEditProps) => {
+    if (!checkNickname)
+      return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
     if (oldImage === null && myProfileInfo.profileImage !== null) {
       await deleteImage(myProfileInfo.profileImage);
     }
@@ -95,8 +102,23 @@ const ProfileEditForm = () => {
       fields.profileImage = imageUrl;
     }
     fields.id = myProfileInfo.id;
+    console.log(fields);
     await patchMyProfile(fields);
-    navigate(ROUTES.PROFILE);
+    navigate(ROUTES.PROFILE, { replace: true });
+  };
+
+  const handleCheckNickname = async () => {
+    const checkBefore = await trigger('nickname');
+    const target = getValues('nickname');
+    if (!checkBefore) return;
+
+    try {
+      await fetchCheckNickname(target);
+      setCheckNickname(true);
+    } catch (error) {
+      setCheckNickname(false);
+      setError('nickname', { message: FORM_ERROR_MESSAGES.NICKNAME_DUPLICATED });
+    }
   };
 
   const handleFileChoose = () => {
@@ -170,7 +192,16 @@ const ProfileEditForm = () => {
           onChange={handleFileChange}
         />
       </Center>
-      <ControlledInput name='nickname' control={control} resetField={resetField} />
+      <Flex justify='space-between'>
+        <ControlledInput name='nickname' control={control} resetField={resetField} />
+        <Button
+          mt={7}
+          size='sm'
+          onClick={handleCheckNickname}
+          colorScheme={checkNickname ? 'green' : 'red'}>
+          중복 확인
+        </Button>
+      </Flex>
       <SubmitButton isSubmitting={isSubmitting} mt='24' width='100%' colorScheme='orange'>
         프로필 수정
       </SubmitButton>

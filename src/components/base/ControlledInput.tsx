@@ -45,9 +45,7 @@ const ControlledInput = <T extends FieldValues>({
           {...field}
         />
         <InputRightElement>
-          {fieldState.isDirty && (
-            <MdCancel cursor='pointer' onClick={() => resetField(name)} />
-          )}
+          {field.value && <MdCancel cursor='pointer' onClick={() => resetField(name)} />}
         </InputRightElement>
       </InputGroup>
       <Box height={7}>
