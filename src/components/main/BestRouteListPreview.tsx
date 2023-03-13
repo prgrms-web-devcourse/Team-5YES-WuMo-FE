@@ -8,14 +8,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
-import { fetchBestRouteList } from '@/api/main';
+import { fetchBestRouteList } from '@/api/schedules';
 import { BestRouteListType } from '@/types/routeList';
 import ROUTES from '@/utils/constants/routes';
 
 import Loading from '../base/Loading';
 import BestRouteListItem from './BestRouteListItem';
 
-const BestRouteList = () => {
+const BestRouteListPreview = () => {
   const [dragging, setDragging] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const BestRouteList = () => {
   );
 
   const parameter = {
-    pageSize: 10000,
+    pageSize: 5,
     sortType: 'LIKES',
   };
 
@@ -92,7 +92,7 @@ const BestRouteList = () => {
   );
 };
 
-export default BestRouteList;
+export default BestRouteListPreview;
 
 const StyledSlider = styled(Slider)`
   .slick-slide {

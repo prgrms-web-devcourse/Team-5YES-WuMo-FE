@@ -8,7 +8,7 @@ const BestRouteListItem = ({ name, routeId, image, dragging }: BestRouteItemProp
   const navigate = useNavigate();
 
   const onMoveRoutePage = (id: string | number) => {
-    navigate(`/route/${id}`);
+    navigate(`/best-route/${id}`);
   };
 
   return (

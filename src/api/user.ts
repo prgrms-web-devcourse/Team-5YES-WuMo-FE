@@ -48,9 +48,17 @@ export const fetchMyProfileInfo = async () => {
 
 export const patchMyProfile = async (fields: UserEditProps) => {
   try {
-    const response = axiosInstance.patch('/members', fields);
+    const response = axiosInstance.patch('/members/me', fields);
     return response;
   } catch (error) {
     console.error(error);
   }
+};
+
+export const sendEmailCertificationCode = async (target: string) => {
+  await axiosInstance.get(`/members/send-code?address=${target}`);
+};
+
+export const checkEmailCertificaitonCode = async (email: string, code: string) => {
+  await axiosInstance.get(`/members/check-code?address=${email}&code=${code}`);
 };

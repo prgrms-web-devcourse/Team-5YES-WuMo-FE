@@ -2,6 +2,7 @@ export const FORM_ERROR_MESSAGES = {
   EMAIL_REQUIRED: '이메일을 입력해주세요.',
   EMAIL_PATTERN: '올바른 이메일 형식이 아닙니다.',
   EMAIL_DUPLICATED: '이미 있는 이메일입니다.',
+  EMAIL_CERTIFIED: '이메일 인증이 필요합니다.',
   NICKNAME_REQUIRED: '닉네임을 입력해주세요.',
   NICKNAME_INWORD: '한글은 단어로 입력해주세요.',
   NICKNAME_PATTERN: '한글, 영어, 숫자만 입력해주세요.',

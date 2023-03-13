@@ -7,29 +7,29 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { fetchBestRouteList } from '@/api/schedules';
 import {
-  bestRouteListSortSearchState,
+  recoilBestRouteListParams,
   searchResultList,
 } from '@/store/recoilRouteListState';
-import { BestRouteListSortSearchProps } from '@/types/routeList';
-import ROUTES from '@/utils/constants/routes';
+import { BestRouteListParamsType } from '@/types/routeList';
 
 import PlaceLocationList from './PlaceLocationList';
 
-const BestRouteList = () => {
+const BestRouteMoreList = () => {
   const navigate = useNavigate();
 
-  const bestRouteData = useRecoilValue<BestRouteListSortSearchProps>(
-    bestRouteListSortSearchState
+  const bestRouteParam = useRecoilValue<BestRouteListParamsType>(
+    recoilBestRouteListParams
   );
+
   const [bestRouteList, setBestRouteList] = useRecoilState(searchResultList);
 
   useEffect(() => {
     const getBestRouteList = async () => {
-      const data = await fetchBestRouteList(bestRouteData);
+      const data = await fetchBestRouteList(bestRouteParam);
       setBestRouteList(data);
     };
     getBestRouteList();
-  }, [bestRouteData.sortType]);
+  }, [bestRouteParam.sortType]);
 
   return (
     <>
@@ -45,7 +45,7 @@ const BestRouteList = () => {
               border='0.0625rem solid #cfcfcf'
               cursor='pointer'
               margin='0 auto 2rem auto'
-              onClick={() => navigate(ROUTES.BEST_ROUTE_DETAIL)}>
+              onClick={() => navigate(`/best-route/${routeId}`)}>
               <Image src={image} alt={image} />
 
               <Box p='6'>
@@ -71,4 +71,4 @@ const BestRouteList = () => {
   );
 };
 
-export default BestRouteList;
+export default BestRouteMoreList;

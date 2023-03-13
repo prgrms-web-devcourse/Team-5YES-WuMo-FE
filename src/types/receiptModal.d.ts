@@ -1,4 +1,4 @@
-import { LocationsType } from './party';
+import { ScheduleLocationType } from './schedule';
 
 export type ReceiptProps = {
   isOpen: boolean;
@@ -6,11 +6,12 @@ export type ReceiptProps = {
   name: string;
   startDate: string;
   endDate: string;
+  totalMembers: number;
   stayDurationDate: string;
 };
 
 export type ReceiptItemProps = {
-  locations: LocationsType[];
+  locations: ScheduleLocationType[];
 };
 
 export type TriangleProps = {

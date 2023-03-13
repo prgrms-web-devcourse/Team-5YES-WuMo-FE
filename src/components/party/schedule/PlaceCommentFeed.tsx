@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { deletePlaceFromRoute } from '@/api/place';
-import { fetchLocationCommentList, fetchScheduleList } from '@/api/schedules';
+import { fetchRouteCommentList, fetchScheduleList } from '@/api/schedules';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import BackNavigation from '@/components/navigation/BackNavigation';
@@ -36,7 +36,7 @@ const RouteCommentFeed = () => {
     isLoading: commentLoading,
     isError: commentError,
   } = useQuery<CommentListType>(['commentList'], () =>
-    fetchLocationCommentList(0, state.locationId)
+    fetchRouteCommentList(0, state.locationId)
   );
 
   const {

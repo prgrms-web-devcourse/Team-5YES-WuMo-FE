@@ -7,6 +7,7 @@ import {
   Tab,
   TabList,
   Tabs,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import { css } from '@emotion/react';
@@ -20,15 +21,15 @@ import {
   MdSettings,
 } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { fetchBestRouteList } from '@/api/schedules';
 import {
-  bestRouteListSortSearchState,
+  recoilBestRouteListParams,
   searchResultList,
 } from '@/store/recoilRouteListState';
 import { BackNavigationProps } from '@/types/backNavigation';
-import { BestRouteListSortSearchProps } from '@/types/routeList';
+import { BestRouteListParamsType } from '@/types/routeList';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import MoreMenu from '../base/MoreMenu';
@@ -39,10 +40,12 @@ const { SEARCH, MENU, MORE } = BACKNAVIGATION_OPTIONS;
 const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isShowSearch, setIsShowSearch] = useState(false);
-  const [bestRouteData, setBestRouteData] = useRecoilState<BestRouteListSortSearchProps>(
-    bestRouteListSortSearchState
+  const [searchWord, setSearchWord] = useState('');
+  const [bestRouteParams, setBestRouteParams] = useRecoilState<BestRouteListParamsType>(
+    recoilBestRouteListParams
   );
   const setSearchResultList = useSetRecoilState(searchResultList);
+  const resetSearchParams = useResetRecoilState(recoilBestRouteListParams);
 
   const optionList = {
     [SEARCH]: <MdSearch />,
@@ -64,8 +67,23 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
   };
 
   const handleBestRouteSearch = async () => {
-    const data = await fetchBestRouteList(bestRouteData);
-    setSearchResultList(data);
+    const searchResult = await fetchBestRouteList(bestRouteParams);
+    if (bestRouteParams.searchWord) setSearchWord(bestRouteParams.searchWord);
+    setSearchResultList(searchResult);
+    setIsShowSearch(!isShowSearch);
+  };
+
+  const handleResetSearch = async () => {
+    setSearchWord('');
+    const resetParams = {
+      pageSize: 1000,
+      sortType: bestRouteParams.sortType,
+    };
+    resetSearchParams();
+
+    const searchResult = await fetchBestRouteList(resetParams);
+
+    setSearchResultList(searchResult);
   };
 
   const navigate = useNavigate();
@@ -91,14 +109,27 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           {option && optionList[option]}
         </BackButton>
       </Flex>
+      {searchWord ? (
+        <Flex bg='white' alignItems='center' justify='space-between' mx='0.5rem'>
+          <Text>
+            <strong>&quot;{searchWord}&quot;</strong>의 검색결과
+          </Text>
+          <Button fontSize='0.8rem' p='2' onClick={handleResetSearch}>
+            검색 초기화
+          </Button>
+        </Flex>
+      ) : (
+        ''
+      )}
+
       {option === SEARCH && (
         <Tabs
           bg='white'
           zIndex='20'
           colorScheme='red'
           onChange={(index) =>
-            setBestRouteData({
-              ...bestRouteData,
+            setBestRouteParams({
+              ...bestRouteParams,
               sortType: index === 0 ? 'NEWEST' : 'LIKES',
             })
           }>
@@ -125,10 +156,10 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
             w='80%'
             fontSize='0.875rem'
             padding='0.5rem'
-            value={bestRouteData.searchWord}
+            value={bestRouteParams.searchWord}
             onChange={(e) => {
-              setBestRouteData({
-                ...bestRouteData,
+              setBestRouteParams({
+                ...bestRouteParams,
                 searchWord: e.target.value,
               });
             }}
