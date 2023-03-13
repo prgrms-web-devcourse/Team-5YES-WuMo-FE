@@ -33,7 +33,7 @@ const PartyListGrid = () => {
     );
 
   return (
-    <Box mt='6' pb='10'>
+    <Box mt='6'>
       <Heading size='md'>내 모임 목록</Heading>
       <SimpleGrid mt='4' columns={3} spacing='10px'>
         {myPartyList.party.map(({ id, coverImage, name }) => (
@@ -46,9 +46,7 @@ const PartyListGrid = () => {
             key={id}>
             <Image
               src={coverImage ? coverImage : '/logo-lg.svg'}
-              h='100%'
-              maxH='8.75rem'
-              alignItems='center'
+              boxSize='80px'
               objectFit='cover'
               borderRadius='1.25rem'
             />
