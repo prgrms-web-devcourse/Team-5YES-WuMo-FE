@@ -18,7 +18,7 @@ export const fetchScheduleList = async (partyId: number, isPublic: boolean) => {
 export const fetchLocationCommentList = async (cursorId: number, locationId: number) => {
   try {
     const response = await axiosInstance.get(
-      `/party-route-comments?cursorId=${cursorId}&pageSize=1000&locationId=${locationId}`
+      `/party-route-comments?cursorId=&pageSize=1000&locationId=${locationId}`
     );
     if (response) return response.data;
   } catch (error) {

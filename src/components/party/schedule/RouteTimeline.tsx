@@ -13,20 +13,21 @@ import RouteTimelineItem from './RouteTimelineItem';
 const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps) => {
   // 상세조회를 partyId로 할지 routeId로 할지
   // 둘 다 할지 백엔드에서 아직 결정이 안남
-  const { partyId, routeId } = useParams();
+  const { partyId } = useParams();
 
   const {
     data: scheduleList,
     isLoading,
+    isFetching,
     isError,
   } = useQuery<ScheduleType>(
-    ['scheduleList'],
-    () => fetchScheduleList(Number(partyId || routeId), isPublic),
+    ['scheduleList', partyId],
+    () => fetchScheduleList(Number(partyId), isPublic),
     {
       staleTime: 10000,
     }
   );
-  if (isLoading)
+  if (isLoading || isFetching)
     return (
       <>
         <Loading />
