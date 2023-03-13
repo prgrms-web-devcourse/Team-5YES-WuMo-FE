@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Map, MapMarker, useInjectKakaoMapApi } from 'react-kakao-maps-sdk';
 import { Link, useParams } from 'react-router-dom';
 
-import Loading from '@/components/base/Loading';
 import { PlacePreviewMapProps } from '@/types/place';
 import { getGitEmoji } from '@/utils/constants/emoji';
 
@@ -21,10 +20,10 @@ const PlacePreviewMap = ({
 
   const { loading, error } = useInjectKakaoMapApi({
     appkey: import.meta.env.VITE_KAKAO_API_JS_KEY,
+    libraries: ['services'],
   });
 
-  if (loading) return <Loading />;
-  if (error) return <></>;
+  if (loading || error) return <></>;
 
   return (
     <Map
