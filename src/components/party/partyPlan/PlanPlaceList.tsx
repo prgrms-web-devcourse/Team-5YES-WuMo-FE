@@ -109,6 +109,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             display='flex'
             flexDirection='column'
             justifyContent='center'
+            width='1rem'
             gap='1.5'
             onClick={() =>
               navigate(`/place/${place.id}`, { state: { partyId: Number(partyId) } })
