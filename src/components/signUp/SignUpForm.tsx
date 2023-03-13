@@ -126,8 +126,10 @@ const SignUpForm = () => {
   const handleCertifyEmail = async () => {
     const email = getValues('email');
     try {
-      await checkEmailCertificaitonCode(email, pinCode);
-      setCertifyEmail(true);
+      const checkCertificationCode = await checkEmailCertificaitonCode(email, pinCode);
+      if (checkCertificationCode) {
+        setCertifyEmail(true);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -172,7 +174,9 @@ const SignUpForm = () => {
             <Box>
               {checkEmail && (
                 <Text pt='2' pl='2' fontSize='sm' color='green'>
-                  사용 가능한 이메일입니다.
+                  {certifyEmail
+                    ? '이메일 인증이 완료되었습니다.'
+                    : '사용 가능한 이메일입니다.'}
                 </Text>
               )}
               <FormErrorMessage pl='2' pt='2' fontSize='sm' color='red'>
@@ -222,7 +226,7 @@ const SignUpForm = () => {
         )}
 
         <FormControl isInvalid={!!errors.nickname}>
-          <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
+          <FormLabel mt='-3' fontSize='xs' fontWeight='bold' color='gray'>
             닉네임
           </FormLabel>
           <Flex align='center' gap='3'>
