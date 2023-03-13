@@ -4,10 +4,12 @@ import { ChangeAmountType, CreateCommentBody } from '@/types/schedule';
 import axiosInstance from './api';
 
 export const fetchScheduleList = async (partyId: number, isPublic: boolean) => {
+  const params = {
+    party: partyId,
+    path: isPublic ? 1 : 0,
+  };
   try {
-    const response = await axiosInstance.get(
-      `/routes/${partyId}?path=${isPublic ? 1 : 0}`
-    );
+    const response = await axiosInstance.get('/routes/detail', { params });
 
     if (response) return response.data;
   } catch (error) {
