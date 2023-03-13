@@ -46,8 +46,9 @@ const PartyListCard = ({
           borderRadius='2'
           minW={{ base: '10rem' }}
           maxW={{ base: '10rem' }}
+          minH='8.125rem'
+          maxH='8.125rem'
           src={coverImage ? coverImage : '/logo-lg.svg'}
-          alt='Caffe Latte'
         />
 
         <Stack w='100%' justifyContent='space-between' px='4' pb='3'>
