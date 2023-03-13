@@ -29,6 +29,7 @@ const {
   Menu,
   Spinner,
   Switch,
+  Select,
   PinInput,
 } = chakraTheme.components;
 
@@ -53,6 +54,7 @@ const theme = extendBaseTheme({
     List,
     Spinner,
     Switch,
+    Select,
     PinInput,
   },
   fonts: {

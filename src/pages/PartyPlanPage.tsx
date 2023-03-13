@@ -15,8 +15,8 @@ const PartyPlanPage = () => {
   const { partyId } = useParams();
   useMapScript();
 
-  const { data, isLoading, isError } = useQuery<Places>(['placeList'], () =>
-    fetchPlaces({ cursorId: 0, pageSize: 10000, partyId: Number(partyId) })
+  const { data, isLoading, isError } = useQuery<Places>(['placeList', partyId], () =>
+    fetchPlaces(0, 10000, Number(partyId))
   );
 
   if (isLoading) return <></>;

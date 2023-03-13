@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MdAdd, MdClear, MdLocationPin } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -25,17 +25,6 @@ import { formatDateTime } from '@/utils/formatter';
 const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
   const navigate = useNavigate();
   const { partyId } = useParams();
-  const [routeId, setRouteId] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (routeId) return;
-    for (const place of places) {
-      if (place.routeId) {
-        setRouteId(place.routeId);
-        return;
-      }
-    }
-  }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modal, setModal] = useState({
@@ -52,7 +41,6 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
 
   const onAddPlaceToRoute = async (placeId: number) => {
     const placeToRouteBody = {
-      routeId,
       locationId: placeId,
       partyId: Number(partyId),
     };
@@ -107,7 +95,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           marginTop='3'
           marginBottom='3'
           height='7rem'
-          border={routeId && place.routeId === routeId ? '2px solid #2b6cb0' : ''}>
+          border={place.routeId ? '2px solid #2b6cb0' : ''}>
           <Image
             src={place.image}
             alt={place.name}
@@ -121,6 +109,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             display='flex'
             flexDirection='column'
             justifyContent='center'
+            width='1rem'
             gap='1.5'
             onClick={() =>
               navigate(`/place/${place.id}`, { state: { partyId: Number(partyId) } })
@@ -141,7 +130,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             <Text fontSize='xs'>{formatDateTime(place.visitDate)}</Text>
           </CardBody>
           <CardFooter alignItems='center' padding='0' paddingRight='3'>
-            {routeId && place.routeId === routeId ? (
+            {place.routeId ? (
               <IconButton
                 variant='outline'
                 borderRadius='50px'
@@ -155,7 +144,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
                     buttonText: { secondary: '취소', primary: '삭제' },
                     buttonClickhandler: {
                       primary: () => onDeletePlaceFromRoute(Number(place.id)),
-                      secondary: () => console.log('수정 페이지로 이동'), // TODO: 해당 후보지 수정 페이지로 이동
+                      secondary: () => onClose(),
                     },
                   });
                   onOpen();
@@ -175,7 +164,10 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
                     buttonText: { secondary: '수정', primary: '추가' },
                     buttonClickhandler: {
                       primary: () => onAddPlaceToRoute(Number(place.id)),
-                      secondary: () => onClose(),
+                      secondary: () =>
+                        navigate(ROUTES.PLACE_EDIT, {
+                          state: { place, partyId: Number(partyId) },
+                        }),
                     },
                   });
                   onOpen();

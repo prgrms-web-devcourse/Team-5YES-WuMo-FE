@@ -11,7 +11,7 @@ import PlaceInformationModal from '@/components/place/create/information/PlaceIn
 import PriceInput from '@/components/place/create/information/PriceInput';
 import PlaceSearchModal from '@/components/place/create/search/PlaceSearchModal';
 import { PartyCreateStepItem } from '@/types/party';
-import { PlaceCreateStepItem, PlaceInformationStepItem } from '@/types/place';
+import { PlaceCreateStepItem, PlaceInformationItem } from '@/types/place';
 
 export const partyCreateStepItems: PartyCreateStepItem[] = [
   {
@@ -43,7 +43,7 @@ export const placeCreateStepItems: PlaceCreateStepItem[] = [
   },
 ];
 
-export const PlaceInformationStepItems: PlaceInformationStepItem[] = [
+export const PlaceInformationItems: PlaceInformationItem[] = [
   {
     type: 'visitDate',
     icon: <MdCalendarToday />,
