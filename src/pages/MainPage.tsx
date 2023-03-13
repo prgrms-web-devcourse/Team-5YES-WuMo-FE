@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Toast from '@/components/base/toast/Toast';
-import BestRouteList from '@/components/main/BestRouteList';
+import BestRouteListPreview from '@/components/main/BestRouteListPreview';
 import MainHeader from '@/components/main/MainHeader';
 import PartCreateGuide from '@/components/main/PartCreateGuide';
 import UserPartyList from '@/components/main/UserPartyList';
@@ -29,7 +29,7 @@ const MainPage = () => {
       <MainHeader />
       <PartCreateGuide />
       <Divider marginTop='2.5rem' borderTopWidth='0.625rem' />
-      <BestRouteList />
+      <BestRouteListPreview />
       <Divider marginTop='2.5rem' borderTopWidth='0.625rem' />
       <UserPartyList />
     </>
