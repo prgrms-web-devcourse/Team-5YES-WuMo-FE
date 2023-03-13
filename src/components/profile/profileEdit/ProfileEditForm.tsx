@@ -35,8 +35,8 @@ const ProfileEditForm = () => {
     control,
     handleSubmit,
     resetField,
-    reset,
-    formState: { isSubmitting },
+    setValue,
+    formState: { isSubmitting, isDirty },
   } = useForm<UserEditProps>({
     defaultValues: {
       nickname: '',
@@ -52,11 +52,10 @@ const ProfileEditForm = () => {
     isError,
   } = useQuery<UserEditProps>(['myProfileInfo'], () => fetchMyProfileInfo(), {
     onSuccess(data) {
+      if (isDirty) return;
       setOldImage(data.profileImage);
-      reset({
-        nickname: data.nickname,
-        profileImage: data.profileImage,
-      });
+      setValue('nickname', data.nickname);
+      setValue('profileImage', data.profileImage);
     },
   });
 
