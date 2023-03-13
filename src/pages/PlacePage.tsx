@@ -11,15 +11,12 @@ import CommentForm from '@/components/place/comment/CommentForm';
 import CommentList from '@/components/place/comment/CommentList';
 import PlacePreviewMap from '@/components/place/create/search/PlacePreviewMap';
 import PlaceInfoTable from '@/components/place/PlaceInfoTable';
-import useMapScript from '@/hooks/useMapScript';
 import { PlaceInformation } from '@/types/place';
 import { getGitEmoji } from '@/utils/constants/emoji';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 import ROUTES from '@/utils/constants/routes';
 
 const PlacePage = () => {
-  useMapScript();
-
   const { placeId } = useParams();
   const { state } = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
