@@ -39,7 +39,7 @@ export const fetchNickname = async (target: string) => {
 
 export const fetchMyProfileInfo = async () => {
   try {
-    const response = await axiosInstance.get('/members');
+    const response = await axiosInstance.get('/members/me');
     return response?.data;
   } catch (error) {
     console.error(error);
