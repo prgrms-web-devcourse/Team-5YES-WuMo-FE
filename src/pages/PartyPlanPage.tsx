@@ -6,14 +6,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { fetchPlaces } from '@/api/place';
 import PlanPlaceList from '@/components/party/partyPlan/PlanPlaceList';
 import PlacePreviewMap from '@/components/place/create/search/PlacePreviewMap';
-import useMapScript from '@/hooks/useMapScript';
 import { Places } from '@/types/place';
 import ROUTES from '@/utils/constants/routes';
 
 const PartyPlanPage = () => {
   const navigate = useNavigate();
   const { partyId } = useParams();
-  useMapScript();
 
   const { data, isLoading, isError } = useQuery<Places>(['placeList', partyId], () =>
     fetchPlaces(0, 10000, Number(partyId))
