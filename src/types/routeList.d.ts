@@ -36,6 +36,7 @@ export type BestRouteListParamsType = {
 
 export type BestRouteItemProps = {
   name: string;
+  partyId: number;
   routeId: number;
   image: string;
   dragging: boolean;
