@@ -98,13 +98,11 @@ const ProfileEditForm = () => {
       return myProfileInfo.profileImage;
 
     if (myProfileInfo.profileImage === null && imageValues.imageBase64 !== null) {
-      console.log('1');
       const imageUrl = await onSubmitImageFile(imageValues.imageFile);
       return imageUrl;
     }
 
     if (myProfileInfo.profileImage !== null && imageValues.imageBase64 === null) {
-      console.log('2');
       await deleteImage(myProfileInfo.profileImage);
       return null;
     }
