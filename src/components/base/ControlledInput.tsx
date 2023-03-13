@@ -33,7 +33,7 @@ const ControlledInput = <T extends FieldValues>({
   const upperName = name.replace(/^[a-z]/, (char: string) => char.toUpperCase());
 
   return (
-    <FormControl isInvalid={!!fieldState.error?.message}>
+    <FormControl w='100%' isInvalid={!!fieldState.error?.message}>
       <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
         {upperName}
       </FormLabel>

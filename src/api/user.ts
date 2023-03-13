@@ -101,14 +101,16 @@ export const sendEmailCertificationCode = async (target: string) => {
 export const checkEmailCertificaitonCode = async (email: string, code: string) => {
   try {
     await axiosInstance.get(`/members/check-code?address=${email}&code=${code}`);
+    return true;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 400) {
-        return Toast.show({
+        Toast.show({
           title: '이메일 인증에 실패하였습니다.',
           message: error.response.data.message,
           type: 'warning',
         });
+        return false;
       }
     }
     return console.error(error);
