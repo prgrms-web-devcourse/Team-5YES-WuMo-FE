@@ -111,7 +111,7 @@ export const fetchPartyInvitationCode = async (code: string) => {
 
 export const createRegisterParty = async (partyId: string) => {
   const response = await axiosInstance.post(`/parties/${partyId}/members`, {
-    role: '광대',
+    role: null,
   });
   return response.data;
 };
