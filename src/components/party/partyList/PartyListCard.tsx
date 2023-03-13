@@ -51,13 +51,7 @@ const PartyListCard = ({
 
         <Stack w='100%' justifyContent='space-between' px='4' pb='3'>
           <CardBody>
-            <Heading
-              overflow='hidden'
-              textOverflow='ellipsis'
-              whiteSpace='nowrap'
-              wordBreak='break-all'
-              maxW='90%'
-              size='md'>
+            <Heading noOfLines={1} maxW='90%' size='md'>
               {name}
             </Heading>
             <Text mt='2' fontSize='xs'>{`${dayjs(startDate).format('YY.MM.DD')} - ${dayjs(
