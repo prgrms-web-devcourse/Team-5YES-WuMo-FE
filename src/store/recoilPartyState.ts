@@ -29,6 +29,7 @@ export const partyDetailState = atom<PartyInformationType>({
   default: {
     ...partyBaseState,
     id: 0,
+    totalMembers: 0,
   },
 });
 

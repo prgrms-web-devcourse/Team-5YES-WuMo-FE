@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { BestRouteItemProps } from '@/types/routeList';
 
-const BestRouteListItem = ({ name, routeId, image, dragging }: BestRouteItemProps) => {
+const BestRouteListItem = ({
+  name,
+  partyId,
+  routeId,
+  image,
+  dragging,
+}: BestRouteItemProps) => {
   const navigate = useNavigate();
 
   const onMoveRoutePage = (id: string | number) => {
@@ -15,7 +21,7 @@ const BestRouteListItem = ({ name, routeId, image, dragging }: BestRouteItemProp
     <>
       <Box
         key={routeId}
-        onClick={() => !dragging && onMoveRoutePage(routeId)}
+        onClick={() => !dragging && onMoveRoutePage(partyId)}
         outline='none'
         h='12.5rem'>
         <Box

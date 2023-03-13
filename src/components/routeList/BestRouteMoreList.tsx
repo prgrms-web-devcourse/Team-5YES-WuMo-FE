@@ -34,7 +34,7 @@ const BestRouteMoreList = () => {
   return (
     <>
       {bestRouteList?.routes.map(
-        ({ routeId, locations, image, name, startDate, endDate, likeCount }) => {
+        ({ routeId, partyId, locations, image, name, startDate, endDate, likeCount }) => {
           return (
             <Box
               key={routeId}
@@ -45,7 +45,7 @@ const BestRouteMoreList = () => {
               border='0.0625rem solid #cfcfcf'
               cursor='pointer'
               margin='0 auto 2rem auto'
-              onClick={() => navigate(`/best-route/${routeId}`)}>
+              onClick={() => navigate(`/best-route/${partyId}`)}>
               <Image src={image} alt={image} />
 
               <Box p='6'>

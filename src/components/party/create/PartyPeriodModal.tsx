@@ -18,7 +18,7 @@ const PartyPeriodModal = () => {
     else return [new Date(prevDate.startDate), new Date(prevDate.endDate)];
   });
 
-  const buttonDisabled = useButtonDisabled([period[0], period[1]]);
+  const buttonDisabled = useButtonDisabled([String(period[0]), String(period[1])]);
 
   const [createPartyBody, setCreatePartyBody] =
     useRecoilState<PartyCreateBody>(createPartyState);
