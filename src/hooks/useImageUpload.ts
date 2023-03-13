@@ -39,7 +39,7 @@ const useImageUpload = (
     }
   };
 
-  return { values, onFileChange, onFileChoose, onFileDelete };
+  return { values, setValues, onFileChange, onFileChoose, onFileDelete };
 };
 
 export default useImageUpload;

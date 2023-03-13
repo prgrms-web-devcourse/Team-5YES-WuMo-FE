@@ -25,4 +25,5 @@ export const PLACE_ERROR_MESSAGES = {
   VISIT_DATE_REQUIRED: '방문 예정일을 입력해 주세요.',
   EXPECTED_COST_REQUIRED: '예상 비용을 입력해 주세요.',
   IMAGE_FILE_REQUIRED: '대표 이미지를 선택해 주세요.',
+  COMMENT_REQUIRED: '사진을 추가하거나 내용을 입력해 주세요.',
 } as const;

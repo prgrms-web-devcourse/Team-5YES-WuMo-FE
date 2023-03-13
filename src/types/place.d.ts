@@ -167,7 +167,33 @@ export type PlaceCommentPatchBody = Pick<
   id: number;
 };
 
-export type CommentFormProps = {
-  partyId: number;
+export type CommentListProps = {
   placeId: number;
+};
+
+type PlaceComment = {
+  id: number;
+  nickName: string;
+  profileImage?: string;
+  memberRole: string;
+  content?: string;
+  image?: string;
+  createdAt: string;
+  updatedAt: string;
+  isEditable: boolean;
+};
+
+export type PlaceCommentType = {
+  locationComments: PlaceComment[];
+  lastId: number;
+};
+
+export type CommentFormProps = {
+  type: 'create' | 'edit';
+  oldContent?: string | null;
+  oldImage?: string | null;
+  partyId?: number;
+  placeId?: number;
+  commentId?: number;
+  setEditHandler?: () => void;
 };
