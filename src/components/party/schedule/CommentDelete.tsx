@@ -5,13 +5,7 @@ import React from 'react';
 import { deleteImage } from '@/api/image';
 import { deleteRouteComment } from '@/api/schedules';
 import ConfirmModal from '@/components/base/ConfirmModal';
-
-type CommentDeleteType = {
-  isOpen: boolean;
-  onClose: () => void;
-  id: number;
-  image: string | undefined;
-};
+import { CommentDeleteType } from '@/types/schedule';
 
 const CommentDelete = ({ isOpen, onClose, id, image }: CommentDeleteType) => {
   const queryClient = useQueryClient();
