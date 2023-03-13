@@ -2,14 +2,9 @@ import { Box, Heading, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
-type BestRouteItem = {
-  name: string;
-  routeId: number;
-  image: string;
-  dragging: boolean;
-};
+import { BestRouteItemProps } from '@/types/routeList';
 
-const BestRouteListItem = ({ name, routeId, image, dragging }: BestRouteItem) => {
+const BestRouteListItem = ({ name, routeId, image, dragging }: BestRouteItemProps) => {
   const navigate = useNavigate();
 
   const onMoveRoutePage = (id: string | number) => {
@@ -22,7 +17,7 @@ const BestRouteListItem = ({ name, routeId, image, dragging }: BestRouteItem) =>
         key={routeId}
         onClick={() => !dragging && onMoveRoutePage(routeId)}
         outline='none'
-        h='200px'>
+        h='12.5rem'>
         <Box
           zIndex='10'
           pos='absolute'

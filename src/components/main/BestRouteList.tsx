@@ -101,7 +101,7 @@ const StyledSlider = styled(Slider)`
     display: inline-block;
     max-height: 13.75rem;
     padding: 0 1.25rem;
-    height: 220px;
+    height: 13.75rem;
   }
 
   .slick-center {

@@ -55,3 +55,10 @@ export type BestRouteListParams = {
   sortType: string;
   searchWord?: string;
 };
+
+export type BestRouteItemProps = {
+  name: string;
+  routeId: number;
+  image: string;
+  dragging: boolean;
+};
