@@ -53,61 +53,73 @@ const CommentList = ({ placeId }: CommentListProps) => {
       <TableContainer>
         <Table variant='simple' size='lg'>
           <Tbody>
-            {data?.locationComments.map((comment) => (
-              <Tr key={comment.id}>
-                <Td display='flex' flexDirection='column' pl='0' pr='0'>
-                  <Flex justify='space-between'>
-                    <Flex align='center' gap='2' ml='1'>
-                      <Avatar size='md' src={comment.profileImage} />
-                      <Box>
-                        <Text pl='0.5' pb='0.5'>
-                          {comment.nickName}
-                        </Text>
-                        <Tag size='sm'>{comment.memberRole}</Tag>
-                      </Box>
+            {data?.locationComments.map(
+              ({
+                id,
+                profileImage,
+                nickName,
+                memberRole,
+                content,
+                image,
+                createdAt,
+                updatedAt,
+                isEditable,
+              }) => (
+                <Tr key={id}>
+                  <Td display='flex' flexDirection='column' pl='0' pr='0'>
+                    <Flex justify='space-between'>
+                      <Flex align='center' gap='2' ml='1'>
+                        <Avatar size='md' src={profileImage} />
+                        <Box>
+                          <Text pl='0.5' pb='0.5'>
+                            {nickName}
+                          </Text>
+                          <Tag size='sm'>{memberRole}</Tag>
+                        </Box>
+                      </Flex>
+                      {isEditable && (
+                        <MoreMenu
+                          onEditEvent={() =>
+                            setEditing({ isEditing: true, commentId: id })
+                          }
+                          onRemoveEvent={() => {
+                            setCommentId(id);
+                            onOpen();
+                          }}
+                        />
+                      )}
                     </Flex>
-                    {comment.isEditable && (
-                      <MoreMenu
-                        onEditEvent={() =>
-                          setEditing({ isEditing: true, commentId: comment.id })
+                    {editing.isEditing && editing.commentId === id ? (
+                      <CommentForm
+                        type='edit'
+                        commentId={id}
+                        oldContent={content}
+                        oldImage={image}
+                        setEditHandler={() =>
+                          setEditing({ isEditing: false, commentId: -1 })
                         }
-                        onRemoveEvent={() => {
-                          setCommentId(comment.id);
-                          onOpen();
-                        }}
                       />
+                    ) : (
+                      <>
+                        <Box
+                          p='4'
+                          pl='1'
+                          lineHeight='1.5rem'
+                          wordBreak='keep-all'
+                          whiteSpace='pre-wrap'>
+                          {content}
+                        </Box>
+                        {image && <Image alt='댓글 이미지' src={image} />}
+                      </>
                     )}
-                  </Flex>
-                  {editing.isEditing && editing.commentId === comment.id ? (
-                    <CommentForm
-                      type='edit'
-                      commentId={comment.id}
-                      oldContent={comment.content}
-                      oldImage={comment.image}
-                      setEditHandler={() =>
-                        setEditing({ isEditing: false, commentId: -1 })
-                      }
-                    />
-                  ) : (
-                    <>
-                      <Box
-                        p='4'
-                        pl='1'
-                        lineHeight='1.5rem'
-                        wordBreak='keep-all'
-                        whiteSpace='pre-wrap'>
-                        {comment.content}
-                      </Box>
-                      {comment.image && <Image alt='댓글 이미지' src={comment.image} />}
-                    </>
-                  )}
-                  <Text color='grey' pt='2' fontSize='sm' letterSpacing='tight'>
-                    {formatCreatedDateTime(comment.createdAt)}
-                    {comment.createdAt !== comment.updatedAt && ' (수정됨)'}
-                  </Text>
-                </Td>
-              </Tr>
-            ))}
+                    <Text color='grey' pt='2' fontSize='sm' letterSpacing='tight'>
+                      {formatCreatedDateTime(createdAt)}
+                      {createdAt !== updatedAt && ' (수정됨)'}
+                    </Text>
+                  </Td>
+                </Tr>
+              )
+            )}
           </Tbody>
         </Table>
       </TableContainer>

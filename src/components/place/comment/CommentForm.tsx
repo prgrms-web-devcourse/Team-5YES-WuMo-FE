@@ -154,8 +154,8 @@ const CommentForm = ({
         </Textarea>
         <Flex justify='space-between'>
           {imageValues.imageBase64 ? (
-            <Box mt='50px'>
-              <Flex pos='relative' mt='-39px' justify='center'>
+            <Box mt='3.125rem'>
+              <Flex pos='relative' mt='-2.4375rem' justify='center'>
                 <Button
                   onClick={onFileDelete}
                   size='sm'
