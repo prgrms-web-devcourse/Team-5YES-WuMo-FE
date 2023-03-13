@@ -7,11 +7,12 @@ import {
   Flex,
   Input,
   Stack,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCameraAlt } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -41,7 +42,8 @@ const ProfileEditForm = () => {
     trigger,
     getValues,
     setError,
-    formState: { isSubmitting, isDirty },
+    watch,
+    formState: { isSubmitting },
   } = useForm<UserEditProps>({
     defaultValues: {
       nickname: '',
@@ -55,23 +57,25 @@ const ProfileEditForm = () => {
     data: myProfileInfo,
     isLoading,
     isError,
-  } = useQuery<UserEditProps>(['myProfileInfo'], () => fetchMyProfileInfo(), {
-    onSuccess(data) {
-      if (isDirty) return;
-      setOldImage(data.profileImage);
-      setValue('nickname', data.nickname);
-      setValue('profileImage', data.profileImage);
-    },
-  });
+  } = useQuery<UserEditProps>(['myProfileInfo'], () => fetchMyProfileInfo());
 
-  const [oldImage, setOldImage] = useState(
-    myProfileInfo ? myProfileInfo.profileImage : null
-  );
   const [imageValues, setImageValues] = useState<ImageData>({
-    imageBase64: oldImage,
+    imageBase64: null,
     imageFile: null,
   });
   const [checkNickname, setCheckNickname] = useState(false);
+  const watchNickname = watch('nickname');
+
+  useEffect(() => {
+    if (!checkNickname) return;
+    setCheckNickname(false);
+  }, [watchNickname]);
+
+  useEffect(() => {
+    if (!myProfileInfo) return;
+    setImageValues({ ...imageValues, imageBase64: myProfileInfo.profileImage });
+    setValue('nickname', myProfileInfo.nickname);
+  }, [myProfileInfo]);
 
   if (isError) return <></>;
   if (isLoading)
@@ -89,20 +93,38 @@ const ProfileEditForm = () => {
     return imageUrl;
   };
 
-  const onSubmit = async (fields: UserEditProps) => {
-    if (!checkNickname)
-      return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
-    if (oldImage === null && myProfileInfo.profileImage !== null) {
-      await deleteImage(myProfileInfo.profileImage);
-    }
-    if (oldImage !== null) {
-      fields.profileImage = myProfileInfo.profileImage;
-    } else {
+  const getImage = async () => {
+    if (myProfileInfo.profileImage === imageValues.imageBase64)
+      return myProfileInfo.profileImage;
+
+    if (myProfileInfo.profileImage === null && imageValues.imageBase64 !== null) {
+      console.log('1');
       const imageUrl = await onSubmitImageFile(imageValues.imageFile);
-      fields.profileImage = imageUrl;
+      return imageUrl;
     }
+
+    if (myProfileInfo.profileImage !== null && imageValues.imageBase64 === null) {
+      console.log('2');
+      await deleteImage(myProfileInfo.profileImage);
+      return null;
+    }
+
+    if (myProfileInfo.profileImage !== null && imageValues.imageBase64 !== null) {
+      await deleteImage(myProfileInfo.profileImage);
+      const imageUrl = await onSubmitImageFile(imageValues.imageFile);
+      return imageUrl;
+    }
+
+    return myProfileInfo.profileImage;
+  };
+
+  const onSubmit = async (fields: UserEditProps) => {
+    if (myProfileInfo.nickname !== getValues('nickname') && !checkNickname)
+      return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
+    const image = await getImage();
+    fields.profileImage = image;
+
     fields.id = myProfileInfo.id;
-    console.log(fields);
     await patchMyProfile(fields);
     navigate(ROUTES.PROFILE, { replace: true });
   };
@@ -111,7 +133,7 @@ const ProfileEditForm = () => {
     const checkBefore = await trigger('nickname');
     const target = getValues('nickname');
     if (!checkBefore) return;
-
+    if (target === myProfileInfo.nickname) return setCheckNickname(true);
     try {
       await fetchCheckNickname(target);
       setCheckNickname(true);
@@ -141,6 +163,7 @@ const ProfileEditForm = () => {
         const result = reader.result;
         if (!result || typeof result !== 'string') return;
         setImageValues({ imageFile: fileBlob, imageBase64: result });
+        setValue('profileImage', result);
         resolve(Promise);
         onClose();
       };
@@ -148,18 +171,9 @@ const ProfileEditForm = () => {
   };
 
   const handleDefaultImage = async () => {
-    setOldImage(null);
     setImageValues({ imageBase64: null, imageFile: null });
     onClose();
   };
-
-  const handleUserImage = () => {
-    if (imageValues.imageBase64) return imageValues.imageBase64;
-    if (oldImage) return oldImage;
-    return undefined;
-  };
-
-  const userImage = handleUserImage();
 
   const modalContent = {
     content: (
@@ -173,7 +187,12 @@ const ProfileEditForm = () => {
   return (
     <Container p='7rem 2rem' as='form' onSubmit={handleSubmit(onSubmit)}>
       <Center mb='12'>
-        <Avatar size='2xl' bg='#D9D9D9' src={userImage} cursor='pointer' onClick={onOpen}>
+        <Avatar
+          size='2xl'
+          bg='#D9D9D9'
+          src={imageValues.imageBase64 ? imageValues.imageBase64 : undefined}
+          cursor='pointer'
+          onClick={onOpen}>
           <AvatarBadge
             bottom='4'
             right='2'
@@ -192,15 +211,20 @@ const ProfileEditForm = () => {
           onChange={handleFileChange}
         />
       </Center>
-      <Flex justify='space-between'>
+      <Flex pos='relative' align='center'>
         <ControlledInput name='nickname' control={control} resetField={resetField} />
         <Button
-          mt={7}
           size='sm'
+          ml='2'
           onClick={handleCheckNickname}
           colorScheme={checkNickname ? 'green' : 'red'}>
           중복 확인
         </Button>
+        {checkNickname && (
+          <Text pos='absolute' pt='2' pl='2' top='16' fontSize='sm' color='green'>
+            사용 가능한 닉네임입니다.
+          </Text>
+        )}
       </Flex>
       <SubmitButton isSubmitting={isSubmitting} mt='24' width='100%' colorScheme='orange'>
         프로필 수정
