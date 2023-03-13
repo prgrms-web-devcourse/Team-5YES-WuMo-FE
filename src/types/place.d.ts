@@ -149,7 +149,6 @@ type PlaceEditModalProps = {
 };
 
 export type PlaceToRoute = {
-  routeId: number | null;
   locationId: number;
   partyId: number;
 };
@@ -166,4 +165,9 @@ export type PlaceCommentPatchBody = Pick<
   'image'
 > & {
   id: number;
+};
+
+export type CommentFormProps = {
+  partyId: number;
+  placeId: number;
 };
