@@ -5,7 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { createImage } from '@/api/image';
-import { createLocationComment } from '@/api/schedules';
+import { createRouteComment } from '@/api/schedules';
 import BottomSheet from '@/components/base/BottomSheet';
 import BottomSheetButton from '@/components/base/BottomSheetButton';
 import CustomTextarea from '@/components/base/CustomTextarea';
@@ -33,7 +33,7 @@ const CommentCreate = () => {
   });
 
   const { mutateAsync: createImageUrl, reset: imageReset } = useMutation(createImage);
-  const { mutateAsync: createComment } = useMutation(createLocationComment);
+  const { mutateAsync: createComment } = useMutation(createRouteComment);
 
   const onSubmitImageFile = async (image: File | null) => {
     if (!image) return null;
@@ -62,6 +62,7 @@ const CommentCreate = () => {
 
     imageReset();
     resetField('content');
+    resetField('image');
   };
 
   const modalContent: ModalType = {
