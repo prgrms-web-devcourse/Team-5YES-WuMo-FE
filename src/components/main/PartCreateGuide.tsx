@@ -1,23 +1,30 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { MdAdd } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
+import { fetchMyProfileInfo } from '@/api/user';
+import { UserProps } from '@/types/user';
 import ROUTES from '@/utils/constants/routes';
 
-const USERDUMMYDATA = {
-  id: 1,
-  email: '5yes@gmail.com',
-  nickname: '오예스',
-  profileImage: 'https://ifh.cc/g/kQckLH.png',
-};
+import Loading from '../base/Loading';
 
 const PartCreateGuide = () => {
   const navigate = useNavigate();
 
+  const {
+    data: myProfileInfo,
+    isLoading,
+    isError,
+  } = useQuery<UserProps>(['myProfileInfo'], () => fetchMyProfileInfo());
+
+  if (isLoading) return <Loading></Loading>;
+  if (isError) return <></>;
+
   return (
-    <Box px='1.875rem' pt='1rem'>
+    <Box px='1.875rem' pt='24px'>
       <Box>
-        <Heading size='lg'>{USERDUMMYDATA.nickname}님,</Heading>
+        <Heading size='lg'>{myProfileInfo.nickname}님,</Heading>
         <Heading size='md'>모임을 위한 일정관리가 필요하신가요?</Heading>
       </Box>
       <Box onClick={() => navigate(ROUTES.PARTY_CREATE)} pt='24px'>
@@ -31,7 +38,7 @@ const PartCreateGuide = () => {
             fontSize='3xl'
             color='blue.400'
             borderRadius='50%'>
-            +
+            <MdAdd />
           </Flex>
           <Flex direction='column' pl='14px'>
             <Text fontSize='lg' fontWeight='bold'>
