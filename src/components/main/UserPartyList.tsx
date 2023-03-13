@@ -38,12 +38,8 @@ const UserPartyList = () => {
       </>
     );
 
-  const onMovePartyPage = (id: number) => {
-    navigate(ROUTES.SCHEDULE, {
-      state: {
-        partyId: id,
-      },
-    });
+  const onMovePartyPage = (partyId: number) => {
+    navigate(`/party/${partyId}`);
   };
 
   const onMovePartyListPage = () => {
@@ -52,9 +48,9 @@ const UserPartyList = () => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: myPartyList.party.length >= 4,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     arrows: false,
     autoplay: true,
@@ -79,7 +75,7 @@ const UserPartyList = () => {
           <Box key={id} onClick={() => !dragging && onMovePartyPage(id)}>
             <Box p='relative' w='5rem' h='5rem'>
               <Image
-                src={coverImage ? '/logo-lg.svg' : coverImage}
+                src={coverImage ? coverImage : '/logo-lg.svg'}
                 p='absolute'
                 top='0'
                 left='0'

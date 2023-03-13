@@ -8,14 +8,22 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
-import { fetchPartyInformation, fetchPartyMembers } from '@/api/party';
+import {
+  createPartyInvitation,
+  fetchPartyInformation,
+  fetchPartyMembersMeInfo,
+} from '@/api/party';
+import Loading from '@/components/base/Loading';
+import Toast from '@/components/base/toast/Toast';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
+import { partyDetailState, partyMeRoleState } from '@/store/recoilPartyState';
 import {
   CalculateStayDurationProps,
   PartyInformationType,
@@ -38,24 +46,62 @@ const PartyInformation = () => {
   const { scrollActive } = useScrollEvent(300);
   const { partyId } = useParams();
 
+  const setPartyDetail = useSetRecoilState(partyDetailState);
+  const setPartyMeRole = useSetRecoilState(partyMeRoleState);
+
   const {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+  } = useQuery<PartyInformationType>(['partyInformation', partyId], () =>
     fetchPartyInformation(Number(partyId))
   );
 
   const {
-    data: partyUserList,
-    isLoading: partyUserListLoading,
-    isError: partyUserListError,
-  } = useQuery<{ members: PartyMemberProps[]; lastID: number }>(['partyUserList'], () =>
-    fetchPartyMembers(Number(partyId))
+    data: partyMemberMeInfo,
+    isLoading: partyMemberMeInfoLoading,
+    isError: partyMemberMeInfoError,
+  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
+    fetchPartyMembersMeInfo(Number(partyId))
   );
 
-  if (partyInformationLoading || partyUserListLoading) return <></>;
-  if (partyInformationError || partyUserListError) return <></>;
+  if (partyInformation && partyMemberMeInfo) {
+    setPartyDetail(partyInformation);
+    setPartyMeRole(partyMemberMeInfo);
+  }
+  const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
+    onSuccess: () => {
+      Toast.show({
+        title: '초대링크 복사가 완료되었어요!',
+        message: '모임에 초대하고 싶은 친구에게 링크를 전달해보세요!',
+        type: 'success',
+      });
+    },
+    onError: () => {
+      Toast.show({
+        title: '초대링크 복사에 실패했어요.',
+        message: '모임 기간이 지나 친구를 초대할 수 없어요. 새 모임을 만들어주세요.',
+        type: 'error',
+      });
+    },
+  });
+
+  if (partyInformationLoading || partyMemberMeInfoLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (partyInformationError || partyMemberMeInfoError) return <></>;
+
+  const copyPartyInvitationCode = async (url: string) => {
+    const body = {
+      partyId: Number(partyId),
+      expiredDate: partyInformation.endDate,
+    };
+    const invitationCode = await createInvitationCode(body);
+    navigator.clipboard.writeText(`${url}/${invitationCode.code}`);
+  };
 
   const stayDurationDate = CalculateStayDuration({
     startDate: partyInformation.startDate,
@@ -80,7 +126,7 @@ const PartyInformation = () => {
         mt='3.75rem'
         h='200px'
         w='100%'
-        objectFit='none'
+        objectFit='cover'
       />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>
@@ -93,7 +139,10 @@ const PartyInformation = () => {
           <Button colorScheme='teal' size='xs' marginRight='0.625rem' onClick={onOpen}>
             영수증
           </Button>
-          <Button bg='transparent' size='xs'>
+          <Button
+            bg='transparent'
+            size='xs'
+            onClick={() => copyPartyInvitationCode(`${window.location.host}/invitation`)}>
             <BsFillShareFill />
           </Button>
         </Flex>

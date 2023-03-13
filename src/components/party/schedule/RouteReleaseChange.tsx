@@ -32,6 +32,12 @@ const RouteReleaseChange = ({
   const queryClient = useQueryClient();
   const { mutate: changeReleased } = useMutation(patchChangRouteReleased);
 
+  const { register, getValues, reset } = useForm({
+    defaultValues: {
+      routeName: '',
+    },
+  });
+
   const {
     data: partyInformation,
     isLoading,
@@ -40,6 +46,11 @@ const RouteReleaseChange = ({
     ['partyInformation'],
     () => fetchPartyInformation(Number(partyId)),
     {
+      onSuccess: (data) => {
+        reset({
+          routeName: data.name,
+        });
+      },
       staleTime: 5000,
     }
   );
@@ -51,12 +62,6 @@ const RouteReleaseChange = ({
       </>
     );
   if (isError) return <></>;
-
-  const { register, getValues } = useForm({
-    defaultValues: {
-      routeName: partyInformation?.name,
-    },
-  });
 
   const onRouteReleased = () => {
     if (scheduleList.isPublic) {
