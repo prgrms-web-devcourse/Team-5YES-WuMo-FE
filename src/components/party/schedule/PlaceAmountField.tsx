@@ -9,28 +9,23 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCreditCard } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
 
 import { patchChangeAmount } from '@/api/schedules';
 import { AmountType, ChangeAmountType } from '@/types/schedule';
+import { formatPrice } from '@/utils/formatter';
 
 const PlaceAmountField = ({ spending }: { spending: number }) => {
   const { mutate: changeAmount } = useMutation(patchChangeAmount);
+  const [numberValue, setNumberValue] = useState(String(formatPrice(spending)));
   const { state } = useLocation();
-  const {
-    register,
-    handleSubmit,
-    formState: { isDirty },
-  } = useForm<AmountType>({
-    defaultValues: {
-      amount: spending,
-    },
-  });
+  const { handleSubmit } = useForm<AmountType>();
 
   const onSubmitAmount = ({ amount }: AmountType) => {
-    if (!isDirty) return;
+    amount = Number(numberValue.replaceAll(',', ''));
     const amountBody: ChangeAmountType = {
       locationId: state.locationId,
       spending: Number(amount),
@@ -52,10 +47,14 @@ const PlaceAmountField = ({ spending }: { spending: number }) => {
             <MdCreditCard />
           </InputLeftElement>
           <Input
-            type='number'
+            type='text'
+            value={numberValue}
             borderRadius='0.9375rem'
             placeholder='사용 금액을 입력하세요'
-            {...register('amount')}
+            onChange={(e) => {
+              const prev = e.target.value.replaceAll(',', '');
+              setNumberValue(formatPrice(Number(prev)));
+            }}
           />
           <InputRightElement>원</InputRightElement>
         </InputGroup>
