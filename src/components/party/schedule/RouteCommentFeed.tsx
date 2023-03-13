@@ -11,6 +11,7 @@ import useScrollEvent from '@/hooks/useScrollEvent';
 import { CommentListType, ScheduleLocationType, ScheduleType } from '@/types/schedule';
 import { getGitEmoji } from '@/utils/constants/emoji';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
+import ROUTES from '@/utils/constants/routes';
 import { scrollToTop } from '@/utils/scrollToTop';
 
 import CommentCreate from './CommentCreate';
@@ -43,12 +44,8 @@ const RouteCommentFeed = () => {
     data: scheduleList,
     isLoading: scheduleLoading,
     isError: scheduleError,
-  } = useQuery<ScheduleType>(
-    ['scheduleList'],
-    () => fetchScheduleList(Number(partyId), false),
-    {
-      staleTime: 10000,
-    }
+  } = useQuery<ScheduleType>(['scheduleList', partyId], () =>
+    fetchScheduleList(Number(partyId), false)
   );
 
   if (commentLoading || scheduleLoading)
@@ -58,11 +55,6 @@ const RouteCommentFeed = () => {
       </>
     );
   if (commentError || scheduleError) return <></>;
-
-  const moreMenuEvent = {
-    onEditEvent: () => alert('수정'),
-    onRemoveEvent: () => onOpen(),
-  };
 
   const pickCurrentLocation = (locations: ScheduleLocationType[], locationId: number) => {
     return locations.filter((location) => location.id === locationId);
@@ -74,6 +66,17 @@ const RouteCommentFeed = () => {
   )[0];
 
   if (!currentLocation) return <></>;
+
+  const moreMenuEvent = {
+    onEditEvent: () =>
+      navigate(ROUTES.PLACE_EDIT, {
+        state: {
+          partyId: scheduleList.partyId,
+          place: currentLocation,
+        },
+      }),
+    onRemoveEvent: () => onOpen(),
+  };
 
   const placeData = {
     place: currentLocation.name,
