@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Img, List, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { fetchScheduleList } from '@/api/schedules';
 import Loading from '@/components/base/Loading';
@@ -13,18 +13,15 @@ import RouteTitle from './RouteTitle';
 
 const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps) => {
   const { partyId } = useParams();
+  const { pathname } = useLocation();
 
   const {
     data: scheduleList,
     isLoading,
     isFetching,
     isError,
-  } = useQuery<ScheduleType>(
-    ['scheduleList', partyId],
-    () => fetchScheduleList(Number(partyId), isPublic),
-    {
-      staleTime: 10000,
-    }
+  } = useQuery<ScheduleType>(['scheduleList', partyId], () =>
+    fetchScheduleList(Number(partyId), isPublic)
   );
   if (isLoading || isFetching)
     return (
@@ -47,7 +44,9 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
     <Box pos='relative'>
       {isPublic && <RouteTitle scheduleList={scheduleList} />}
 
-      <RouteReleaseChange scheduleList={scheduleList} routeId={scheduleList.id} />
+      {pathname.includes('party') && (
+        <RouteReleaseChange scheduleList={scheduleList} routeId={scheduleList.id} />
+      )}
       <StyleList>
         {scheduleList.locations.map((route) => (
           <RouteTimelineItem
