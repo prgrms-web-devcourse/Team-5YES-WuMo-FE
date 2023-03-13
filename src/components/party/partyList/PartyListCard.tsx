@@ -44,7 +44,8 @@ const PartyListCard = ({
         <Image
           objectFit='cover'
           borderRadius='2'
-          maxW={{ base: '160px', sm: '200px' }}
+          minW={{ base: '10rem' }}
+          maxW={{ base: '10rem' }}
           src={coverImage ? coverImage : '/logo-lg.svg'}
           alt='Caffe Latte'
         />
