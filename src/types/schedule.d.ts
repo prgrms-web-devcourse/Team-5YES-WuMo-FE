@@ -79,3 +79,10 @@ export type CommentCreateType = {
   content: string;
   image: File | null;
 };
+
+export type CommentDeleteType = {
+  isOpen: boolean;
+  onClose: () => void;
+  id: number;
+  image: string | undefined;
+};

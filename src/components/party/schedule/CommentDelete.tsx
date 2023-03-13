@@ -1,6 +1,5 @@
 import { Text } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import React from 'react';
 
 import { deleteImage } from '@/api/image';
 import { deleteRouteComment } from '@/api/schedules';
