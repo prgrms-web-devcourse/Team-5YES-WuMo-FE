@@ -46,8 +46,12 @@ export type ScheduleLocationType = {
   id: number;
   name: string;
   address: string;
+  latitude: number;
+  longitude: number;
   image: string;
+  description: string;
   visitDate: string;
+  expectedCost: number;
   spending: number;
   category: string;
 };

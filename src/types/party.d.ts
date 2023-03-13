@@ -46,20 +46,6 @@ export type PartyMemberListProps = {
   profileImage?: string | null;
 };
 
-export type LocationsType = {
-  id: number;
-  name: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-  image: string;
-  description: string;
-  visitDate: string;
-  expectedCost: number;
-  spending: number;
-  category: string;
-};
-
 export type CalculateStayDurationProps = {
   startDate: string | undefined;
   endDate: string | undefined;
@@ -72,6 +58,7 @@ export type PartyInformationType = {
   endDate: string;
   description: string;
   coverImage: string | undefined;
+  totalMembers: number;
 };
 
 type PartyMembersType = {

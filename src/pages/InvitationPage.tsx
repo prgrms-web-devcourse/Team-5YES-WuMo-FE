@@ -34,13 +34,13 @@ const InvitationPage = () => {
         type: 'warning',
         duration: 3000,
       });
-      navigate(ROUTES.LANDING);
+      navigate(ROUTES.LANDING, { replace: true });
     }
   }, []);
 
   const { mutateAsync: registerUser } = useMutation(createRegisterParty, {
     onSuccess: () => {
-      navigate(`/party/${checkCode.partyId}`);
+      navigate(`/party/${checkCode.partyId}`, { replace: true });
       Toast.show({
         title: `모임에 참여하게 되었어요!`,
         message: '우측 상단 톱니바퀴를 눌러서 내 역할을 설정해보세요!',
@@ -55,7 +55,7 @@ const InvitationPage = () => {
         duration: 3000,
         type: 'error',
       });
-      navigate(`/party/${checkCode.partyId}`);
+      navigate(`/party/${checkCode.partyId}`, { replace: true });
     },
   });
 
@@ -118,7 +118,7 @@ const InvitationPage = () => {
           },
           secondary: () => {
             localStorage.removeItem('invitation');
-            navigate(ROUTES.MAIN);
+            navigate(ROUTES.MAIN, { replace: true });
           },
         }}
         buttonText={{
