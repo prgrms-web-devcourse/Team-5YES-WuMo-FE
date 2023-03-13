@@ -79,9 +79,7 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
       sortType: bestRouteParams.sortType,
     };
     resetSearchParams();
-
     const searchResult = await fetchBestRouteList(resetParams);
-
     setSearchResultList(searchResult);
   };
 

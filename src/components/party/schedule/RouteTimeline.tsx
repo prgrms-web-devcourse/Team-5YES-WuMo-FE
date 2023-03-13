@@ -9,10 +9,9 @@ import { ScheduleType, TimeLineProps } from '@/types/schedule';
 
 import RouteReleaseChange from './RouteReleaseChange';
 import RouteTimelineItem from './RouteTimelineItem';
+import RouteTitle from './RouteTitle';
 
 const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps) => {
-  // 상세조회를 partyId로 할지 routeId로 할지
-  // 둘 다 할지 백엔드에서 아직 결정이 안남
   const { partyId } = useParams();
 
   const {
@@ -37,6 +36,8 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
 
   return (
     <Box pos='relative'>
+      {isPublic && <RouteTitle scheduleList={scheduleList} />}
+
       <RouteReleaseChange scheduleList={scheduleList} routeId={scheduleList.id} />
       <StyleList>
         {scheduleList.locations.map((route) => (
