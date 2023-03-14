@@ -1,27 +1,18 @@
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { MdCancel, MdSearch } from 'react-icons/md';
-import { useInjectKakaoMapApi } from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
 
 import Toast from '@/components/base/toast/Toast';
+import useMapPlaces from '@/hooks/useMapPlaces';
 import { placeSearchState } from '@/store/recoilPlaceState';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 
 const PlaceSearchForm = () => {
-  const [places, setPlaces] = useState<kakao.maps.services.Places>();
   const [searchState, setSearchState] = useRecoilState(placeSearchState);
   const [keyword, setKeyword] = useState(searchState.keyword);
-
-  const { loading, error } = useInjectKakaoMapApi({
-    appkey: import.meta.env.VITE_KAKAO_API_JS_KEY,
-    libraries: ['services'],
-  });
-
-  useEffect(() => {
-    kakao.maps.load(() => setPlaces(new kakao.maps.services.Places()));
-  }, []);
+  const { result, searchPlaces } = useMapPlaces();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -32,27 +23,9 @@ const PlaceSearchForm = () => {
       });
       return;
     }
-
-    if (!places) return;
-
-    places.keywordSearch(keyword, (data, status) => {
-      if (status === 'OK') {
-        if (data) setSearchState({ ...searchState, keyword, result: data });
-      } else if (status === 'ZERO_RESULT') {
-        Toast.show({
-          message: PLACE_ERROR_MESSAGES.NO_RESULT,
-          type: 'warning',
-        });
-      } else if (status === 'ERROR') {
-        Toast.show({
-          message: PLACE_ERROR_MESSAGES.RESPONSE_ERROR,
-          type: 'error',
-        });
-      }
-    });
+    searchPlaces(keyword);
+    if (result) setSearchState({ ...searchState, keyword, result });
   };
-
-  if (loading || error) return <></>;
 
   return (
     <Form onSubmit={handleSubmit}>
