@@ -5,6 +5,7 @@ import {
   Container,
   Flex,
   Image,
+  Tag,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -40,17 +41,19 @@ const CommentFeedItem = ({
     <Container p='1rem' borderBottom='solid 0.125rem' borderColor='blackAlpha.200'>
       <Flex align='center' mb='0.625rem'>
         <Avatar src={profileImage === null ? undefined : profileImage} m='0.3125rem' />
-        <Box m='0 0.5rem'>
-          <Text fontWeight='bold' m='0.125rem 0'>
-            {nickName}
-          </Text>
-          <Text size='xs' color='blackAlpha.500'>
-            {memberRole}
-          </Text>
-        </Box>
-        <Text mt='auto' mb='0.5rem'>
-          {dayjs(createdAt).format('YY.MM.DD')}
-        </Text>
+        <Flex align='center'>
+          <Box m='0 0.5rem'>
+            <Text fontWeight='bold' m='0.125rem 0'>
+              {nickName}
+            </Text>
+            {memberRole && (
+              <Tag size='xs' color='blackAlpha.700' p='2px 6px' borderRadius='10px'>
+                {memberRole}
+              </Tag>
+            )}
+          </Box>
+          <Text mt='auto'>{dayjs(createdAt).format('YY.MM.DD')}</Text>
+        </Flex>
         {isEditable && (
           <Box ml='auto'>
             <Button size='xs' mr='0.3125rem' onClick={updateOnOpen}>
