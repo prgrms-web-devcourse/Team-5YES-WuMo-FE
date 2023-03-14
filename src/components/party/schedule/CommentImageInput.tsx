@@ -73,6 +73,7 @@ const CommentImageInput = <T extends FieldValues>({
       <Input
         type='file'
         hidden
+        accept='image/jpg, image/jpeg, image/png'
         {...field}
         value={value}
         ref={inputRef}

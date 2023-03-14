@@ -1,21 +1,26 @@
 import { ChangeEvent, RefObject, useState } from 'react';
 
 import { ImageData } from '@/types/place';
+import { compressImage } from '@/utils/imageCompressor';
 
 const useImageUpload = (
   initialValues: ImageData,
   inputRef: RefObject<HTMLInputElement>
 ) => {
   const [values, setValues] = useState<ImageData>(initialValues);
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   const onFileChoose = () => {
     inputRef.current?.click();
   };
 
-  const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      encodeFileToBase64(file);
+      setIsImageUploading(true);
+      const compressedImageFile = await compressImage(file);
+      encodeFileToBase64(compressedImageFile);
+      setIsImageUploading(false);
     }
     e.target.value = '';
   };
@@ -39,7 +44,14 @@ const useImageUpload = (
     }
   };
 
-  return { values, setValues, onFileChange, onFileChoose, onFileDelete };
+  return {
+    values,
+    setValues,
+    isImageUploading,
+    onFileChange,
+    onFileChoose,
+    onFileDelete,
+  };
 };
 
 export default useImageUpload;

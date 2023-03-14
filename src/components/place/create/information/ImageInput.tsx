@@ -3,8 +3,10 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { MdAddPhotoAlternate } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 
+import Loading from '@/components/base/Loading';
 import { createPlaceState } from '@/store/recoilPlaceState';
 import { ImageData } from '@/types/place';
+import { compressImage } from '@/utils/imageCompressor';
 
 const ImageInput = () => {
   const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
@@ -13,15 +15,19 @@ const ImageInput = () => {
     imageFile: null,
   });
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValues({ ...values, imageFile: file });
-      setCreatePlaceBody({ ...createPlaceBody, imageFile: file });
-      encodeFileToBase64(file);
-      e.target.value = '';
+      setIsImageUploading(true);
+      const compressedImageFile = await compressImage(file);
+      setValues({ ...values, imageFile: compressedImageFile });
+      setCreatePlaceBody({ ...createPlaceBody, imageFile: compressedImageFile });
+      encodeFileToBase64(compressedImageFile);
+      setIsImageUploading(false);
     }
+    e.target.value = '';
   };
 
   const handleFileDelete = () => {
@@ -47,6 +53,8 @@ const ImageInput = () => {
       };
     });
   };
+
+  if (isImageUploading) return <Loading />;
 
   return (
     <>

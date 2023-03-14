@@ -37,6 +37,7 @@ const CommentForm = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const {
     values: imageValues,
+    isImageUploading,
     setValues,
     onFileChange,
     onFileChoose,
@@ -129,7 +130,7 @@ const CommentForm = ({
     imageReset();
   };
 
-  if (isLoading) return <Loading></Loading>;
+  if (isLoading || isImageUploading) return <Loading></Loading>;
   if (isError) return <></>;
 
   return (
