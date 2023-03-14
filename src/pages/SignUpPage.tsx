@@ -9,7 +9,7 @@ import ROUTES from '@/utils/constants/routes';
 
 const SignUpPage = () => {
   return (
-    <Box pt='16'>
+    <Box py='4rem'>
       <BackNavigation />
       <LargeLogo src='/logo-lg.svg' />
       <SignUpForm />

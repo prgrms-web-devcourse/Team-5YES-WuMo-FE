@@ -30,17 +30,16 @@ const ControlledInput = <T extends FieldValues>({
   resetField,
 }: UserInputProps<T>) => {
   const { field, fieldState } = useController({ name, control });
-  const upperName = name.replace(/^[a-z]/, (char: string) => char.toUpperCase());
 
   return (
     <FormControl w='100%' isInvalid={!!fieldState.error?.message}>
       <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
-        {upperName}
+        {name === 'email' ? '이메일 ' : '비밀번호'}
       </FormLabel>
       <InputGroup size='md'>
         <Input
           id={name}
-          placeholder={upperName}
+          placeholder={name === 'email' ? '이메일 ' : '비밀번호'}
           type={name === 'password' ? 'password' : 'text'}
           {...field}
         />

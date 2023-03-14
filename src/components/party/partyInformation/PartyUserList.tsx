@@ -1,49 +1,36 @@
-import { Avatar, Flex, Text } from '@chakra-ui/react';
+import { Avatar, AvatarGroup, Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { fetchPartyMembers } from '@/api/party';
-import { isUpdateData, partyMemberListState } from '@/store/recoilPartyState';
 import { PartyMemberProps } from '@/types/party';
 
 const PartyUserList = () => {
   const { partyId } = useParams();
-  const updated = useRecoilValue(isUpdateData);
 
   const {
     data: partyUserList,
     isLoading,
     isError,
   } = useQuery<{ members: PartyMemberProps[]; lastId: number; totalMembers: number }>(
-    ['partyUserList', partyId, updated],
+    ['partyUserList', partyId],
     () => fetchPartyMembers(Number(partyId))
   );
-
-  const setPartyMemberList = useSetRecoilState(partyMemberListState);
-
-  useEffect(() => {
-    if (partyUserList) {
-      setPartyMemberList(partyUserList);
-    }
-  }, [partyUserList]);
 
   if (isLoading) return <></>;
   if (isError) return <></>;
 
   return (
-    <Flex direction='row'>
-      {partyUserList.members.map((user) => (
-        <Flex key={user.memberId} direction='column' align='center' marginLeft='0.625rem'>
+    <Flex px='4'>
+      <AvatarGroup max={4} size='sm' spacing='-1'>
+        {partyUserList.members.map((user) => (
           <Avatar
+            key={user.memberId}
             src={user.profileImage === null ? undefined : user.profileImage}
             size='sm'
           />
-          <Text fontSize='sm'>{user.nickname}</Text>
-          <Text fontSize='xs'>{user.role}</Text>
-        </Flex>
-      ))}
+        ))}
+      </AvatarGroup>
     </Flex>
   );
 };

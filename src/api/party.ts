@@ -48,10 +48,13 @@ export const fetchPartyInformation = async (partyId: number) => {
   }
 };
 
-export const patchPartyDetail = async (
-  partyId: number,
-  partyAPIBody: PartyUpdateBody
-) => {
+export const patchPartyDetail = async ({
+  partyId,
+  partyAPIBody,
+}: {
+  partyId?: number;
+  partyAPIBody: PartyUpdateBody;
+}) => {
   try {
     const response = await axiosInstance.patch(`/parties/${partyId}`, partyAPIBody);
     if (response) return response.data;
@@ -63,10 +66,10 @@ export const patchPartyDetail = async (
 // 멤버 방출
 export const deleteMemberBanish = async ({
   partyId,
-  memberId,
+  otherMemberId,
 }: deleteMemberBanishProps) => {
   try {
-    await axiosInstance.delete(`/parties/${partyId}/members/${memberId}`);
+    await axiosInstance.delete(`/parties/${partyId}/members/${otherMemberId}`);
   } catch (error) {
     console.error(error);
   }

@@ -17,35 +17,33 @@ import {
   Text,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { deleteParty, deleteWithdrawalParty } from '@/api/party';
+import {
+  deleteParty,
+  deleteWithdrawalParty,
+  fetchPartyInformation,
+  fetchPartyMembers,
+  fetchPartyMembersMeInfo,
+} from '@/api/party';
 import { patchOwnRole } from '@/api/role';
 import ConfirmModal from '@/components/base/ConfirmModal';
+import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
-import {
-  isUpdateData,
-  partyDetailState,
-  partyMemberListState,
-  partyMeRoleState,
-} from '@/store/recoilPartyState';
-import {
-  PartyInformationType,
-  PartyMemberListProps,
-  PartyMemberProps,
-  PartyModalProps,
-} from '@/types/party';
+import { PartyInformationType, PartyMemberProps, PartyModalProps } from '@/types/party';
 import { getGitEmoji } from '@/utils/constants/emoji';
+import { TOAST_MESSAGE } from '@/utils/constants/messages';
 import { partyRoleList } from '@/utils/constants/party';
 import ROUTES from '@/utils/constants/routes';
 
 import MemberList from './MemberList';
 import PartyUpdateModal from './PartyUpdateModal';
 
-const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
+const PartySetting = ({ partyId, isOpen, onClose }: PartyModalProps) => {
+  const navigate = useNavigate();
+
   const selected = {
     color: 'primary.red',
     fontWeight: 'bold',
@@ -53,21 +51,59 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
     boxShadow: '0 0 0 2px #ea5148 inset',
   };
 
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { mutateAsync: handleRemoveParty } = useMutation(deleteParty);
+  const { mutate: handleWithdrawalParty } = useMutation(deleteWithdrawalParty);
+  const { mutateAsync: updateRole } = useMutation(patchOwnRole);
+
+  const {
+    data: partyInformation,
+    isLoading: partyInformationLoading,
+    isError: partyInformationError,
+  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+    fetchPartyInformation(Number(partyId))
+  );
+
+  const {
+    data: partyMemberMeInfo,
+    isLoading: partyMemberMeInfoLoading,
+    isError: partyMemberMeInfoError,
+  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
+    fetchPartyMembersMeInfo(Number(partyId))
+  );
+
+  const {
+    data: partyMemberList,
+    isLoading: partyMemberListLoading,
+    isError: partyMemberListError,
+  } = useQuery<{
+    members: PartyMemberProps[];
+    lastId: number;
+    totalMembers: number;
+  }>(['partyUserList'], () => fetchPartyMembers(Number(partyId)));
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [removePartyModalOpen, setRemovePartyModalOpen] = useState(false);
+  const [role, setRole] = useState('');
 
-  const getPartyMembersList = useRecoilValue<PartyMemberListProps>(partyMemberListState);
-  const getPartyMeRole = useRecoilValue<PartyMemberProps>(partyMeRoleState);
-  const getPartyDetail = useRecoilValue<PartyInformationType>(partyDetailState);
-  const setUpdated = useSetRecoilState(isUpdateData);
+  useEffect(() => {
+    if (partyMemberMeInfo) {
+      setRole(partyMemberMeInfo.role);
+    }
+  }, [partyMemberMeInfo]);
 
-  const [role, setRole] = useState(getPartyMeRole.role);
+  if (partyInformationLoading || partyMemberMeInfoLoading || partyMemberListLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (partyInformationError || partyMemberMeInfoError || partyMemberListError)
+    return <></>;
 
-  const queryClient = useQueryClient();
-  const { mutate: handleRemoveParty } = useMutation(deleteParty);
-  const { mutate: handleWithdrawalParty } = useMutation(deleteWithdrawalParty);
+  const onCloseSettingDrawer = () => {
+    onClose();
+  };
 
   const handlePartyModal = (type: string) => {
     if (type === 'update') {
@@ -79,33 +115,42 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
   };
 
   const handleUpdateRole = async () => {
+    const partyId = partyInformation?.id;
     const rolePatchAPIBody = {
       role,
     };
 
-    const data = await patchOwnRole(getPartyDetail.id, rolePatchAPIBody);
-    if (data) {
-      Toast.show({
-        message: '역할이 정상적으로 설정되었어요.',
-        type: 'success',
-      });
-      setUpdated(true);
-    }
+    await updateRole(
+      { partyId, rolePatchAPIBody },
+      {
+        onSuccess: () => {
+          Toast.show({
+            message: TOAST_MESSAGE.SUCCESS_ROLE_UPDATE,
+            type: 'success',
+          });
+          return queryClient.invalidateQueries(['partyUserList']);
+        },
+      }
+    );
   };
 
   return (
     <>
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose}>
+      <Drawer isOpen={isOpen} placement='right' onClose={onCloseSettingDrawer}>
         <DrawerOverlay />
         <DrawerContent style={{ margin: 0, width: '80%' }}>
           <DrawerCloseButton />
-          <DrawerHeader>{getPartyDetail.name}</DrawerHeader>
+          <DrawerHeader>{partyInformation?.name}</DrawerHeader>
 
           <DrawerBody>
             <Text fontSize='0.875rem' mb='2' color='#808080'>
-              멤버 ({getPartyMembersList.totalMembers}명)
+              멤버 ({partyMemberList?.totalMembers}명)
             </Text>
-            <MemberList partyId={getPartyDetail.id} />
+            <MemberList
+              partyId={Number(partyId)}
+              partyMemberList={partyMemberList}
+              partyMemberMeInfo={partyMemberMeInfo}
+            />
             <Text fontSize='0.875rem' mb='2' color='#808080'>
               내 역할 설정
             </Text>
@@ -157,8 +202,8 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
             </HStack>
           </DrawerBody>
 
-          <DrawerFooter flexDirection='row' gap='1rem'>
-            {getPartyMeRole.isLeader ? (
+          <DrawerFooter flexDirection='row' gap='1rem' pb='2rem'>
+            {partyMemberMeInfo.isLeader ? (
               <>
                 <Button
                   onClick={() => handlePartyModal('update')}
@@ -188,50 +233,47 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      {getPartyDetail.id !== 0 ? (
+      {partyInformation.id !== 0 ? (
         <>
           <PartyUpdateModal
-            partyDetail={getPartyDetail}
+            partyId={Number(partyId)}
+            partyDetail={partyInformation}
             isOpen={isUpdateModalOpen}
-            onClose={() => setIsUpdateModalOpen(false)}
+            onClose={() => {
+              setIsUpdateModalOpen(false);
+            }}
           />
           <ConfirmModal
             isOpen={removePartyModalOpen}
             closeModalHandler={() => setRemovePartyModalOpen(false)}
             body={
               <Flex direction='column' align='center' pt='0'>
-                {getPartyMeRole.isLeader
-                  ? `${getPartyDetail.name} 모임을 삭제할까요?`
-                  : `${getPartyDetail.name} 모임에서 나갈까요?`}
+                {partyMemberMeInfo.isLeader
+                  ? `${partyInformation.name} 모임을 삭제할까요?`
+                  : `${partyInformation.name} 모임에서 나갈까요?`}
               </Flex>
             }
             clickButtonHandler={{
-              primary: () => {
-                if (getPartyMeRole.isLeader) {
-                  handleRemoveParty(getPartyDetail.id, {
+              primary: async () => {
+                if (partyMemberMeInfo.isLeader) {
+                  await handleRemoveParty(partyInformation.id, {
                     onSuccess: () => {
                       return queryClient.invalidateQueries(['onGoingPartyList']);
                     },
                   });
                 } else {
-                  handleWithdrawalParty(getPartyDetail.id, {
+                  await handleWithdrawalParty(partyInformation.id, {
                     onSuccess: () => {
                       return queryClient.invalidateQueries(['onGoingPartyList']);
                     },
                   });
                 }
-                // {
-                //   getPartyMeRole.isLeader
-                //     ? deleteParty(getPartyDetail.id)
-                //     : deleteWithdrawalParty(getPartyDetail.id);
-                // }
-                setUpdated(true);
                 setRemovePartyModalOpen(false);
                 navigate(ROUTES.PARTY_LIST, { replace: true });
               },
             }}
             buttonText={
-              getPartyMeRole.isLeader
+              partyMemberMeInfo.isLeader
                 ? {
                     secondary: '취소',
                     primary: '삭제',

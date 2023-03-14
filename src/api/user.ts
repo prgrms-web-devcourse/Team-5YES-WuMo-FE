@@ -21,17 +21,12 @@ export const signIn = async (values: SignInProps) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      if (error.response?.status === 500) {
-        return Toast.show({
-          title: '로그인에 실패하였습니다.',
-          message: error.response.data.message,
-          type: 'warning',
-        });
-      }
+      console.log(error);
+
       if (error.response?.status === 400) {
         return Toast.show({
           title: '로그인에 실패하였습니다.',
-          message: '존재하지 않는 Email입니다.',
+          message: '이메일 또는 비밀번호가 틀립니다.',
           type: 'warning',
         });
       }

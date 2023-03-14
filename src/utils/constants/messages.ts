@@ -27,3 +27,10 @@ export const PLACE_ERROR_MESSAGES = {
   IMAGE_FILE_REQUIRED: '대표 이미지를 선택해 주세요.',
   COMMENT_REQUIRED: '사진을 추가하거나 내용을 입력해 주세요.',
 } as const;
+
+export const TOAST_MESSAGE = {
+  SUCCESS_ROLE_UPDATE: '역할이 정상적으로 변경되었습니다.',
+  SUCCESS_PARTY_REMOVE: '모임이 정상적으로 삭제되었습니다.',
+  SUCCESS_PARTY_UPDATE: '모임이 정상적으로 수정되었습니다.',
+  SUCCESS_PARTY_CREATE: '모임이 정상적으로 생성되었습니다.',
+} as const;

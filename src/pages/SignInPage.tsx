@@ -7,7 +7,7 @@ import ToSignUp from '@/components/signIn/ToSignUp';
 
 const SignInPage = () => {
   return (
-    <Box pt='16'>
+    <Box py='4rem'>
       <BackNavigation />
       <Flex height='100%' flexDirection='column' justifyContent='center'>
         <Box>

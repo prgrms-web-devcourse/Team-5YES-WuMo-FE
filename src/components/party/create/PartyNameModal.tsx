@@ -10,12 +10,14 @@ import {
   ModalFooter,
   Text,
   Textarea,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { ChangeEvent, useRef, useState } from 'react';
 import { MdAddPhotoAlternate } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 
 import { createImage, deleteImage } from '@/api/image';
+import ConfirmModal from '@/components/base/ConfirmModal';
 import ModalButton from '@/components/base/ModalButton';
 import useButtonDisabled from '@/hooks/useButtonDisabled';
 import { createPartyState, stepState } from '@/store/recoilPartyState';
@@ -24,6 +26,7 @@ import { processStep } from '@/utils/constants/processStep';
 
 const PartyNameModal = () => {
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // 스탭별로 데이터 저장하기 위한 recoil state
   const [createPartyBody, setCreatePartyBody] =
@@ -41,10 +44,8 @@ const PartyNameModal = () => {
   };
 
   const handleFileDelete = async () => {
-    if (confirm('사진을 삭제하시겠습니까?')) {
-      setImageUrl('');
-      await deleteImage(imageUrl);
-    }
+    setImageUrl('');
+    await deleteImage(imageUrl);
   };
 
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +97,7 @@ const PartyNameModal = () => {
             w='100%'
             rows={6}
             resize='none'
-            outlineColor='primary.red'
+            focusBorderColor='primary.red'
             placeholder='어떤 모임인지 설명해주세요.'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -120,7 +121,7 @@ const PartyNameModal = () => {
                 <Button h='10' onClick={onClickImageUpload}>
                   이미지 변경
                 </Button>
-                <Button color='red' h='10' onClick={handleFileDelete}>
+                <Button color='red' h='10' onClick={onOpen}>
                   이미지 삭제
                 </Button>
               </HStack>
@@ -145,6 +146,24 @@ const PartyNameModal = () => {
           }}
         />
       </ModalFooter>
+      <ConfirmModal
+        isOpen={isOpen}
+        hasCloseButton
+        closeModalHandler={onClose}
+        body={
+          <Box textAlign='center'>
+            <Text>사진을 삭제하시겠습니까?</Text>
+          </Box>
+        }
+        buttonText={{ primary: '삭제', secondary: '취소' }}
+        clickButtonHandler={{
+          primary: async () => {
+            await handleFileDelete();
+            onClose();
+          },
+          secondary: () => onClose(),
+        }}
+      />
     </>
   );
 };

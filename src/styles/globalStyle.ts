@@ -61,6 +61,10 @@ const globalStyle = css`
         }
       }
     }
+
+    .chakra-modal__content-container::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   body::-webkit-scrollbar {
