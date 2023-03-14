@@ -30,16 +30,22 @@ const ControlledInput = <T extends FieldValues>({
   resetField,
 }: UserInputProps<T>) => {
   const { field, fieldState } = useController({ name, control });
+  const toKorean = () => {
+    if (name === 'email') return '이메일';
+    if (name === 'password') return '비밀번호';
+    if (name === 'nickname') return '닉네임';
+  };
+  const nameKorean = toKorean();
 
   return (
     <FormControl w='100%' isInvalid={!!fieldState.error?.message}>
       <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
-        {name === 'email' ? '이메일 ' : '비밀번호'}
+        {nameKorean}
       </FormLabel>
       <InputGroup size='md'>
         <Input
           id={name}
-          placeholder={name === 'email' ? '이메일 ' : '비밀번호'}
+          placeholder={nameKorean}
           type={name === 'password' ? 'password' : 'text'}
           {...field}
         />
