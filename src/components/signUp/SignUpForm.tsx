@@ -150,11 +150,11 @@ const SignUpForm = () => {
       <Stack spacing={4}>
         <FormControl isInvalid={!!errors.email}>
           <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
-            Email
+            이메일
           </FormLabel>
           <Flex align='center' gap='3'>
             <InputGroup size='md'>
-              <Input id='email' placeholder='Email' {...register('email')} />
+              <Input id='email' placeholder='이메일' {...register('email')} />
               <InputRightElement>
                 {watchEmail && (
                   <MdCancel cursor='pointer' onClick={() => resetField('email')} />

@@ -21,21 +21,18 @@ export type PartyUpdateBody = {
   endDate: string;
 };
 
-export type RoleUpdateBody = {
-  role: string;
-};
-
 export type PartyModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  partyId?: string | undefined;
   partyDetail?: PartyListProps;
 };
 
 export type PartyMemberProps = {
   memberId: number;
   nickname: string;
-  role?: string;
-  profileImage?: string | undefined;
+  role: string;
+  profileImage?: string | null;
   isLeader?: boolean;
 };
 
@@ -43,7 +40,6 @@ export type PartyMemberListProps = {
   totalMembers: number;
   members: PartyMemberProps[];
   lastId: number;
-  profileImage?: string | null;
 };
 
 export type CalculateStayDurationProps = {
@@ -69,8 +65,8 @@ type PartyMembersType = {
 export type PartyListPropsWithMembers = PartyInformationType & PartyMembersType;
 
 type deleteMemberBanishProps = {
-  partyId: number;
-  memberId: number;
+  partyId: string | undefined;
+  otherMemberId: number;
 };
 
 export type MyPartyList = {

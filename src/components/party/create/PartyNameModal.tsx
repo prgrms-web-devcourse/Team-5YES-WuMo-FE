@@ -96,7 +96,7 @@ const PartyNameModal = () => {
             w='100%'
             rows={6}
             resize='none'
-            outlineColor='primary.red'
+            focusBorderColor='primary.red'
             placeholder='어떤 모임인지 설명해주세요.'
             value={description}
             onChange={(e) => setDescription(e.target.value)}

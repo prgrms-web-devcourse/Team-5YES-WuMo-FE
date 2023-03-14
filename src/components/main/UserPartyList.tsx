@@ -93,7 +93,8 @@ const UserPartyList = () => {
                 noOfLines={2}
                 w='100%'
                 p='relative'
-                mx='1rem'>
+                mx='1rem'
+                textAlign='center'>
                 {name}
               </Heading>
             </Box>
@@ -114,5 +115,6 @@ const StyledSlider = styled(Slider)`
     margin: 0 1.25rem;
     width: 5rem;
     display: inline-block;
+    padding-bottom: 2rem;
   }
 `;

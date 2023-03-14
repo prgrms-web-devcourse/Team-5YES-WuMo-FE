@@ -11,6 +11,7 @@ const MoreMenu = ({ onEditEvent, onRemoveEvent }: MoreMenuListEventProps) => {
       </MenuButton>
       <MenuList pos='absolute' right='-8' minW='160px' zIndex='30'>
         <MenuItem
+          justifyContent='center'
           fontSize='lg'
           onClick={onEditEvent}
           _focus={{ backgroundColor: 'none' }}
@@ -18,6 +19,7 @@ const MoreMenu = ({ onEditEvent, onRemoveEvent }: MoreMenuListEventProps) => {
           수정하기
         </MenuItem>
         <MenuItem
+          justifyContent='center'
           fontSize='lg'
           color='red'
           onClick={onRemoveEvent}

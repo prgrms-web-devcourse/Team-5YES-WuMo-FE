@@ -92,7 +92,10 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           css={css`
             margin-right: 10px;
           `}
-          onClick={() => navigate(-1)}>
+          onClick={() => {
+            navigate(-1);
+            resetSearchParams();
+          }}>
           <MdKeyboardArrowLeft />
         </BackButton>
         <Title>{title}</Title>

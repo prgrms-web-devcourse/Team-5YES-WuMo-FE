@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const useButtonDisabled = (dep: string[]) => {
-  const isEmptyString = (value: string) => value !== '' && value !== undefined;
+  const isEmptyString = (value: string) => value !== '' && value !== 'undefined';
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
