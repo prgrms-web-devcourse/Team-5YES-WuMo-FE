@@ -24,7 +24,9 @@ const PartCreateGuide = () => {
   return (
     <Box px='1.875rem' pt='24px'>
       <Box>
-        <Heading size='lg'>{myProfileInfo.nickname}님,</Heading>
+        <Heading size='lg' mb='0.5rem'>
+          {myProfileInfo.nickname}님,
+        </Heading>
         <Heading size='md'>모임을 위한 일정관리가 필요하신가요?</Heading>
       </Box>
       <Box onClick={() => navigate(ROUTES.PARTY_CREATE)} pt='24px'>

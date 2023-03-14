@@ -37,7 +37,12 @@ import PartySetting from '../party/update/PartySetting';
 
 const { SEARCH, MENU, MORE } = BACKNAVIGATION_OPTIONS;
 
-const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) => {
+const BackNavigation = ({
+  partyId,
+  title,
+  option,
+  moreMenuEvent,
+}: BackNavigationProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isShowSearch, setIsShowSearch] = useState(false);
   const [searchWord, setSearchWord] = useState('');
@@ -92,7 +97,10 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           css={css`
             margin-right: 10px;
           `}
-          onClick={() => navigate(-1)}>
+          onClick={() => {
+            navigate(-1);
+            resetSearchParams();
+          }}>
           <MdKeyboardArrowLeft />
         </BackButton>
         <Title>{title}</Title>
@@ -167,7 +175,7 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
           </Button>
         </Flex>
       )}
-      <PartySetting isOpen={isOpen} onClose={onClose} />
+      {partyId && <PartySetting partyId={partyId} isOpen={isOpen} onClose={onClose} />}
     </Nav>
   );
 };

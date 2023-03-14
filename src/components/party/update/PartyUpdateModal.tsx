@@ -16,21 +16,21 @@ import {
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { ChangeEvent, useRef, useState } from 'react';
 import { Calendar } from 'react-calendar';
 import { MdAddPhotoAlternate, MdKeyboardArrowLeft } from 'react-icons/md';
-import { useSetRecoilState } from 'recoil';
 
 import { createImage, deleteImage } from '@/api/image';
 import { patchPartyDetail } from '@/api/party';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import Toast from '@/components/base/toast/Toast';
 import useButtonDisabled from '@/hooks/useButtonDisabled';
-import { partyUpdateState } from '@/store/recoilPartyState';
-import { PartyListPropsWithMembers, PartyModalProps } from '@/types/party';
+import { PartyModalProps } from '@/types/party';
+import { TOAST_MESSAGE } from '@/utils/constants/messages';
 
-const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => {
+const PartyUpdateModal = ({ partyId, isOpen, onClose, partyDetail }: PartyModalProps) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const {
     isOpen: isImageDeleteModalOpen,
@@ -38,7 +38,8 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
     onClose: onImageDeleteModalClose,
   } = useDisclosure();
 
-  const setPartyDetail = useSetRecoilState<PartyListPropsWithMembers>(partyUpdateState);
+  const queryClient = useQueryClient();
+  const { mutateAsync: updateParty } = useMutation(patchPartyDetail);
 
   const [name, setName] = useState(partyDetail?.name);
   const [description, setDescription] = useState(partyDetail?.description);
@@ -53,6 +54,10 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
 
   const onClickImageUpload = () => {
     imageInputRef.current?.click();
+  };
+
+  const onCloseUpdateModal = () => {
+    onClose();
   };
 
   const handleFileDelete = async () => {
@@ -81,23 +86,24 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
       endDate: dayjs(endDate).format('YYYY-MM-DD'),
     };
 
-    if (partyDetail?.id && partyAPIBody) {
-      const data = await patchPartyDetail(partyDetail.id, partyAPIBody);
-
-      if (data) {
-        setPartyDetail(data);
-        Toast.show({
-          message: '모임이 정상적으로 수정되었어요.',
-          type: 'success',
-        });
-        onClose();
+    await updateParty(
+      { partyId, partyAPIBody },
+      {
+        onSuccess: () => {
+          Toast.show({
+            message: TOAST_MESSAGE.SUCCESS_PARTY_UPDATE,
+            type: 'success',
+          });
+          onClose();
+          return queryClient.invalidateQueries(['partyInformation']);
+        },
       }
-    }
+    );
   };
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size='full'>
+      <Modal isOpen={isOpen} onClose={onCloseUpdateModal} size='full'>
         <ModalContent w='maxWidth.mobile'>
           <ModalCloseButton position='initial' size='lg'>
             <MdKeyboardArrowLeft />
@@ -131,7 +137,7 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
                 w='100%'
                 rows={6}
                 resize='none'
-                outlineColor='primary.red'
+                focusBorderColor='primary.red'
                 placeholder='어떤 모임인지 설명해주세요.'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}

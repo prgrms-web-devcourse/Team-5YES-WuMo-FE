@@ -1,22 +1,18 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
 
 import { fetchMyPartyList } from '@/api/main';
-import { isUpdateData } from '@/store/recoilPartyState';
 import { MyPartyList } from '@/types/party';
 
 import PartyListCard from './PartyListCard';
 
 const PartyList = () => {
-  const updated = useRecoilValue(isUpdateData);
-
   const {
     data: onGoingPartyList,
     isLoading: onGoingLoading,
     isError: onGoingError,
   } = useQuery<MyPartyList>(
-    ['onGoingPartyList', updated],
+    ['onGoingPartyList'],
     () => fetchMyPartyList({ partyType: 'ONGOING', pageSize: 1000 }),
     {
       staleTime: 10000,
@@ -47,18 +43,38 @@ const PartyList = () => {
         </TabList>
         <TabPanels>
           <TabPanel p='2'>
-            {onGoingPartyList.party.map((party, idx) => (
-              <Box pt={idx === 0 ? '10' : '0'} mt='4' key={party.id}>
-                <PartyListCard {...party} />
+            {onGoingPartyList.party.length === 0 ? (
+              <Box pt='20' textAlign='center'>
+                <Text fontSize='1rem' fontWeight='bold'>
+                  아직 진행중인 모임이 없어요. 😥
+                </Text>
               </Box>
-            ))}
+            ) : (
+              <>
+                {onGoingPartyList.party.map((party, idx) => (
+                  <Box pt={idx === 0 ? '10' : '0'} mt='4' key={party.id}>
+                    <PartyListCard {...party} />
+                  </Box>
+                ))}
+              </>
+            )}
           </TabPanel>
           <TabPanel p='2'>
-            {completedPartyList.party.map((party, idx) => (
-              <Box pt={idx === 0 ? '10' : '0'} mt='4' key={party.id}>
-                <PartyListCard {...party} />
+            {completedPartyList.party.length === 0 ? (
+              <Box pt='20' textAlign='center'>
+                <Text fontSize='1rem' fontWeight='bold'>
+                  아직 완료된 모임이 없어요. 😥
+                </Text>
               </Box>
-            ))}
+            ) : (
+              <>
+                {completedPartyList.party.map((party, idx) => (
+                  <Box pt={idx === 0 ? '10' : '0'} mt='4' key={party.id}>
+                    <PartyListCard {...party} />
+                  </Box>
+                ))}
+              </>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>

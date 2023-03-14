@@ -1,7 +1,7 @@
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Icon, Image, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
-import { MdFavorite } from 'react-icons/md';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -34,7 +34,17 @@ const BestRouteMoreList = () => {
   return (
     <>
       {bestRouteList?.routes.map(
-        ({ routeId, partyId, locations, image, name, startDate, endDate, likeCount }) => {
+        ({
+          routeId,
+          partyId,
+          locations,
+          image,
+          name,
+          startDate,
+          endDate,
+          likeCount,
+          isLiking,
+        }) => {
           return (
             <Box
               key={routeId}
@@ -46,7 +56,7 @@ const BestRouteMoreList = () => {
               cursor='pointer'
               margin='0 auto 2rem auto'
               onClick={() => navigate(`/best-route/${partyId}`)}>
-              <Image src={image} alt={image} />
+              <Image src={image} alt={image} w='100%' h='15rem' />
 
               <Box p='6'>
                 <PlaceLocationList locations={locations} />
@@ -57,7 +67,12 @@ const BestRouteMoreList = () => {
                   'YYYY년 MM월 DD일'
                 )} ~ ${dayjs(endDate).format('YYYY년 MM월 DD일')}`}</Text>
                 <Box display='flex' justifyContent='right' mt='2' alignItems='center'>
-                  <MdFavorite />
+                  <Icon
+                    as={isLiking ? MdFavorite : MdFavoriteBorder}
+                    color='primary.red'
+                    boxSize={4}
+                    cursor='pointer'
+                  />
                   <Box as='span' ml='2' color='gray.600' fontSize='sm'>
                     {likeCount}
                   </Box>

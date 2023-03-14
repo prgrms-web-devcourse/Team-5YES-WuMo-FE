@@ -94,8 +94,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           cursor='pointer'
           marginTop='3'
           marginBottom='3'
-          height='7rem'
-          border={place.routeId ? '2px solid #2b6cb0' : ''}>
+          height='7rem'>
           <Image
             src={place.image}
             alt={place.name}
@@ -130,48 +129,61 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           </CardBody>
           <CardFooter alignItems='center' padding='0' paddingRight='3'>
             {place.routeId ? (
-              <IconButton
-                variant='outline'
-                borderRadius='50px'
-                aria-label='일정에서 후보지 삭제'
-                icon={<MdClear />}
-                onClick={() => {
-                  setModal({
-                    name: '',
-                    visitDate: '',
-                    check: '이 후보지를 일정에서 삭제할까요?',
-                    buttonText: { secondary: '취소', primary: '삭제' },
-                    buttonClickhandler: {
-                      primary: () => onDeletePlaceFromRoute(Number(place.id)),
-                      secondary: () => onClose(),
-                    },
-                  });
-                  onOpen();
-                }}
-              />
+              <Flex flexDirection='column' gap='0.5rem' alignItems='center'>
+                <IconButton
+                  backgroundColor='#ff9a9a'
+                  variant='outline'
+                  borderRadius='50px'
+                  aria-label='일정에서 후보지 삭제'
+                  icon={<MdClear />}
+                  onClick={() => {
+                    setModal({
+                      name: '',
+                      visitDate: '',
+                      check: '이 후보지를 일정에서 삭제할까요?',
+                      buttonText: { secondary: '취소', primary: '삭제' },
+                      buttonClickhandler: {
+                        primary: () => onDeletePlaceFromRoute(Number(place.id)),
+                        secondary: () => onClose(),
+                      },
+                    });
+                    onOpen();
+                  }}
+                />
+                <Text fontSize='12px' color='primary.red' fontWeight='bold'>
+                  일정삭제
+                </Text>
+              </Flex>
             ) : (
-              <IconButton
-                variant='outline'
-                borderRadius='50px'
-                aria-label='일정에 후보지 추가'
-                icon={<MdAdd />}
-                onClick={() => {
-                  setModal({
-                    name: place.name,
-                    visitDate: place.visitDate,
-                    check: '이 후보지를 일정을 추가할까요?',
-                    buttonText: { secondary: '수정', primary: '추가' },
-                    buttonClickhandler: {
-                      primary: () => onAddPlaceToRoute(Number(place.id)),
-                      secondary: () =>
-                        navigate(ROUTES.PLACE_EDIT, {
-                          state: { place, partyId: Number(partyId) },
-                        }),
-                    },
-                  });
-                  onOpen();
-                }}
-              />
+              <Flex flexDirection='column' gap='0.5rem' alignItems='center'>
+                <IconButton
+                  fontSize='1.2rem'
+                  backgroundColor='#9fe7a2'
+                  variant='outline'
+                  borderRadius='50px'
+                  aria-label='일정에 후보지 추가'
+                  icon={<MdAdd />}
+                  onClick={() => {
+                    setModal({
+                      name: place.name,
+                      visitDate: place.visitDate,
+                      check: '이 후보지를 일정을 추가할까요?',
+                      buttonText: { secondary: '수정', primary: '추가' },
+                      buttonClickhandler: {
+                        primary: () => onAddPlaceToRoute(Number(place.id)),
+                        secondary: () =>
+                          navigate(ROUTES.PLACE_EDIT, {
+                            state: { place, partyId: Number(partyId) },
+                          }),
+                      },
+                    });
+                    onOpen();
+                  }}
+                />
+                <Text fontSize='12px' color='#2bb032 ' fontWeight='bold'>
+                  일정추가
+                </Text>
+              </Flex>
             )}
           </CardFooter>
           <ConfirmModal

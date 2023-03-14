@@ -17,9 +17,10 @@ import { createParty } from '@/api/party';
 import ModalButton from '@/components/base/ModalButton';
 import Toast from '@/components/base/toast/Toast';
 import useButtonDisabled from '@/hooks/useButtonDisabled';
-import { createPartyState } from '@/store/recoilPartyState';
+import { createPartyState, stepState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { getGitEmoji } from '@/utils/constants/emoji';
+import { TOAST_MESSAGE } from '@/utils/constants/messages';
 import { partyRoleList } from '@/utils/constants/party';
 import ROUTES from '@/utils/constants/routes';
 
@@ -33,6 +34,7 @@ const PartyOwnRoleModal = () => {
 
   const navigate = useNavigate();
   const resetCreatePartyBody = useResetRecoilState(createPartyState);
+  const resetStep = useResetRecoilState(stepState);
   const prevCreatePartyBody = useRecoilValue<PartyCreateBody>(createPartyState);
   const [partyAPIBody, setPartyAPIBody] = useState<PartyCreateBody>(
     () => prevCreatePartyBody
@@ -57,6 +59,11 @@ const PartyOwnRoleModal = () => {
         type: 'success',
       });
       resetCreatePartyBody();
+      resetStep();
+      Toast.show({
+        message: TOAST_MESSAGE.SUCCESS_PARTY_CREATE,
+        type: 'success',
+      });
       navigate(ROUTES.PARTY_LIST, { replace: true });
     }
   };

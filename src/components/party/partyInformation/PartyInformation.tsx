@@ -10,26 +10,15 @@ import {
 } from '@chakra-ui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 
-import {
-  createPartyInvitation,
-  fetchPartyInformation,
-  fetchPartyMembersMeInfo,
-} from '@/api/party';
+import { createPartyInvitation, fetchPartyInformation } from '@/api/party';
 import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
-import { partyDetailState, partyMeRoleState } from '@/store/recoilPartyState';
-import {
-  CalculateStayDurationProps,
-  PartyInformationType,
-  PartyMemberProps,
-} from '@/types/party';
+import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import PartyMenuTabList from './PartyMenuTabList';
@@ -47,31 +36,17 @@ const PartyInformation = () => {
   const { scrollActive } = useScrollEvent(300);
   const { partyId } = useParams();
 
-  const setPartyDetail = useSetRecoilState(partyDetailState);
-  const setPartyMeRole = useSetRecoilState(partyMeRoleState);
-
   const {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation', partyId], () =>
-    fetchPartyInformation(Number(partyId))
-  );
-
-  const {
-    data: partyMemberMeInfo,
-    isLoading: partyMemberMeInfoLoading,
-    isError: partyMemberMeInfoError,
-  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
-    fetchPartyMembersMeInfo(Number(partyId))
-  );
-
-  useEffect(() => {
-    if (partyInformation && partyMemberMeInfo) {
-      setPartyDetail(partyInformation);
-      setPartyMeRole(partyMemberMeInfo);
+  } = useQuery<PartyInformationType>(
+    ['partyInformation', partyId],
+    () => fetchPartyInformation(Number(partyId)),
+    {
+      staleTime: 10000,
     }
-  }, [partyInformation, partyMemberMeInfo]);
+  );
 
   const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
     onSuccess: () => {
@@ -90,13 +65,13 @@ const PartyInformation = () => {
     },
   });
 
-  if (partyInformationLoading || partyMemberMeInfoLoading)
+  if (partyInformationLoading)
     return (
       <>
         <Loading />
       </>
     );
-  if (partyInformationError || partyMemberMeInfoError) return <></>;
+  if (partyInformationError) return <></>;
 
   const copyPartyInvitationCode = async (url: string) => {
     const body = {
@@ -123,6 +98,7 @@ const PartyInformation = () => {
   return (
     <Box>
       <BackNavigation
+        partyId={Number(partyId)}
         title={scrollActive ? partyInformation.name : ''}
         option={BACKNAVIGATION_OPTIONS.MENU}
       />
@@ -135,7 +111,9 @@ const PartyInformation = () => {
       />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>
-          <Heading size='md'>{partyInformation.name}</Heading>
+          <Heading size='md' mt='1rem'>
+            {partyInformation.name}
+          </Heading>
           <Text fontSize='sm'>
             {partyInformation.startDate} ~ {partyInformation.endDate} {stayDurationDate}
           </Text>
@@ -155,7 +133,7 @@ const PartyInformation = () => {
         </Flex>
       </Flex>
       <PartyUserList />
-      <Text margin='0.625rem' h='3.125rem'>
+      <Text mx='0.625rem' my='1rem' whiteSpace='pre-line'>
         {partyInformation.description}
       </Text>
       <PartyMenuTabList />
