@@ -61,7 +61,6 @@ const BestRouteMoreList = () => {
                 src={image ? image : './logo.svg'}
                 alt={image}
               />
-
               <Box p='6'>
                 <PlaceLocationList locations={locations} />
                 <Box mb='2' fontWeight='semibold' as='h3' lineHeight='tight'>

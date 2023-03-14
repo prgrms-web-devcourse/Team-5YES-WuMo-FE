@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { MdLogout } from 'react-icons/md';
 import { TbCrown } from 'react-icons/tb';
+import { useParams } from 'react-router-dom';
 
 import { deleteMemberBanish } from '@/api/party';
 import ConfirmModal from '@/components/base/ConfirmModal';
