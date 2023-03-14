@@ -1,4 +1,4 @@
-import { Box, Img, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, Img, Text, useDisclosure } from '@chakra-ui/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -117,11 +117,18 @@ const RouteCommentFeed = () => {
           <CommentFeedTitle placeData={placeData} />
           <PlaceAmountField spending={currentLocation.spending} />
         </Box>
-        <Box pos='relative' top='-6'>
-          {commentList.partyRouteComments.map((comment) => (
-            <CommentFeedItem key={comment.id} {...comment} />
-          ))}
-        </Box>
+        {commentList.partyRouteComments.length > 0 ? (
+          <Box pos='relative' top='-6'>
+            {commentList.partyRouteComments.map((comment) => (
+              <CommentFeedItem key={comment.id} {...comment} />
+            ))}
+          </Box>
+        ) : (
+          <Box textAlign='center' p='1rem'>
+            <Heading size='md'>생성된 댓글이 없어요.</Heading>
+            <Text> + 버튼을 눌러서 댓글을 추가해주세요!</Text>
+          </Box>
+        )}
         <CommentCreate />
       </Box>
       <ConfirmModal
