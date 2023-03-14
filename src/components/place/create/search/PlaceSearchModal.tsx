@@ -2,6 +2,7 @@ import { ModalBody, ModalFooter, Stack, Text } from '@chakra-ui/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import ModalButton from '@/components/base/ModalButton';
+import Toast from '@/components/base/toast/Toast';
 import {
   createPlaceState,
   createPlaceStepState,
@@ -21,7 +22,10 @@ const PlaceSearchModal = () => {
 
   const handleClick = () => {
     if (!searchState.selectedPlace.id) {
-      alert('장소를 선택해 주세요.');
+      Toast.show({
+        message: '장소를 선택해 주세요.',
+        type: 'warning',
+      });
       return;
     }
 

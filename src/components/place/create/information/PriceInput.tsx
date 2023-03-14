@@ -1,4 +1,5 @@
 import {
+  Flex,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -22,20 +23,23 @@ const PriceInput = () => {
   };
 
   return (
-    <NumberInput
-      step={1000}
-      value={formatPrice(Number(value))}
-      onChange={handleChange}
-      min={0}
-      max={MAX_EXPECTED_COST}
-      borderColor='gray.300'
-      focusBorderColor='primary.red'>
-      <NumberInputField />
-      <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
-      </NumberInputStepper>
-    </NumberInput>
+    <Flex align='center' justify='center' gap='2'>
+      <NumberInput
+        step={1000}
+        value={formatPrice(Number(value))}
+        onChange={handleChange}
+        min={0}
+        max={MAX_EXPECTED_COST}
+        borderColor='gray.300'
+        focusBorderColor='primary.red'>
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+      원
+    </Flex>
   );
 };
 

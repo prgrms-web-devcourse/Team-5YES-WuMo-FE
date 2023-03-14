@@ -25,6 +25,7 @@ import { useSetRecoilState } from 'recoil';
 import { createImage, deleteImage } from '@/api/image';
 import { patchPartyDetail } from '@/api/party';
 import ConfirmModal from '@/components/base/ConfirmModal';
+import Toast from '@/components/base/toast/Toast';
 import useButtonDisabled from '@/hooks/useButtonDisabled';
 import { partyUpdateState } from '@/store/recoilPartyState';
 import { PartyListPropsWithMembers, PartyModalProps } from '@/types/party';
@@ -85,7 +86,10 @@ const PartyUpdateModal = ({ isOpen, onClose, partyDetail }: PartyModalProps) => 
 
       if (data) {
         setPartyDetail(data);
-        alert('모임이 정상적으로 수정되었어요.');
+        Toast.show({
+          message: '모임이 정상적으로 수정되었어요.',
+          type: 'success',
+        });
         onClose();
       }
     }
