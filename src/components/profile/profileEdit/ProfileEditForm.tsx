@@ -27,6 +27,7 @@ import { ImageData } from '@/types/place';
 import { UserEditProps } from '@/types/user';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 import ROUTES from '@/utils/constants/routes';
+import { compressImage } from '@/utils/imageCompressor';
 import { userEditSchema } from '@/utils/schema';
 
 const ProfileEditForm = () => {
@@ -63,6 +64,7 @@ const ProfileEditForm = () => {
     imageBase64: null,
     imageFile: null,
   });
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const [checkNickname, setCheckNickname] = useState(false);
   const watchNickname = watch('nickname');
 
@@ -78,7 +80,7 @@ const ProfileEditForm = () => {
   }, [myProfileInfo]);
 
   if (isError) return <></>;
-  if (isLoading)
+  if (isLoading || isImageUploading)
     return (
       <>
         <Loading />
@@ -121,7 +123,6 @@ const ProfileEditForm = () => {
       return setError('nickname', { message: FORM_ERROR_MESSAGES.DUPLICATE });
     const image = await getImage();
     fields.profileImage = image;
-
     fields.id = myProfileInfo.id;
     await patchMyProfile(fields);
     navigate(ROUTES.PROFILE, { replace: true });
@@ -145,10 +146,13 @@ const ProfileEditForm = () => {
     inputRef.current?.click();
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      encodeFileToBase64(file);
+      setIsImageUploading(true);
+      const compressedImageFile = await compressImage(file);
+      encodeFileToBase64(compressedImageFile);
+      setIsImageUploading(false);
     }
     e.target.value = '';
   };
@@ -205,7 +209,7 @@ const ProfileEditForm = () => {
           ref={inputRef}
           type='file'
           name='image'
-          accept='image/*'
+          accept='image/jpg, image/jpeg, image/png'
           onChange={handleFileChange}
         />
       </Center>

@@ -18,11 +18,13 @@ import { useRecoilState } from 'recoil';
 
 import { createImage, deleteImage } from '@/api/image';
 import ConfirmModal from '@/components/base/ConfirmModal';
+import Loading from '@/components/base/Loading';
 import ModalButton from '@/components/base/ModalButton';
 import useButtonDisabled from '@/hooks/useButtonDisabled';
 import { createPartyState, stepState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
 import { processStep } from '@/utils/constants/processStep';
+import { compressImage } from '@/utils/imageCompressor';
 
 const PartyNameModal = () => {
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -36,6 +38,7 @@ const PartyNameModal = () => {
   const [name, setName] = useState(createPartyBody.name || '');
   const [description, setDescription] = useState(createPartyBody.description || '');
   const [imageUrl, setImageUrl] = useState(createPartyBody.coverImage || '');
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   const buttonDisabled = useButtonDisabled([name, description, imageUrl]);
 
@@ -51,7 +54,10 @@ const PartyNameModal = () => {
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const targetFiles = (e.target as HTMLInputElement).files as FileList;
     const formData = new FormData();
-    formData.append('image', targetFiles[0]);
+    setIsImageUploading(true);
+    const compressedImageFile = await compressImage(targetFiles[0]);
+    formData.append('image', compressedImageFile);
+    setIsImageUploading(false);
 
     const data = await createImage(formData);
     if (data) {
@@ -67,6 +73,8 @@ const PartyNameModal = () => {
       coverImage: imageUrl,
     });
   };
+
+  if (isImageUploading) return <Loading />;
 
   return (
     <>

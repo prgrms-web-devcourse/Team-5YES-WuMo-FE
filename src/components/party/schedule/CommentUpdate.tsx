@@ -9,6 +9,7 @@ import BottomSheet from '@/components/base/BottomSheet';
 import BottomSheetButton from '@/components/base/BottomSheetButton';
 import CustomTextarea from '@/components/base/CustomTextarea';
 import { CommentCreateType, UpdateCommentType } from '@/types/schedule';
+import { compressImage } from '@/utils/imageCompressor';
 
 import CommentImageInput from './CommentImageInput';
 
@@ -43,6 +44,7 @@ const CommentUpdate = ({
       image: null,
     },
   });
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const watchContent = watch('content');
   const watchImage = watch('image');
 
@@ -57,8 +59,13 @@ const CommentUpdate = ({
 
   const onSubmitImageFile = async (image: File | null) => {
     if (!image) return null;
+
+    setIsImageUploading(true);
+    const compressedImageFile = await compressImage(image);
+    setIsImageUploading(false);
+
     const formData = new FormData();
-    formData.append('image', image);
+    formData.append('image', compressedImageFile);
     const imageUrl = await createImageUrl(formData);
     setCurrentImageUrl(imageUrl);
     return imageUrl;
@@ -107,13 +114,14 @@ const CommentUpdate = ({
           setCurrentImageUrl={setCurrentImageUrl}
         />
         <BottomSheetButton
-          isSubmitting={isSubmitting}
+          isSubmitting={isSubmitting || isImageUploading}
           isDisabled={!watchContent && !watchImage && !currentImageUrl}
           buttonText='Submit'
         />
       </Box>
     ),
   };
+
   return (
     <>
       <BottomSheet

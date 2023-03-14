@@ -1,5 +1,6 @@
 import { Box, useDisclosure } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useLocation, useParams } from 'react-router-dom';
@@ -12,6 +13,7 @@ import CustomTextarea from '@/components/base/CustomTextarea';
 import FloatingButton from '@/components/base/FloatingButton';
 import { ModalType } from '@/types/bottomSheet';
 import { CommentCreateType, CreateCommentBody } from '@/types/schedule';
+import { compressImage } from '@/utils/imageCompressor';
 
 import CommentImageInput from './CommentImageInput';
 
@@ -31,14 +33,21 @@ const CommentCreate = () => {
       image: null,
     },
   });
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   const { mutateAsync: createImageUrl, reset: imageReset } = useMutation(createImage);
   const { mutateAsync: createComment } = useMutation(createRouteComment);
 
   const onSubmitImageFile = async (image: File | null) => {
     if (!image) return null;
+
+    setIsImageUploading(true);
+    const compressedImageFile = await compressImage(image);
+    console.log(compressedImageFile);
+    setIsImageUploading(false);
+
     const formData = new FormData();
-    formData.append('image', image);
+    formData.append('image', compressedImageFile);
     const imageUrl = await createImageUrl(formData);
     return imageUrl;
   };
@@ -72,7 +81,7 @@ const CommentCreate = () => {
         <CustomTextarea name='content' control={control} />
         <CommentImageInput name='image' control={control} />
         <BottomSheetButton
-          isSubmitting={isSubmitting}
+          isSubmitting={isSubmitting || isImageUploading}
           isDisabled={!isDirty}
           buttonText='Submit'
         />

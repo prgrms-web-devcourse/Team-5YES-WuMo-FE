@@ -35,6 +35,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { createImage, deleteImage } from '@/api/image';
 import { patchPlace } from '@/api/place';
+import Loading from '@/components/base/Loading';
 import ModalButton from '@/components/base/ModalButton';
 import useImageUpload from '@/hooks/useImageUpload';
 import { PlaceEditModalProps } from '@/types/place';
@@ -58,6 +59,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const {
     values: imageValues,
+    isImageUploading,
     onFileChange,
     onFileChoose,
     onFileDelete,
@@ -119,6 +121,8 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
     if (data.image !== place.image) await deleteImage(place.image);
     navigate(-1);
   };
+
+  if (isImageUploading) return <Loading />;
 
   return (
     <>
