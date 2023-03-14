@@ -48,13 +48,12 @@ const UserPartyList = () => {
 
   const settings = {
     dots: false,
-    infinite: myPartyList.party.length >= 4,
+    infinite: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     arrows: false,
-    autoplay: myPartyList.party.length >= 4,
-    autoplaySpeed: 5000,
+    autoplay: false,
     pauseOnHover: true,
     variableWidth: true,
     touchThreshold: 200,
@@ -118,5 +117,9 @@ const StyledSlider = styled(Slider)`
     width: 5rem;
     display: inline-block;
     padding-bottom: 2rem;
+  }
+
+  .slick-track {
+    margin: 0;
   }
 `;
