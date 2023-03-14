@@ -39,9 +39,7 @@ const useImageUpload = (
   };
 
   const onFileDelete = () => {
-    if (confirm('사진을 삭제하시겠습니까?')) {
-      setValues({ ...values, imageBase64: '', imageFile: null });
-    }
+    setValues({ ...values, imageBase64: '', imageFile: null });
   };
 
   return {

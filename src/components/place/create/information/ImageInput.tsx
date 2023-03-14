@@ -1,8 +1,9 @@
-import { Box, Button, Flex, Icon, Image } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Image, Text, useDisclosure } from '@chakra-ui/react';
 import { ChangeEvent, useRef, useState } from 'react';
 import { MdAddPhotoAlternate } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 
+import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import { createPlaceState } from '@/store/recoilPlaceState';
 import { ImageData } from '@/types/place';
@@ -17,7 +18,9 @@ const ImageInput = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isImageUploading, setIsImageUploading] = useState(false);
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setIsImageUploading(true);
@@ -30,14 +33,12 @@ const ImageInput = () => {
     e.target.value = '';
   };
 
-  const handleFileDelete = () => {
-    if (confirm('사진을 삭제하시겠습니까?')) {
-      setValues({ ...values, imageBase64: '', imageFile: null });
-      setCreatePlaceBody({ ...createPlaceBody, imageURL: '', imageFile: null });
-    }
+  const onFileDelete = () => {
+    setValues({ ...values, imageBase64: '', imageFile: null });
+    setCreatePlaceBody({ ...createPlaceBody, imageURL: '', imageFile: null });
   };
 
-  const handleFileChoose = () => {
+  const onFileChoose = () => {
     inputRef.current?.click();
   };
 
@@ -58,14 +59,14 @@ const ImageInput = () => {
 
   return (
     <>
-      <Box onClick={handleFileChoose}>
+      <Box onClick={onFileChoose}>
         <input
           hidden
           ref={inputRef}
           type='file'
           name='image'
           accept='image/jpg, image/jpeg, image/png'
-          onChange={handleFileChange}
+          onChange={onFileChange}
         />
         {values.imageBase64 ? (
           <Image
@@ -91,11 +92,29 @@ const ImageInput = () => {
       </Box>
       {(values.imageBase64 || values.imageFile) && (
         <Flex justify='flex-end' paddingTop='3'>
-          <Button color='warning' onClick={handleFileDelete}>
+          <Button color='warning' onClick={onOpen}>
             삭제
           </Button>
         </Flex>
       )}
+      <ConfirmModal
+        isOpen={isOpen}
+        hasCloseButton
+        closeModalHandler={onClose}
+        body={
+          <Box textAlign='center'>
+            <Text>사진을 삭제하시겠습니까?</Text>
+          </Box>
+        }
+        buttonText={{ primary: '삭제', secondary: '취소' }}
+        clickButtonHandler={{
+          primary: () => {
+            onFileDelete();
+            onClose();
+          },
+          secondary: () => onClose(),
+        }}
+      />
     </>
   );
 };

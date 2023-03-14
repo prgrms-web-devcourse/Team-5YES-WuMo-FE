@@ -147,7 +147,9 @@ const PartyInformation = () => {
           <Button
             bg='transparent'
             size='xs'
-            onClick={() => copyPartyInvitationCode(`${window.location.host}/invitation`)}>
+            onClick={() =>
+              copyPartyInvitationCode(`${window.location.origin}/invitation`)
+            }>
             <BsFillShareFill />
           </Button>
         </Flex>
