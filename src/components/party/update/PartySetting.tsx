@@ -42,9 +42,7 @@ import MemberList from './MemberList';
 import PartyUpdateModal from './PartyUpdateModal';
 
 const PartySetting = ({ partyId, isOpen, onClose }: PartyModalProps) => {
-  if (!partyId) return;
   const navigate = useNavigate();
-  console.log(partyId);
 
   const selected = {
     color: 'primary.red',

@@ -24,7 +24,7 @@ export type PartyUpdateBody = {
 export type PartyModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  partyId?: string | undefined;
+  partyId?: number;
   partyDetail?: PartyListProps;
 };
 
@@ -65,7 +65,7 @@ type PartyMembersType = {
 export type PartyListPropsWithMembers = PartyInformationType & PartyMembersType;
 
 type deleteMemberBanishProps = {
-  partyId: string | undefined;
+  partyId?: number;
   otherMemberId: number;
 };
 

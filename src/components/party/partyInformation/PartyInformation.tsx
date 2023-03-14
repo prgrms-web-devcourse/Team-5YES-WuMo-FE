@@ -98,6 +98,7 @@ const PartyInformation = () => {
   return (
     <Box>
       <BackNavigation
+        partyId={Number(partyId)}
         title={scrollActive ? partyInformation.name : ''}
         option={BACKNAVIGATION_OPTIONS.MENU}
       />

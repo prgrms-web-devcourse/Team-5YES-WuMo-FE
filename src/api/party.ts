@@ -52,7 +52,7 @@ export const patchPartyDetail = async ({
   partyId,
   partyAPIBody,
 }: {
-  partyId: string | undefined;
+  partyId?: number;
   partyAPIBody: PartyUpdateBody;
 }) => {
   try {
