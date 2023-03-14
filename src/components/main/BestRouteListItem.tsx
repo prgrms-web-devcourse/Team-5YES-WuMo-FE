@@ -34,7 +34,15 @@ const BestRouteListItem = ({
           m='0.625rem 1.25rem'
           bg='blackAlpha.300'
         />
-        <Image src={image} w='100%' maxH='12.5rem' h='100%' mt='10px' />
+        <Image
+          fallbackSrc='/logo.svg'
+          src={image ? image : './logo.svg'}
+          w='100%'
+          maxH='12.5rem'
+          h='100%'
+          mt='10px'
+          alt={image}
+        />
         <Box
           zIndex='20'
           pos='absolute'

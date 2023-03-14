@@ -12,7 +12,13 @@ const PlaceLocationList = ({ locations }: RoutePlaceListProps) => {
         <PlaceItem key={id}>
           <Flex flexDirection='column' alignItems='center' gap='1' justify='flex-start'>
             <Text fontSize='0.375rem'>{address.split(' ')[0]}</Text>
-            <Image src={image} maxW='2.5rem' h='2.5rem' borderRadius='4' />
+            <Image
+              fallbackSrc='./logo.svg'
+              src={image ? image : './logo.svg'}
+              maxW='2.5rem'
+              h='2.5rem'
+              borderRadius='4'
+            />
             <Text
               fontSize='xs'
               wordBreak='keep-all'

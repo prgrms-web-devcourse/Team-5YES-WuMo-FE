@@ -69,7 +69,7 @@ const CommentList = ({ placeId }: CommentListProps) => {
                   <Td display='flex' flexDirection='column' pl='0' pr='0'>
                     <Flex justify='space-between'>
                       <Flex align='center' gap='2' ml='1'>
-                        <Avatar size='md' src={profileImage} />
+                        <Avatar size='md' src={profileImage ? profileImage : undefined} />
                         <Box>
                           <Text pl='0.5' pb='0.5'>
                             {nickName}

@@ -36,7 +36,11 @@ const MemberList = ({ partyId }: { partyId: number }) => {
           justify='space-between'
           borderRadius='0.5rem'>
           <Flex alignItems='center' gap='1rem'>
-            <Avatar src={profileImage} w='38px' height='38px' />
+            <Avatar
+              src={profileImage ? profileImage : undefined}
+              w='38px'
+              height='38px'
+            />
             <Box>
               <Text>{nickname}</Text>
               <Text fontSize='0.75rem' color='#808080'>

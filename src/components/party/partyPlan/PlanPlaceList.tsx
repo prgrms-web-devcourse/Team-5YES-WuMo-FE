@@ -97,6 +97,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           height='7rem'
           border={place.routeId ? '2px solid #2b6cb0' : ''}>
           <Image
+            fallbackSrc='./logo.svg'
             src={place.image}
             alt={place.name}
             width='30%'

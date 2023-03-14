@@ -77,7 +77,8 @@ const UserPartyList = () => {
             <Box key={id} onClick={() => !dragging && onMovePartyPage(id)}>
               <Box p='relative' w='5rem' h='5rem' mx='1rem'>
                 <Image
-                  src={coverImage ? coverImage : '/logo-lg.svg'}
+                  fallbackSrc='/logo.svg'
+                  src={coverImage ? coverImage : '/logo.svg'}
                   p='absolute'
                   top='0'
                   left='0'
@@ -85,6 +86,7 @@ const UserPartyList = () => {
                   w='100%'
                   objectFit='cover'
                   borderRadius='1.25rem'
+                  alt={name}
                 />
               </Box>
               <Heading

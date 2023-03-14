@@ -45,10 +45,12 @@ const PartyListGrid = () => {
             align='center'
             key={id}>
             <Image
-              src={coverImage ? coverImage : '/logo-lg.svg'}
+              fallbackSrc='./logo.svg'
+              src={coverImage ? coverImage : '/logo.svg'}
               boxSize='80px'
               objectFit='cover'
               borderRadius='1.25rem'
+              alt={name}
             />
             <Heading
               mt='2'

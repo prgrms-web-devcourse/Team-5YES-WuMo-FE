@@ -142,7 +142,10 @@ const CommentForm = ({
       <Flex direction='column'>
         {type === 'create' && (
           <Flex align='center' gap='2' ml='1'>
-            <Avatar size='sm' src={writerInfo.profileImage} />
+            <Avatar
+              size='sm'
+              src={writerInfo.profileImage ? writerInfo.profileImage : undefined}
+            />
             <Text>{writerInfo.nickname}</Text>
           </Flex>
         )}
@@ -179,6 +182,7 @@ const CommentForm = ({
                   h='7.5rem'
                   objectFit='cover'
                   src={imageValues.imageBase64}
+                  alt='미리 보기'
                 />
               </Flex>
             </Box>
