@@ -42,13 +42,14 @@ const PartyListCard = ({
         overflow='hidden'
         variant='unstyled'>
         <Image
+          fallbackSrc='./logo.svg'
           objectFit='cover'
           borderRadius='2'
           minW={{ base: '10rem' }}
           maxW={{ base: '10rem' }}
           minH='8.125rem'
           maxH='8.125rem'
-          src={coverImage ? coverImage : '/logo-lg.svg'}
+          src={coverImage ? coverImage : '/logo.svg'}
         />
 
         <Stack w='100%' justifyContent='space-between' px='4' pb='3'>

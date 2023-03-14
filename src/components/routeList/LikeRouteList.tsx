@@ -65,7 +65,11 @@ const LikeRouteList = () => {
               cursor='pointer'
               margin='0 auto 2rem auto'
               onClick={() => navigate(`/like-route/${partyId}`)}>
-              <Image src={image} alt={image} />
+              <Image
+                fallbackSrc='./logo.svg'
+                src={image ? image : './logo.svg'}
+                alt={name}
+              />
 
               <Box p='6'>
                 <PlaceLocationList locations={locations} />

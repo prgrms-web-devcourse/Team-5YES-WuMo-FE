@@ -63,7 +63,14 @@ const PlacePage = () => {
         <BackNavigation />
       )}
       <Box height='2xs' marginTop='14'>
-        <Image src={data.image} height='3xs' width='full' objectFit='cover' />
+        <Image
+          fallbackSrc='./logo.svg'
+          src={data.image}
+          height='3xs'
+          width='full'
+          objectFit='cover'
+          alt='커버 이미지'
+        />
         <Image src={getGitEmoji(data.category)} position='relative' left='5' bottom='8' />
       </Box>
       <Flex direction='column' padding='5' paddingTop='0' gap='2'>

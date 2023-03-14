@@ -10,13 +10,14 @@ import ConfirmModal from '@/components/base/ConfirmModal';
 import { PartyMemberListProps, PartyMemberProps } from '@/types/party';
 
 const MemberList = ({
+  partyId,
   partyMemberList,
   partyMemberMeInfo,
 }: {
+  partyId: number;
   partyMemberList: PartyMemberListProps;
   partyMemberMeInfo: PartyMemberProps;
 }) => {
-  const { partyId } = useParams();
   const { onOpen, isOpen, onClose } = useDisclosure();
 
   const [targetBanishMember, setTargetBanishMember] = useState('');

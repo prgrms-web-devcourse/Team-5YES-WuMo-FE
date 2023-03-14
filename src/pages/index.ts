@@ -4,7 +4,6 @@ export { default as LandingPage } from './LandingPage';
 export { default as LikeRouteListPage } from './LikeRouteListPage';
 export { default as MainPage } from './MainPage';
 export { default as NotFoundPage } from './NotFoundPage';
-export { default as PartyAlbumPage } from './PartyAlbumPage';
 export { default as PartyCommentPage } from './PartyCommentPage';
 export { default as PartyCreatePage } from './PartyCreatePage';
 export { default as PartyListPage } from './PartyListPage';

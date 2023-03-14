@@ -147,6 +147,7 @@ const PartySetting = ({ partyId, isOpen, onClose }: PartyModalProps) => {
               멤버 ({partyMemberList?.totalMembers}명)
             </Text>
             <MemberList
+              partyId={Number(partyId)}
               partyMemberList={partyMemberList}
               partyMemberMeInfo={partyMemberMeInfo}
             />

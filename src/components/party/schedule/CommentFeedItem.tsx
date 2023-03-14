@@ -68,7 +68,15 @@ const CommentFeedItem = ({
       <Box>
         <Text p='0.625rem 0'>{content}</Text>
         {image && (
-          <Image src={image} w='100%' m='0 auto' maxH='18.75rem' objectFit='cover' />
+          <Image
+            fallbackSrc='./logo.svg'
+            src={image}
+            w='100%'
+            m='0 auto'
+            maxH='18.75rem'
+            objectFit='cover'
+            alt={image}
+          />
         )}
       </Box>
       <CommentUpdate

@@ -56,8 +56,11 @@ const BestRouteMoreList = () => {
               cursor='pointer'
               margin='0 auto 2rem auto'
               onClick={() => navigate(`/best-route/${partyId}`)}>
-              <Image src={image} alt={image} w='100%' h='15rem' />
-
+              <Image
+                fallbackSrc='./logo.svg'
+                src={image ? image : './logo.svg'}
+                alt={image}
+              />
               <Box p='6'>
                 <PlaceLocationList locations={locations} />
                 <Box mb='2' fontWeight='semibold' as='h3' lineHeight='tight'>

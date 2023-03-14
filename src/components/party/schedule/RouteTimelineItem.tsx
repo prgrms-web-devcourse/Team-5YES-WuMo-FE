@@ -66,11 +66,13 @@ const RouteTimelineItem = ({
           </Flex>
           <Card>
             <Image
-              src={image}
+              fallbackSrc='./logo.svg'
+              src={image ? image : './logo.svg'}
               w='100%'
               maxH='12.5rem'
               borderTopRadius='0.625rem'
               objectFit='cover'
+              alt={name}
             />
             <Flex h='3.125rem' align='center' p='10px'>
               <MdOutlinePlace

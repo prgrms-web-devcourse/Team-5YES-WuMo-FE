@@ -103,11 +103,13 @@ const PartyInformation = () => {
         option={BACKNAVIGATION_OPTIONS.MENU}
       />
       <Image
+        fallbackSrc='./logo.svg'
         src={partyInformation.coverImage}
         mt='3.75rem'
         h='200px'
         w='100%'
         objectFit='cover'
+        alt={partyInformation.name}
       />
       <Flex justify='space-between'>
         <Container p='0.625rem' m='0'>
