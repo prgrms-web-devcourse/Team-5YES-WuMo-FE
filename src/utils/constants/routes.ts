@@ -7,7 +7,6 @@ const ROUTES = {
   SCHEDULE: 'schedule',
   SCHEDULE_COMMENT: '/party/:partyId/schedule-comment',
   PLAN: 'plan',
-  ALBUM: '/album',
   LIKE: '/like',
   LIKE_DETAIL: '/like-route/:partyId',
   PARTY_CREATE: '/party/new',
