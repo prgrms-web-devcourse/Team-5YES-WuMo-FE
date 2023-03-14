@@ -23,17 +23,12 @@ const BestRouteListPreview = () => {
     data: BestRouteList,
     isLoading,
     isError,
-  } = useQuery<BestRouteListType>(
-    ['BestRouteList'],
-    () => fetchBestRouteList(parameter),
-    {
-      staleTime: 10000,
-    }
-  );
+  } = useQuery<BestRouteListType>(['BestRouteList'], () => fetchBestRouteList(parameter));
 
   const parameter = {
     pageSize: 5,
     sortType: 'LIKES',
+    searchWord: '',
   };
 
   const onMoveBestRoutePage = () => {
