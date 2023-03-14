@@ -10,6 +10,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
@@ -28,32 +29,42 @@ const RouteReleaseChange = ({
   routeId: number;
 }) => {
   const { partyId } = useParams();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: routeReleaseIsOpen,
+    onClose: routeReleaseOnClose,
+    onOpen: routeReleaseOnOpen,
+  } = useDisclosure();
+  const {
+    isOpen: routeCloseIsOpen,
+    onClose: routeCloseOnClose,
+    onOpen: routeCloseOnOpen,
+  } = useDisclosure();
   const queryClient = useQueryClient();
   const { mutate: changeReleased } = useMutation(patchChangRouteReleased);
 
-  const { register, getValues, reset } = useForm({
+  const { register, watch, getValues, reset, resetField } = useForm({
     defaultValues: {
       routeName: '',
     },
   });
-
+  const NameWatch = watch('routeName');
   const {
     data: partyInformation,
     isLoading,
     isError,
   } = useQuery<PartyInformationType>(
-    ['partyInformation'],
+    ['partyInformation', partyId],
     () => fetchPartyInformation(Number(partyId)),
     {
-      onSuccess: (data) => {
-        reset({
-          routeName: data.name,
-        });
-      },
       staleTime: 5000,
     }
   );
+
+  useEffect(() => {
+    reset({
+      routeName: partyInformation?.name,
+    });
+  }, []);
 
   if (isLoading)
     return (
@@ -65,16 +76,9 @@ const RouteReleaseChange = ({
 
   const onRouteReleased = () => {
     if (scheduleList.isPublic) {
-      changeReleased(
-        { routeId, isPublic: false, name: partyInformation.name },
-        {
-          onSuccess: () => {
-            return queryClient.invalidateQueries(['scheduleList']);
-          },
-        }
-      );
+      routeCloseOnOpen();
     } else {
-      onOpen();
+      routeReleaseOnOpen();
     }
   };
 
@@ -94,8 +98,9 @@ const RouteReleaseChange = ({
         </Flex>
       </FormControl>
       <ConfirmModal
-        isOpen={isOpen}
-        closeModalHandler={onClose}
+        isOpen={routeReleaseIsOpen}
+        closeModalHandler={routeReleaseOnClose}
+        disabled={!NameWatch}
         body={
           <Flex direction='column' align='center' pt='0'>
             <Heading size='md' mb='24px'>
@@ -109,7 +114,7 @@ const RouteReleaseChange = ({
             </Text>
 
             <Text mb='2'>공개할 루트의 이름을 정해주세요.</Text>
-            <Input {...register('routeName')} />
+            <Input isRequired {...register('routeName')} />
           </Flex>
         }
         clickButtonHandler={{
@@ -118,7 +123,40 @@ const RouteReleaseChange = ({
               { routeId, isPublic: true, name: getValues('routeName') },
               {
                 onSuccess: () => {
-                  onClose();
+                  routeReleaseOnClose();
+                  return queryClient.invalidateQueries(['scheduleList']);
+                },
+              }
+            );
+          },
+        }}
+        buttonText={{
+          secondary: '취소',
+          primary: '확인',
+        }}
+      />
+      <ConfirmModal
+        isOpen={routeCloseIsOpen}
+        closeModalHandler={() => {
+          routeCloseOnClose();
+          resetField('routeName');
+        }}
+        disabled={!NameWatch}
+        body={
+          <Flex direction='column' align='center' pt='0'>
+            <Heading size='md' mb='24px'>
+              루트 비공개
+            </Heading>
+            <Text fontSize='sm'>모임 루트 공개를 취소하시겠습니까?</Text>
+          </Flex>
+        }
+        clickButtonHandler={{
+          primary: () => {
+            changeReleased(
+              { routeId, isPublic: false, name: partyInformation.name },
+              {
+                onSuccess: () => {
+                  routeCloseOnClose();
                   return queryClient.invalidateQueries(['scheduleList']);
                 },
               }

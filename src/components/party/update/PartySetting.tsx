@@ -19,7 +19,7 @@ import {
 import styled from '@emotion/styled';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   deleteParty,
@@ -41,9 +41,10 @@ import ROUTES from '@/utils/constants/routes';
 import MemberList from './MemberList';
 import PartyUpdateModal from './PartyUpdateModal';
 
-const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
-  const { partyId } = useParams();
+const PartySetting = ({ partyId, isOpen, onClose }: PartyModalProps) => {
+  if (!partyId) return;
   const navigate = useNavigate();
+  console.log(partyId);
 
   const selected = {
     color: 'primary.red',
@@ -61,7 +62,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation', partyId], () =>
+  } = useQuery<PartyInformationType>(['partyInformation'], () =>
     fetchPartyInformation(Number(partyId))
   );
 
@@ -69,7 +70,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
     data: partyMemberMeInfo,
     isLoading: partyMemberMeInfoLoading,
     isError: partyMemberMeInfoError,
-  } = useQuery<PartyMemberProps>(['partyMemberMeInfo', partyId], () =>
+  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
     fetchPartyMembersMeInfo(Number(partyId))
   );
 
@@ -81,7 +82,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
     members: PartyMemberProps[];
     lastId: number;
     totalMembers: number;
-  }>(['partyUserList', partyId], () => fetchPartyMembers(Number(partyId)));
+  }>(['partyUserList'], () => fetchPartyMembers(Number(partyId)));
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [removePartyModalOpen, setRemovePartyModalOpen] = useState(false);
@@ -236,7 +237,7 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
       {partyInformation.id !== 0 ? (
         <>
           <PartyUpdateModal
-            partyId={partyId}
+            partyId={Number(partyId)}
             partyDetail={partyInformation}
             isOpen={isUpdateModalOpen}
             onClose={() => {

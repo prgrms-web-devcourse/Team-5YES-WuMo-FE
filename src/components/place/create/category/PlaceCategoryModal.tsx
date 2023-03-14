@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import ModalButton from '@/components/base/ModalButton';
+import Toast from '@/components/base/toast/Toast';
 import { createPlaceState, createPlaceStepState } from '@/store/recoilPlaceState';
 
 import CategoryGrid from './CategoryGrid';
@@ -14,7 +15,10 @@ const PlaceCategoryModal = () => {
 
   const handleClick = () => {
     if (!value) {
-      alert('카테고리를 선택해 주세요.');
+      Toast.show({
+        message: '카테고리를 선택해 주세요.',
+        type: 'warning',
+      });
       return;
     }
     setCreatePlaceBody({ ...createPlaceBody, category: value });

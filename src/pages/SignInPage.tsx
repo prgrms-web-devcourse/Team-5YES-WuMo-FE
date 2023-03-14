@@ -2,7 +2,6 @@ import { Box, Flex } from '@chakra-ui/react';
 
 import LargeLogo from '@/components/base/LargeLogo';
 import BackNavigation from '@/components/navigation/BackNavigation';
-import FindUserInfo from '@/components/signIn/FindUserInfo';
 import SignInForm from '@/components/signIn/SignInForm';
 import ToSignUp from '@/components/signIn/ToSignUp';
 
@@ -15,7 +14,6 @@ const SignInPage = () => {
           <LargeLogo src='/logo-lg.svg' />
           <SignInForm />
           <ToSignUp />
-          <FindUserInfo />
         </Box>
       </Flex>
     </Box>

@@ -54,6 +54,10 @@ const PartyOwnRoleModal = () => {
   const handleCreateParty = async () => {
     const data = await createParty(partyAPIBody);
     if (data) {
+      Toast.show({
+        message: '모임이 생성되었습니다.',
+        type: 'success',
+      });
       resetCreatePartyBody();
       resetStep();
       Toast.show({

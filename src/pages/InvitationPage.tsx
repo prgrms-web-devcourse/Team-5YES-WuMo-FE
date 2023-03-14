@@ -44,7 +44,7 @@ const InvitationPage = () => {
       });
     },
     onError: (err) => {
-      console.log(err);
+      console.error(err);
       Toast.show({
         message: '이미 참여 중인 모임입니다',
         duration: 3000,

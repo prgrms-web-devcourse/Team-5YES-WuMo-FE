@@ -118,7 +118,6 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
             </Heading>
             <Text
               display='block'
-              width='10.5rem'
               fontSize='sm'
               overflow='hidden'
               textOverflow='ellipsis'

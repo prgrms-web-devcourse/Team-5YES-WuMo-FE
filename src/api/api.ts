@@ -1,5 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
+import Toast from '@/components/base/toast/Toast';
+import ROUTES from '@/utils/constants/routes';
+
 type AxiosInterceptorChildrenType = {
   children: JSX.Element;
 };
@@ -49,6 +52,16 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
       const { config: originalConfig, response } = error;
 
       if (response?.status === 401 && originalConfig) {
+        if (originalConfig.url === '/members/reissue') {
+          Toast.show({
+            title: '인증 정보가 만료되었습니다.',
+            message: '다시 로그인해주세요.',
+            duration: 5000,
+            type: 'error',
+          });
+          localStorage.removeItem('tokens');
+          location.replace(ROUTES.LANDING);
+        }
         if (lock) {
           return new Promise((resolve) => {
             subscribeTokenRefresh((token: string) => {

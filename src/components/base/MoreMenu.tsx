@@ -1,4 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import { MdMoreVert } from 'react-icons/md';
 
 import { MoreMenuListEventProps } from '@/types/moreMenu';
@@ -11,7 +12,9 @@ const MoreMenu = ({ onEditEvent, onRemoveEvent }: MoreMenuListEventProps) => {
       </MenuButton>
       <MenuList pos='absolute' right='-8' minW='160px' zIndex='30'>
         <MenuItem
-          justifyContent='center'
+          css={css`
+            direction: ltr;
+          `}
           fontSize='lg'
           onClick={onEditEvent}
           _focus={{ backgroundColor: 'none' }}
@@ -19,7 +22,9 @@ const MoreMenu = ({ onEditEvent, onRemoveEvent }: MoreMenuListEventProps) => {
           수정하기
         </MenuItem>
         <MenuItem
-          justifyContent='center'
+          css={css`
+            direction: ltr;
+          `}
           fontSize='lg'
           color='red'
           onClick={onRemoveEvent}

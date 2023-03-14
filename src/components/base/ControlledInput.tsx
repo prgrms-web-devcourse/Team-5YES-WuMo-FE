@@ -32,7 +32,7 @@ const ControlledInput = <T extends FieldValues>({
   const { field, fieldState } = useController({ name, control });
 
   return (
-    <FormControl isInvalid={!!fieldState.error?.message}>
+    <FormControl w='100%' isInvalid={!!fieldState.error?.message}>
       <FormLabel fontSize='xs' fontWeight='bold' color='gray'>
         {name === 'email' ? '이메일 ' : '비밀번호'}
       </FormLabel>
@@ -44,9 +44,7 @@ const ControlledInput = <T extends FieldValues>({
           {...field}
         />
         <InputRightElement>
-          {fieldState.isDirty && (
-            <MdCancel cursor='pointer' onClick={() => resetField(name)} />
-          )}
+          {field.value && <MdCancel cursor='pointer' onClick={() => resetField(name)} />}
         </InputRightElement>
       </InputGroup>
       <Box height={7}>

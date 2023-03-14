@@ -30,12 +30,15 @@ const SignInForm = () => {
 
   const onSubmit = async (values: SignInProps) => {
     try {
-      const { accessToken, refreshToken } = await signIn(values);
-      setToken({
-        accessToken,
-        refreshToken,
-      });
-      navigate(ROUTES.MAIN);
+      const tokens = await signIn(values);
+      if (tokens) {
+        const { accessToken, refreshToken } = tokens;
+        setToken({
+          accessToken,
+          refreshToken,
+        });
+        navigate(ROUTES.MAIN, { replace: true });
+      }
     } catch (error) {
       console.error(error);
     }

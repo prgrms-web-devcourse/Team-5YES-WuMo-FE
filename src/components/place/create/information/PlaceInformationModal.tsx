@@ -10,12 +10,16 @@ import {
 } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { createImage } from '@/api/image';
 import { createPlace } from '@/api/place';
 import ModalButton from '@/components/base/ModalButton';
-import { createPlaceState } from '@/store/recoilPlaceState';
+import {
+  createPlaceState,
+  createPlaceStepState,
+  placeSearchState,
+} from '@/store/recoilPlaceState';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 import { getSearchAddress, MAX_ADDRESS_LENGTH } from '@/utils/constants/place';
 import { PlaceInformationItems } from '@/utils/constants/processStep';
@@ -38,6 +42,9 @@ const PlaceInformationModal = () => {
 
   const { mutateAsync: createImageUrl, reset: imageReset } = useMutation(createImage);
   const { mutateAsync: createNewPlace } = useMutation(createPlace);
+  const resetCreatePlaceBody = useResetRecoilState(createPlaceState);
+  const resetPlaceSearchState = useResetRecoilState(placeSearchState);
+  const resetCreatePlaceStep = useResetRecoilState(createPlaceStepState);
 
   const onClickButton = async () => {
     if (!visitDate) return PLACE_ERROR_MESSAGES.VISIT_DATE_REQUIRED;
@@ -74,6 +81,9 @@ const PlaceInformationModal = () => {
     await createNewPlace(placeBody, {
       onSuccess: (data) => {
         if (!data?.id) return;
+        resetCreatePlaceBody();
+        resetPlaceSearchState();
+        resetCreatePlaceStep();
         navigate(`/place/${data.id}`, {
           replace: true,
           state: { partyId: state.partyId },

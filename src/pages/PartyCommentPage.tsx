@@ -1,4 +1,4 @@
-import RouteCommentFeed from '@/components/party/schedule/PlaceCommentFeed';
+import RouteCommentFeed from '@/components/party/schedule/RouteCommentFeed';
 
 const PartyCommentPage = () => {
   return (

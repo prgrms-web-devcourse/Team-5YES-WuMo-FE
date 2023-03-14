@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, useInjectKakaoMapApi } from 'react-kakao-maps-sdk';
 import { Link, useParams } from 'react-router-dom';
 
 import { PlacePreviewMapProps } from '@/types/place';
@@ -17,6 +17,13 @@ const PlacePreviewMap = ({
 }: PlacePreviewMapProps) => {
   const { partyId } = useParams();
   const [selectedMarker, setSelectedMarker] = useState<number | null>();
+
+  const { loading, error } = useInjectKakaoMapApi({
+    appkey: import.meta.env.VITE_KAKAO_API_JS_KEY,
+    libraries: ['services'],
+  });
+
+  if (loading || error) return <></>;
 
   return (
     <Map

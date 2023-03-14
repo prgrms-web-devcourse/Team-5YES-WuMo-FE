@@ -53,7 +53,7 @@ const UserPartyList = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    autoplay: true,
+    autoplay: myPartyList.party.length >= 4,
     autoplaySpeed: 5000,
     pauseOnHover: true,
     variableWidth: true,

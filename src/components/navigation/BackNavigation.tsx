@@ -87,7 +87,7 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
   const navigate = useNavigate();
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20' h='3.75rem' userSelect='none'>
-      <Flex justify='space-between' mb='0.5rem'>
+      <Flex justify='space-between' align='baseline'>
         <BackButton
           css={css`
             margin-right: 10px;
@@ -178,8 +178,8 @@ const BackNavigation = ({ title, option, moreMenuEvent }: BackNavigationProps) =
 const BackButton = styled.span`
   cursor: pointer;
   font-size: 1.5rem;
-  padding-top: 0.25rem;
   flex-grow: 1;
+  flex: 1;
 `;
 
 const Nav = styled(Container)`
@@ -191,7 +191,8 @@ const Nav = styled(Container)`
 
 const Title = styled.h1`
   font-size: 1.25rem;
-  flex-grow: 2;
+  text-align: center;
+  flex: 4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
