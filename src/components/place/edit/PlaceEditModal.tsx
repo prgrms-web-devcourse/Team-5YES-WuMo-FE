@@ -194,7 +194,11 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
                 예상 비용
               </Flex>
             </AccordionButton>
-            <AccordionPanel>
+            <AccordionPanel
+              display='flex'
+              justifyContent='center'
+              alignItems='center'
+              gap='1.5'>
               <NumberInput
                 step={1000}
                 value={formatPrice(Number(cost))}
@@ -208,6 +212,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
+              원
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>

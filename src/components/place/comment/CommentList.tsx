@@ -74,7 +74,7 @@ const CommentList = ({ placeId }: CommentListProps) => {
                           <Text pl='0.5' pb='0.5'>
                             {nickName}
                           </Text>
-                          <Tag size='sm'>{memberRole}</Tag>
+                          {memberRole && <Tag size='sm'>{memberRole}</Tag>}
                         </Box>
                       </Flex>
                       {isEditable && (

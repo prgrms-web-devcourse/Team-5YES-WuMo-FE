@@ -16,7 +16,9 @@ const PlaceList = () => {
   const [searchState, setSearchState] = useRecoilState(placeSearchState);
 
   return (
-    <TableContainer overflowY='scroll' h={searchState.selectedPlace.id ? 'xs' : 'md'}>
+    <TableContainer
+      overflowY='scroll'
+      h={searchState.selectedPlace.id ? 'calc(100vh - 28rem)' : 'calc(100vh - 16rem)'}>
       <Table variant='simple'>
         <Tbody>
           {/* // TODO: 무한스크롤 */}

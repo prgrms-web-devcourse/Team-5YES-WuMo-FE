@@ -21,6 +21,7 @@ const PlaceCreatePage = () => {
   const navigate = useNavigate();
   const resetCreatePlaceBody = useResetRecoilState(createPlaceState);
   const resetPlaceSearchState = useResetRecoilState(placeSearchState);
+  const resetCreatePlaceStep = useResetRecoilState(createPlaceStepState);
   const [step, setStep] = useRecoilState<number>(createPlaceStepState);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,6 +39,7 @@ const PlaceCreatePage = () => {
 
       resetCreatePlaceBody();
       resetPlaceSearchState();
+      resetCreatePlaceStep();
       setIsOpen(false);
       navigate(-1);
     }
