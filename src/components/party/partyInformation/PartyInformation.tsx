@@ -103,7 +103,7 @@ const PartyInformation = () => {
         option={BACKNAVIGATION_OPTIONS.MENU}
       />
       <Image
-        fallbackSrc='./logo.svg'
+        fallbackSrc='/skeleton.svg'
         src={partyInformation.coverImage}
         mt='3.75rem'
         h='200px'

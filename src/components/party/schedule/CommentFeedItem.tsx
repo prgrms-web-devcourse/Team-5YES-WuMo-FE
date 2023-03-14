@@ -69,7 +69,7 @@ const CommentFeedItem = ({
         <Text p='0.625rem 0'>{content}</Text>
         {image && (
           <Image
-            fallbackSrc='./logo.svg'
+            fallbackSrc='/skeleton.svg'
             src={image}
             w='100%'
             m='0 auto'

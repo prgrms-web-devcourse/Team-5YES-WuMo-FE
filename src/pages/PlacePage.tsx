@@ -64,7 +64,7 @@ const PlacePage = () => {
       )}
       <Box height='2xs' marginTop='14'>
         <Image
-          fallbackSrc='./logo.svg'
+          fallbackSrc='/skeleton.svg'
           src={data.image}
           height='3xs'
           width='full'

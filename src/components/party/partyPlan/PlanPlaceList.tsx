@@ -96,7 +96,7 @@ const PlanPlaceList = ({ places }: PlanPlaceListProps) => {
           marginBottom='3'
           height='7rem'>
           <Image
-            fallbackSrc='./logo.svg'
+            fallbackSrc='/skeleton.svg'
             src={place.image}
             alt={place.name}
             width='30%'
