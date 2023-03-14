@@ -5,6 +5,7 @@ import { MdCancel, MdSearch } from 'react-icons/md';
 import { useInjectKakaoMapApi } from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
 
+import Toast from '@/components/base/toast/Toast';
 import { placeSearchState } from '@/store/recoilPlaceState';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
 
@@ -25,7 +26,10 @@ const PlaceSearchForm = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-      alert(PLACE_ERROR_MESSAGES.KEYWORD_REQUIRED);
+      Toast.show({
+        message: PLACE_ERROR_MESSAGES.KEYWORD_REQUIRED,
+        type: 'warning',
+      });
       return;
     }
 
@@ -35,9 +39,15 @@ const PlaceSearchForm = () => {
       if (status === 'OK') {
         if (data) setSearchState({ ...searchState, keyword, result: data });
       } else if (status === 'ZERO_RESULT') {
-        alert(PLACE_ERROR_MESSAGES.NO_RESULT);
+        Toast.show({
+          message: PLACE_ERROR_MESSAGES.NO_RESULT,
+          type: 'warning',
+        });
       } else if (status === 'ERROR') {
-        alert(PLACE_ERROR_MESSAGES.RESPONSE_ERROR);
+        Toast.show({
+          message: PLACE_ERROR_MESSAGES.RESPONSE_ERROR,
+          type: 'error',
+        });
       }
     });
   };

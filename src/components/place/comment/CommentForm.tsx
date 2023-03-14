@@ -18,6 +18,7 @@ import { createImage } from '@/api/image';
 import { createPlaceComment, patchPlaceComment } from '@/api/place';
 import { fetchMyProfileInfo } from '@/api/user';
 import Loading from '@/components/base/Loading';
+import Toast from '@/components/base/toast/Toast';
 import useImageUpload from '@/hooks/useImageUpload';
 import { CommentFormProps } from '@/types/place';
 import { PLACE_ERROR_MESSAGES } from '@/utils/constants/messages';
@@ -73,7 +74,11 @@ const CommentForm = ({
   const onCreateCommentSubmit = async () => {
     if (!partyId || !placeId) return;
     if (!content && !imageValues.imageFile) {
-      alert(PLACE_ERROR_MESSAGES.COMMENT_REQUIRED);
+      Toast.show({
+        message: PLACE_ERROR_MESSAGES.COMMENT_REQUIRED,
+        type: 'warning',
+      });
+
       return;
     }
     const imageUrl = await onSubmitImageFile();
@@ -99,7 +104,10 @@ const CommentForm = ({
   const onEditCommentSubmit = async () => {
     if (!commentId) return;
     if (!content && !imageValues.imageFile) {
-      alert(PLACE_ERROR_MESSAGES.COMMENT_REQUIRED);
+      Toast.show({
+        message: PLACE_ERROR_MESSAGES.COMMENT_REQUIRED,
+        type: 'warning',
+      });
       return;
     }
 
