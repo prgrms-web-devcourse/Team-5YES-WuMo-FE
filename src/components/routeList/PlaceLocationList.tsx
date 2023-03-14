@@ -11,12 +11,14 @@ const PlaceLocationList = ({ locations }: RoutePlaceListProps) => {
       {locations.map(({ id, name, image, address }, index) => (
         <PlaceItem key={id}>
           <Flex flexDirection='column' alignItems='center' gap='1' justify='flex-start'>
-            <Text fontSize='0.375rem'>{address.split(' ')[0]}</Text>
+            <Text fontSize='0.5rem'>{address.split(' ')[0]}</Text>
             <Image
-              fallbackSrc='./logo.svg'
-              src={image ? image : './logo.svg'}
+              fallbackSrc='/skeleton.svg'
+              src={image ? image : '/logo.svg'}
               maxW='4rem'
+              w='4rem'
               h='4rem'
+              objectFit='cover'
               borderRadius='4'
             />
             <Text
