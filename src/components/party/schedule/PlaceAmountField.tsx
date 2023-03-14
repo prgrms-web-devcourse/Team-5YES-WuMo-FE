@@ -31,7 +31,7 @@ const PlaceAmountField = ({ spending }: { spending: number }) => {
       spending: Number(amount),
     };
     changeAmount(amountBody);
-    alert(`${amount}원으로 변경되었습니다.`);
+    alert(`${numberValue}원으로 변경되었습니다.`);
   };
 
   return (
