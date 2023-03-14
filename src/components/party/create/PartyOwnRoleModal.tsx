@@ -15,6 +15,7 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { createParty } from '@/api/party';
 import ModalButton from '@/components/base/ModalButton';
+import Toast from '@/components/base/toast/Toast';
 import useButtonDisabled from '@/hooks/useButtonDisabled';
 import { createPartyState } from '@/store/recoilPartyState';
 import { PartyCreateBody } from '@/types/party';
@@ -51,8 +52,10 @@ const PartyOwnRoleModal = () => {
   const handleCreateParty = async () => {
     const data = await createParty(partyAPIBody);
     if (data) {
-      // 파티 생성 완료 toast 추가예정
-      alert('모임이 생성되었습니다.');
+      Toast.show({
+        message: '모임이 생성되었습니다.',
+        type: 'success',
+      });
       resetCreatePartyBody();
       navigate(ROUTES.PARTY_LIST, { replace: true });
     }

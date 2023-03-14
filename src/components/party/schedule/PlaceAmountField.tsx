@@ -15,6 +15,7 @@ import { MdCreditCard } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
 
 import { patchChangeAmount } from '@/api/schedules';
+import Toast from '@/components/base/toast/Toast';
 import { AmountType, ChangeAmountType } from '@/types/schedule';
 import { formatPrice } from '@/utils/formatter';
 
@@ -31,7 +32,10 @@ const PlaceAmountField = ({ spending }: { spending: number }) => {
       spending: Number(amount),
     };
     changeAmount(amountBody);
-    alert(`${amount}원으로 변경되었습니다.`);
+    Toast.show({
+      message: `${numberValue}원으로 변경되었습니다.`,
+      type: 'success',
+    });
   };
 
   return (

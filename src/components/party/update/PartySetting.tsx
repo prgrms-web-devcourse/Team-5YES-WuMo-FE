@@ -25,6 +25,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { deleteParty, deleteWithdrawalParty } from '@/api/party';
 import { patchOwnRole } from '@/api/role';
 import ConfirmModal from '@/components/base/ConfirmModal';
+import Toast from '@/components/base/toast/Toast';
 import {
   isUpdateData,
   partyDetailState,
@@ -84,7 +85,10 @@ const PartySetting = ({ isOpen, onClose }: PartyModalProps) => {
 
     const data = await patchOwnRole(getPartyDetail.id, rolePatchAPIBody);
     if (data) {
-      alert('역할이 정상적으로 설정되었어요.');
+      Toast.show({
+        message: '역할이 정상적으로 설정되었어요.',
+        type: 'success',
+      });
       setUpdated(true);
     }
   };
