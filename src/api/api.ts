@@ -40,6 +40,7 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
         lock = false;
         subscribers = [];
         localStorage.removeItem('tokens');
+        location.replace(ROUTES.LANDING);
       }
     }
   };

@@ -7,7 +7,7 @@ import { RoutePlaceListProps } from '@/types/routeList';
 
 const PlaceLocationList = ({ locations }: RoutePlaceListProps) => {
   return (
-    <CustomScrollX mb='6' overflowX='scroll' gap='0.25rem' pb='2'>
+    <CustomScrollX mb='6' overflowX='scroll' gap='0.5rem' pb='2'>
       {locations.map(({ id, name, image, address }, index) => (
         <PlaceItem key={id}>
           <Flex flexDirection='column' alignItems='center' gap='1' justify='flex-start'>
@@ -15,8 +15,8 @@ const PlaceLocationList = ({ locations }: RoutePlaceListProps) => {
             <Image
               fallbackSrc='./logo.svg'
               src={image ? image : './logo.svg'}
-              maxW='2.5rem'
-              h='2.5rem'
+              maxW='4rem'
+              h='4rem'
               borderRadius='4'
             />
             <Text
@@ -44,7 +44,7 @@ const PlaceLocationList = ({ locations }: RoutePlaceListProps) => {
 const PlaceItem = styled(Flex)`
   margin: 0 !important;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 `;
 
 export default PlaceLocationList;

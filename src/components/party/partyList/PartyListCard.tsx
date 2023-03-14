@@ -52,9 +52,9 @@ const PartyListCard = ({
           src={coverImage ? coverImage : '/logo.svg'}
         />
 
-        <Stack w='100%' justifyContent='space-between' px='4' pb='3'>
-          <CardBody>
-            <Heading noOfLines={1} maxW='90%' size='md'>
+        <Stack maxW='calc(100% - 4rem)' justifyContent='space-between' px='4' pb='3'>
+          <CardBody maxW='70%'>
+            <Heading noOfLines={1} size='md'>
               {name}
             </Heading>
             <Text mt='2' fontSize='xs'>{`${dayjs(startDate).format('YY.MM.DD')} - ${dayjs(
@@ -65,7 +65,6 @@ const PartyListCard = ({
               textOverflow='ellipsis'
               whiteSpace='nowrap'
               wordBreak='break-all'
-              maxW='90%'
               py='2'>
               {description}
             </Text>

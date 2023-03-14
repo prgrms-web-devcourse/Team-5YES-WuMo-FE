@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { MdMoreVert } from 'react-icons/md';
 
@@ -7,7 +7,7 @@ import { MoreMenuListEventProps } from '@/types/moreMenu';
 const MoreMenu = ({ onEditEvent, onRemoveEvent }: MoreMenuListEventProps) => {
   return (
     <Menu>
-      <MenuButton>
+      <MenuButton as={Flex} alignContent='center'>
         <MdMoreVert />
       </MenuButton>
       <MenuList pos='absolute' right='-8' minW='160px' zIndex='30'>

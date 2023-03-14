@@ -92,7 +92,7 @@ const BackNavigation = ({
   const navigate = useNavigate();
   return (
     <Nav maxW='maxWidth.mobile' bg='white' zIndex='20' h='3.75rem' userSelect='none'>
-      <Flex justify='space-between' align='baseline'>
+      <Flex justify='space-between' align='center'>
         <BackButton
           css={css`
             margin-right: 10px;

@@ -36,7 +36,7 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
           참여중인 모임이 없습니다
         </Heading>
         <Text pt='16px'>계획을 일정으로 등록해보세요!</Text>
-        <Img src='/landing-1.svg' w='300px' />
+        <Img src='/landing-1.svg' w='13rem' />
       </Flex>
     );
 

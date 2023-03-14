@@ -60,7 +60,7 @@ const PartySetting = ({ partyId, isOpen, onClose }: PartyModalProps) => {
     data: partyInformation,
     isLoading: partyInformationLoading,
     isError: partyInformationError,
-  } = useQuery<PartyInformationType>(['partyInformation'], () =>
+  } = useQuery<PartyInformationType>(['partyInformation', partyId], () =>
     fetchPartyInformation(Number(partyId))
   );
 
@@ -68,7 +68,7 @@ const PartySetting = ({ partyId, isOpen, onClose }: PartyModalProps) => {
     data: partyMemberMeInfo,
     isLoading: partyMemberMeInfoLoading,
     isError: partyMemberMeInfoError,
-  } = useQuery<PartyMemberProps>(['partyMemberMeInfo'], () =>
+  } = useQuery<PartyMemberProps>(['partyMemberMeInfo', partyId], () =>
     fetchPartyMembersMeInfo(Number(partyId))
   );
 
@@ -80,7 +80,7 @@ const PartySetting = ({ partyId, isOpen, onClose }: PartyModalProps) => {
     members: PartyMemberProps[];
     lastId: number;
     totalMembers: number;
-  }>(['partyUserList'], () => fetchPartyMembers(Number(partyId)));
+  }>(['partyUserList', partyId], () => fetchPartyMembers(Number(partyId)));
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [removePartyModalOpen, setRemovePartyModalOpen] = useState(false);
