@@ -36,7 +36,7 @@ const RouteCommentFeed = () => {
     data: commentList,
     isLoading: commentLoading,
     isError: commentError,
-  } = useQuery<CommentListType>(['commentList'], () =>
+  } = useQuery<CommentListType>(['commentList', state.locationId], () =>
     fetchRouteCommentList(0, state.locationId)
   );
 
