@@ -35,9 +35,9 @@ const PartyListGrid = () => {
   return (
     <Box mt='6'>
       <Heading size='md'>내 모임 목록</Heading>
-      <SimpleGrid mt='4' columns={3} spacing='10px'>
-        {myPartyList.party.length ? (
-          myPartyList.party.map(({ id, coverImage, name }) => (
+      {myPartyList.party.length ? (
+        <SimpleGrid mt='4' columns={3} spacing='10px'>
+          {myPartyList.party.map(({ id, coverImage, name }) => (
             <Box key={id}>
               <Flex
                 cursor='pointer'
@@ -63,13 +63,13 @@ const PartyListGrid = () => {
                 </Heading>
               </Flex>
             </Box>
-          ))
-        ) : (
-          <Text textAlign='center' p='2rem'>
-            참여 중인 모임이 없어요!
-          </Text>
-        )}
-      </SimpleGrid>
+          ))}
+        </SimpleGrid>
+      ) : (
+        <Text textAlign='center' p='2rem'>
+          참여 중인 모임이 없어요!
+        </Text>
+      )}
     </Box>
   );
 };
