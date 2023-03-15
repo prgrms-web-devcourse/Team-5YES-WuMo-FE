@@ -124,7 +124,12 @@ const PartyNameModal = () => {
           />
           {imageUrl !== '' ? (
             <Flex flexDirection='column' alignItems='center'>
-              <Image fallbackSrc='./logo.svg' src={imageUrl} boxSize='200px' alt={name} />
+              <Image
+                fallbackSrc='/skeleton.svg'
+                src={imageUrl}
+                boxSize='200px'
+                alt={name}
+              />
               <HStack pt='1rem'>
                 <Button h='10' onClick={onClickImageUpload}>
                   이미지 변경

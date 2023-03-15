@@ -55,7 +55,11 @@ const RouteTimelineItem = ({
             {getPriceText(spending)}
           </Text>
         </Flex>
-        <Box onClick={() => onClickHandler(id, partyId)} w='70%' pos='relative' ml='1rem'>
+        <Box
+          onClick={() => onClickHandler?.(id, partyId)}
+          w='70%'
+          pos='relative'
+          ml='1rem'>
           <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (
@@ -66,8 +70,8 @@ const RouteTimelineItem = ({
           </Flex>
           <Card>
             <Image
-              fallbackSrc='./logo.svg'
-              src={image ? image : './logo.svg'}
+              fallbackSrc='/skeleton.svg'
+              src={image ? image : '/logo.svg'}
               w='100%'
               maxH='12.5rem'
               borderTopRadius='0.625rem'

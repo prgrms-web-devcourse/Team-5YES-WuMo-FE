@@ -42,7 +42,7 @@ const PartyListCard = ({
         overflow='hidden'
         variant='unstyled'>
         <Image
-          fallbackSrc='./logo.svg'
+          fallbackSrc='/skeleton.svg'
           objectFit='cover'
           borderRadius='2'
           minW={{ base: '10rem' }}
@@ -52,8 +52,8 @@ const PartyListCard = ({
           src={coverImage ? coverImage : '/logo.svg'}
         />
 
-        <Stack maxW='calc(100% - 4rem)' justifyContent='space-between' px='4' pb='3'>
-          <CardBody maxW='70%'>
+        <Stack maxW='calc(100% - 10rem)' justifyContent='space-between' px='4' pb='3'>
+          <CardBody>
             <Heading noOfLines={1} size='md'>
               {name}
             </Heading>

@@ -21,13 +21,7 @@ const PartyMenuTabList = () => {
   ];
 
   return (
-    <Tabs
-      defaultIndex={now}
-      pos='sticky'
-      top='3.75rem'
-      bg='white'
-      zIndex='20'
-      colorScheme='red'>
+    <Tabs index={now} pos='sticky' top='3.75rem' bg='white' zIndex='20' colorScheme='red'>
       <TabList>
         {partyTab.map((tab) => (
           <Link key={tab.name} to={tab.to} style={{ width: '100%' }}>
