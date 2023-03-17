@@ -35,6 +35,7 @@ PM | 프로젝트 초기 세팅 | 문서화 | UI/UX
  <td>
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=ffffff"/>&nbsp  
   <img src="https://img.shields.io/badge/ReactRouter-bf0f32?style=for-the-badge&logo=React Router&logoColor=ffffff"/>&nbsp
+  <img src="https://img.shields.io/badge/Chakra-319795?style=for-the-badge&logo=Chakra UI&logoColor=ffffff"/>&nbsp
   <img src="https://img.shields.io/badge/Axios-6028e0?style=for-the-badge&logo=Axios&logoColor=ffffff"/>&nbsp
   <img src="https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=React Query&logoColor=ffffff"/>&nbsp
   <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=React-Hook-Form&logoColor=ffffff"/>&nbsp
