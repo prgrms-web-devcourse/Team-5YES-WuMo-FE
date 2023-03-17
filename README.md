@@ -27,7 +27,7 @@ PM | 프로젝트 초기 세팅 | 문서화 | UI/UX
 <tr>
  <td align="center">번들러</td>
  <td>
-  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=ffffff" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=FFDA44"/>
  </td>
 </tr>
 <tr>
@@ -50,7 +50,7 @@ PM | 프로젝트 초기 세팅 | 문서화 | UI/UX
 <tr>
  <td align="center">패키지</td>
  <td>
-    <img src="https://img.shields.io/badge/React Icons-1678e0?style=for-the-badge&logo=Recoil&logoColor=ffffff"/>
+    <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=NPM&logoColor=ffffff"/>
   </td>
 </tr>
 <tr>
