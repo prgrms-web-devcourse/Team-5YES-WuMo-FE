@@ -1,11 +1,11 @@
 <h1><img width="25px" height="25px" src="https://user-images.githubusercontent.com/63575891/225193442-956c60ce-d81e-425c-982f-42de4acf0a0c.png" alt="WuMo logo"/> WuMo(우리들의 모임)</h1>
   
 
-> 5YES's Team Project WuMo FrontEnd
+> 5YES's Team Project WuMo Front-end
 >
 > 🔗 배포 링크 https://5yes-wumo.vercel.app/
 >
-> 🍩 [BackEnd Repository](https://github.com/prgrms-web-devcourse/Team-5YES-WuMo-BE)
+> 🍩 [Back-end Repository](https://github.com/prgrms-web-devcourse/Team-5YES-WuMo-BE)
 
 
 <div align="center">
@@ -28,7 +28,7 @@
 - 가고 싶은 장소를 등록하여 의견을 공유한다.
 - 장소가 결정되면 후보지를 일정으로 등록한다.
 - 일정을 하나의 타임라인으로 묶어 한눈에 파악한다.
-- 다녀온 곳들에 피드를 작성하여 추억을 기록한다.
+- 다녀온 장소의 피드를 작성하여 추억을 기록한다.
 - 영수증 기능을 활용하여 정산할 때 도움을 받을 수 있다.
 - 다른 사람들과 루트를 공유하거나 지역을 검색해 추천 루트를 확인한다.
 - 마음에 드는 일정을 관심 목록에 추가하고 모아본다.
@@ -40,7 +40,7 @@
  <img width="40%" src="https://user-images.githubusercontent.com/63575891/225982229-65db4553-f08c-4f6a-a636-250e34e1a91d.gif" alt="이메일 회원가입 및 로그인" />
  </details>
  <details>
- <summary><h4>모임 생성 및 관리</h4></summary>
+ <summary><h4>모임 추가 및 관리</h4></summary>
  <img width="40%" src="https://user-images.githubusercontent.com/63575891/225985663-f4c0ae2e-cc8a-4662-ae6d-faa5226e9ce4.gif" alt="모임 추가 및 관리"/>
  </details>
  <details>
