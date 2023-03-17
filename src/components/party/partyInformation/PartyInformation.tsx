@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
 
@@ -21,6 +22,7 @@ import useScrollEvent from '@/hooks/useScrollEvent';
 import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
+import InvitationCodeModal from './InvitationCodeModal';
 import PartyMenuTabList from './PartyMenuTabList';
 import PartyUserList from './PartyUserList';
 import PartyReceipt from './receipt/PartyReceipt';
@@ -32,9 +34,19 @@ const CalculateStayDuration = ({ startDate, endDate }: CalculateStayDurationProp
 };
 
 const PartyInformation = () => {
-  const { onOpen, isOpen, onClose } = useDisclosure();
   const { scrollActive } = useScrollEvent(300);
   const { partyId } = useParams();
+  const [invitationCode, setInvitationCode] = useState('');
+  const {
+    onOpen: receiptOnOpen,
+    isOpen: receiptIsOpen,
+    onClose: receiptOnClose,
+  } = useDisclosure();
+  const {
+    onOpen: invitationOnOpen,
+    isOpen: invitationIsOpen,
+    onClose: invitationOnClose,
+  } = useDisclosure();
 
   const {
     data: partyInformation,
@@ -49,16 +61,9 @@ const PartyInformation = () => {
   );
 
   const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
-    onSuccess: () => {
-      Toast.show({
-        title: '초대링크 복사가 완료되었어요!',
-        message: '모임에 초대하고 싶은 친구에게 링크를 전달해보세요!',
-        type: 'success',
-      });
-    },
     onError: () => {
       Toast.show({
-        title: '초대링크 복사에 실패했어요.',
+        title: '초대링크 생성에 실패했어요.',
         message: '모임 기간이 지나 친구를 초대할 수 없어요. 새 모임을 만들어주세요.',
         type: 'error',
       });
@@ -78,8 +83,10 @@ const PartyInformation = () => {
       partyId: Number(partyId),
       expiredDate: partyInformation.endDate,
     };
+
     const invitationCode = await createInvitationCode(body);
-    navigator.clipboard.writeText(`${url}/${invitationCode.code}`);
+    setInvitationCode(`${url}/${invitationCode.code}`);
+    invitationOnOpen();
   };
 
   const stayDurationDate = CalculateStayDuration({
@@ -121,7 +128,11 @@ const PartyInformation = () => {
           </Text>
         </Container>
         <Flex p='0.625rem' textAlign='right' align='center'>
-          <Button colorScheme='teal' size='xs' marginRight='0.625rem' onClick={onOpen}>
+          <Button
+            colorScheme='teal'
+            size='xs'
+            marginRight='0.625rem'
+            onClick={receiptOnOpen}>
             영수증
           </Button>
           <Button
@@ -142,7 +153,12 @@ const PartyInformation = () => {
       <Box>
         <Outlet />
       </Box>
-      <PartyReceipt isOpen={isOpen} onClose={onClose} {...partyInfo} />
+      <PartyReceipt isOpen={receiptIsOpen} onClose={receiptOnClose} {...partyInfo} />
+      <InvitationCodeModal
+        invitationCode={invitationCode}
+        isOpen={invitationIsOpen}
+        onClose={invitationOnClose}
+      />
     </Box>
   );
 };
