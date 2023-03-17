@@ -41,7 +41,7 @@
  </details>
  <details>
  <summary><h4>모임 생성 및 관리</h4></summary>
- <img width="40%" src="https://user-images.githubusercontent.com/63575891/225985663-f4c0ae2e-cc8a-4662-ae6d-faa5226e9ce4.gif" alt="모임 생성 및 관리"/>
+ <img width="40%" src="https://user-images.githubusercontent.com/63575891/225985663-f4c0ae2e-cc8a-4662-ae6d-faa5226e9ce4.gif" alt="모임 추가 및 관리"/>
  </details>
  <details>
  <summary><h4>초대 및 후보지 추가</h4></summary>
@@ -64,8 +64,8 @@
 |[김민재](https://github.com/mxx-kor)|[김유리](https://github.com/glassk)|[유지영](https://github.com/YJZero)|[주천욱](https://github.com/chunwookJoo)|
 |---|---|---|---|
 | <img height="150px" src="https://avatars.githubusercontent.com/mxx-kor" alt="mxx-kor"/> | <img height="150px" src="https://avatars.githubusercontent.com/glassk" alt="glassk" /> | <img height="150px" src="https://avatars.githubusercontent.com/YJZero" alt="YJZero" /> | <img height="150px" src="https://avatars.githubusercontent.com/chunwookJoo" alt="chunwookJoo" /> |
-| 회원가입 및 로그인<br />프로필 조회 및 수정<br />모임 목록   | 모임 계획<br />후보지 및 댓글                                | 메인 페이지<br />모임 일정 및 피드<br />모임 초대            | 베스트 여행루트 목록<br />모임 추가 및 관리<br />랜딩 페이지, 404 페이지 |
-| - react-hook-form을 활용하여 리렌더링을 최소화, 유효성 검증 구현<br />- axios interceptor를 활용하여 API 요청, 에러, 응답 및 JWT 토큰을 관리 | - kakao maps API를 활용한 지도 뷰 및 검색 기능 구현<br />- 프로젝트 초기 세팅<br /> - 백엔드 서버 부하를 고려한 대용량 이미지 압축 | - tanstack query의 에러 핸들링과 refetch를 활용한 데이터 통신<br />- 컴포넌트 재사용성을 위해 Modal 등 공통 컴포넌트 분리<br />- react-router-dom의 동적 라우팅을 이용한 초대 기능 구현 | - 베스트 루트 좋아요 디바운싱 커스텀 훅 분리<br />- recoil을 활용한 모임 추가 단계 및 유저 데이터 상태관리 |
+| - 회원가입 및 로그인<br />- 프로필 조회 및 수정<br />- 모임 목록   | - 모임 계획<br />- 후보지 및 댓글                                | - 메인 페이지<br />- 모임 일정 및 피드<br />- 모임 초대            | - 베스트 여행루트 목록<br />- 모임 추가 및 관리<br />- 랜딩 페이지, 404 페이지 |
+| - react-hook-form을 활용한 리렌더링 최소화, 유효성 검증 구현<br />- axios interceptor를 활용하여 API 요청, 에러, 응답 및 JWT 토큰 관리 | - kakao maps API를 활용한 지도 뷰 및 검색 기능 구현<br />- 프로젝트 초기 세팅<br /> - 백엔드 서버 부하를 고려한 대용량 이미지 압축 | - tanstack query의 에러 핸들링과 refetch를 활용한 데이터 통신<br />- 컴포넌트 재사용성을 위한 Modal 등 공통 컴포넌트 분리<br />- react-router-dom의 동적 라우팅을 이용한 초대 기능 구현 | - 베스트 루트 좋아요 디바운싱 커스텀 훅 분리<br />- recoil을 활용한 모임 추가 단계 및 유저 데이터 상태관리 |
 
 <br />
 
@@ -93,7 +93,6 @@
   <img src="https://img.shields.io/badge/Axios-6028e0?style=for-the-badge&logo=Axios&logoColor=ffffff"/>&nbsp
   <img src="https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=React Query&logoColor=ffffff"/>&nbsp
   <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=React-Hook-Form&logoColor=ffffff"/>&nbsp
-  <img src="https://img.shields.io/badge/React Icons-1678e0?style=for-the-badge&logo=Recoil&logoColor=ffffff"/>&nbsp
   </td>
 </tr>
 <tr>
@@ -192,7 +191,7 @@ Team-5YES-WuMo-FE
 - ⭐️ [노션](https://backend-devcourse.notion.site/05-5YES-3f17f0d96f1e43deb4b262aa3b0fb459)
 - 📝 [기획서](https://backend-devcourse.notion.site/bf79f214925444a6aa045ecf150e2a24)
 - 🖼️ [기능 명세서](https://backend-devcourse.notion.site/fc61a303928a4619bc5735d8891666c6)
-- 🎨 [Figma](https://www.figma.com/file/akZ8Cc0FmKUjCiN3NlxjRu/Gidong?node-id=196%3A1491)
+- 🎨 [와이어프레임/디자인](https://www.figma.com/file/akZ8Cc0FmKUjCiN3NlxjRu/Gidong?node-id=196%3A1491)
 - 🎤 [발표 자료](https://www.miricanvas.com/v/11ugjud)
 
 <br />
@@ -200,7 +199,7 @@ Team-5YES-WuMo-FE
 ## 🗓️ 프로젝트 일정
 
 - 23.02.16 - 23.02.21 프로젝트 기획 및 설계(초기 프로젝트 기획 및 설계, 프로젝트 세팅, API 명세서 작성)
-- 23.02.22 - 23.02.28: MPV 기능 개발(API 명세서를 토대로 FE/BE MVP 기능 개발)
+- 23.02.22 - 23.02.28: MVP 기능 개발(API 명세서를 토대로 FE/BE MVP 기능 개발)
 - 23.03.01 - 23.03.07: 기능 개발 및 배포(FE/BE 기능 개발, API 연결 및 배포)
 - 23.03.08 - 23.03.14: QA, 버그 수정 및 리팩토링(전체적인 서비스 안정화 및 문서화)
 - 23.03.15 - 리팩터링 및 UI/UX와 기능 개선
