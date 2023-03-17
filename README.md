@@ -17,20 +17,12 @@
 ```
 평소 여행이나 모임을 계획할 때 어떻게 하시나요?
 그룹채팅방에서는 모임과 상관없는 이야기도 오가면서 모임에 필요한 장소나 사진 등이 잊히기 쉽습니다.
-그렇다면 모임에 관련된 내용만 모아볼 수 있는 도구가 있다면 어떨까요?
+그렇다면 모임과 관련된 내용만 모아보면서 함께 계획을 완성하고 추억을 기록할 도구가 있다면 어떨까요? 
 ```
 
-## 목차
+<br />
 
-- 👒 [주요 기능]()
-- 🍩 [팀 소개]()
-- 🛠️ [기술 스택]()
-- 🌿 [Commit Convention]()
-- 📁 [파일 구조]()
-- 📓 [프로젝트 관련 문서]()
-- 🗓️ [프로젝트 일정]()
-
-## 👒 주요 기능
+## ⭐️ 주요 기능
 
 - 모임을 만들어 친구를 초대한다.
 - 가고 싶은 장소를 등록하여 의견을 공유한다.
@@ -65,16 +57,17 @@
  </details>
 </details>
 
-
+<br />
 
 ## 🍩 팀 소개
 
-|김민재|김유리|유지영|주천욱|
+|[김민재](https://github.com/mxx-kor)|[김유리](https://github.com/glassk)|[유지영](https://github.com/YJZero)|[주천욱](https://github.com/chunwookJoo)|
 |---|---|---|---|
-| <img width="100px" src="https://user-images.githubusercontent.com/63575891/225196138-3d15c12d-06bb-424a-b622-5d5c1a630637.png" alt="mxx-kor"/> | <img width="100px" src="https://user-images.githubusercontent.com/63575891/225196198-f9608e46-0ad2-4418-a144-8f1f37815fe4.png" alt="glassk" /> | <img width="100px" src="https://user-images.githubusercontent.com/63575891/225196181-e204356f-c6b9-4e95-b81a-06ed5a097496.png" alt="YJZero" /> | <img width="100px" src="https://user-images.githubusercontent.com/63575891/225196220-0e595f45-02ca-480a-ab1e-a79e30e63bc9.png" alt="chunwookJoo" /> |
+| <img height="150px" src="https://avatars.githubusercontent.com/mxx-kor" alt="mxx-kor"/> | <img height="150px" src="https://avatars.githubusercontent.com/glassk" alt="glassk" /> | <img height="150px" src="https://avatars.githubusercontent.com/YJZero" alt="YJZero" /> | <img height="150px" src="https://avatars.githubusercontent.com/chunwookJoo" alt="chunwookJoo" /> |
 | 회원가입 및 로그인<br />프로필 조회 및 수정<br />모임 목록   | 모임 계획<br />후보지 및 댓글                                | 메인 페이지<br />모임 일정 및 피드<br />모임 초대            | 베스트 여행루트 목록<br />모임 추가 및 관리<br />랜딩 페이지, 404 페이지 |
-| - react-hook-form을 활용하여 리렌더링을 최소화, 유효성 검증 구현<br />- axios interceptor를 활용하여 API 요청, 에러, 응답 및 JWT 토큰을 관리 | - kakao maps API를 활용한 지도 뷰 및 검색 기능 구현<br />-프로젝트 초기 세팅<br /> - 백엔드 서버 부하를 고려한 대용량 이미지 압축 | - tanstack query의 에러 핸들링과 refetch를 활용한 데이터 통신<br />- 컴포넌트 재사용성을 위해 Modal 등 공통 컴포넌트 분리<br />- react-router-dom의 동적 라우팅을 이용한 초대 기능 구현 | - 베스트 루트 좋아요 디바운싱 커스텀 훅 분리<br />- recoil을 활용한 모임 추가 단계 및 유저 데이터 상태관리 |
+| - react-hook-form을 활용하여 리렌더링을 최소화, 유효성 검증 구현<br />- axios interceptor를 활용하여 API 요청, 에러, 응답 및 JWT 토큰을 관리 | - kakao maps API를 활용한 지도 뷰 및 검색 기능 구현<br />- 프로젝트 초기 세팅<br /> - 백엔드 서버 부하를 고려한 대용량 이미지 압축 | - tanstack query의 에러 핸들링과 refetch를 활용한 데이터 통신<br />- 컴포넌트 재사용성을 위해 Modal 등 공통 컴포넌트 분리<br />- react-router-dom의 동적 라우팅을 이용한 초대 기능 구현 | - 베스트 루트 좋아요 디바운싱 커스텀 훅 분리<br />- recoil을 활용한 모임 추가 단계 및 유저 데이터 상태관리 |
 
+<br />
 
 ## 🛠️ 기술 스택
 
@@ -148,6 +141,8 @@
 </tr>
 </table>
 
+<br />
+
 ## 🌿 Commit Convention
 
 | prefix | description |
@@ -162,7 +157,10 @@
 | refactor | 코드 리팩토링 |
 | chore | 빌드 업무 수정, 패키지 매니저 수정 |
 
-## 📁 파일 구조
+<br />
+
+## 📁 폴더 구조
+
 ```
 Team-5YES-WuMo-FE 
 ├── public
@@ -187,6 +185,7 @@ Team-5YES-WuMo-FE
         └── constants
 ```
 
+<br />
 
 ## 📓 프로젝트 관련 문서
 
@@ -196,9 +195,12 @@ Team-5YES-WuMo-FE
 - 🎨 [Figma](https://www.figma.com/file/akZ8Cc0FmKUjCiN3NlxjRu/Gidong?node-id=196%3A1491)
 - 🎤 [발표 자료](https://www.miricanvas.com/v/11ugjud)
 
+<br />
+
 ## 🗓️ 프로젝트 일정
 
 - 23.02.16 - 23.02.21 프로젝트 기획 및 설계(초기 프로젝트 기획 및 설계, 프로젝트 세팅, API 명세서 작성)
 - 23.02.22 - 23.02.28: MPV 기능 개발(API 명세서를 토대로 FE/BE MVP 기능 개발)
 - 23.03.01 - 23.03.07: 기능 개발 및 배포(FE/BE 기능 개발, API 연결 및 배포)
 - 23.03.08 - 23.03.14: QA, 버그 수정 및 리팩토링(전체적인 서비스 안정화 및 문서화)
+- 23.03.15 - 리팩터링 및 UI/UX와 기능 개선
