@@ -41,7 +41,7 @@ const PlaceCreatePage = () => {
   const isFirstStep = () => step === processStep.min;
 
   const onCloseModal = () => {
-    !isFirstStep ? setStep(step - 1) : onConfirmModalOpen();
+    isFirstStep() ? onConfirmModalOpen() : setStep(step - 1);
   };
 
   return (
