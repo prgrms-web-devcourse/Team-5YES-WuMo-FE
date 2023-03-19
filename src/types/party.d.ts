@@ -84,3 +84,9 @@ export type ExpiredDateType = {
   partyId: number;
   expiredDate: string;
 };
+
+export type InvitationCodeModalType = {
+  invitationCode: string;
+  onClose: () => void;
+  isOpen: boolean;
+};
