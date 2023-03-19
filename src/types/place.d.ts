@@ -104,13 +104,6 @@ export type PlaceInformationType =
   | 'address'
   | 'category';
 
-export type PlaceInformationItem = {
-  type: PlaceInformationType;
-  icon: JSX.Element;
-  text: string;
-  content?: JSX.Element;
-};
-
 export type PlaceCreateStepItem = {
   title: string;
   component: JSX.Element;

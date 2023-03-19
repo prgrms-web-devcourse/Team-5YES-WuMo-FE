@@ -2,14 +2,34 @@ import 'react-calendar/dist/Calendar.css';
 
 import { Flex, Text } from '@chakra-ui/layout';
 import { Select } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import { useRecoilState } from 'recoil';
 
+import { fetchPartyInformation } from '@/api/party';
+import Loading from '@/components/base/Loading';
 import { createPlaceState } from '@/store/recoilPlaceState';
+import { PartyInformationType } from '@/types/party';
 
-const DateTimeInput = () => {
+type DateTimeInputProps = {
+  partyId: number;
+};
+
+const DateTimeInput = ({ partyId }: DateTimeInputProps) => {
+  const {
+    data: partyInformation,
+    isLoading: partyInformationLoading,
+    isError: partyInformationError,
+  } = useQuery<PartyInformationType>(
+    ['partyInformation', partyId],
+    () => fetchPartyInformation(partyId),
+    {
+      staleTime: 10000,
+    }
+  );
+
   const [createPlaceBody, setCreatePlaceBody] = useRecoilState(createPlaceState);
   const [values, setValues] = useState(
     createPlaceBody.visitDate
@@ -29,14 +49,22 @@ const DateTimeInput = () => {
     setValues({ ...values, [type]: newValue });
   };
 
+  if (partyInformationLoading) return <Loading />;
+  if (partyInformationError) return <></>;
+
   return (
     <>
+      <Text fontSize='sm' pb='1rem'>
+        모임 시작일과 종료일 사이로 지정할 수 있어요.
+      </Text>
       <Calendar
         locale='ko'
         calendarType='US'
         value={values.date}
         formatDay={(_, date) => dayjs(date).format('DD')}
         onChange={(v: Date) => handleChange('date', v)}
+        minDate={new Date(partyInformation.startDate)}
+        maxDate={new Date(partyInformation.endDate)}
       />
       <Flex gap='5' justify='center' mt='4'>
         <Flex align='center' gap='1'>
