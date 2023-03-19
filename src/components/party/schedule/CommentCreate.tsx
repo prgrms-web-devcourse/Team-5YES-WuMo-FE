@@ -43,7 +43,6 @@ const CommentCreate = () => {
 
     setIsImageUploading(true);
     const compressedImageFile = await compressImage(image);
-    console.log(compressedImageFile);
     setIsImageUploading(false);
 
     const formData = new FormData();

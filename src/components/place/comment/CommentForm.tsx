@@ -107,7 +107,7 @@ const CommentForm = ({
 
   const onEditCommentSubmit = async () => {
     if (!commentId) return;
-    if (!content && !imageValues.imageFile) {
+    if (!content && !imageValues.imageBase64) {
       Toast.show({
         message: PLACE_ERROR_MESSAGES.COMMENT_REQUIRED,
         type: 'warning',
@@ -115,10 +115,15 @@ const CommentForm = ({
       return;
     }
 
+    let image;
+    if (oldImage === imageValues.imageBase64) image = oldImage;
+    else if (imageValues.imageBase64) image = await onSubmitImageFile();
+    else image = '';
+
     const placeCommentBody = {
       id: commentId,
       content,
-      image: imageValues.imageBase64 ? await onSubmitImageFile() : oldImage,
+      image,
     };
 
     await editComment(placeCommentBody, {
@@ -211,7 +216,7 @@ const CommentForm = ({
               onClick={() => {
                 type === 'create' ? onCreateCommentSubmit() : onEditCommentSubmit();
               }}
-              isDisabled={!content && !imageValues.imageFile}>
+              isDisabled={!content && !imageValues.imageBase64}>
               등록
             </Button>
           </Flex>
