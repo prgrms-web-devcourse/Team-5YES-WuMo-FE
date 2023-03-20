@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Flex,
   Image,
   Table,
@@ -77,17 +78,25 @@ const CommentList = ({ placeId }: CommentListProps) => {
                           {memberRole && <Tag size='sm'>{memberRole}</Tag>}
                         </Box>
                       </Flex>
-                      {isEditable && (
-                        <MoreMenu
-                          onEditEvent={() =>
-                            setEditing({ isEditing: true, commentId: id })
-                          }
-                          onRemoveEvent={() => {
-                            setCommentId(id);
-                            onOpen();
-                          }}
-                        />
-                      )}
+                      {isEditable &&
+                        (editing.isEditing ? (
+                          <Button
+                            variant='ghost'
+                            size='xs'
+                            onClick={() => setEditing({ ...editing, isEditing: false })}>
+                            취소
+                          </Button>
+                        ) : (
+                          <MoreMenu
+                            onEditEvent={() =>
+                              setEditing({ isEditing: true, commentId: id })
+                            }
+                            onRemoveEvent={() => {
+                              setCommentId(id);
+                              onOpen();
+                            }}
+                          />
+                        ))}
                     </Flex>
                     {editing.isEditing && editing.commentId === id ? (
                       <CommentForm
