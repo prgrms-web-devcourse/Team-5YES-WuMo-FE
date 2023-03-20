@@ -190,3 +190,7 @@ export type CommentFormProps = {
   commentId?: number;
   setEditHandler?: () => void;
 };
+
+export type DateTimeInputProps = {
+  partyId: number;
+};

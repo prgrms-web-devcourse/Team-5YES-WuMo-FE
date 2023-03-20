@@ -12,10 +12,7 @@ import { fetchPartyInformation } from '@/api/party';
 import Loading from '@/components/base/Loading';
 import { createPlaceState } from '@/store/recoilPlaceState';
 import { PartyInformationType } from '@/types/party';
-
-type DateTimeInputProps = {
-  partyId: number;
-};
+import { DateTimeInputProps } from '@/types/place';
 
 const DateTimeInput = ({ partyId }: DateTimeInputProps) => {
   const {
@@ -55,7 +52,7 @@ const DateTimeInput = ({ partyId }: DateTimeInputProps) => {
   return (
     <>
       <Text fontSize='sm' pb='1rem'>
-        모임 시작일과 종료일 사이로 지정할 수 있어요.
+        모임 기간 내 방문예정일을 선택해 주세요.
       </Text>
       <Calendar
         locale='ko'
