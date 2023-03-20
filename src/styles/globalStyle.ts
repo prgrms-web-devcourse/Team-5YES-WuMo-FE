@@ -59,6 +59,16 @@ const globalStyle = css`
         .react-calendar--selectRange .react-calendar__tile--hover {
           background-color: #f4cf47;
         }
+
+        .react-calendar__tile:disabled {
+          color: grey;
+          cursor: not-allowed;
+        }
+
+        .react-calendar__navigation button:disabled {
+          background-color: initial;
+          cursor: not-allowed;
+        }
       }
     }
 

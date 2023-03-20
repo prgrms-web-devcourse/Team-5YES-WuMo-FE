@@ -98,7 +98,7 @@ const PlaceInformationModal = () => {
     <>
       <ModalBody>
         <Accordion allowToggle>
-          {PlaceInformationItems.map(({ type, icon, text, content }) => (
+          {PlaceInformationItems(state.partyId).map(({ type, icon, text, content }) => (
             <AccordionItem key={type}>
               <AccordionButton justifyContent='space-between'>
                 <Flex gap='1.5' align='center'>

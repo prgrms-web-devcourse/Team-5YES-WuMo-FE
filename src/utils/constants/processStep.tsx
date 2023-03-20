@@ -11,7 +11,7 @@ import PlaceInformationModal from '@/components/place/create/information/PlaceIn
 import PriceInput from '@/components/place/create/information/PriceInput';
 import PlaceSearchModal from '@/components/place/create/search/PlaceSearchModal';
 import { PartyCreateStepItem } from '@/types/party';
-import { PlaceCreateStepItem, PlaceInformationItem } from '@/types/place';
+import { PlaceCreateStepItem } from '@/types/place';
 
 export const partyCreateStepItems: PartyCreateStepItem[] = [
   {
@@ -43,12 +43,12 @@ export const placeCreateStepItems: PlaceCreateStepItem[] = [
   },
 ];
 
-export const PlaceInformationItems: PlaceInformationItem[] = [
+export const PlaceInformationItems = (partyId: number) => [
   {
     type: 'visitDate',
     icon: <MdCalendarToday />,
     text: '방문 예정일',
-    content: <DateTimeInput />,
+    content: <DateTimeInput partyId={partyId} />,
   },
   {
     type: 'expectedCost',
