@@ -88,12 +88,13 @@
  <td align="center">라이브러리</td>
  <td>
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=ffffff"/>&nbsp  
-  <img src="https://img.shields.io/badge/Chakra-319795?style=for-the-badge&logo=Chakra UI&logoColor=ffffff"/>&nbsp
-  <img src="https://img.shields.io/badge/Emotion-CC67BC?style=for-the-badge&logo=Emotion&logoColor=ffffff"/>&nbsp  
   <img src="https://img.shields.io/badge/Axios-6028e0?style=for-the-badge&logo=Axios&logoColor=ffffff"/>&nbsp
   <img src="https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=React Query&logoColor=ffffff"/>&nbsp
-  <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=React-Hook-Form&logoColor=ffffff"/>&nbsp
-  </td>
+  <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=React-Hook-Form&logoColor=ffffff"/>&nbsp<br />
+  <img src="https://img.shields.io/badge/Emotion-CC67BC?style=for-the-badge&logo=Emotion&logoColor=ffffff"/>&nbsp
+  <img src="https://img.shields.io/badge/Chakra-319795?style=for-the-badge&logo=Chakra UI&logoColor=ffffff"/>&nbsp
+  <img src="https://img.shields.io/badge/Framer Motion-0055FF?style=for-the-badge&logo=Framer&logoColor=ffffff"/>&nbsp
+ </td>
 </tr>
 <tr>
  <td align="center">상태관리</td>
@@ -192,14 +193,15 @@ Team-5YES-WuMo-FE
 - 📝 [기획서](https://backend-devcourse.notion.site/bf79f214925444a6aa045ecf150e2a24)
 - 🖼️ [기능 명세서](https://backend-devcourse.notion.site/fc61a303928a4619bc5735d8891666c6)
 - 🎨 [와이어프레임/디자인](https://www.figma.com/file/akZ8Cc0FmKUjCiN3NlxjRu/Gidong?node-id=196%3A1491)
-- 🎤 [발표 자료](https://www.miricanvas.com/v/11ugjud)
+- 🎤 [발표 자료](https://drive.google.com/file/d/18Yty1R3XuJQJl6X0CjM1EmJ6AjS41vGl/view?usp=share_link)
+- 🎥 [시연 영상](https://drive.google.com/file/d/1B8ObIZ6I-fEhJmHqysnaVDtppTUnUBXn/view?usp=share_link)
 
 <br />
 
 ## 🗓️ 프로젝트 일정
 
 - 23.02.16 - 23.02.21 프로젝트 기획 및 설계(초기 프로젝트 기획 및 설계, 프로젝트 세팅, API 명세서 작성)
-- 23.02.22 - 23.02.28: MVP 기능 개발(API 명세서를 토대로 FE/BE MVP 기능 개발)
-- 23.03.01 - 23.03.07: 기능 개발 및 배포(FE/BE 기능 개발, API 연결 및 배포)
-- 23.03.08 - 23.03.14: QA, 버그 수정 및 리팩토링(전체적인 서비스 안정화 및 문서화)
+- 23.02.22 - 23.02.28 MVP 기능 개발(API 명세서를 토대로 FE/BE MVP 기능 개발)
+- 23.03.01 - 23.03.07 기능 개발 및 배포(FE/BE 기능 개발, API 연결 및 배포)
+- 23.03.08 - 23.03.14 QA, 버그 수정 및 리팩토링(전체적인 서비스 안정화 및 문서화)
 - 23.03.15 - 리팩터링 및 UI/UX와 기능 개선
