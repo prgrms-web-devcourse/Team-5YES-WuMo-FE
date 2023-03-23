@@ -10,7 +10,7 @@ import { SignInProps } from '@/types/userSign';
 import ROUTES from '@/utils/constants/routes';
 import { signInSchema } from '@/utils/schema';
 
-import ControlledInput from '../base/ControlledInput';
+import ControlledInput from '../../base/ControlledInput';
 
 const SignInForm = () => {
   const navigate = useNavigate();
