@@ -17,7 +17,7 @@ import { scrollToTop } from '@/utils/scrollToTop';
 import CommentCreate from './CommentCreate';
 import CommentFeedItem from './CommentFeedItem';
 import CommentFeedTitle from './CommentFeedTitle';
-import PlaceAmountField from './PlaceAmountField';
+import PlaceAmountField from './placeAmount/PlaceAmountField';
 
 const RouteCommentFeed = () => {
   const { scrollActive } = useScrollEvent(300);
