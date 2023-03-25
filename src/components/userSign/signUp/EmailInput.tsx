@@ -66,7 +66,6 @@ const EmailInput = <T extends FieldValues>({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckEmail = async () => {
-    console.log('loaded');
     const checkBefore = await trigger('email');
     const target = field.value;
     if (!checkBefore) return;

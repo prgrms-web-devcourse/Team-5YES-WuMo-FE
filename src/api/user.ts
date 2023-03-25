@@ -21,7 +21,7 @@ export const signIn = async (values: SignInProps) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error);
+      console.error(error);
 
       if (error.response?.status === 400) {
         return Toast.show({

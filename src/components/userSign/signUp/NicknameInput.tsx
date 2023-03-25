@@ -59,7 +59,7 @@ const NicknameInput = <T extends FieldValues>({
     } catch (error) {
       setCheckNickname(false);
       setError('nickname', { message: FORM_ERROR_MESSAGES.NICKNAME_DUPLICATED });
-      console.log(error);
+      console.error(error);
     }
   };
 
