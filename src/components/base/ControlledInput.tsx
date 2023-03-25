@@ -33,7 +33,7 @@ const ControlledInput = <T extends FieldValues>({
   const toKorean = () => {
     if (name === 'email') return '이메일';
     if (name === 'password') return '비밀번호';
-    if (name === 'nickname') return '닉네임';
+    if (name === 'passwordConfirm') return '비밀번호 확인';
   };
   const nameKorean = toKorean();
 
@@ -46,14 +46,14 @@ const ControlledInput = <T extends FieldValues>({
         <Input
           id={name}
           placeholder={nameKorean}
-          type={name === 'password' ? 'password' : 'text'}
+          type={name.startsWith('password') ? 'password' : 'text'}
           {...field}
         />
         <InputRightElement>
           {field.value && <MdCancel cursor='pointer' onClick={() => resetField(name)} />}
         </InputRightElement>
       </InputGroup>
-      <Box height={7}>
+      <Box height={5}>
         <FormErrorMessage pl={2} fontSize='sm' color='red' pt={2}>
           {fieldState.error?.message}
         </FormErrorMessage>
