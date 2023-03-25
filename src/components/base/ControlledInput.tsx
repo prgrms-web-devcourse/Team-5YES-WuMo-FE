@@ -47,6 +47,7 @@ const ControlledInput = <T extends FieldValues>({
           id={name}
           placeholder={nameKorean}
           type={name.startsWith('password') ? 'password' : 'text'}
+          autoComplete={name.startsWith('password') ? 'off' : 'on'}
           {...field}
         />
         <InputRightElement>
