@@ -11,7 +11,7 @@ import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 import ROUTES from '@/utils/constants/routes';
 import { signUpSchema } from '@/utils/schema';
 
-import EmailInput from './emailInput';
+import EmailInput from './EmailInput';
 import NicknameInput from './NicknameInput';
 
 const SignUpForm = () => {
