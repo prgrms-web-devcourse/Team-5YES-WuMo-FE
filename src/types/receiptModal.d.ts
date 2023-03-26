@@ -1,4 +1,4 @@
-import { ScheduleLocationType } from './schedule';
+import { ScheduleLocationType, ScheduleType } from './schedule';
 
 export type ReceiptProps = {
   isOpen: boolean;
@@ -8,6 +8,7 @@ export type ReceiptProps = {
   endDate: string;
   totalMembers: number;
   stayDurationDate: string;
+  scheduleList: ScheduleType;
 };
 
 export type ReceiptItemProps = {

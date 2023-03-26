@@ -15,11 +15,13 @@ import { BsFillShareFill } from 'react-icons/bs';
 import { Outlet, useParams } from 'react-router-dom';
 
 import { createPartyInvitation, fetchPartyInformation } from '@/api/party';
+import { fetchScheduleList } from '@/api/schedules';
 import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import BackNavigation from '@/components/navigation/BackNavigation';
 import useScrollEvent from '@/hooks/useScrollEvent';
 import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
+import { ScheduleType } from '@/types/schedule';
 import { BACKNAVIGATION_OPTIONS } from '@/utils/constants/navigationItem';
 
 import InvitationCodeModal from './InvitationCodeModal';
@@ -59,6 +61,20 @@ const PartyInformation = () => {
       staleTime: 10000,
     }
   );
+  const { data: scheduleList, refetch } = useQuery<ScheduleType>(
+    ['ReceiptScheduleList', partyId],
+    () => fetchScheduleList(Number(partyId), false),
+    {
+      enabled: false,
+      onError: () => {
+        Toast.show({
+          title: '등록된 일정이 없어요',
+          message: '일정을 등록하고 사용금액을 설정해주세요.',
+          type: 'warning',
+        });
+      },
+    }
+  );
 
   const { mutateAsync: createInvitationCode } = useMutation(createPartyInvitation, {
     onError: () => {
@@ -69,7 +85,6 @@ const PartyInformation = () => {
       });
     },
   });
-
   if (partyInformationLoading)
     return (
       <>
@@ -132,7 +147,10 @@ const PartyInformation = () => {
             colorScheme='teal'
             size='xs'
             marginRight='0.625rem'
-            onClick={receiptOnOpen}>
+            onClick={() => {
+              refetch();
+              receiptOnOpen();
+            }}>
             영수증
           </Button>
           <Button
@@ -153,7 +171,14 @@ const PartyInformation = () => {
       <Box>
         <Outlet />
       </Box>
-      <PartyReceipt isOpen={receiptIsOpen} onClose={receiptOnClose} {...partyInfo} />
+      {scheduleList && (
+        <PartyReceipt
+          isOpen={receiptIsOpen}
+          onClose={receiptOnClose}
+          scheduleList={scheduleList}
+          {...partyInfo}
+        />
+      )}
       <InvitationCodeModal
         invitationCode={invitationCode}
         isOpen={invitationIsOpen}

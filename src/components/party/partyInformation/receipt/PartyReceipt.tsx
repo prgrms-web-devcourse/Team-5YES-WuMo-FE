@@ -9,13 +9,9 @@ import {
   ModalOverlay,
   Text,
 } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
 
-import { fetchScheduleList } from '@/api/schedules';
-import Loading from '@/components/base/Loading';
 import { ReceiptProps } from '@/types/receiptModal';
-import { ScheduleLocationType, ScheduleType } from '@/types/schedule';
+import { ScheduleLocationType } from '@/types/schedule';
 import { getPriceText } from '@/utils/formatter';
 
 import PartyReceiptItem from './PartyReceiptItem';
@@ -29,25 +25,8 @@ const PartyReceipt = ({
   endDate,
   totalMembers,
   stayDurationDate,
+  scheduleList,
 }: ReceiptProps) => {
-  const { partyId } = useParams();
-
-  const {
-    data: scheduleList,
-    isLoading,
-    isError,
-  } = useQuery<ScheduleType>(['scheduleList', partyId], () =>
-    fetchScheduleList(Number(partyId), false)
-  );
-
-  if (isLoading)
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  if (isError) return <></>;
-
   const getExpensesArray = (locations: ScheduleLocationType[]) => {
     return locations.map(({ spending }) => spending);
   };

@@ -7,7 +7,7 @@ import { fetchScheduleList } from '@/api/schedules';
 import Loading from '@/components/base/Loading';
 import { ScheduleType, TimeLineProps } from '@/types/schedule';
 
-import RouteReleaseChange from './RouteReleaseChange';
+import RouteReleaseChange from './routeRelease/RouteReleaseChange';
 import RouteTimelineItem from './RouteTimelineItem';
 import RouteTitle from './RouteTitle';
 
