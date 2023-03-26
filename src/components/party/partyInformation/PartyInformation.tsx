@@ -148,8 +148,8 @@ const PartyInformation = () => {
             size='xs'
             marginRight='0.625rem'
             onClick={() => {
-              receiptOnOpen();
               refetch();
+              receiptOnOpen();
             }}>
             영수증
           </Button>
