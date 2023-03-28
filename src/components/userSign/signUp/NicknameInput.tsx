@@ -33,8 +33,7 @@ interface UserInputProps<T extends FieldValues>
   resetField: UseFormResetField<T>;
   trigger: UseFormTrigger<SignProps>;
   setError: UseFormSetError<SignProps>;
-  checkNickname: boolean;
-  setCheckNickname: React.Dispatch<React.SetStateAction<boolean>>;
+  checkNicknameState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 const NicknameInput = <T extends FieldValues>({
@@ -43,10 +42,10 @@ const NicknameInput = <T extends FieldValues>({
   resetField,
   trigger,
   setError,
-  checkNickname,
-  setCheckNickname,
+  checkNicknameState,
 }: UserInputProps<T>) => {
   const { field, fieldState } = useController({ name, control });
+  const [checkNickname, setCheckNickname] = checkNicknameState;
 
   const handleCheckNickname = async () => {
     const checkBefore = await trigger('nickname');

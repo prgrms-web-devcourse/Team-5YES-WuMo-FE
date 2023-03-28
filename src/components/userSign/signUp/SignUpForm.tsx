@@ -57,10 +57,8 @@ const SignUpForm = () => {
           resetField={resetField}
           trigger={trigger}
           setError={setError}
-          checkEmail={checkEmail}
-          setCheckEmail={setCheckEmail}
-          certifyEmail={certifyEmail}
-          setCertifyEmail={setCertifyEmail}
+          checkEmailState={[checkEmail, setCheckEmail]}
+          certifyEmailState={[certifyEmail, setCertifyEmail]}
         />
         <NicknameInput
           name='nickname'
@@ -68,8 +66,7 @@ const SignUpForm = () => {
           resetField={resetField}
           trigger={trigger}
           setError={setError}
-          checkNickname={checkNickname}
-          setCheckNickname={setCheckNickname}
+          checkNicknameState={[checkNickname, setCheckNickname]}
         />
         <ControlledInput name='password' control={control} resetField={resetField} />
         <ControlledInput

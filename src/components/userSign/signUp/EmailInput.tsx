@@ -43,10 +43,8 @@ interface UserInputProps<T extends FieldValues>
   resetField: UseFormResetField<T>;
   trigger: UseFormTrigger<SignProps>;
   setError: UseFormSetError<SignProps>;
-  checkEmail: boolean;
-  setCheckEmail: React.Dispatch<React.SetStateAction<boolean>>;
-  certifyEmail: boolean;
-  setCertifyEmail: React.Dispatch<React.SetStateAction<boolean>>;
+  checkEmailState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  certifyEmailState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 const EmailInput = <T extends FieldValues>({
@@ -55,12 +53,12 @@ const EmailInput = <T extends FieldValues>({
   resetField,
   trigger,
   setError,
-  checkEmail,
-  setCheckEmail,
-  certifyEmail,
-  setCertifyEmail,
+  checkEmailState,
+  certifyEmailState,
 }: UserInputProps<T>) => {
   const { field, fieldState } = useController({ name, control });
+  const [checkEmail, setCheckEmail] = checkEmailState;
+  const [certifyEmail, setCertifyEmail] = certifyEmailState;
   const [pinShow, setPinShow] = useState(false);
   const [pinCode, setPinCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
