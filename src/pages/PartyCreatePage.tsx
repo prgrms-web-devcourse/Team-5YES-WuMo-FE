@@ -10,6 +10,7 @@ import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import { stepState } from '@/store/recoilPartyState';
 import { partyCreateStepItems, processStep } from '@/utils/constants/processStep';
 import ROUTES from '@/utils/constants/routes';
@@ -18,6 +19,7 @@ const PartyCreatePage = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useRecoilState<number>(stepState);
+  useDocumentTitle('WuMo | 새 모임 만들기');
 
   const onClosePartyCreateModal = () => {
     setIsOpen(false);

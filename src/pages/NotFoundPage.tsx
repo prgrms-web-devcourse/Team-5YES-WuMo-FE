@@ -2,9 +2,11 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import LargeLogo from '@/components/base/LargeLogo';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import ROUTES from '@/utils/constants/routes';
 
 const NotFoundPage = () => {
+  useDocumentTitle('WuMo | 404 Not Found');
   return (
     <Flex
       h='100vh'

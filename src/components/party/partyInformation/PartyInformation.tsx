@@ -19,6 +19,7 @@ import { fetchScheduleList } from '@/api/schedules';
 import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import BackNavigation from '@/components/navigation/BackNavigation';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import useScrollEvent from '@/hooks/useScrollEvent';
 import { CalculateStayDurationProps, PartyInformationType } from '@/types/party';
 import { ScheduleType } from '@/types/schedule';
@@ -61,6 +62,11 @@ const PartyInformation = () => {
       staleTime: 10000,
     }
   );
+
+  useDocumentTitle(
+    partyInformation ? `WuMo | ${partyInformation.name}` : 'WuMo | 우리들의 모임'
+  );
+
   const { data: scheduleList, refetch } = useQuery<ScheduleType>(
     ['ReceiptScheduleList', partyId],
     () => fetchScheduleList(Number(partyId), false),
