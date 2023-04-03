@@ -64,7 +64,7 @@ const PartyInformation = () => {
   );
 
   useDocumentTitle(
-    partyInformation ? `WuMo | ${partyInformation.name}` : 'WuMo | 우리들의 모임'
+    partyInformation ? `WuMoㅤ|ㅤ${partyInformation.name}` : 'WuMoㅤ|ㅤ우리들의 모임'
   );
 
   const { data: scheduleList, refetch } = useQuery<ScheduleType>(

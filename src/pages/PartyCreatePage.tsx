@@ -19,7 +19,7 @@ const PartyCreatePage = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useRecoilState<number>(stepState);
-  useDocumentTitle('WuMo | 새 모임 만들기');
+  useDocumentTitle('WuMoㅤ|ㅤ새 모임 만들기');
 
   const onClosePartyCreateModal = () => {
     setIsOpen(false);

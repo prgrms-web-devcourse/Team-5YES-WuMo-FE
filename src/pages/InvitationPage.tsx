@@ -20,7 +20,7 @@ const InvitationPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [storedValue] = useLocalStorage('tokens', {});
   const [, setValue] = useLocalStorage('invitation', {});
-  useDocumentTitle('WuMo | 우리들의 모임');
+  useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
 
   useEffect(() => {
     if (!storedValue.accessToken) {

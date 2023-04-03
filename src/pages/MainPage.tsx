@@ -13,7 +13,7 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 const MainPage = () => {
   const [storedValue] = useLocalStorage('invitation', {});
   const navigate = useNavigate();
-  useDocumentTitle('WuMo | 우리들의 모임');
+  useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
 
   useEffect(() => {
     if (storedValue.roomId) {

@@ -7,7 +7,7 @@ import ToOtherSign from '@/components/userSign/ToOtherSign';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 const SignInPage = () => {
-  useDocumentTitle('WuMo | 로그인');
+  useDocumentTitle('WuMoㅤ|ㅤ로그인');
   return (
     <Box py='4rem'>
       <BackNavigation />

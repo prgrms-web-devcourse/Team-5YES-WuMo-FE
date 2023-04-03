@@ -10,10 +10,10 @@ const RouteDetailPage = () => {
 
   let pageTitle = '';
   if (pathname.includes('like-route')) {
-    useDocumentTitle('WuMo | 관심 루트');
+    useDocumentTitle('WuMoㅤ|ㅤ관심 루트');
     pageTitle = '관심 루트';
   } else if (pathname.includes('best-route')) {
-    useDocumentTitle('WuMo | 베스트 루트');
+    useDocumentTitle('WuMoㅤ|ㅤ베스트 루트');
     pageTitle = '베스트 루트';
   }
 

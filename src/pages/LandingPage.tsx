@@ -11,7 +11,7 @@ import { LandingPageItem } from '@/utils/constants/landingPageItem';
 import ROUTES from '@/utils/constants/routes';
 
 const LandingPage = () => {
-  useDocumentTitle('WuMo | 우리들의 모임');
+  useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
   const navigate = useNavigate();
 
   const settings = {

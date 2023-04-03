@@ -5,7 +5,7 @@ import LikeRouteList from '@/components/routeList/LikeRouteList';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 const LikeRouteListPage = () => {
-  useDocumentTitle('WuMo | 관심 목록');
+  useDocumentTitle('WuMoㅤ|ㅤ관심 목록');
   return (
     <>
       <BackNavigation title='관심 목록' />

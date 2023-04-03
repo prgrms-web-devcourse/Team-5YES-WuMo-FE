@@ -6,7 +6,7 @@ import UserProfile from '@/components/profile/UserProfile';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 const ProfilePage = () => {
-  useDocumentTitle('WuMo | 내 정보');
+  useDocumentTitle('WuMoㅤ|ㅤ내 정보');
   return (
     <>
       <BackNavigation title='내 프로필' />
