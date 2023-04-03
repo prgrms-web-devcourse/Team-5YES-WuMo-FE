@@ -8,6 +8,7 @@ import { fetchMyProfileInfo } from '@/api/user';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import { UserProps } from '@/types/user';
 import ROUTES from '@/utils/constants/routes';
 
@@ -19,6 +20,7 @@ const InvitationPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [storedValue] = useLocalStorage('tokens', {});
   const [, setValue] = useLocalStorage('invitation', {});
+  useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
 
   useEffect(() => {
     if (!storedValue.accessToken) {
@@ -92,12 +94,12 @@ const InvitationPage = () => {
         body={
           <Flex direction='column' align='center' justify='center'>
             <Heading size='lg' mb='1.5rem'>
-              파티에 초대되었어요!
+              모임에 초대되었어요!
             </Heading>
             <Text wordBreak='keep-all' textAlign='center' pb='0.625rem'>
               모임에서 {myInformation?.nickname}님을 초대하셨어요.
             </Text>
-            <Text>파티에 참여하시겠습니까?</Text>
+            <Text>모임에 참여하시겠습니까?</Text>
           </Flex>
         }
         clickButtonHandler={{

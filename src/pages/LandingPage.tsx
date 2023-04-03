@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router';
 import Slider from 'react-slick';
 
 import LargeLogo from '@/components/base/LargeLogo';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import { LandingPageItem } from '@/utils/constants/landingPageItem';
 import ROUTES from '@/utils/constants/routes';
 
 const LandingPage = () => {
+  useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
   const navigate = useNavigate();
 
   const settings = {

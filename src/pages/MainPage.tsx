@@ -7,11 +7,13 @@ import BestRouteListPreview from '@/components/main/BestRouteListPreview';
 import MainHeader from '@/components/main/MainHeader';
 import PartCreateGuide from '@/components/main/PartCreateGuide';
 import UserPartyList from '@/components/main/UserPartyList';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 const MainPage = () => {
   const [storedValue] = useLocalStorage('invitation', {});
   const navigate = useNavigate();
+  useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
 
   useEffect(() => {
     if (storedValue.roomId) {
