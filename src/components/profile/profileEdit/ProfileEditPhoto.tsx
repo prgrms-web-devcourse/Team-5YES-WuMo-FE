@@ -1,13 +1,7 @@
 import { Avatar, AvatarBadge, Center, Input } from '@chakra-ui/react';
-import { ChangeEvent } from 'react';
 import { MdCameraAlt } from 'react-icons/md';
 
-interface ProfileEditPhotoProps {
-  onOpen: () => void;
-  imageBase64: string | null;
-  inputRef: React.MutableRefObject<HTMLInputElement | null>;
-  handleFileChange: (e: ChangeEvent<HTMLInputElement>) => Promise<void>;
-}
+import { ProfileEditPhotoProps } from '@/types/user';
 
 const ProfileEditPhoto = ({
   onOpen,

@@ -6,3 +6,10 @@ export type UserProps = {
 };
 
 export type UserEditProps = Pick<UserProps, 'id' | 'nickname' | 'profileImage'>;
+
+export type ProfileEditPhotoProps = {
+  onOpen: () => void;
+  imageBase64: string | null;
+  inputRef: React.MutableRefObject<HTMLInputElement | null>;
+  handleFileChange: (e: ChangeEvent<HTMLInputElement>) => Promise<void>;
+};
