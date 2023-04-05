@@ -31,9 +31,8 @@ import {
   fetchCheckEmail,
   sendEmailCertificationCode,
 } from '@/api/user';
+import Timer from '@/components/userSign/signUp/Timer';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
-
-import Timer from '../../userSign/signUp/Timer';
 
 interface UserInputProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
