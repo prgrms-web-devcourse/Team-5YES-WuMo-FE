@@ -31,18 +31,17 @@ import {
   fetchCheckEmail,
   sendEmailCertificationCode,
 } from '@/api/user';
-import { SignProps } from '@/types/userSign';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 
-import Timer from './Timer';
+import Timer from '../../userSign/signUp/Timer';
 
 interface UserInputProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
   control: Control<T>;
   name: FieldPath<T>;
   resetField: UseFormResetField<T>;
-  trigger: UseFormTrigger<SignProps>;
-  setError: UseFormSetError<SignProps>;
+  trigger: UseFormTrigger<T>;
+  setError: UseFormSetError<T>;
   checkEmailState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   certifyEmailState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
@@ -64,7 +63,7 @@ const EmailInput = <T extends FieldValues>({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckEmail = async () => {
-    const checkBefore = await trigger('email');
+    const checkBefore = await trigger(name);
     const target = field.value;
     if (!checkBefore) return;
 
@@ -73,7 +72,7 @@ const EmailInput = <T extends FieldValues>({
       setCheckEmail(true);
     } catch (error) {
       setCheckEmail(false);
-      setError('email', { message: FORM_ERROR_MESSAGES.EMAIL_DUPLICATED });
+      setError(name, { message: FORM_ERROR_MESSAGES.EMAIL_DUPLICATED });
       console.error(error);
     }
   };

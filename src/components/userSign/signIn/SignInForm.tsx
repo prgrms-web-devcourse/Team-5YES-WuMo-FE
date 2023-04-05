@@ -4,13 +4,12 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { signIn } from '@/api/user';
+import ControlledInput from '@/components/base/input/ControlledInput';
 import SubmitButton from '@/components/base/SubmitButton';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { SignInProps } from '@/types/userSign';
 import ROUTES from '@/utils/constants/routes';
 import { signInSchema } from '@/utils/schema';
-
-import ControlledInput from '../../base/ControlledInput';
 
 const SignInForm = () => {
   const navigate = useNavigate();
