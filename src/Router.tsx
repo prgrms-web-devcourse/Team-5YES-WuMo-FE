@@ -26,10 +26,12 @@ import {
 import PlaceEditPage from './pages/PlaceEditPage';
 import { PrivateRoute } from './utils/constants/redirect';
 import ROUTES from './utils/constants/routes';
+import RouteChangeTracker from './utils/RouteChangeTracker';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <RouteChangeTracker />
       <ScrollToTop />
       <Routes>
         <Route element={<BottomNavigation />}>
