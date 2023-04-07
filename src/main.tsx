@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import ReactGA from 'react-ga4';
 import { RecoilRoot } from 'recoil';
 
 import { AxiosInterceptor } from './api/api';
@@ -80,6 +81,9 @@ const theme = extendBaseTheme({
 });
 
 const queryClient = new QueryClient();
+
+const gaTrackingId = import.meta.env.VITE_GA_ID;
+ReactGA.initialize(gaTrackingId);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
