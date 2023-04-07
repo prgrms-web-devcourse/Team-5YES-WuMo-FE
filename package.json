@@ -25,6 +25,7 @@
     "react": "^18.2.0",
     "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
+    "react-ga4": "^2.1.0",
     "react-hook-form": "^7.43.1",
     "react-icons": "^4.7.1",
     "react-kakao-maps-sdk": "^1.1.6",
