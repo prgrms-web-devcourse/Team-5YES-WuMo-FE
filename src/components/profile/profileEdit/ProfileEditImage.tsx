@@ -1,14 +1,14 @@
 import { Avatar, AvatarBadge, Center, Input } from '@chakra-ui/react';
 import { MdCameraAlt } from 'react-icons/md';
 
-import { ProfileEditPhotoProps } from '@/types/user';
+import { ProfileEditImageProps } from '@/types/user';
 
-const ProfileEditPhoto = ({
+const ProfileEditImage = ({
   onOpen,
   imageBase64,
   inputRef,
   handleFileChange,
-}: ProfileEditPhotoProps) => {
+}: ProfileEditImageProps) => {
   return (
     <Center mb='12'>
       <Avatar
@@ -38,4 +38,4 @@ const ProfileEditPhoto = ({
   );
 };
 
-export default ProfileEditPhoto;
+export default ProfileEditImage;

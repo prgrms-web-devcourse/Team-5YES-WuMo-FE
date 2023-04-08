@@ -18,7 +18,7 @@ import ROUTES from '@/utils/constants/routes';
 import { compressImage } from '@/utils/imageCompressor';
 import { userEditSchema } from '@/utils/schema';
 
-import ProfileEditPhoto from './ProfileEditPhoto';
+import ProfileEditImage from './ProfileEditImage';
 
 const ProfileEditForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -164,7 +164,7 @@ const ProfileEditForm = () => {
 
   return (
     <Container p='7rem 2rem' as='form' onSubmit={handleSubmit(onSubmit)}>
-      <ProfileEditPhoto
+      <ProfileEditImage
         onOpen={onOpen}
         imageBase64={imageValues.imageBase64}
         inputRef={inputRef}
@@ -177,7 +177,7 @@ const ProfileEditForm = () => {
         trigger={trigger}
         setError={setError}
         checkNicknameState={[checkNickname, setCheckNickname]}
-        forEdit={myProfileInfo.nickname}
+        prevNickname={myProfileInfo.nickname}
       />
       <SubmitButton isSubmitting={isSubmitting} mt='24' width='100%' colorScheme='orange'>
         프로필 수정
