@@ -23,7 +23,6 @@ import {
 import { MdCancel } from 'react-icons/md';
 
 import { fetchCheckNickname } from '@/api/user';
-import { SignProps } from '@/types/userSign';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 
 interface UserInputProps<T extends FieldValues>
@@ -31,9 +30,10 @@ interface UserInputProps<T extends FieldValues>
   control: Control<T>;
   name: FieldPath<T>;
   resetField: UseFormResetField<T>;
-  trigger: UseFormTrigger<SignProps>;
-  setError: UseFormSetError<SignProps>;
+  trigger: UseFormTrigger<T>;
+  setError: UseFormSetError<T>;
   checkNicknameState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  prevNickname?: string;
 }
 
 const NicknameInput = <T extends FieldValues>({
@@ -43,21 +43,23 @@ const NicknameInput = <T extends FieldValues>({
   trigger,
   setError,
   checkNicknameState,
+  prevNickname,
 }: UserInputProps<T>) => {
   const { field, fieldState } = useController({ name, control });
   const [checkNickname, setCheckNickname] = checkNicknameState;
 
   const handleCheckNickname = async () => {
-    const checkBefore = await trigger('nickname');
+    const checkBefore = await trigger(name);
     const target = field.value;
     if (!checkBefore) return;
+    if (target === prevNickname) return setCheckNickname(true);
 
     try {
       await fetchCheckNickname(target);
       setCheckNickname(true);
     } catch (error) {
       setCheckNickname(false);
-      setError('nickname', { message: FORM_ERROR_MESSAGES.NICKNAME_DUPLICATED });
+      setError(name, { message: FORM_ERROR_MESSAGES.NICKNAME_DUPLICATED });
       console.error(error);
     }
   };

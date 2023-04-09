@@ -5,14 +5,13 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { signUp } from '@/api/user';
-import ControlledInput from '@/components/base/ControlledInput';
+import ControlledInput from '@/components/base/input/ControlledInput';
+import EmailInput from '@/components/base/input/EmailInput';
+import NicknameInput from '@/components/base/input/NicknameInput';
 import { SignProps } from '@/types/userSign';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 import ROUTES from '@/utils/constants/routes';
 import { signUpSchema } from '@/utils/schema';
-
-import EmailInput from './EmailInput';
-import NicknameInput from './NicknameInput';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
