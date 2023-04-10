@@ -17,10 +17,13 @@ export const fetchScheduleList = async (partyId: number, isPublic: boolean) => {
   }
 };
 
-export const fetchRouteCommentList = async (cursorId: number, locationId: number) => {
+export const fetchRouteCommentList = async (
+  cursorId: number | string,
+  locationId: number
+) => {
   try {
     const response = await axiosInstance.get(
-      `/party-route-comments?cursorId=&pageSize=1000&locationId=${locationId}`
+      `/party-route-comments?cursorId=${cursorId}&pageSize=5&locationId=${locationId}`
     );
     if (response) return response.data;
   } catch (error) {
