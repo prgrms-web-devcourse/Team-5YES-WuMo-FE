@@ -9,22 +9,21 @@ export type LocationsProps = {
   image: string;
 };
 
-export type BestRouteListSort = {
-  sortType: string;
+export type BestRouteType = {
+  routeId: number;
+  partyId: number;
+  image: string;
+  likeCount: number;
+  isLiking: boolean;
+  locations: RoutePlaceListProps.locations;
+  name: string;
+  startDate: string;
+  endDate: string;
 };
 
 export type BestRouteListType = {
-  routes: {
-    routeId: number;
-    partyId: number;
-    image: string;
-    likeCount: number;
-    isLiking: boolean;
-    locations: RoutePlaceListProps.locations;
-    name: string;
-    startDate: string;
-    endDate: string;
-  }[];
+  routes: BestRouteType[];
+  lastId: number;
 };
 
 export type BestRouteListParamsType = {

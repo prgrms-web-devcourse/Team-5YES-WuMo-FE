@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 
-import { BestRouteListParamsType, BestRouteListType } from '@/types/routeList';
+import { BestRouteListParamsType } from '@/types/routeList';
 
 export const recoilBestRouteListParams = atom<BestRouteListParamsType>({
   key: 'recoilBestRouteListParams',
   default: {
     cursorId: 1,
-    pageSize: 1000,
+    pageSize: 3,
     sortType: 'NEWEST',
     searchWord: '',
   },
@@ -19,12 +19,5 @@ export const likeRouteListSortSearchState = atom<BestRouteListParamsType>({
     pageSize: 1000,
     sortType: 'NEWEST',
     searchWord: '',
-  },
-});
-
-export const searchResultList = atom<BestRouteListType>({
-  key: 'searchResultList',
-  default: {
-    routes: [],
   },
 });

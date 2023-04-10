@@ -1,17 +1,17 @@
 import { Box, Icon, Image, Text } from '@chakra-ui/react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { fetchBestRouteList } from '@/api/schedules';
-import {
-  recoilBestRouteListParams,
-  searchResultList,
-} from '@/store/recoilRouteListState';
-import { BestRouteListParamsType } from '@/types/routeList';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { recoilBestRouteListParams } from '@/store/recoilRouteListState';
+import { BestRouteListParamsType, BestRouteListType } from '@/types/routeList';
 
+import Loading from '../base/Loading';
 import PlaceLocationList from './PlaceLocationList';
 
 const BestRouteMoreList = () => {
@@ -21,19 +21,39 @@ const BestRouteMoreList = () => {
     recoilBestRouteListParams
   );
 
-  const [bestRouteList, setBestRouteList] = useRecoilState(searchResultList);
+  const {
+    data: routeList,
+    refetch: bestRouteListRefetch,
+    isLoading: bestRouteListLoading,
+    isError: bestRouteListError,
+    fetchNextPage,
+  } = useInfiniteQuery<BestRouteListType>({
+    queryKey: ['bestRouteList'],
+    queryFn: ({ pageParam = '' }) =>
+      fetchBestRouteList({ ...bestRouteParam, cursorId: pageParam }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.lastId === -1) return;
+      return lastPage.lastId;
+    },
+  });
+
+  const { setTarget } = useIntersectionObserver(fetchNextPage);
 
   useEffect(() => {
-    const getBestRouteList = async () => {
-      const data = await fetchBestRouteList(bestRouteParam);
-      setBestRouteList(data);
-    };
-    getBestRouteList();
-  }, [bestRouteParam.sortType]);
+    bestRouteListRefetch();
+  }, [bestRouteParam.searchWord, bestRouteParam.sortType]);
 
-  return (
-    <>
-      {bestRouteList?.routes.map(
+  if (bestRouteListLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  if (bestRouteListError) return <></>;
+
+  return routeList.pages.map(({ routes }, index) => (
+    <React.Fragment key={index}>
+      {routes.map(
         ({
           routeId,
           partyId,
@@ -55,7 +75,9 @@ const BestRouteMoreList = () => {
               border='0.0625rem solid #cfcfcf'
               cursor='pointer'
               margin='0 auto 2rem auto'
-              onClick={() => navigate(`/best-route/${partyId}`)}>
+              onClick={() => {
+                navigate(`/best-route/${partyId}`);
+              }}>
               <Image
                 w='sm'
                 h='3xs'
@@ -88,8 +110,9 @@ const BestRouteMoreList = () => {
           );
         }
       )}
-    </>
-  );
+      <div ref={setTarget}></div>
+    </React.Fragment>
+  ));
 };
 
 export default BestRouteMoreList;
