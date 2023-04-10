@@ -11,7 +11,7 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { BsFillShareFill } from 'react-icons/bs';
+import { MdPersonAddAlt1 } from 'react-icons/md';
 import { Outlet, useParams } from 'react-router-dom';
 
 import { createPartyInvitation, fetchPartyInformation } from '@/api/party';
@@ -165,7 +165,9 @@ const PartyInformation = () => {
             onClick={() =>
               copyPartyInvitationCode(`${window.location.origin}/invitation`)
             }>
-            <BsFillShareFill />
+            <Box fontSize='xl'>
+              <MdPersonAddAlt1 />
+            </Box>
           </Button>
         </Flex>
       </Flex>
