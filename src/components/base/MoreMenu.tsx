@@ -10,7 +10,7 @@ const MoreMenu = ({ onEditEvent, onRemoveEvent }: MoreMenuListEventProps) => {
       <MenuButton as={Flex} alignContent='center'>
         <MdMoreVert />
       </MenuButton>
-      <MenuList pos='absolute' right='-8' minW='160px' zIndex='30'>
+      <MenuList pos='absolute' right='-16' minW='160px' zIndex='30'>
         <MenuItem
           css={css`
             direction: ltr;
