@@ -11,7 +11,6 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { MdPersonAddAlt1 } from 'react-icons/md';
 import { Outlet, useParams } from 'react-router-dom';
 
 import { createPartyInvitation, fetchPartyInformation } from '@/api/party';
@@ -160,14 +159,15 @@ const PartyInformation = () => {
             영수증
           </Button>
           <Button
-            bg='transparent'
+            variant='outline'
+            colorScheme='teal'
             size='xs'
+            fontSize='sm'
+            color='teal'
             onClick={() =>
               copyPartyInvitationCode(`${window.location.origin}/invitation`)
             }>
-            <Box fontSize='xl'>
-              <MdPersonAddAlt1 />
-            </Box>
+            멤버 초대
           </Button>
         </Flex>
       </Flex>
