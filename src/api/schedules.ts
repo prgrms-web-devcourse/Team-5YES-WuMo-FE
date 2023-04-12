@@ -33,11 +33,13 @@ export const fetchRouteCommentList = async (
 
 // 공개된 루트 (베스트루트 목록) 조회
 export const fetchBestRouteList = async ({
+  cursorId,
   pageSize,
   sortType,
   searchWord,
 }: BestRouteListParamsType) => {
   const params = {
+    cursorId,
     pageSize,
     sortType,
     searchWord,
