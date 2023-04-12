@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
@@ -28,7 +28,7 @@ const SearchInput = () => {
 
   const resetSearchParams = useResetRecoilState(recoilBestRouteListParams);
 
-  const { control, getValues, handleSubmit, resetField } = useForm<Search>({
+  const { register, getValues, handleSubmit, resetField } = useForm<Search>({
     defaultValues: {
       searchWord: '',
     },
@@ -83,20 +83,13 @@ const SearchInput = () => {
             {/* <MenuItem onClick={() => onClickHandleSortType('LIKES')}>좋아요순</MenuItem> */}
           </MenuList>
         </Menu>
-        <Controller
-          name='searchWord'
-          control={control}
-          render={({ field }) => (
-            <Input
-              placeholder='지역명 검색 ex) 서울, 경기, 인천'
-              w='70%'
-              fontSize='0.875rem'
-              padding='0.5rem'
-              {...field}
-            />
-          )}
+        <Input
+          placeholder='지역명 검색 ex) 서울, 경기, 인천'
+          w='70%'
+          fontSize='0.875rem'
+          padding='0.5rem'
+          {...register('searchWord')}
         />
-
         <Button fontSize='0.875rem' onClick={onSubmitSearch}>
           {SEARCH}
         </Button>
