@@ -1,5 +1,11 @@
 import { Box, Heading, Img, Text, useDisclosure } from '@chakra-ui/react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { Fragment } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { deletePlaceFromRoute } from '@/api/place';
@@ -7,6 +13,7 @@ import { fetchRouteCommentList, fetchScheduleList } from '@/api/schedules';
 import ConfirmModal from '@/components/base/ConfirmModal';
 import Loading from '@/components/base/Loading';
 import BackNavigation from '@/components/navigation/BackNavigation';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useScrollEvent from '@/hooks/useScrollEvent';
 import { CommentListType, ScheduleLocationType, ScheduleType } from '@/types/schedule';
 import { getGitEmoji } from '@/utils/constants/emoji';
@@ -26,19 +33,30 @@ const RouteCommentFeed = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
-
   const { mutateAsync: deleteRoute } = useMutation(deletePlaceFromRoute, {
     onSuccess: () => {
       return queryClient.invalidateQueries(['scheduleList']);
     },
   });
+
   const {
-    data: commentList,
+    data: infiniteCommentList,
     isLoading: commentLoading,
     isError: commentError,
-  } = useQuery<CommentListType>(['commentList', state.locationId], () =>
-    fetchRouteCommentList(0, state.locationId)
+    fetchNextPage,
+  } = useInfiniteQuery<CommentListType>(
+    ['commentList', state.locationId],
+    ({ pageParam = '' }) => fetchRouteCommentList(pageParam, state.locationId),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.lastId === -1) return;
+        return lastPage.lastId;
+      },
+      staleTime: 3000,
+    }
   );
+
+  const { setTarget } = useIntersectionObserver(fetchNextPage);
 
   const {
     data: scheduleList,
@@ -56,6 +74,7 @@ const RouteCommentFeed = () => {
     );
   if (commentError || scheduleError) return <></>;
 
+  const commentList = infiniteCommentList.pages.flatMap((e) => e.partyRouteComments);
   const pickCurrentLocation = (locations: ScheduleLocationType[], locationId: number) => {
     return locations.filter((location) => location.id === locationId);
   };
@@ -117,10 +136,13 @@ const RouteCommentFeed = () => {
           <CommentFeedTitle placeData={placeData} />
           <PlaceAmountField spending={currentLocation.spending} />
         </Box>
-        {commentList.partyRouteComments.length > 0 ? (
+        {commentList.length > 0 ? (
           <Box pos='relative' top='-6'>
-            {commentList.partyRouteComments.map((comment) => (
-              <CommentFeedItem key={comment.id} {...comment} />
+            {commentList.map((comment) => (
+              <Box key={comment.id}>
+                <CommentFeedItem {...comment} />
+                <Box ref={setTarget} />
+              </Box>
             ))}
           </Box>
         ) : (
