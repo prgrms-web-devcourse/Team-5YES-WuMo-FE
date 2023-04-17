@@ -29,7 +29,7 @@ export type UpdateCommentType = {
 };
 
 export type AmountType = {
-  amount: number;
+  amount: number | string;
 };
 export type ChangeAmountType = {
   locationId: number;

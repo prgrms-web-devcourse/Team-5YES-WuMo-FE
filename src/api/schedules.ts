@@ -87,13 +87,9 @@ export const createRouteComment = async (body: CreateCommentBody) => {
 };
 
 export const patchChangeAmount = async (body: ChangeAmountType) => {
-  try {
-    await axiosInstance.patch(`/locations/spending`, {
-      ...body,
-    });
-  } catch (error) {
-    console.error(error);
-  }
+  return await axiosInstance.patch(`/locations/spending`, {
+    ...body,
+  });
 };
 
 export const patchRouteComment = async (body: UpdateCommentType) => {

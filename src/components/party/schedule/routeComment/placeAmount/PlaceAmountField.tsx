@@ -9,7 +9,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCreditCard } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
@@ -20,22 +19,33 @@ import { AmountType, ChangeAmountType } from '@/types/schedule';
 import { formatPrice } from '@/utils/formatter';
 
 const PlaceAmountField = ({ spending }: { spending: number }) => {
-  const { mutate: changeAmount } = useMutation(patchChangeAmount);
-  const [numberValue, setNumberValue] = useState(String(formatPrice(spending)));
+  const { mutate: changeAmount } = useMutation(patchChangeAmount, {
+    onSuccess: () => {
+      Toast.show({
+        message: `변경이 완료되었어요.`,
+        type: 'success',
+      });
+    },
+    onError: () => {
+      Toast.show({
+        message: `사용금액 변경에 실패했어요! 다시 시도해주세요.`,
+        type: 'error',
+      });
+    },
+  });
   const { state } = useLocation();
-  const { handleSubmit } = useForm<AmountType>();
+  const { handleSubmit, register, setValue } = useForm<AmountType>({
+    defaultValues: {
+      amount: formatPrice(spending),
+    },
+  });
 
   const onSubmitAmount = ({ amount }: AmountType) => {
-    amount = Number(numberValue.replaceAll(',', ''));
     const amountBody: ChangeAmountType = {
       locationId: state.locationId,
       spending: Number(amount),
     };
     changeAmount(amountBody);
-    Toast.show({
-      message: `${numberValue}원으로 변경되었습니다.`,
-      type: 'success',
-    });
   };
 
   return (
@@ -52,13 +62,14 @@ const PlaceAmountField = ({ spending }: { spending: number }) => {
           </InputLeftElement>
           <Input
             type='text'
-            value={numberValue}
             borderRadius='0.9375rem'
             placeholder='사용 금액을 입력하세요'
-            onChange={(e) => {
-              const prev = e.target.value.replaceAll(',', '');
-              setNumberValue(formatPrice(Number(prev)));
-            }}
+            {...register('amount', {
+              onChange: ({ target }) => {
+                const value = target.value.replace(/[^0-9]/g, '');
+                setValue('amount', formatPrice(Number(value)));
+              },
+            })}
           />
           <InputRightElement>원</InputRightElement>
         </InputGroup>
@@ -68,7 +79,7 @@ const PlaceAmountField = ({ spending }: { spending: number }) => {
           size='sm'
           borderRadius='0.9375rem'
           marginLeft='auto'>
-          수정
+          변경
         </Button>
       </Flex>
     </Container>
