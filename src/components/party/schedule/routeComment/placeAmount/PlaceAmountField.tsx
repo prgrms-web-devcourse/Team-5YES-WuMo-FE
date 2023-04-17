@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { MdCreditCard } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
 
@@ -34,9 +34,9 @@ const PlaceAmountField = ({ spending }: { spending: number }) => {
     },
   });
   const { state } = useLocation();
-  const { handleSubmit, control } = useForm<AmountType>({
+  const { handleSubmit, register, setValue } = useForm<AmountType>({
     defaultValues: {
-      amount: spending,
+      amount: formatPrice(spending),
     },
   });
 
@@ -52,34 +52,27 @@ const PlaceAmountField = ({ spending }: { spending: number }) => {
     <Container as='form' onSubmit={handleSubmit(onSubmitAmount)} p='0.5rem 0'>
       <Flex align='center' mt='0.5rem'>
         <Text pr='0.625rem'>사용금액</Text>
-        <Controller
-          control={control}
-          name='amount'
-          render={({ field: { onChange, value } }) => {
-            return (
-              <InputGroup size='sm' maxW='12.5rem'>
-                <InputLeftElement
-                  pointerEvents='none'
-                  color='gray'
-                  fontSize='1.5625rem'
-                  ml='0.25rem'>
-                  <MdCreditCard />
-                </InputLeftElement>
-                <Input
-                  type='text'
-                  value={formatPrice(Number(value))}
-                  borderRadius='0.9375rem'
-                  placeholder='사용 금액을 입력하세요'
-                  onChange={({ target }) => {
-                    const value = target.value.replace(/[^0-9]/g, '');
-                    onChange(value);
-                  }}
-                />
-                <InputRightElement>원</InputRightElement>
-              </InputGroup>
-            );
-          }}
-        />
+        <InputGroup size='sm' maxW='12.5rem'>
+          <InputLeftElement
+            pointerEvents='none'
+            color='gray'
+            fontSize='1.5625rem'
+            ml='0.25rem'>
+            <MdCreditCard />
+          </InputLeftElement>
+          <Input
+            type='text'
+            borderRadius='0.9375rem'
+            placeholder='사용 금액을 입력하세요'
+            {...register('amount', {
+              onChange: ({ target }) => {
+                const value = target.value.replace(/[^0-9]/g, '');
+                setValue('amount', formatPrice(Number(value)));
+              },
+            })}
+          />
+          <InputRightElement>원</InputRightElement>
+        </InputGroup>
         <Button
           type='submit'
           variant='outline'
