@@ -30,7 +30,7 @@
 - 일정을 하나의 타임라인으로 묶어 한눈에 파악한다.
 - 다녀온 장소의 피드를 작성하여 추억을 기록한다.
 - 영수증 기능을 활용하여 정산할 때 도움을 받을 수 있다.
-- 다른 사람들과 루트를 공유하거나 지역을 검색해 추천 루트를 확인한다.
+- 다른 사람들과 일정을 공유하거나 지역을 검색해 추천 일정을 확인한다.
 - 마음에 드는 일정을 관심 목록에 추가하고 모아본다.
 
 <details>
@@ -52,8 +52,8 @@
  <img width="40%" src="https://user-images.githubusercontent.com/63575891/225986588-e84deef4-c99b-4aab-9164-6161698f0298.gif" alt="일정 관리 및 피드">
  </details>
  <details>
- <summary><h4>베스트 루트 조회 및 관심 목록</h4></summary>
- <img width="40%" src="https://user-images.githubusercontent.com/63575891/225985170-7012e7ce-790c-4d20-bfdf-b0bf5ed7edd2.gif" alt="베스트 루트 조회 및 관심 목록"/>
+ <summary><h4>추천 일정 및 관심 목록</h4></summary>
+ <img width="40%" src="https://user-images.githubusercontent.com/63575891/225985170-7012e7ce-790c-4d20-bfdf-b0bf5ed7edd2.gif" alt="추천 일정 및 관심 목록"/>
  </details>
 </details>
 
@@ -64,8 +64,8 @@
 |[김민재](https://github.com/mxx-kor)|[김유리](https://github.com/glassk)|[유지영](https://github.com/YJZero)|[주천욱](https://github.com/chunwookJoo)|
 |---|---|---|---|
 | <div align="center"><img height="150px" src="https://avatars.githubusercontent.com/mxx-kor" alt="mxx-kor"/></div> | <div align="center"><img height="150px" src="https://avatars.githubusercontent.com/glassk" alt="glassk" /></div> | <div align="center"><img height="150px" src="https://avatars.githubusercontent.com/YJZero" alt="YJZero" /></div> | <div align="center"><img height="150px" src="https://avatars.githubusercontent.com/chunwookJoo" alt="chunwookJoo" /></div> |
-| - 회원가입 및 로그인<br />- 프로필 조회 및 수정<br />- 모임 목록   | - 모임 계획<br />- 후보지 및 댓글                                | - 메인 페이지<br />- 모임 일정 및 피드<br />- 모임 초대            | - 베스트, 관심 루트 목록<br />- 모임 추가 및 관리<br />- 랜딩, 404 페이지 |
-| - react-hook-form을 활용한 리렌더링 최소화, 유효성 검증 구현<br />- axios interceptor를 활용하여 API 요청, 에러, 응답 및 JWT 토큰 관리 | - kakao maps API를 활용한 지도 뷰 및 검색 기능 구현<br />- 프로젝트 초기 세팅<br /> - 백엔드 서버 부하를 고려한 대용량 이미지 압축 | - tanstack query의 에러 핸들링과 refetch를 활용한 데이터 통신<br />- 컴포넌트 재사용성을 위한 Modal 등 공통 컴포넌트 분리<br />- react-router-dom의 동적 라우팅을 이용한 초대 기능 구현 | - 베스트 루트 좋아요 디바운싱 커스텀 훅 분리<br />- recoil을 활용한 모임 추가 단계 및 유저 데이터 상태관리 |
+| - 회원가입 및 로그인<br />- 프로필 조회 및 수정<br />- 모임 목록   | - 모임 계획<br />- 후보지 및 댓글                                | - 메인 페이지<br />- 모임 일정 및 피드<br />- 모임 초대            | - 추천 일정, 관심 일정 목록<br />- 모임 추가 및 관리<br />- 랜딩, 404 페이지 |
+| - react-hook-form을 활용한 리렌더링 최소화, 유효성 검증 구현<br />- axios interceptor를 활용하여 API 요청, 에러, 응답 및 JWT 토큰 관리 | - kakao maps API를 활용한 지도 뷰 및 검색 기능 구현<br />- 프로젝트 초기 세팅<br /> - 백엔드 서버 부하를 고려한 대용량 이미지 압축 | - tanstack query의 에러 핸들링과 refetch를 활용한 데이터 통신<br />- 컴포넌트 재사용성을 위한 Modal 등 공통 컴포넌트 분리<br />- react-router-dom의 동적 라우팅을 이용한 초대 기능 구현 | - 추천 일정 좋아요 디바운싱 커스텀 훅 분리<br />- recoil을 활용한 모임 추가 단계 및 유저 데이터 상태관리 |
 
 <br />
 

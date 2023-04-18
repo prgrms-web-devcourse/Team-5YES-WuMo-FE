@@ -10,11 +10,11 @@ const RouteDetailPage = () => {
 
   let pageTitle = '';
   if (pathname.includes('like-route')) {
-    useDocumentTitle('WuMoㅤ|ㅤ관심 루트');
-    pageTitle = '관심 루트';
+    useDocumentTitle('WuMoㅤ|ㅤ관심 일정');
+    pageTitle = '관심 일정';
   } else if (pathname.includes('best-route')) {
-    useDocumentTitle('WuMoㅤ|ㅤ베스트 루트');
-    pageTitle = '베스트 루트';
+    useDocumentTitle('WuMoㅤ|ㅤ추천 일정');
+    pageTitle = '추천 일정';
   }
 
   return (

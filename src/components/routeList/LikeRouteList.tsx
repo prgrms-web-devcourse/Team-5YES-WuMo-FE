@@ -40,11 +40,17 @@ const LikeRouteList = () => {
           관심목록이 비어있어요.
         </Text>
         <Text mt='6'>
-          베스트 루트 목록에서 <br /> 마음에 드는 루트를 추가해보세요.
+          추천 일정 목록에서 <br /> 마음에 드는 일정을 추가해보세요.
         </Text>
         <Link to={ROUTES.BEST_ROUTE_LIST}>
-          <Button bg='primary.red' color='white' fontWeight='normal' px='2rem' mt='6'>
-            베스트 루트 보러가기
+          <Button
+            bg='primary.red'
+            color='white'
+            fontWeight='normal'
+            px='2rem'
+            mt='6'
+            _hover={{ bg: 'primary.redHover' }}>
+            추천 일정 목록 보러가기
           </Button>
         </Link>
       </Box>
