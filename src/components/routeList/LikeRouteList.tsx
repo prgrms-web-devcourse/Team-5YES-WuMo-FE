@@ -72,6 +72,9 @@ const LikeRouteList = () => {
               margin='0 auto 2rem auto'
               onClick={() => navigate(`/like-route/${partyId}`)}>
               <Image
+                w='sm'
+                h='3xs'
+                objectFit='cover'
                 fallbackSrc='/skeleton.svg'
                 src={image ? image : '/logo.svg'}
                 alt={name}
