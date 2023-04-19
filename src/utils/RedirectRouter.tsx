@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { PrivateRouteProps } from '@/types/router';
+import { RedirectRouterProps } from '@/types/router';
 
-const PrivateRoute = ({
+const RedirectRouter = ({
   authentication = true,
   redirectPath,
-}: PrivateRouteProps): ReactElement | null => {
+}: RedirectRouterProps): ReactElement | null => {
   const tokens = localStorage.getItem('tokens');
 
   if (authentication) {
@@ -16,4 +16,4 @@ const PrivateRoute = ({
   }
 };
 
-export { PrivateRoute };
+export { RedirectRouter };
