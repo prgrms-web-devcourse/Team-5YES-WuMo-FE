@@ -26,6 +26,7 @@ const ToastManager = ({ bind }: ToastManagerProps) => {
       fontColor,
       title,
       titleColor,
+      authError,
     }: CreateToastParams) => {
       const newToast: ToastCreateType = {
         id: Math.random(),
@@ -38,6 +39,7 @@ const ToastManager = ({ bind }: ToastManagerProps) => {
         fontColor,
         title,
         titleColor,
+        authError,
       };
       setToasts((oldToasts) => [...oldToasts, newToast]);
     },
@@ -68,6 +70,7 @@ const ToastManager = ({ bind }: ToastManagerProps) => {
           fontColor,
           title,
           titleColor,
+          authError,
         }) => (
           <ToastItem
             key={id}
@@ -81,6 +84,7 @@ const ToastManager = ({ bind }: ToastManagerProps) => {
             fontColor={fontColor}
             title={title}
             titleColor={titleColor}
+            authError={authError}
           />
         )
       )}
