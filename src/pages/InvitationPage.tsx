@@ -18,7 +18,7 @@ const InvitationPage = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [storedValue] = useLocalStorage('tokens', {});
+  const [storedValue] = useLocalStorage('wumo_token', {});
   const [, setValue] = useLocalStorage('invitation', {});
   useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
 

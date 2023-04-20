@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import Toast from '@/components/base/toast/Toast';
-import ROUTES from '@/utils/constants/routes';
 
 type AxiosInterceptorChildrenType = {
   children: JSX.Element;
@@ -25,22 +24,28 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
   };
 
   const getRefreshToken = async (): Promise<string | void> => {
-    const tokens = localStorage.getItem('tokens');
-    if (tokens) {
+    const token = localStorage.getItem('wumo_token');
+    if (token) {
       try {
-        const response = await axiosInstance.post('/members/reissue', JSON.parse(tokens));
-        const { accessToken, refreshToken } = response.data;
+        const response = await axiosInstance.post('/members/reissue', JSON.parse(token));
+        const { accessToken } = response.data;
         lock = false;
         onRrefreshed(accessToken);
         subscribers = [];
-        localStorage.setItem('tokens', JSON.stringify({ accessToken, refreshToken }));
+        localStorage.setItem('wumo_token', JSON.stringify({ accessToken }));
 
         return accessToken;
       } catch (error) {
         lock = false;
         subscribers = [];
-        localStorage.removeItem('tokens');
-        location.replace(ROUTES.LANDING);
+        localStorage.removeItem('wumo_token');
+        Toast.show({
+          title: '인증 정보에 문제가 발생하였습니다.',
+          message: '다시 로그인해주세요.',
+          duration: 3000,
+          type: 'error',
+          authError: true,
+        });
       }
     }
   };
@@ -57,11 +62,11 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
           Toast.show({
             title: '인증 정보가 만료되었습니다.',
             message: '다시 로그인해주세요.',
-            duration: 5000,
+            duration: 3000,
             type: 'error',
+            authError: true,
           });
-          localStorage.removeItem('tokens');
-          location.replace(ROUTES.LANDING);
+          localStorage.removeItem('wumo_token');
         }
         if (lock) {
           return new Promise((resolve) => {
@@ -84,9 +89,9 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      const tokens = localStorage.getItem('tokens');
+      const token = localStorage.getItem('wumo_token');
 
-      if (!tokens) {
+      if (!token) {
         config.headers.Authorization = null;
         return config;
       }
@@ -96,8 +101,8 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
       } else {
         config.headers['Content-Type'] = 'application/json';
       }
-      if (tokens) {
-        const { accessToken } = JSON.parse(tokens);
+      if (!config.headers.Authorization) {
+        const { accessToken } = JSON.parse(token);
         config.headers.Authorization = `Bearer ${accessToken}`;
         return config;
       }

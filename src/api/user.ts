@@ -9,7 +9,7 @@ import axiosInstance from './api';
 export const logout = async () => {
   try {
     await axiosInstance.delete('/members/logout');
-    localStorage.removeItem('tokens');
+    localStorage.removeItem('wumo_token');
   } catch (error) {
     console.error(error);
   }

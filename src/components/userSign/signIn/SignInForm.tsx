@@ -13,7 +13,7 @@ import { signInSchema } from '@/utils/schema';
 
 const SignInForm = () => {
   const navigate = useNavigate();
-  const [, setToken] = useLocalStorage('tokens', {});
+  const [, setToken] = useLocalStorage('wumo_token', {});
   const {
     control,
     handleSubmit,
@@ -29,12 +29,11 @@ const SignInForm = () => {
 
   const onSubmit = async (values: SignInProps) => {
     try {
-      const tokens = await signIn(values);
-      if (tokens) {
-        const { accessToken, refreshToken } = tokens;
+      const token = await signIn(values);
+      if (token) {
+        const { accessToken } = token;
         setToken({
           accessToken,
-          refreshToken,
         });
         navigate(ROUTES.MAIN, { replace: true });
       }
