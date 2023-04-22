@@ -3,13 +3,14 @@ import axios from 'axios';
 import Toast from '@/components/base/toast/Toast';
 import { UserEditProps } from '@/types/user';
 import { SignInProps, SignProps } from '@/types/userSign';
+import { AT_KEY } from '@/utils/constants/auth';
 
 import axiosInstance from './api';
 
 export const logout = async () => {
   try {
     await axiosInstance.delete('/members/logout');
-    localStorage.removeItem('wumo_token');
+    localStorage.removeItem(AT_KEY);
   } catch (error) {
     console.error(error);
   }
@@ -45,6 +46,13 @@ export const signUp = async (values: SignProps) => {
       type: 'error',
     });
   }
+};
+
+export const reissueToken = async (token: string) => {
+  const response = await axiosInstance.post('/members/reissue', {
+    accessToken: JSON.parse(token),
+  });
+  return response;
 };
 
 export const fetchCheckEmail = async (target: string) => {
