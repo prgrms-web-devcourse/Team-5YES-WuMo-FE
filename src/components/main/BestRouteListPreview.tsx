@@ -71,7 +71,7 @@ const BestRouteListPreview = () => {
   return (
     <>
       <Flex direction='row' justify='space-between' align='center' p='1.25rem 1.875rem'>
-        <Heading size='sm'>베스트 모임루트</Heading>
+        <Heading size='sm'>추천 일정 모아보기</Heading>
         <Button size='sm' onClick={onMoveBestRoutePage}>
           더보기
         </Button>

@@ -22,7 +22,12 @@ const NotFoundPage = () => {
       </Box>
       <Box>
         <Link to={ROUTES.MAIN}>
-          <Button bg='primary.red' color='white' fontWeight='normal' px='2rem'>
+          <Button
+            bg='primary.red'
+            color='white'
+            fontWeight='normal'
+            px='2rem'
+            _hover={{ bg: 'primary.redHover' }}>
             홈으로
           </Button>
         </Link>

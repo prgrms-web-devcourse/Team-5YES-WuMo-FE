@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MdFavorite, MdFavoriteBorder, MdShare } from 'react-icons/md';
 
 import { createLikeRoute, deleteLikeRoute } from '@/api/route';
+import Toast from '@/components/base/toast/Toast';
 import useDebounce from '@/hooks/useDebounce';
 import { ScheduleType } from '@/types/schedule';
 
@@ -18,10 +19,11 @@ const RouteTitle = ({ scheduleList }: { scheduleList: ScheduleType }) => {
   };
 
   const copyCurrentUrl = () => {
-    navigator.share({
-      title: '우리들의 모임, WuMo',
-      text: '베스트 루트 공유',
-      url: `https://5yes-wumo.vercel.app/best-route/${partyId}`,
+    navigator.clipboard.writeText(`${window.location.origin}/best-route/${partyId}`);
+    Toast.show({
+      title: '',
+      message: '해당 일정이 클립보드에 복사되었습니다!',
+      type: 'success',
     });
   };
 
