@@ -1,14 +1,14 @@
 import { ReactElement } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { PrivateRouteProps } from '@/types/router';
+import { RedirectRouterProps } from '@/types/router';
 
-import { AT_KEY } from './auth';
+import { AT_KEY } from './constants/auth';
 
-const PrivateRoute = ({
+const RedirectRouter = ({
   authentication = true,
   redirectPath,
-}: PrivateRouteProps): ReactElement | null => {
+}: RedirectRouterProps): ReactElement | null => {
   const token = localStorage.getItem(AT_KEY);
 
   if (authentication) {
@@ -18,4 +18,4 @@ const PrivateRoute = ({
   }
 };
 
-export { PrivateRoute };
+export { RedirectRouter };

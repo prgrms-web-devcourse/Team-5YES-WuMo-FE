@@ -79,8 +79,7 @@ const SearchInput = () => {
           </MenuButton>
           <MenuList>
             <MenuItem onClick={() => onClickHandleSortType('NEWEST')}>최신순</MenuItem>
-            {/* 백엔드 API 수정 후 구현 예정 @chunwookJoo */}
-            {/* <MenuItem onClick={() => onClickHandleSortType('LIKES')}>좋아요순</MenuItem> */}
+            <MenuItem onClick={() => onClickHandleSortType('LIKES')}>좋아요순</MenuItem>
           </MenuList>
         </Menu>
         <Input

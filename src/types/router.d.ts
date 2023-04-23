@@ -1,4 +1,4 @@
-export type PrivateRouteProps = {
+export type RedirectRouterProps = {
   children?: ReactElement;
   authentication?: boolean;
   redirectPath: string;
