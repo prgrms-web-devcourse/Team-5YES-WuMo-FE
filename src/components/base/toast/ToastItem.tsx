@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 
 import { ToastItemType } from '@/types/toast';
+import ROUTES from '@/utils/constants/routes';
 import { toastType } from '@/utils/constants/toast';
 
 const ToastItem = ({
@@ -16,12 +17,16 @@ const ToastItem = ({
   fontColor,
   title,
   titleColor,
+  authError,
 }: ToastItemType) => {
   const [show, setShow] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       setShow(false);
       onDone();
+      if (authError) {
+        location.replace(ROUTES.LANDING);
+      }
     }, duration);
   }, []);
 

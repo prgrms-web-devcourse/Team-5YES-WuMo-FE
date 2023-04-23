@@ -10,6 +10,7 @@ import Loading from '@/components/base/Loading';
 import Toast from '@/components/base/toast/Toast';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 import { UserProps } from '@/types/user';
+import { AT_KEY } from '@/utils/constants/auth';
 import ROUTES from '@/utils/constants/routes';
 
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -18,7 +19,7 @@ const InvitationPage = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [storedValue] = useLocalStorage('tokens', {});
+  const [storedValue] = useLocalStorage(AT_KEY, {});
   const [, setValue] = useLocalStorage('invitation', {});
   useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
 

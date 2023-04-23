@@ -1,7 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import Toast from '@/components/base/toast/Toast';
-import ROUTES from '@/utils/constants/routes';
+import { AT_KEY, GRANT_TYPE } from '@/utils/constants/auth';
+import { TOAST_MESSAGE } from '@/utils/constants/messages';
+
+import { reissueToken } from './user';
 
 type AxiosInterceptorChildrenType = {
   children: JSX.Element;
@@ -25,22 +28,28 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
   };
 
   const getRefreshToken = async (): Promise<string | void> => {
-    const tokens = localStorage.getItem('tokens');
-    if (tokens) {
+    const token = localStorage.getItem(AT_KEY);
+    if (token) {
       try {
-        const response = await axiosInstance.post('/members/reissue', JSON.parse(tokens));
-        const { accessToken, refreshToken } = response.data;
+        const response = await reissueToken(token);
+        const { accessToken } = response.data;
         lock = false;
         onRrefreshed(accessToken);
         subscribers = [];
-        localStorage.setItem('tokens', JSON.stringify({ accessToken, refreshToken }));
+        localStorage.setItem(AT_KEY, JSON.stringify(accessToken));
 
         return accessToken;
       } catch (error) {
         lock = false;
         subscribers = [];
-        localStorage.removeItem('tokens');
-        location.replace(ROUTES.LANDING);
+        Toast.show({
+          title: TOAST_MESSAGE.FAILED_AUTH,
+          message: TOAST_MESSAGE.REQUEST_LOGIN,
+          duration: 1500,
+          type: 'error',
+          authError: true,
+        });
+        localStorage.removeItem(AT_KEY);
       }
     }
   };
@@ -55,18 +64,18 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
       if (response?.status === 401 && originalConfig) {
         if (originalConfig.url === '/members/reissue') {
           Toast.show({
-            title: '인증 정보가 만료되었습니다.',
-            message: '다시 로그인해주세요.',
-            duration: 5000,
+            title: TOAST_MESSAGE.EXPIRED_TOKEN,
+            message: TOAST_MESSAGE.REQUEST_LOGIN,
+            duration: 1500,
             type: 'error',
+            authError: true,
           });
-          localStorage.removeItem('tokens');
-          location.replace(ROUTES.LANDING);
+          localStorage.removeItem(AT_KEY);
         }
         if (lock) {
           return new Promise((resolve) => {
             subscribeTokenRefresh((token: string) => {
-              originalConfig.headers.Authorization = `Bearer ${token}`;
+              originalConfig.headers.Authorization = `${GRANT_TYPE} ${token}`;
               resolve(axios(originalConfig));
             });
           });
@@ -75,7 +84,7 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
         lock = true;
         const accessToken = await getRefreshToken();
 
-        originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+        originalConfig.headers.Authorization = `${GRANT_TYPE} ${accessToken}`;
         return axios(originalConfig);
       }
       return Promise.reject(error);
@@ -84,9 +93,9 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      const tokens = localStorage.getItem('tokens');
+      const token = localStorage.getItem(AT_KEY);
 
-      if (!tokens) {
+      if (!token) {
         config.headers.Authorization = null;
         return config;
       }
@@ -96,9 +105,9 @@ const AxiosInterceptor = ({ children }: AxiosInterceptorChildrenType) => {
       } else {
         config.headers['Content-Type'] = 'application/json';
       }
-      if (tokens) {
-        const { accessToken } = JSON.parse(tokens);
-        config.headers.Authorization = `Bearer ${accessToken}`;
+      if (!config.headers.Authorization) {
+        const accessToken = JSON.parse(token);
+        config.headers.Authorization = `${GRANT_TYPE} ${accessToken}`;
         return config;
       }
 

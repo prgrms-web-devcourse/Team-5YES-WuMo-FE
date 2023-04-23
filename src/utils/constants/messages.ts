@@ -33,4 +33,7 @@ export const TOAST_MESSAGE = {
   SUCCESS_PARTY_REMOVE: '모임이 정상적으로 삭제되었습니다.',
   SUCCESS_PARTY_UPDATE: '모임이 정상적으로 수정되었습니다.',
   SUCCESS_PARTY_CREATE: '모임이 정상적으로 생성되었습니다.',
+  FAILED_AUTH: '인증 정보가 일치하지 않습니다.',
+  EXPIRED_TOKEN: '인증 정보가 만료되었습니다.',
+  REQUEST_LOGIN: '다시 로그인해주세요.',
 } as const;

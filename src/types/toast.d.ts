@@ -8,6 +8,7 @@ export type CreateToastParams = {
   fontColor?: string;
   titleColor?: string;
   title?: string;
+  authError?: boolean;
 };
 
 export type CreateToastFn = (arg0: CreateToastParams) => void;

@@ -40,6 +40,7 @@ class Toast {
     fontColor,
     title,
     titleColor,
+    authError = false,
   }: CreateToastParams) {
     this.createToast({
       message,
@@ -51,6 +52,7 @@ class Toast {
       fontColor,
       title,
       titleColor,
+      authError,
     });
   }
 }

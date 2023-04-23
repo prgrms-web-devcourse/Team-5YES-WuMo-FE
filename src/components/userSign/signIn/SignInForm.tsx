@@ -8,12 +8,13 @@ import ControlledInput from '@/components/base/input/ControlledInput';
 import SubmitButton from '@/components/base/SubmitButton';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { SignInProps } from '@/types/userSign';
+import { AT_KEY } from '@/utils/constants/auth';
 import ROUTES from '@/utils/constants/routes';
 import { signInSchema } from '@/utils/schema';
 
 const SignInForm = () => {
   const navigate = useNavigate();
-  const [, setToken] = useLocalStorage('tokens', {});
+  const [, setToken] = useLocalStorage(AT_KEY, {});
   const {
     control,
     handleSubmit,
@@ -29,13 +30,10 @@ const SignInForm = () => {
 
   const onSubmit = async (values: SignInProps) => {
     try {
-      const tokens = await signIn(values);
-      if (tokens) {
-        const { accessToken, refreshToken } = tokens;
-        setToken({
-          accessToken,
-          refreshToken,
-        });
+      const token = await signIn(values);
+      if (token) {
+        const { accessToken } = token;
+        setToken(accessToken);
         navigate(ROUTES.MAIN, { replace: true });
       }
     } catch (error) {
