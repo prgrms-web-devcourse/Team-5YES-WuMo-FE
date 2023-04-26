@@ -32,6 +32,7 @@ import {
   sendEmailCertificationCode,
 } from '@/api/user';
 import Timer from '@/components/userSign/signUp/Timer';
+import useDebounce from '@/hooks/useDebounce';
 import { FORM_ERROR_MESSAGES } from '@/utils/constants/messages';
 
 interface UserInputProps<T extends FieldValues>
@@ -60,6 +61,7 @@ const EmailInput = <T extends FieldValues>({
   const [pinShow, setPinShow] = useState(false);
   const [pinCode, setPinCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const debouncePinCode = useDebounce<string>(pinCode, 300);
 
   const handleCheckEmail = async () => {
     const checkBefore = await trigger(name);
@@ -113,6 +115,12 @@ const EmailInput = <T extends FieldValues>({
     setCertifyEmail(false);
   }, [field.value]);
 
+  useEffect(() => {
+    if (debouncePinCode.length === 6) {
+      handleCertifyEmail();
+    }
+  }, [debouncePinCode]);
+
   return (
     <>
       <FormControl isInvalid={!!fieldState.error?.message}>
@@ -131,6 +139,7 @@ const EmailInput = <T extends FieldValues>({
           <Button
             size='sm'
             onClick={handleCheckEmail}
+            isDisabled={checkEmail}
             colorScheme={checkEmail ? 'green' : 'red'}>
             중복 확인
           </Button>
@@ -166,18 +175,16 @@ const EmailInput = <T extends FieldValues>({
           {!certifyEmail && <Timer certifyEmail={certifyEmail} setPinShow={setPinShow} />}
           <HStack>
             <PinInput onChange={handlePinCodeChange} isDisabled={certifyEmail} size='sm'>
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
+              {[...Array(6)].map((_, i) => (
+                <PinInputField key={i} />
+              ))}
             </PinInput>
             <Button
               mt='2'
               size='xs'
               onClick={handleCertifyEmail}
               isDisabled={certifyEmail}
+              isLoading={isLoading}
               colorScheme={certifyEmail ? 'green' : 'red'}>
               인증
             </Button>
