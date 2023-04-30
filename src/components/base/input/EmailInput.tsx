@@ -6,12 +6,14 @@ import {
   FormErrorMessage,
   FormLabel,
   HStack,
+  Icon,
   Input,
   InputGroup,
   InputRightElement,
   PinInput,
   PinInputField,
   Spacer,
+  Spinner,
   Text,
 } from '@chakra-ui/react';
 import { InputHTMLAttributes, useEffect, useState } from 'react';
@@ -24,7 +26,7 @@ import {
   UseFormSetError,
   UseFormTrigger,
 } from 'react-hook-form';
-import { MdCancel } from 'react-icons/md';
+import { MdCancel, MdCheckCircleOutline } from 'react-icons/md';
 
 import {
   checkEmailCertificaitonCode,
@@ -56,12 +58,16 @@ const EmailInput = <T extends FieldValues>({
   certifyEmailState,
 }: UserInputProps<T>) => {
   const { field, fieldState } = useController({ name, control });
+
   const [checkEmail, setCheckEmail] = checkEmailState;
   const [certifyEmail, setCertifyEmail] = certifyEmailState;
+
   const [pinShow, setPinShow] = useState(false);
   const [pinCode, setPinCode] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const debouncePinCode = useDebounce<string>(pinCode, 300);
+  const debouncePinCode = useDebounce<string>(pinCode, 500);
+
+  const [sendCodeLoading, setSendCodeLoading] = useState(false);
+  const [pinCheckLoading, setPinCheckLoading] = useState(false);
 
   const handleCheckEmail = async () => {
     const checkBefore = await trigger(name);
@@ -82,17 +88,19 @@ const EmailInput = <T extends FieldValues>({
     const target = field.value;
     if (!checkEmail) return;
     try {
-      setIsLoading(true);
+      setSendCodeLoading(true);
       setPinShow(false);
       await sendEmailCertificationCode(target);
       setPinShow(true);
-      setIsLoading(false);
+      setSendCodeLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
 
   const handlePinCodeChange = (e: string) => {
+    if (e.length === 6) setPinCheckLoading(true);
+    else setPinCheckLoading(false);
     setPinCode(e);
   };
 
@@ -106,6 +114,7 @@ const EmailInput = <T extends FieldValues>({
     } catch (error) {
       console.error(error);
     }
+    setPinCheckLoading(false);
   };
 
   useEffect(() => {
@@ -160,7 +169,7 @@ const EmailInput = <T extends FieldValues>({
           <Spacer />
           <Button
             mt='2'
-            isLoading={isLoading}
+            isLoading={sendCodeLoading}
             isDisabled={!checkEmail || certifyEmail}
             size='xs'
             onClick={handleSendCertificationCode}>
@@ -179,15 +188,16 @@ const EmailInput = <T extends FieldValues>({
                 <PinInputField key={i} />
               ))}
             </PinInput>
-            <Button
-              mt='2'
-              size='xs'
-              onClick={handleCertifyEmail}
-              isDisabled={certifyEmail}
-              isLoading={isLoading}
-              colorScheme={certifyEmail ? 'green' : 'red'}>
-              인증
-            </Button>
+            {pinCheckLoading ? (
+              <Spinner
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='primary.red'
+                size='sm'
+              />
+            ) : (
+              <Icon color={certifyEmail ? 'green' : 'red'} as={MdCheckCircleOutline} />
+            )}
           </HStack>
         </Flex>
       )}
