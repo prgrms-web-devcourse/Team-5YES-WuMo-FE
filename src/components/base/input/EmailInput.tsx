@@ -16,7 +16,7 @@ import {
   Spinner,
   Text,
 } from '@chakra-ui/react';
-import { InputHTMLAttributes, useEffect, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 import {
   Control,
   FieldPath,
@@ -57,6 +57,7 @@ const EmailInput = <T extends FieldValues>({
   checkEmailState,
   certifyEmailState,
 }: UserInputProps<T>) => {
+  const ref = useRef<HTMLInputElement>(null);
   const { field, fieldState } = useController({ name, control });
 
   const [checkEmail, setCheckEmail] = checkEmailState;
@@ -99,8 +100,12 @@ const EmailInput = <T extends FieldValues>({
   };
 
   const handlePinCodeChange = (e: string) => {
-    if (e.length === 6) setPinCheckLoading(true);
-    else setPinCheckLoading(false);
+    if (e.length === 6) {
+      setPinCheckLoading(true);
+      ref.current?.focus();
+    } else {
+      setPinCheckLoading(false);
+    }
     setPinCode(e);
   };
 
@@ -185,7 +190,7 @@ const EmailInput = <T extends FieldValues>({
           <HStack>
             <PinInput onChange={handlePinCodeChange} isDisabled={certifyEmail} size='sm'>
               {[...Array(6)].map((_, i) => (
-                <PinInputField key={i} />
+                <PinInputField key={i} ref={i === 5 ? ref : null} />
               ))}
             </PinInput>
             {pinCheckLoading ? (
