@@ -86,6 +86,7 @@ const NicknameInput = <T extends FieldValues>({
         <Button
           size='sm'
           onClick={handleCheckNickname}
+          isDisabled={checkNickname}
           colorScheme={checkNickname ? 'green' : 'red'}>
           중복 확인
         </Button>
