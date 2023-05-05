@@ -5,7 +5,6 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { Fragment } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { deletePlaceFromRoute } from '@/api/place';
@@ -117,12 +116,14 @@ const RouteCommentFeed = () => {
           w='100%'
           mt='3.75rem'
           objectFit='cover'
+          alt='장소 이미지'
         />
         <Img
           src={getGitEmoji(currentLocation.category)}
           position='relative'
           left='5'
           bottom='8'
+          alt='장소 카테고리 이모지'
         />
         <Box
           borderBottom='2px solid'

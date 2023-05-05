@@ -36,12 +36,12 @@ const RouteTimeline = ({ onClickHandler, routerButton, isPublic }: TimeLineProps
           등록된 일정이 없습니다.
         </Heading>
         <Text pt='16px'>계획을 일정으로 등록해보세요!</Text>
-        <Img src='/landing-1.svg' w='13rem' />
+        <Img src='/landing-1.svg' w='13rem' alt='일정 등록 안내 이미지' />
       </Flex>
     );
 
   return (
-    <Box pos='relative'>
+    <Box as='main' pos='relative' aria-label='일정 타임라인'>
       {isPublic && <RouteTitle scheduleList={scheduleList} />}
 
       {pathname.includes('party') && (

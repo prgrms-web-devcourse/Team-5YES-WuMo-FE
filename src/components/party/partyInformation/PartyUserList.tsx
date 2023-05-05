@@ -25,6 +25,7 @@ const PartyUserList = () => {
       <AvatarGroup max={4} size='sm' spacing='-1'>
         {partyUserList.members.map((user) => (
           <Avatar
+            name='프로필 이미지'
             key={user.memberId}
             src={user.profileImage === null ? undefined : user.profileImage}
             size='sm'

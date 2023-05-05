@@ -1,5 +1,5 @@
-import { Tab, TabList, Tabs } from '@chakra-ui/react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const PartyMenuTabList = () => {
   const { partyId } = useParams();
@@ -22,13 +22,22 @@ const PartyMenuTabList = () => {
 
   return (
     <Tabs index={now} pos='sticky' top='3.75rem' bg='white' zIndex='20' colorScheme='red'>
-      <TabList>
+      <TabList aria-label='일정과 계획'>
         {partyTab.map((tab) => (
-          <Link key={tab.name} to={tab.to} style={{ width: '100%' }}>
-            <Tab w='100%'>{tab.name}</Tab>
-          </Link>
+          <Tab key={tab.name} w='100%'>
+            <Link to={tab.to} style={{ width: '100%' }}>
+              {tab.name}
+            </Link>
+          </Tab>
         ))}
       </TabList>
+      <TabPanels>
+        {partyTab.map((tab) => (
+          <TabPanel key={tab.name} w='100%' p='0'>
+            <Outlet />
+          </TabPanel>
+        ))}
+      </TabPanels>
     </Tabs>
   );
 };

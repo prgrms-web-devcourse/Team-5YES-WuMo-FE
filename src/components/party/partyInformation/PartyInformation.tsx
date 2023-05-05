@@ -11,7 +11,7 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { createPartyInvitation, fetchPartyInformation } from '@/api/party';
 import { fetchScheduleList } from '@/api/schedules';
@@ -139,8 +139,8 @@ const PartyInformation = () => {
         alt={partyInformation.name}
       />
       <Flex justify='space-between'>
-        <Container p='0.625rem' m='0'>
-          <Heading size='md' mt='1rem'>
+        <Container as='header' p='0.625rem' m='0'>
+          <Heading size='md' mt='1rem' aria-label='모임 명'>
             {partyInformation.name}
           </Heading>
           <Text fontSize='sm'>
@@ -159,11 +159,10 @@ const PartyInformation = () => {
             영수증
           </Button>
           <Button
-            variant='outline'
             colorScheme='teal'
+            variant='outline'
             size='xs'
             fontSize='sm'
-            color='teal'
             onClick={() =>
               copyPartyInvitationCode(`${window.location.origin}/invitation`)
             }>
@@ -172,13 +171,10 @@ const PartyInformation = () => {
         </Flex>
       </Flex>
       <PartyUserList />
-      <Text mx='0.625rem' my='1rem' whiteSpace='pre-line'>
+      <Text mx='0.625rem' my='1rem' whiteSpace='pre-line' aria-label='모임 설명'>
         {partyInformation.description}
       </Text>
       <PartyMenuTabList />
-      <Box>
-        <Outlet />
-      </Box>
       {scheduleList && (
         <PartyReceipt
           isOpen={receiptIsOpen}

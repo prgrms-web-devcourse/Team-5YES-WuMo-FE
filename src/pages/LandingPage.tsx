@@ -35,7 +35,12 @@ const LandingPage = () => {
         <StyledSlider {...settings}>
           {LandingPageItem.map(({ id, imageUrl, content }) => (
             <VStack key={id} textAlign='center'>
-              <Image fallbackSrc='/skeleton.svg' src={imageUrl} w='100%' />
+              <Image
+                fallbackSrc='/skeleton.svg'
+                src={imageUrl}
+                w='100%'
+                alt='서비스 소개 이미지'
+              />
               <Text fontWeight='bold' fontSize='1.2rem' pt='1rem' wordBreak='keep-all'>
                 {content}
               </Text>
