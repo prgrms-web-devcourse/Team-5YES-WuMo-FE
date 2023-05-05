@@ -43,7 +43,7 @@ const CommentFeedItem = ({
         <Avatar
           src={profileImage === null ? undefined : profileImage}
           m='0.3125rem'
-          name='프로필 이미지'
+          name='프로필'
         />
         <Flex align='center'>
           <Box m='0 0.5rem'>
@@ -79,7 +79,7 @@ const CommentFeedItem = ({
             m='0 auto'
             maxH='18.75rem'
             objectFit='cover'
-            alt='댓글 이미지'
+            alt='댓글'
           />
         )}
       </Box>

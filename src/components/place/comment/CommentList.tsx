@@ -118,7 +118,7 @@ const CommentList = ({ placeId }: CommentListProps) => {
                           whiteSpace='pre-wrap'>
                           {content}
                         </Box>
-                        {image && <Image alt='댓글 이미지' src={image} />}
+                        {image && <Image alt='댓글' src={image} />}
                       </>
                     )}
                     <Text color='grey' pt='2' fontSize='sm' letterSpacing='tight'>

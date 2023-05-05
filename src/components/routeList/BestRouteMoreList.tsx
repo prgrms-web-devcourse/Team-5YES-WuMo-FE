@@ -86,7 +86,7 @@ const BestRouteMoreList = () => {
                     objectFit='cover'
                     fallbackSrc='/skeleton.svg'
                     src={image ? image : '/logo.svg'}
-                    alt='커버 이미지'
+                    alt='커버'
                   />
                   <Box p='6'>
                     <PlaceLocationList locations={locations} />

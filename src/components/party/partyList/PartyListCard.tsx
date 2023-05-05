@@ -50,7 +50,7 @@ const PartyListCard = ({
           minH='8.125rem'
           maxH='8.125rem'
           src={coverImage ? coverImage : '/logo.svg'}
-          alt='커버 이미지'
+          alt='커버'
         />
 
         <Stack maxW='calc(100% - 10rem)' justifyContent='space-between' px='4' pb='3'>
@@ -77,7 +77,7 @@ const PartyListCard = ({
                 <AvatarGroup max={3}>
                   <Avatar
                     size='sm'
-                    name='프로필 이미지'
+                    name='프로필'
                     key={member.memberId}
                     src={member.profileImage === null ? undefined : member.profileImage}
                   />

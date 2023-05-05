@@ -16,7 +16,7 @@ const ProfileEditImage = ({
         bg='#D9D9D9'
         src={imageBase64 ? imageBase64 : undefined}
         cursor='pointer'
-        name='프로필 이미지'
+        name='프로필'
         onClick={onOpen}>
         <AvatarBadge
           bottom='4'

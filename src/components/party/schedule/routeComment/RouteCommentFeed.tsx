@@ -116,7 +116,7 @@ const RouteCommentFeed = () => {
           w='100%'
           mt='3.75rem'
           objectFit='cover'
-          alt='장소 이미지'
+          alt='장소'
         />
         <Img
           src={getGitEmoji(currentLocation.category)}

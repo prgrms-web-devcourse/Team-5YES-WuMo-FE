@@ -96,7 +96,7 @@ const CommentImageInput = <T extends FieldValues>({
               right='-4'>
               x
             </Button>
-            <Img w='7.5rem' h='7.5rem' src={imageBase64} alt='댓글 이미지' />
+            <Img w='7.5rem' h='7.5rem' src={imageBase64} alt='댓글' />
           </Flex>
         </>
       )}
