@@ -20,6 +20,7 @@ const PlaceLocationList = ({ locations }: RoutePlaceListProps) => {
               h='4rem'
               objectFit='cover'
               borderRadius='4'
+              alt='장소'
             />
             <Text
               fontSize='xs'

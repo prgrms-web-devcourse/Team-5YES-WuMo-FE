@@ -63,7 +63,7 @@ const RouteTimelineItem = ({
           <Flex align='center' justify='space-between' mb='1.125rem'>
             <Heading size='sm'>{name}</Heading>
             {routerButton && (
-              <Button variant='ghost' size='xs' p='0'>
+              <Button variant='ghost' size='xs' p='0' aria-label='댓글보기 버튼'>
                 {routerButton}
               </Button>
             )}

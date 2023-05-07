@@ -241,7 +241,7 @@ const PlaceEditModal = ({ place, partyId }: PlaceEditModalProps) => {
                   {imageValues.imageBase64 ? (
                     <Image
                       src={imageValues.imageBase64}
-                      alt='이미지 미리보기'
+                      alt='사진 미리보기'
                       maxH='sm'
                       margin='0 auto'
                     />

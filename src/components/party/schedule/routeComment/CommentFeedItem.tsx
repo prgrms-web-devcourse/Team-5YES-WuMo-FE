@@ -40,7 +40,11 @@ const CommentFeedItem = ({
   return (
     <Container p='1rem' borderBottom='solid 0.125rem' borderColor='blackAlpha.200'>
       <Flex align='center' mb='0.625rem'>
-        <Avatar src={profileImage === null ? undefined : profileImage} m='0.3125rem' />
+        <Avatar
+          src={profileImage === null ? undefined : profileImage}
+          m='0.3125rem'
+          name='프로필'
+        />
         <Flex align='center'>
           <Box m='0 0.5rem'>
             <Text fontWeight='bold' m='0.125rem 0'>
@@ -75,7 +79,7 @@ const CommentFeedItem = ({
             m='0 auto'
             maxH='18.75rem'
             objectFit='cover'
-            alt={image}
+            alt='댓글'
           />
         )}
       </Box>

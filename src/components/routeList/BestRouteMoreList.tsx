@@ -86,11 +86,11 @@ const BestRouteMoreList = () => {
                     objectFit='cover'
                     fallbackSrc='/skeleton.svg'
                     src={image ? image : '/logo.svg'}
-                    alt={image}
+                    alt='커버'
                   />
                   <Box p='6'>
                     <PlaceLocationList locations={locations} />
-                    <Box mb='2' fontWeight='semibold' as='h3' lineHeight='tight'>
+                    <Box mb='2' fontWeight='semibold' as='h1' lineHeight='tight'>
                       {name}
                     </Box>
                     <Text fontSize='xs'>{`${dayjs(startDate).format(

@@ -87,7 +87,7 @@ const InvitationPage = () => {
   return (
     <>
       <Flex justify='center' pt='2.25rem'>
-        <Img src='/logo-lg.svg' />
+        <Img src='/logo-lg.svg' alt='우모 로고' />
       </Flex>
       <ConfirmModal
         isOpen={isOpen}

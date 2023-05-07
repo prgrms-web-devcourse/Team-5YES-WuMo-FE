@@ -69,7 +69,7 @@ const PlacePage = () => {
           height='3xs'
           width='full'
           objectFit='cover'
-          alt='커버 이미지'
+          alt='커버'
         />
         <Image src={getGitEmoji(data.category)} position='relative' left='5' bottom='8' />
       </Box>

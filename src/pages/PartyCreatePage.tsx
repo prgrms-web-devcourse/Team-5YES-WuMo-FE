@@ -41,7 +41,12 @@ const PartyCreatePage = () => {
         <ModalCloseButton position='initial' size='lg'>
           <MdKeyboardArrowLeft />
         </ModalCloseButton>
-        <Progress value={processStep.process * step} colorScheme='red' size='sm' />
+        <Progress
+          value={processStep.process * step}
+          colorScheme='red'
+          size='sm'
+          aria-label='파티 생성 progressbar'
+        />
         <ModalHeader>{partyCreateStepItems[step - 1].title}</ModalHeader>
         {partyCreateStepItems[step - 1].component}
       </ModalContent>

@@ -69,12 +69,7 @@ const ImageInput = () => {
           onChange={onFileChange}
         />
         {values.imageBase64 ? (
-          <Image
-            src={values.imageBase64}
-            alt='이미지 미리보기'
-            maxH='sm'
-            margin='0 auto'
-          />
+          <Image src={values.imageBase64} alt='사진 미리보기' maxH='sm' margin='0 auto' />
         ) : (
           <Flex
             h='3xs'

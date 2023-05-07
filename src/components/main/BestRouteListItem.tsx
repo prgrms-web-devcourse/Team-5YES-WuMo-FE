@@ -37,6 +37,7 @@ const BestRouteListItem = ({
         <Image
           fallbackSrc='/logo.svg'
           src={image ? image : '/logo.svg'}
+          objectFit='cover'
           w='100%'
           maxH='12.5rem'
           h='100%'
