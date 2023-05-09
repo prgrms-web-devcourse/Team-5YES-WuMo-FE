@@ -1,5 +1,4 @@
-import { Center, Img } from '@chakra-ui/react';
-import styled from '@emotion/styled';
+import { Center, Image } from '@chakra-ui/react';
 
 type LargeLogoProps = {
   src: string;
@@ -8,13 +7,9 @@ type LargeLogoProps = {
 const LargeLogo = ({ src }: LargeLogoProps) => {
   return (
     <Center>
-      <Logo src={src} w='12.5rem' alt='우모 로고' />
+      <Image src={src} w='12.5rem' alt='우모 로고' />
     </Center>
   );
 };
-
-const Logo = styled(Img)`
-  -webkit-user-drag: none;
-`;
 
 export default LargeLogo;
