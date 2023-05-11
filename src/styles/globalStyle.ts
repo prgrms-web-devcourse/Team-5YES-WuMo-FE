@@ -14,6 +14,14 @@ const globalStyle = css`
   body {
     height: 100%;
 
+    img {
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+    }
+
     .chakra-modal__content-container {
       font-family: 'Pretendard-Regular';
 
