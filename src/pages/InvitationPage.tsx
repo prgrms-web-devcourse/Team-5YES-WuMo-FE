@@ -20,11 +20,11 @@ const InvitationPage = () => {
   const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [, setValue] = useLocalStorage('invitation', {});
-  const token = localStorage.getItem(AT_KEY);
+  const [storedValue] = useLocalStorage(AT_KEY, '');
   useDocumentTitle('WuMoㅤ|ㅤ우리들의 모임');
 
   useEffect(() => {
-    if (!token) {
+    if (!storedValue) {
       setValue({ roomId: roomId });
       Toast.show({
         title: '로그인이 필요한 서비스입니다.',
@@ -64,7 +64,7 @@ const InvitationPage = () => {
       onSuccess: () => {
         onOpen();
       },
-      enabled: !!token,
+      enabled: !!storedValue,
     }
   );
 
