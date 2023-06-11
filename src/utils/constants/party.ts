@@ -38,3 +38,9 @@ export const partyRoleList = [
 ];
 
 export const PLACE_DESCRIPTION_MAX_LENGTH = 50;
+
+export const EMPTY_PARTY_TEXT = {
+  onGoing: '진행중인',
+  completed: '완료된',
+  all: '참여중인',
+} as const;
