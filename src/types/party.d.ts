@@ -74,7 +74,7 @@ export type MyPartyList = {
   lastId: number;
 };
 
-export type PartyListProps = {
+export type PartyListProp = {
   partyType: 'onGoing' | 'completed' | 'all';
 };
 

@@ -2,12 +2,12 @@ import { Box, Center, Spinner, Text } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchMyPartyList } from '@/api/main';
-import { MyPartyList, PartyListProps } from '@/types/party';
+import { MyPartyList, PartyListProp } from '@/types/party';
 import { EMPTY_PARTY_TEXT } from '@/utils/constants/party';
 
 import PartyListCard from './PartyListCard';
 
-const PartyList = ({ partyType }: PartyListProps) => {
+const PartyList = ({ partyType }: PartyListProp) => {
   const {
     data: PartyList,
     isLoading,
