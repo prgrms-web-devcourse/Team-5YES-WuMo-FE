@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchMyPartyList } from '@/api/main';
 import { MyPartyList, PartyListProp } from '@/types/party';
-import { EMPTY_PARTY_TEXT } from '@/utils/constants/party';
+import { partyOptions } from '@/utils/constants/party';
 
 import PartyListCard from './PartyListCard';
 
@@ -16,7 +16,7 @@ const PartyList = ({ partyType }: PartyListProp) => {
     [`${partyType}PartyList`],
     () =>
       fetchMyPartyList({
-        partyType: partyType.toUpperCase() as 'ONGOING' | 'COMPLETED' | 'ALL',
+        partyType: partyOptions[partyType].partyStatus,
         pageSize: 1000,
       }),
     {
@@ -29,7 +29,7 @@ const PartyList = ({ partyType }: PartyListProp) => {
       <>
         <Center pt='20'>
           <Text fontSize='1rem' fontWeight='bold'>
-            아직 {EMPTY_PARTY_TEXT[partyType]} 모임이 없어요. 😥
+            아직 {partyOptions[partyType].emptyPartyText} 모임이 없어요. 😥
           </Text>
         </Center>
       </>
