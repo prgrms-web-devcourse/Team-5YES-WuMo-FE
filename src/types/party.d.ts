@@ -74,6 +74,10 @@ export type MyPartyList = {
   lastId: number;
 };
 
+export type PartyListProps = {
+  partyType: 'onGoing' | 'completed' | 'all';
+};
+
 export type MyPartyListParams = {
   partyType: 'ONGOING' | 'COMPLETED' | 'ALL';
   cursorId?: number;

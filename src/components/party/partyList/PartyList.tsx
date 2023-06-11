@@ -2,17 +2,12 @@ import { Box, Center, Spinner, Text } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchMyPartyList } from '@/api/main';
-import { MyPartyList } from '@/types/party';
+import { MyPartyList, PartyListProps } from '@/types/party';
+import { EMPTY_PARTY_TEXT } from '@/utils/constants/party';
 
 import PartyListCard from './PartyListCard';
 
-const isEmptyText = {
-  onGoing: '진행중인',
-  completed: '완료된',
-  all: '참여중인',
-};
-
-const PartyList = ({ partyType }: { partyType: 'onGoing' | 'completed' | 'all' }) => {
+const PartyList = ({ partyType }: PartyListProps) => {
   const {
     data: PartyList,
     isLoading,
@@ -34,7 +29,7 @@ const PartyList = ({ partyType }: { partyType: 'onGoing' | 'completed' | 'all' }
       <>
         <Center pt='20'>
           <Text fontSize='1rem' fontWeight='bold'>
-            아직 {isEmptyText[partyType]} 모임이 없어요. 😥
+            아직 {EMPTY_PARTY_TEXT[partyType]} 모임이 없어요. 😥
           </Text>
         </Center>
       </>
