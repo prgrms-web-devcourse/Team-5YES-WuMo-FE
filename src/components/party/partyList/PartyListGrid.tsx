@@ -16,7 +16,7 @@ const PartyListGrid = () => {
     data: myPartyList,
     isLoading,
     isError,
-  } = useQuery<MyPartyList>(['myPartyList'], () => fetchMyPartyList(parameter), {
+  } = useQuery<MyPartyList>([`onGoingPartyList`], () => fetchMyPartyList(parameter), {
     staleTime: 10000,
   });
 

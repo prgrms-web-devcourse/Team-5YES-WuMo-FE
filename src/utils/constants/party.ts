@@ -38,3 +38,18 @@ export const partyRoleList = [
 ];
 
 export const PLACE_DESCRIPTION_MAX_LENGTH = 50;
+
+export const partyOptions = {
+  onGoing: {
+    partyStatus: 'ONGOING',
+    emptyPartyText: '진행중인',
+  },
+  completed: {
+    partyStatus: 'COMPLETED',
+    emptyPartyText: '완료된',
+  },
+  all: {
+    partyStatus: 'ALL',
+    emptyPartyText: '참여중인',
+  },
+} as const;
